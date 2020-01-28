@@ -50,7 +50,7 @@ h1, h2, h3, h4, h5, h6 {
 
 a#scrollUp {
   bottom: 0px;
-  right: 10px;
+  left: 10px;
   padding: 5px 10px;
   background: #FE980F;
   color: #FFF;
@@ -468,7 +468,9 @@ ul.sub-menu {
 }
 
 .footer-widget {
-  margin-bottom: 68px;
+  padding-bottom: 68px;
+  background-color: rgb(38, 43, 47);
+  color: white;
 }
 
 .footer-widget .container {
@@ -477,7 +479,7 @@ ul.sub-menu {
 }
 
 .single-widget h2 {
-  color: #666663;
+  color: white;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -490,7 +492,7 @@ ul.sub-menu {
 }
 
 .single-widget ul li a{
-	color: #8C8C88;
+	color: white;
 	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 	font-weight: 300;
@@ -547,12 +549,12 @@ ul.sub-menu {
 }
 
 .footer-bottom {
-  background: #D6D6D0;
+  background: rgb(38, 43, 47);
   padding-top: 10px;
+  color: white;
 }
 
 .footer-bottom p {
-  color: #363432;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   margin-left: 15px;

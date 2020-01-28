@@ -35,7 +35,7 @@
         <div class="col-md-1"></div>
     <div class="col-md-5 col-sm-8">
         <div style="text-align: center;display: inline;line-height: 80px;">
-            <img alt="Logo-Scart" title="Logo-Scart" src="images/scart-min.png" style="width: 130px; max-height: 50px;padding: 5px;">
+            <img alt="Logo-Scart" title="Logo-Scart" src="images/cart-mid.png" style="width: 130px; max-height: 50px;padding: 5px;">
         </div>
 
         <div class="btn-group">

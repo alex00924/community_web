@@ -47,10 +47,10 @@
         <div class="row">
           <div class="col-sm-4">
             <div class="logo pull-left">
-              <a href="{{ route('home') }}"><img style="width: 150px;" src="{{ asset(sc_store('logo')) }}" alt="" /></a>
+              <a href="{{ route('home') }}"><img style="width: 250px;" src="{{ asset(sc_store('logo')) }}" alt="" /></a>
             </div>
           </div>
-          <div class="col-sm-8">
+          <div class="col-sm-8" style="padding: 20px 0">
             <div class="shop-menu pull-right">
               <ul class="nav navbar-nav">
                 @php
@@ -65,7 +65,7 @@
                 @else
                 <li><a href="{{ route('member.index') }}"><i class="fa fa-user"></i> {{ trans('front.account') }}</a></li>
                 <li><a href="{{ route('logout') }}" rel="nofollow" onclick="event.preventDefault();
-                   document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> {{ trans('front.logout') }}</a></li>
+                  document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> {{ trans('front.logout') }}</a></li>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                   @csrf
                 </form>
