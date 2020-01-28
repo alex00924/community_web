@@ -15,7 +15,7 @@ $(document).ready(function(){
 	        scrollFrom: 'top', // 'top' or 'bottom'
 	        scrollSpeed: 300, // Speed back to top (ms)
 	        easingType: 'linear', // Scroll to top easing (see http://easings.net/)
-	        animation: 'none', // Fade, slide, none
+	        //animation: 'none', // Fade, slide, none
 	        //animationSpeed: 1000, // Animation in speed (ms)
 	        scrollTrigger: false, // Set a custom triggering element. Can be an HTML string or jQuery object
 					//scrollTarget: false, // Set a custom target element for scrolling to the top
