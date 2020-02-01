@@ -22,6 +22,7 @@
         "laravel/tinker": "^1.0",
         "paypal/rest-api-sdk-php": "^1.13",
         "phpoffice/phpspreadsheet": "^1.8",
+        "pusher/pusher-chatkit-server": "^1.9",
         "spatie/laravel-pjax": "^2.0",
         "unisharp/laravel-filemanager": "dev-master"
     },

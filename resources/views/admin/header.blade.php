@@ -12,13 +12,13 @@
     <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
       <span class="sr-only">Toggle navigation</span>
     </a>
-    <!-- @include('admin.component.language') -->
-
+    
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
         <li><a target="_new" title="Home" href="{{ route('home') }}"><i class="fa fa-home fa-1x"
               aria-hidden="true"></i></a></li>
         @include('admin.component.notice')
+        @include('admin.component.chat_alert')
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">

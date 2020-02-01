@@ -7,6 +7,7 @@ use App\Models\ShopCountry;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ChatkitController;
 
 class LoginController extends GeneralController
 {
@@ -73,4 +74,21 @@ class LoginController extends GeneralController
         return $this->loggedOut($request) ?: redirect()->route('login');
     }
 
+    public function login(Request $request){
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+            ]);
+
+        if (\Auth::attempt([
+            'email' => $request->email,
+            'password' => $request->password])
+        ){
+            $chatkit = new ChatkitController();
+            $chatkit->addChatkitSession($request);
+            return redirect('/home');
+        }
+
+        return $this->sendFailedLoginResponse($request);
+    }
 }

@@ -35,4 +35,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'chatkit' => [
+        'secret' => env('PUSHER_APP_SECRET'),
+        'locator' => env('PUSHER_APP_KEY'),
+    ],
 ];

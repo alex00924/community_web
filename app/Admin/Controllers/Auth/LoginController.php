@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
+use App\Admin\Controllers\ChatkitController;
+
 class LoginController extends Controller
 {
     /**
@@ -166,6 +168,8 @@ class LoginController extends Controller
     {
 
         $request->session()->regenerate();
+        $chatkit = new ChatkitController();
+        $chatkit->addChatkitSession($request);
 
         return redirect()->intended($this->redirectPath())->with(['success' => trans('admin.login_successful')]);
     }

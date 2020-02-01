@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+Route::group(['prefix' => "live_chat"], function ($router) {
+    $router->post('authenticate','ChatkitController@chatkitAuthenticate');
+});

@@ -9,15 +9,15 @@ Route::group(
         'namespace' => 'App\Admin\Controllers'
     ], 
     function (Router $router) {
-    foreach (glob(__DIR__ . '/Routes/*.php') as $filename) {
-        require_once $filename;
-    }
-    $router->get('/', 'HomeController@index')->name('admin.home');
-    $router->get('deny', 'HomeController@deny')->name('admin.deny');
+        foreach (glob(__DIR__ . '/Routes/*.php') as $filename) {
+            require_once $filename;
+        }
+        $router->get('/', 'HomeController@index')->name('admin.home');
+        $router->get('deny', 'HomeController@deny')->name('admin.deny');
 
-    //Language
-    $router->get('locale/{code}', function ($code) {
-        session(['locale' => $code]);
-        return back();
-    })->name('admin.locale');
+        //Language
+        $router->get('locale/{code}', function ($code) {
+            session(['locale' => $code]);
+            return back();
+        })->name('admin.locale');
 });

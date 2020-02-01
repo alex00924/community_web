@@ -60,6 +60,11 @@ require_once 'component/product.php';
 */
 require_once 'component/content.php';
 
+/*
+ Content
+*/
+require_once 'component/chat.php';
+
 //Language
 Route::get('locale/{code}', function ($code) {
     session(['locale' => $code]);

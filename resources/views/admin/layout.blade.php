@@ -125,7 +125,7 @@
 <script src="{{ asset('admin/AdminLTE/dist/js/adminlte.min.js')}}"></script>
 {{-- sweetalert2 --}}
 <script src="{{ asset('admin/plugin/sweetalert2.all.min.js')}}"></script>
-<script src="{{ asset('admin/plugin/promise-polyfill.js')}}"></script>
+<!-- <script src="{{ asset('admin/plugin/promise-polyfill.js')}}"></script> -->
 @endif
 
 @stack('scripts')
