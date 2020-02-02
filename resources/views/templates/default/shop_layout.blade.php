@@ -55,8 +55,6 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset($templateFile.'/images/ico/apple-touch-icon-72-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" href="{{ asset($templateFile.'/images/ico/apple-touch-icon-57-precomposed.png')}}">
 
-
-
   <!--Module header -->
   @isset ($blocksContent['header'])
       @foreach ( $blocksContent['header']  as $layout)
@@ -188,5 +186,23 @@
    @endisset
  <!--//Module bottom -->
 
+ 
+  @auth
+  <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+
+    <!-- Growl Notification -->
+    <link href="{{ asset('growl_notification/dark-theme.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('growl_notification/custom-growl.css') }}" rel="stylesheet">
+    <script src="{{ asset('growl_notification/growl-notification.min.js') }}"></script>
+    
+    <!-- Chat -->
+    <script src="{{ asset('chat/chatkit.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('chat/client_chat.css') }}">
+    <script src="{{ asset('chat/client_chat.js') }}"></script>
+  @include('chat.client_chat_content')
+  @endauth
 </body>
 </html>

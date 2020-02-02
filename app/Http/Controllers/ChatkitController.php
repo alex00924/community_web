@@ -14,6 +14,54 @@ class ChatkitController extends Controller
         $this->chatkit = app('ChatKit');
     }
 
+    public static function getChatkitAlertInformation() {
+        $curUser = Auth::user();
+        $curUserChatId = "customer_".$curUser->id;
+        
+        $chatkitLocator = config('services.chatkit.locator');
+        
+        $chatkit = app('ChatKit');
+        $unreadCnt = 0;
+        $userIds = array();
+
+        $rooms = $chatkit->getUserRooms([ 'id' => $curUserChatId ]);
+        if (isset($rooms) && $rooms["status"] == 200) {
+            $rooms = $rooms["body"];
+            foreach($rooms as $key=>$room) {
+                $unreadCnt += $room["unread_count"];
+                $userIds = array_merge($userIds, $room["member_user_ids"]);
+                foreach($userIds as $id) {
+                    $cursor = $chatkit->getReadCursor([
+                        'user_id' => $id,
+                        'room_id' => $room["id"]
+                      ]);
+                    if (isset($cursor) && $cursor["status"] == 200) {
+                        $rooms[$key]["cursors"][$id] = $cursor["body"];
+                    }
+                }
+            }
+        } else {
+            $rooms = null;
+        }
+
+        $userIds = array_unique($userIds);
+        if (count($userIds) > 0) {
+            $users = $chatkit->getUsersByID([
+                'user_ids' => $userIds
+              ]);
+    
+            if (isset($users) && $users["status"] == 200) {
+                $usersInfo = $users["body"];
+            }
+        }
+
+        return ["chatId" => $curUserChatId, 
+                "chatkitLocator" => $chatkitLocator,
+                "unreadCnt" => $unreadCnt,
+                "rooms" => $rooms,
+                "users" => $usersInfo ];
+    }
+
     /**
      * Show the application chat room.
      *
@@ -185,13 +233,7 @@ class ChatkitController extends Controller
     }
 
     public function addChatkitSession(Request $request) {
-        $user = Auth::user();
-        if ($user->isAdmin()) {
-            $chatkitId = "admin";
-        } else {
-            $chatkitId = "customer_" . Auth::user()->id;
-        }
-        
+        $chatkitId = "customer_" . Auth::user()->id;
         $request->session()->put('chatkit_id', $chatkitId);
     }
         // /**

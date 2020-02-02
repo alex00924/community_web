@@ -1,5 +1,5 @@
 <h2>{{ trans('account.title_register') }}</h2>
-<form action="{{route('postRegister')}}" method="post" class="box">
+<form action="{{route('postRegister')}}" method="post" class="box"  enctype="multipart/form-data">
     {!! csrf_field() !!}
     <div class="form_content {{ (old('check_red'))?'in':'' }}" id="collapseExample">
 
@@ -198,6 +198,17 @@
             @if ($errors->has('reg_password_confirmation'))
             <span class="help-block">
                 {{ $errors->first('reg_password_confirmation') }}
+            </span>
+            @endif
+        </div>
+
+        <div class="form-group{{ $errors->has('reg_avatar') ? ' has-error' : '' }}">
+            <input type="file"
+                class="is_required validate account_input form-control {{ ($errors->has('reg_avatar'))?"input-error":"" }}"
+                placeholder="Avatar" name="reg_avatar" accept="image/*" required title="Avatar">
+            @if ($errors->has('reg_avatar'))
+            <span class="help-block">
+                {{ $errors->first('reg_avatar') }}
             </span>
             @endif
         </div>

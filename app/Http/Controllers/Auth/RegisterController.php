@@ -8,6 +8,8 @@ use App\Models\ShopUser;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Image;
+use App\Http\Controllers\ChatkitController;
 
 class RegisterController extends GeneralController
 {
@@ -56,6 +58,7 @@ class RegisterController extends GeneralController
             'reg_email' => 'required|string|email|max:255|unique:' . (new ShopUser)->getTable() . ',email',
             'reg_password' => 'required|string|min:6|confirmed',
             'reg_address1' => 'required|string|max:255',
+            'reg_avatar' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ];
         if(sc_config('customer_lastname')) {
             $validate['reg_last_name'] = 'required|max:100';
@@ -95,6 +98,8 @@ class RegisterController extends GeneralController
      */
     protected function create(array $data)
     {
+        $avatar = $this->save_avatar();
+
         $dataMap = [
             'first_name' => $data['reg_first_name'],
             'last_name' => $data['reg_last_name']??'',
@@ -107,6 +112,7 @@ class RegisterController extends GeneralController
             'group' => $data['reg_group']??1,
             'sex' => $data['reg_sex']??0,
             'postcode' => $data['reg_postcode']??null,
+            'avatar' => $avatar
         ];
         if(!empty($data['reg_birthday'])) {
             $dataMap['birthday'] = $data['reg_birthday'];
@@ -114,6 +120,10 @@ class RegisterController extends GeneralController
 
         $user = ShopUser::createCustomer($dataMap);
         if ($user) {
+            // Create Chat Room
+            $chatkit = new ChatkitController();
+            $chatkit->createRoom($user->id, $user->name, $avatar);
+
             if (sc_config('welcome_customer')) {
 
                 $checkContent = (new ShopEmailTemplate)->where('group', 'welcome_customer')->where('status', 1)->first();
@@ -169,5 +179,17 @@ class RegisterController extends GeneralController
     protected function registered(Request $request, $user)
     {
         redirect()->route('home')->with(['message' => trans('account.register_success')]);
+    }
+
+    private function save_avatar(){
+        // Logic for user upload of avatar
+        $filename = "default_user.png";
+        if(request()->hasFile('reg_avatar')){
+            $avatar = request()->file('reg_avatar');
+            $filename = time() . "_" . $avatar->getClientOriginalName();
+            Image::make($avatar)->resize(100, 100)->save( public_path('/avatar/' . $filename ) );
+        }
+
+        return '/avatar/' . $filename;
     }
 }

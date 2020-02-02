@@ -27,9 +27,12 @@
   <link rel="stylesheet" href="{{ asset('admin/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
   <link rel="stylesheet" href="{{ asset('admin/css/css.css')}}">
 
+  <!-- Chat Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+
 @endif
-
-
 
   @stack('styles')
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -126,11 +129,23 @@
 {{-- sweetalert2 --}}
 <script src="{{ asset('admin/plugin/sweetalert2.all.min.js')}}"></script>
 <!-- <script src="{{ asset('admin/plugin/promise-polyfill.js')}}"></script> -->
+
+<!-- Chat -->
+<script src="{{ asset('chat/chatkit.js') }}"></script>
+
 @endif
 
 @stack('scripts')
 @include('admin.component.script')
 @include('admin.component.alerts')
+
+<!-- Chat Alert -->
+@if (\Route::current()->getName() != 'admin_chat')
+  <link href="{{ asset('growl_notification/dark-theme.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('growl_notification/custom-growl.css') }}" rel="stylesheet">
+  <script src="{{ asset('growl_notification/growl-notification.min.js') }}"></script>
+  <script src="{{ asset('chat/chat_alert.js') }}"></script>
+@endif
 
 </body>
 </html>

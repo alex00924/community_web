@@ -17,6 +17,7 @@
         "barryvdh/laravel-dompdf": "0.8.*",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
+        "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
         "laravel/helpers": "^1.1",
         "laravel/tinker": "^1.0",
