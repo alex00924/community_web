@@ -74,7 +74,8 @@
 <!--//head-->
 <body>
 
-@include($templatePath.'.header')
+<div class="main-content">
+  @include($templatePath.'.header')
 
 <!--Module banner -->
   @isset ($blocksContent['banner_top'])
@@ -148,6 +149,7 @@
       </div>
     </div>
   </section>
+</div>
 
 @include($templatePath.'.footer')
 

@@ -86,7 +86,7 @@ class LoginController extends GeneralController
         ){
             $chatkit = new ChatkitController();
             $chatkit->addChatkitSession($request);
-            return redirect('/home');
+            return redirect('/');
         }
 
         return $this->sendFailedLoginResponse($request);
