@@ -8,8 +8,10 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
     config.removePlugins = 'forms';
-        config.allowedContent = true;
+    config.allowedContent = true;
     CKEDITOR.dtd.$removeEmpty['i'] = false;
     CKEDITOR.dtd.$removeEmpty['span'] = false;
     config.enterMode = CKEDITOR.ENTER_BR;
+    config.extraPlugins = 'youtube,attach';
+    config.filebrowserUploadMethod = 'form'; // Added for file browser
 };

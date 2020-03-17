@@ -910,14 +910,21 @@ $('.date_time').datepicker({
   format: 'yyyy-mm-dd'
 })
 
-$('textarea.editor').ckeditor(
+let detailEditor = $('textarea.editor').ckeditor(
     {
         filebrowserImageBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=product',
         filebrowserImageUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=product&_token={{csrf_token()}}',
         filebrowserBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=Files',
         filebrowserUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=file&_token={{csrf_token()}}',
         filebrowserWindowWidth: '900',
-        filebrowserWindowHeight: '500'
+        filebrowserWindowHeight: '500',
+        validateSize: 100,
+        onAttachmentUpload: function(response) {
+            let tmpHtml = "<div style='width: 100%; margin: 10px 0; text-align: center'> <a href='/data/file/" + response + "'>";
+            tmpHtml += "<img src='/images/attachment.png' style='width: 100px; height: auto' /> <br>";
+            tmpHtml += response + "</a> </div>";
+            CKEDITOR.instances["en__content"].insertHtml(tmpHtml);
+        }
     }
 );
 </script>
