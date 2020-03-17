@@ -475,11 +475,25 @@ Get image
         $html = '';
         $details = $this->attributes()->get()->groupBy('attribute_group_id');
         $groups = ShopAttributeGroup::getList();
+        $groupTypes = ShopAttributeGroup::getTypeList();
+
         foreach ($details as $groupId => $detailsGroup) {
-            $html .= '<br><b><label>' . $groups[$groupId] . '</label></b>: ';
-            foreach ($detailsGroup as $k => $detail) {
-                $html .= '<label class="radio-inline"><input ' . (($k == 0) ? "checked" : "") . ' type="radio" name="form_attr[' . $groupId . ']" value="' . $detail->name . '">' . $detail->name . '</label> ';
+            $html .= '<div><label class="label">' . $groups[$groupId] . ' :</label> <br><div class="content">';
+            
+            if ($groupTypes[$groupId] == "select") {
+                $html .= '<select class="form-control" name="form_attr[' . $groupId . ']">';
             }
+            foreach ($detailsGroup as $k => $detail) {
+                if ($groupTypes[$groupId] == "select") {
+                    $html .= '<option>' . $detail->name . '</option>';
+                } else {
+                    $html .= '<label class="radio-inline"><input ' . (($k == 0) ? "checked" : "") . ' type="radio" name="form_attr[' . $groupId . ']" value="' . $detail->name . '">' . $detail->name . '</label> ';
+                }
+            }
+            if ($groupTypes[$groupId] == "select") {
+                $html .= "</select>";
+            }
+            $html .= "</div></div>";
         }
         return $html;
     }

@@ -10,6 +10,7 @@ class ShopAttributeGroup extends Model
     public $table             = 'shop_attribute_group';
     protected $guarded        = [];
     protected static $getList = null;
+    protected static $getTypeList = null;
 
     public static function getList()
     {
@@ -18,7 +19,13 @@ class ShopAttributeGroup extends Model
         }
         return self::$getList;
     }
-
+    public static function getTypeList()
+    {
+        if (!self::$getTypeList) {
+            self::$getTypeList = self::pluck('type', 'id')->all();
+        }
+        return self::$getTypeList;
+    }
     public function attributeDetails()
     {
         return $this->hasMany(ShopProductAttribute::class, 'attribute_group_id', 'id');

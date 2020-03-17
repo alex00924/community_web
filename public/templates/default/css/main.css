@@ -208,7 +208,7 @@ a#scrollUp i{
   background: #FFFFFF;
   color: #696763;
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
   padding:0;
   padding-right: 0;
@@ -1121,7 +1121,12 @@ h2.title {
 **************************/
 
 .product-details{
-	overflow:hidden;
+  margin-bottom: 40px;
+  overflow: hidden;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #878787;
+  line-height: 1.8;
 }
 
 
@@ -1135,22 +1140,15 @@ h2.title {
   padding-right: 25px;
 }
 
-.product-details {
-  margin-bottom: 40px;
-  overflow: hidden;
-  margin-top: 10px;
-}
-
-
-
 .view-product {
   position: relative;
 }
 
 .view-product img {
   border: 1px solid #F7F7F0;
-  height: 380px;
+  height: auto;
   width: 100%;
+  max-width: 400px !important;
 }
 
 .view-product h3 {
@@ -1191,18 +1189,26 @@ h2.title {
 }
 
 .product-information {
-  border: 1px solid #F7F7F0;
+  border: 2px solid #DDD;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
+  border-radius: 20px 20px 20px 20px;
+  -moz-border-radius: 20px 20px 20px 20px;
+  -webkit-border-radius: 20px 20px 20px 20px;
+  -ms-border-radius: 20px 20px 20px 20px;
   overflow: hidden;
-  padding-bottom: 60px;
-  padding-left: 60px;
-  padding-top: 60px;
+  padding: 26px 32px;
   position: relative;
+}
+
+#product-detail-price span{
+  font-size: 25px;
 }
 
 .newarrival{
 	position:absolute;
 	top:0;
-	left:0
+  left:0;
+  z-index: 2;
 }
 
 .product-information h2 {
@@ -1224,32 +1230,17 @@ h2.title {
   margin-top: 5px;
 }
 
-.product-information span span {
-  color: rgb(14, 140, 228);
+.product-information .label {
   float: left;
-  font-family: 'Roboto', sans-serif;
-  font-size: 30px;
-  font-weight: 700;
-  margin-right: 20px;
-  margin-top: 0px;
-}
-.product-information span input {
-  border: 1px solid #DEDEDC;
+  font-size: 18px;
+  font-weight: 600;
   color: #696763;
-  font-family: 'Roboto', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  height: 33px;
-  outline: medium none;
-  text-align: center;
-  width: 50px;
+  margin-top: .5rem;
 }
 
-.product-information span label {
-  color: #696763;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  margin-right: 5px;
+.product-information .content {
+  width: 100%;
+  padding-left: 10%;
 }
 
 .share {
@@ -1258,14 +1249,12 @@ h2.title {
 
 
 .cart {
-  background: rgb(14, 140, 228);
-  border: 0 none;
-  border-radius: 0;
   color: #FFFFFF;
   font-family: 'Roboto', sans-serif;
-  font-size: 15px;
-  margin-bottom: 10px;
-  margin-left: 20px;
+  width: 100%;
+  border-radius: 30px !important;
+  padding: .75rem;
+  font-size: 18px;
 }
 
 
@@ -2561,4 +2550,19 @@ li > a{
 .vertical-align {
   display: flex;
   align-items: center;
+}
+
+.container {
+  width: 90% !important;
+}
+
+.rating-links {
+  margin: 0 0 12px;
+  line-height: 20px;
+  overflow: hidden;
+  clear: both;
+}
+
+.description {
+  margin: 1.25rem 0;
 }
