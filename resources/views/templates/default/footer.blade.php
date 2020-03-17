@@ -27,8 +27,8 @@
         <div class="row">
           <div class="col-sm-4">
             <div class="single-widget">
-              <h2><a href="{{ route('home') }}"><img style="max-width: 150px;" src="{{  asset(sc_store('logo')) }}"></a></h2>
-             <ul class="nav nav-pills nav-stacked">
+              <h2 class="text-center"><a href="{{ route('home') }}"><img style="max-width: 100px;" src="/data/logo/white logo.png"></a></h2>
+             <ul class="nav nav-pills nav-stacked text-center">
                <li>{{ sc_store('title') }}</li>
              </ul>
             </div>

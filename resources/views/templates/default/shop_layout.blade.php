@@ -74,9 +74,9 @@
 <!--//head-->
 <body>
 
-<div class="main-content">
-  @include($templatePath.'.header')
+@include($templatePath.'.header')
 
+<div class="main-content" style="padding: 5rem 0">
 <!--Module banner -->
   @isset ($blocksContent['banner_top'])
       @foreach ( $blocksContent['banner_top']  as $layout)

@@ -1,53 +1,11 @@
   <header id="header"><!--header-->
-    <div class="header_top"><!--header_top-->
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="contactinfo">
-              <ul class="nav nav-pills">
-                <li><a href="#"><i class="fa fa-phone"></i> {{ sc_store('phone') }}</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i> {{ sc_store('email') }}</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="btn-group pull-right">
-              <div class="btn-group locale">
-                @if (count($languages)>1)
-                <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown"><img src="{{ asset($languages[app()->getLocale()]['icon']) }}" style="height: 25px;">
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                  @foreach ($languages as $key => $language)
-                    <li><a href="{{ url('locale/'.$key) }}"><img src="{{ asset($language['icon']) }}" style="height: 25px;"></a></li>
-                  @endforeach
-                </ul>
-                @endif
-              </div>
-              @if (count($currencies)>1)
-               <div class="btn-group locale">
-                <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                  {{ sc_currency_info()['name'] }}
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                  @foreach ($currencies as $key => $currency)
-                    <li><a href="{{ url('currency/'.$currency->code) }}">{{ $currency->name }}</a></li>
-                  @endforeach
-                </ul>
-              </div>
-              @endif
-            </div>
-          </div>
-        </div>
-      </div>
-    </div><!--/header_top-->
     <div class="header-middle"><!--header-middle-->
       <div class="container">
-        <div class="row">
-          <div class="col-sm-4">
+        <div class="row vertical-align">
+          <div class="col-sm-4" style="display: grid; text-align: center">
             <div class="logo pull-left">
-              <a href="{{ route('home') }}"><img style="width: 250px;" src="{{ asset(sc_store('logo')) }}" alt="" /></a>
+              <a href="{{ route('home') }}">
+                <img style="height: 200px;" src="{{ asset(sc_store('logo')) }}" alt="" /></a>
             </div>
           </div>
           <div class="col-sm-8" style="padding: 20px 0">
@@ -56,7 +14,7 @@
                 @php
                 $cartsCount = \Cart::count();
                 @endphp
-                <li><a href="{{ route('wishlist') }}"><span  class="cart-qty  sc-wishlist" id="shopping-wishlist">{{ Cart::instance('wishlist')->count() }}</span><i class="fa fa-star"></i> {{ trans('front.wishlist') }}</a></li>
+                <li><a href="{{ route('wishlist') }}"><span  class="cart-qty  sc-wishlist" id="shopping-wishlist">{{ Cart::instance('wishlist')->count() }}</span><i class="fa fa-heart"></i> {{ trans('front.wishlist') }}</a></li>
                 <li><a href="{{ route('compare') }}"><span  class="cart-qty sc-compare" id="shopping-compare">{{ Cart::instance('compare')->count() }}</span><i class="fa fa-crosshairs"></i> {{ trans('front.compare') }}</a></li>
                 <li><a href="{{ route('cart') }}"><span class="cart-qty sc-cart" id="shopping-cart">{{ Cart::instance('default')->count() }}</span><i class="fa fa-shopping-cart"></i> {{ trans('front.cart_title') }}</a>
                 </li>

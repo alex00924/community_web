@@ -6,7 +6,7 @@
             <div id="sidepanel">
                 <div id="profile">
                     <div class="wrap">
-                        <img id="profile-img" src="{{ $curUser['avatar_url'] }}" class="online" alt="" />
+                        <img id="profile-img" src="{{ $curUser['avatar_url'] }}" class="online" alt=""/>
                         <p>{{ $curUser['name'] }}</p>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 <!--main left-->
-<div class="col-sm-3">
+<div class="col-xs-6 col-sm-4 col-md-3">
    @section('left')
         <div class="left-sidebar">
       <!--Module left -->

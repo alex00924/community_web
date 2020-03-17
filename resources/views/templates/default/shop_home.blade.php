@@ -4,14 +4,15 @@
           <div class="features_items"><!--features_items-->
             <h2 class="title text-center">{{ trans('front.features_items') }}</h2>
                 @foreach ($products_new as  $key => $product_new)
-                  <div class="col-sm-4">
+                  <div class=" col-xs-6 col-sm-4 col-lg-3">
                     <div class="product-image-wrapper product-single">
                       <div class="single-products product-box-{{ $product_new->id }}">
                           <div class="productinfo text-center">
                             <a href="{{ $product_new->getUrl() }}"><img src="{{ asset($product_new->getThumb()) }}" alt="{{ $product_new->name }}" /></a>
-                            {!! $product_new->showPrice() !!}
                             <a href="{{ $product_new->getUrl() }}"><p>{{ $product_new->name }}</p></a>
-
+                            <div class="price">
+                              {!! $product_new->showPrice() !!}
+                            </div>
                             @if ($product_new->allowSale())
                              <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product_new->id }}','default')"><i class="fa fa-shopping-cart"></i>{{trans('front.add_to_cart')}}</a>
                             @else
@@ -33,8 +34,8 @@
                       </div>
                       <div class="choose">
                         <ul class="nav nav-pills nav-justified">
-                          <li><a onClick="addToCartAjax('{{ $product_new->id }}','wishlist')"><i class="fa fa-plus-square"></i>{{trans('front.add_to_wishlist')}}</a></li>
-                          <li><a onClick="addToCartAjax('{{ $product_new->id }}','compare')"><i class="fa fa-plus-square"></i>{{trans('front.add_to_compare')}}</a></li>
+                          <li><a onClick="addToCartAjax('{{ $product_new->id }}','wishlist')"><i class="fa fa-heart"></i>{{trans('front.add_to_wishlist')}}</a></li>
+                          <li><a onClick="addToCartAjax('{{ $product_new->id }}','compare')"><i class="fa fa-exchange"></i>{{trans('front.add_to_compare')}}</a></li>
                         </ul>
                       </div>
                     </div>
@@ -46,18 +47,20 @@
             <h2 class="title text-center">{{ trans('front.products_hot') }}</h2>
 
             <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
+              <div class="carousel-inner" style="padding-top: 15px;">
                 @foreach ($products_hot as  $key => $product_hot)
                 @if ($key % 3 == 0)
                   <div class="item {{  ($key ==0)?'active':'' }}">
                 @endif
-                  <div class="col-sm-4">
+                  <div class=" col-xs-6 col-sm-4 col-lg-3">
                     <div class="product-image-wrapper product-single">
                       <div class="single-products   product-box-{{ $product_hot->id }}">
                           <div class="productinfo text-center">
                             <a href="{{ $product_hot->getUrl() }}"><img src="{{ asset($product_hot->getThumb()) }}" alt="{{ $product_hot->name }}" /></a>
-                            {!! $product_hot->showPrice() !!}
                             <a href="{{ $product_hot->getUrl() }}"><p>{{ $product_hot->name }}</p></a>
+                            <div class="price">
+                              {!! $product_hot->showPrice() !!}
+                            </div>
                             @if ($product_hot->allowSale())
                              <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product_hot->id }}','default')"><i class="fa fa-shopping-cart"></i>{{trans('front.add_to_cart')}}</a>
                             @else
@@ -80,8 +83,8 @@
                       </div>
                       <div class="choose">
                         <ul class="nav nav-pills nav-justified">
-                          <li><a onClick="addToCartAjax('{{ $product_hot->id }}','wishlist')"><i class="fa fa-plus-square"></i>{{trans('front.add_to_wishlist')}}</a></li>
-                          <li><a onClick="addToCartAjax('{{ $product_hot->id }}','compare')"><i class="fa fa-plus-square"></i>{{trans('front.add_to_compare')}}</a></li>
+                          <li><a onClick="addToCartAjax('{{ $product_hot->id }}','wishlist')"><i class="fa fa-heart"></i>{{trans('front.add_to_wishlist')}}</a></li>
+                          <li><a onClick="addToCartAjax('{{ $product_hot->id }}','compare')"><i class="fa fa-exchange"></i>{{trans('front.add_to_compare')}}</a></li>
                         </ul>
                       </div>
                     </div>
@@ -117,8 +120,10 @@
                         <div class="single-products  product-box-{{ $product->id }}">
                           <div class="productinfo text-center">
                             <a href="{{ $product->getUrl() }}"><img src="{{ asset($product->getThumb()) }}" alt="{{ $product->name }}" /></a>
-                            {!! $product->showPrice() !!}
                             <a href="{{ $product->getUrl() }}"><p>{{ $product->name }}</p></a>
+                            <div class="price">
+                              {!! $product->showPrice() !!}
+                            </div>
                             @if ($product->allowSale())
                              <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product->id }}','default')"><i class="fa fa-shopping-cart"></i>{{trans('front.add_to_cart')}}</a>
                             @else
@@ -149,8 +154,10 @@
                         <div class="single-products  product-box-{{ $product->id }}">
                           <div class="productinfo text-center">
                             <a href="{{ $product->getUrl() }}"><img src="{{ asset($product->getThumb()) }}" alt="{{ $product->name }}" /></a>
-                            {!! $product->showPrice() !!}
                             <a href="{{ $product->getUrl() }}"><p>{{ $product->name }}</p></a>
+                            <div class="price">
+                              {!! $product->showPrice() !!}
+                            </div>
                             @if ($product->allowSale())
                              <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product->id }}','default')"><i class="fa fa-shopping-cart"></i>{{trans('front.add_to_cart')}}</a>
                             @else

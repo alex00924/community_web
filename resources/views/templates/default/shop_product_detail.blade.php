@@ -2,10 +2,9 @@
 
 @section('center')
           <div class="product-details"><!--product-details-->
-            <div class="col-sm-6">
+            <div class="col-xs-6">
 
-
-              <div id="product-detail-image" class="carousel slide" data-ride="carousel">
+              <div id="product-detail-image" class="carousel slide" data-ride="carousel" style="margin-left: 15px">
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                       <div class="view-product item active"  data-slide-number="0">
@@ -35,7 +34,7 @@
         <form id="buy_block" action="{{ route('cart.add') }}" method="post">
           {{ csrf_field() }}
           <input type="hidden" name="product_id" id="product-detail-id" value="{{ $product->id }}" />
-            <div class="col-sm-6">
+            <div class="col-xs-6">
               <div class="product-information"><!--/product-information-->
                 @if ($product->price != $product->getFinalPrice() && $product->kind != SC_PRODUCT_GROUP)
                 <img src="{{ asset($templateFile.'/images/home/sale2.png') }}" class="newarrival" alt="" />
@@ -144,7 +143,7 @@
         </form>
 
           <div class="category-tab shop-details-tab"><!--category-tab-->
-            <div class="col-sm-12">
+            <div class="col-xs-12">
               <ul class="nav nav-tabs">
                 <li class="active"><a href="#details" data-toggle="tab">{{ trans('product.description') }}</a></li>
               </ul>
@@ -165,7 +164,7 @@
                 @if ($key % 4 == 0)
                   <div class="item {{  ($key ==0)?'active':'' }}">
                 @endif
-                  <div class="col-sm-3">
+                  <div class="col-xs-3">
                     <div class="product-image-wrapper product-single">
                       <div class="single-products   product-box-{{ $product_rel->id }}">
                           <div class="productinfo text-center">
