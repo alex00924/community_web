@@ -20,6 +20,7 @@ class ShopProduct extends Model
         'keyword',
         'description',
         'content',
+        'specification'
     ];
 
     protected static $listSingle = null;
@@ -425,6 +426,10 @@ Get image
     {
         return $this->processDescriptions()['content'] ?? '';
     }
+    public function getSpecification()
+    {
+        return $this->processDescriptions()['specification'] ?? '';
+    }
 
 //Attributes
     public function getNameAttribute()
@@ -444,9 +449,11 @@ Get image
     public function getContentAttribute()
     {
         return $this->getContent();
-
     }
-
+    public function getSpecificationAttribute()
+    {
+        return $this->getSpecification();
+    }
 /**
  * [getArrayProductName description]
  * @return [type] [description]

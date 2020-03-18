@@ -674,9 +674,10 @@
                             </div>
                             <div class="col-sm-8">
                                 @foreach ($attributeGroup as $attGroupId => $attName)
-                                <table width="100%">
+                                <table style="width: 100%; margin-bottom: 10px;">
                                     <tr>
-                                        <td colspan="3"><b>{{ $attName }}:</b><br></td>
+                                        <td><b>{{ $attName }}:</b><br></td>
+                                        <td colspan="2"><b>Price:</b><br></td>
                                     </tr>
                                     @if (!empty(old('attribute')[$attGroupId]))
                                     @foreach (old('attribute')[$attGroupId] as $idx => $attValue)
@@ -697,7 +698,7 @@
                                                 data-id="{{ $attGroupId }}">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                                 {{ trans('product.admin.add_attribute') }}
-                                            </button><br><br>
+                                            </button><br>
                                         </td>
                                     </tr>
                                 </table>
@@ -707,8 +708,6 @@
                         @endif
                         {{-- //end List product attributes --}}
 @endif
-
-
                     </div>
                 </div>
 
@@ -840,9 +839,9 @@ $('.removeproductBuild').click(function(event) {
 $('.add-attribute').click(function(event) {
     var htmlProductAtrribute = '{!! $htmlProductAtrribute??'' !!}';
     var attGroup = $(this).attr("data-id");
-    htmlProductAtrribute = htmlProductAtrribute.replace("attribute_group", attGroup);
+    htmlProductAtrribute = htmlProductAtrribute.replace(/attribute_group/g, attGroup);
     htmlProductAtrribute = htmlProductAtrribute.replace("attribute_value", "");
-    htmlProductAtrribute = htmlProductAtrribute.replace("attribute_price_value", "");
+    htmlProductAtrribute = htmlProductAtrribute.replace("attribute_price_value", "0");
     $(this).closest('tr').before(htmlProductAtrribute);
     $('.removeAttribute').click(function(event) {
         $(this).closest('tr').remove();

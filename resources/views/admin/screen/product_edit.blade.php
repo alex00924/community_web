@@ -714,28 +714,34 @@
                                 @php
                                 $dataAtt = [];
                                 if(old('attribute')){
-                                    $dataAtt = old('attribute');
+                                    $oldAttr = old('attribute');
+                                    foreach ($oldAttr as $groupKey => $row) {
+                                        $dataAtt[$groupKey]['name'] = $row;
+                                        $dataAtt[$groupKey]['price'] = old('attribute_price')[$groupKey];
+                                    }
                                 } else {
                                     $getDataAtt = $product->attributes->groupBy('attribute_group_id')->toArray();
                                     if(count($getDataAtt)) {
                                         foreach ($getDataAtt as $groupKey => $row) {
-                                        $dataAtt[$groupKey] = array_column($row, 'name');
+                                            $dataAtt[$groupKey]['name'] = array_column($row, 'name');
+                                            $dataAtt[$groupKey]['price'] = array_column($row, 'price');
                                         }
                                     }
                                 }
                                 @endphp
 
                                 @foreach ($attributeGroup as $attGroupId => $attName)
-                                    <table width="100%">
+                                    <table style="width: 100%; margin-bottom: 10px">
                                         <tr>
                                             <td colspan="2"><b>{{ $attName }}:</b><br></td>
                                         </tr>
-                                    @if (!empty($dataAtt[$attGroupId]))
-                                        @foreach ($dataAtt[$attGroupId] as $attValue)
+                                    @if (!empty($dataAtt[$attGroupId]['name']))
+                                        @foreach ($dataAtt[$attGroupId]['name'] as $idx => $attValue)
                                             @if ($attValue)
                                                 @php
                                                 $newHtml = str_replace('attribute_group', $attGroupId, $htmlProductAtrribute);
                                                 $newHtml = str_replace('attribute_value', $attValue, $newHtml);
+                                                $newHtml = str_replace('attribute_price_value', $dataAtt[$attGroupId]['price'][$idx], $newHtml);
                                                 @endphp
                                                 {!! $newHtml !!}
                                             @endif
@@ -888,8 +894,9 @@ $('.removeproductBuild').click(function(event) {
 $('.add-attribute').click(function(event) {
     var htmlProductAtrribute = '{!! $htmlProductAtrribute??'' !!}';
     var attGroup = $(this).attr("data-id");
-    htmlProductAtrribute = htmlProductAtrribute.replace("attribute_group", attGroup);
+    htmlProductAtrribute = htmlProductAtrribute.replace(/attribute_group/g, attGroup);
     htmlProductAtrribute = htmlProductAtrribute.replace("attribute_value", "");
+    htmlProductAtrribute = htmlProductAtrribute.replace("attribute_price_value", "0");
     $(this).closest('tr').before(htmlProductAtrribute);
     $('.removeAttribute').click(function(event) {
         $(this).closest('tr').remove();
