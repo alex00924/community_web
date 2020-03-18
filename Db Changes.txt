@@ -1,0 +1,2 @@
+DB.
+1. Added price column for shop_product_attribute.

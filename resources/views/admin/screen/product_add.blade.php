@@ -69,8 +69,6 @@
                                     <option value="0" selected="selected">{{ $kinds[0] }}</option>
                                 </select>   
                             @endif
-
-
                         </div>
                         @if ($errors->has('kind'))
                         <span class="help-block">
@@ -152,16 +150,6 @@
                                     <textarea id="{{ $code }}__description"
                                         name="descriptions[{{ $code }}][description]"
                                         class="form-control input-sm {{ $code.'__description' }}" placeholder="" />{{ old('descriptions.'.$code.'.description') }}</textarea>
-                                @if ($errors->has('descriptions.'.$code.'.description'))
-                                <span class="help-block">
-                                    <i class="fa fa-info-circle"></i>
-                                    {{ $errors->first('descriptions.'.$code.'.description') }}
-                                </span>
-                                @else
-                                    <span class="help-block">
-                                        <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>300]) }}
-                                    </span>
-                                @endif
                             </div>
                         </div>
 
@@ -688,26 +676,28 @@
                                 @foreach ($attributeGroup as $attGroupId => $attName)
                                 <table width="100%">
                                     <tr>
-                                        <td colspan="2"><b>{{ $attName }}:</b><br></td>
+                                        <td colspan="3"><b>{{ $attName }}:</b><br></td>
                                     </tr>
                                     @if (!empty(old('attribute')[$attGroupId]))
-                                    @foreach (old('attribute')[$attGroupId] as $attValue)
+                                    @foreach (old('attribute')[$attGroupId] as $idx => $attValue)
                                     @if ($attValue)
                                     @php
                                     $newHtml = str_replace('attribute_group', $attGroupId, $htmlProductAtrribute);
                                     $newHtml = str_replace('attribute_value', $attValue, $newHtml);
+                                    $newHtml = str_replace('attribute_price_value', old('attribute_price')[$attGroupId][$idx], $newHtml);
                                     @endphp
                                     {!! $newHtml !!}
                                     @endif
                                     @endforeach
                                     @endif
                                     <tr>
-                                        <td colspan="2"><br><button type="button"
+                                        <td colspan="2"><br>
+                                            <button type="button"
                                                 class="btn btn-flat btn-success add-attribute"
                                                 data-id="{{ $attGroupId }}">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                                 {{ trans('product.admin.add_attribute') }}
-                                            </button><br>
+                                            </button><br><br>
                                         </td>
                                     </tr>
                                 </table>
@@ -852,6 +842,7 @@ $('.add-attribute').click(function(event) {
     var attGroup = $(this).attr("data-id");
     htmlProductAtrribute = htmlProductAtrribute.replace("attribute_group", attGroup);
     htmlProductAtrribute = htmlProductAtrribute.replace("attribute_value", "");
+    htmlProductAtrribute = htmlProductAtrribute.replace("attribute_price_value", "");
     $(this).closest('tr').before(htmlProductAtrribute);
     $('.removeAttribute').click(function(event) {
         $(this).closest('tr').remove();
@@ -912,7 +903,14 @@ $('textarea.editor').ckeditor(
         filebrowserBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=Files',
         filebrowserUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=file&_token={{csrf_token()}}',
         filebrowserWindowWidth: '900',
-        filebrowserWindowHeight: '500'
+        filebrowserWindowHeight: '500',
+        validateSize: 100,
+        onAttachmentUpload: function(response) {
+            let tmpHtml = "<div style='width: 100%; margin: 10px 0; text-align: center'> <a href='/data/file/" + response + "'>";
+            tmpHtml += "<img src='/images/attachment.png' style='width: 100px; height: auto' /> <br>";
+            tmpHtml += response + "</a> </div>";
+            CKEDITOR.instances["en__content"].insertHtml(tmpHtml);
+        }
     }
 );
 

@@ -1241,12 +1241,12 @@ h2.title {
 .product-information .content {
   width: 100%;
   padding-left: 10%;
+  float: left;
 }
 
 .share {
   margin-top: 15px;
 }
-
 
 .cart {
   color: #FFFFFF;

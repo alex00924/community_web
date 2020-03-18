@@ -287,7 +287,7 @@ class ShopProductController extends Controller
         //end select product build
 
         // html select attribute
-        $htmlProductAtrribute = '<tr><td><br><input type="text" name="attribute[attribute_group][]" value="attribute_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_place') . '" /></td><td><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAttribute"><i class="fa fa-times"></i></span></td></tr>';
+        $htmlProductAtrribute = '<tr><td><br><input type="text" name="attribute[attribute_group][]" value="attribute_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_place') . '" /></td><td><br><input type="number" min="1" name="attribute_price[attribute_group][]" value="attribute_price_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_price') . '" /></td><td><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAttribute"><i class="fa fa-times"></i></span></td></tr>';
         //end select attribute
 
         // html add more images
@@ -339,7 +339,7 @@ class ShopProductController extends Controller
                     'sort' => 'numeric|min:0',
                     'descriptions.*.name' => 'required|string|max:100',
                     'descriptions.*.keyword' => 'nullable|string|max:100',
-                    'descriptions.*.description' => 'nullable|string|max:100',
+                    'descriptions.*.description' => 'nullable|string',
                     'descriptions.*.content' => 'required|string',
                     'category' => 'required',
                     'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
@@ -360,7 +360,7 @@ class ShopProductController extends Controller
                     'sort' => 'numeric|min:0',
                     'descriptions.*.name' => 'required|string|max:100',
                     'descriptions.*.keyword' => 'nullable|string|max:100',
-                    'descriptions.*.description' => 'nullable|string|max:100',
+                    'descriptions.*.description' => 'nullable|string',
                     'category' => 'required',
                     'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
                     'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias|string|max:100',
@@ -385,7 +385,7 @@ class ShopProductController extends Controller
                     'sort' => 'numeric|min:0',
                     'descriptions.*.name' => 'required|string|max:200',
                     'descriptions.*.keyword' => 'nullable|string|max:200',
-                    'descriptions.*.description' => 'nullable|string|max:300',
+                    'descriptions.*.description' => 'nullable|string',
                 ];
                 $arrMsg = [
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
@@ -411,6 +411,7 @@ class ShopProductController extends Controller
 
         $category = $data['category'] ?? [];
         $attribute = $data['attribute'] ?? [];
+        $attributePrice = $data['attribute_price'] ?? [];
         $descriptions = $data['descriptions'];
         $productInGroup = $data['productInGroup'] ?? [];
         $productBuild = $data['productBuild'] ?? [];
@@ -476,7 +477,7 @@ class ShopProductController extends Controller
                 if (count($rowGroup)) {
                     foreach ($rowGroup as $key => $nameAtt) {
                         if ($nameAtt) {
-                            $arrDataAtt[] = new ShopProductAttribute(['name' => $nameAtt, 'attribute_group_id' => $group]);
+                            $arrDataAtt[] = new ShopProductAttribute(['name' => $nameAtt, 'attribute_group_id' => $group, 'price' => $attribute[$group][$key]]);
                         }
                     }
                 }

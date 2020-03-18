@@ -70,6 +70,7 @@ return [
         'add_product'             => 'Add product',
         'add_attribute'           => 'Add attribute',
         'add_attribute_place'     => 'Add an attribute value',
+        'add_attribute_price'     => 'Add an attribute price. Empty means default price',
         'add_sub_image'           => 'Add more images',
         'add_product_promotion'   => 'Add promotion price',
         'choose_image'            => 'Choose',
