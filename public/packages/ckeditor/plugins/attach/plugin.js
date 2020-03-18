@@ -76,6 +76,7 @@ CKEDITOR.dialog.add( 'abbrDialog', function( editor ) {
             inputStyle: 'outline: 0',
             style: 'height:40px',
             size: 38,
+            accept: "application/pdf"
           },
           {
             type: 'fileButton',

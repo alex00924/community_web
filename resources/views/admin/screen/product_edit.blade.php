@@ -925,7 +925,8 @@ let detailEditor = $('textarea.editor').ckeditor(
         filebrowserUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=file&_token={{csrf_token()}}',
         filebrowserWindowWidth: '900',
         filebrowserWindowHeight: '500',
-        validateSize: 100,
+        validateSize: 10,
+        autoClose: true,
         onAttachmentUpload: function(response) {
             let tmpHtml = "<div style='width: 100%; margin: 10px 0; text-align: center'> <a href='/data/file/" + response + "'>";
             tmpHtml += "<img src='/images/attachment.png' style='width: 100px; height: auto' /> <br>";
