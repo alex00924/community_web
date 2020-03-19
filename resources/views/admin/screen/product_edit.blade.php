@@ -145,6 +145,23 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div
+                            class="form-group {{ $errors->has('descriptions.'.$code.'.specification') ? ' has-error' : '' }}">
+                            <label for="{{ $code }}__specification"
+                                class="col-sm-2 control-label">{{ trans('product.specification') }}</label>
+                            <div class="col-sm-8">
+                                <textarea id="{{ $code }}__specification" class="editor"
+                                    name="descriptions[{{ $code }}][specification]">
+                                    {!! old('descriptions.'.$code.'.specification',($descriptions[$code]['specification']??'')) !!}</textarea>
+                                @if ($errors->has('descriptions.'.$code.'.specification'))
+                                <span class="help-block">
+                                    <i class="fa fa-info-circle"></i>
+                                    {{ $errors->first('descriptions.'.$code.'.specification') }}
+                                </span>
+                                @endif
+                            </div>
+                        </div>
                         @endif
 
                         @endforeach
@@ -917,6 +934,8 @@ $('.date_time').datepicker({
   format: 'yyyy-mm-dd'
 })
 
+var currTextarea = $('textarea.editor').first().prop("id");
+
 let detailEditor = $('textarea.editor').ckeditor(
     {
         filebrowserImageBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=product',
@@ -931,10 +950,19 @@ let detailEditor = $('textarea.editor').ckeditor(
             let tmpHtml = "<div style='width: 100%; margin: 10px 0; text-align: center'> <a href='/data/file/" + response + "'>";
             tmpHtml += "<img src='/images/attachment.png' style='width: 100px; height: auto' /> <br>";
             tmpHtml += response + "</a> </div>";
-            CKEDITOR.instances["en__content"].insertHtml(tmpHtml);
+            CKEDITOR.instances[currTextarea].insertHtml(tmpHtml);
         }
     }
 );
+
+CKEDITOR.on("instanceReady", function(event)
+{
+    $('div.cke').on("click", function() {
+        currTextarea = $(this).prop("id");
+        currTextarea = currTextarea.substr(4);
+    });
+});
+
 </script>
 
 @endpush

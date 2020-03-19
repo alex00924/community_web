@@ -603,6 +603,7 @@ class ShopProductController extends Controller
                     'descriptions.*.keyword' => 'nullable|string|max:200',
                     'descriptions.*.description' => 'nullable|string',
                     'descriptions.*.content' => 'required|string',
+                    'descriptions.*.specification' => 'required|string',
                     'category' => 'required',
                     'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku,' . $product->id . ',id',
                     'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias,' . $product->id . ',id|string|max:100',
@@ -610,6 +611,7 @@ class ShopProductController extends Controller
                 $arrMsg = [
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
                     'descriptions.*.content.required' => trans('validation.required', ['attribute' => trans('product.content')]),
+                    'descriptions.*.specification.required' => trans('validation.required', ['attribute' => trans('product.specification')]),
                     'category.required' => trans('validation.required', ['attribute' => trans('product.category')]),
                     'sku.regex' => trans('product.sku_validate'),
                     'alias.regex' => trans('product.alias_validate'),
@@ -709,6 +711,7 @@ class ShopProductController extends Controller
                 'keyword' => $row['keyword'],
                 'description' => $row['description'],
                 'content' => $row['content'] ?? '',
+                'specification' => $row['specification'] ?? '',
             ];
         }
         ShopProductDescription::insert($dataDes);
