@@ -7,7 +7,7 @@
   2) Callback on attachment upload - onAttachmentUpload: function() {}
   3) validateSize - Validate size of file before upload (validateSize: 30) i.e 30mb limit
 */
-attachmentUploader = {
+let attachmentUploader = {
   uploadButton: null,
   editor: null,
   uploadEventBinded: false,
@@ -33,7 +33,8 @@ attachmentUploader = {
   },
   bindUploadEvent: function() {
     //Handle iframe redirect
-    var uploadHandler = function() {
+    $('body').find('iframe.cke_dialog_ui_input_file:visible').on("load", function() {
+      console.log("load", $('body').find('iframe.cke_dialog_ui_input_file:visible'));
       if (attachmentUploader.uploadButton.text() == 'Uploading..') {
         //Provide onAttachmentUpload Callback after upload
         //Define this function in CKEDITOR config
@@ -48,9 +49,8 @@ attachmentUploader = {
           CKEDITOR.dialog.getCurrent().hide();
         }
       }
-    }
-    $('body').find('iframe.cke_dialog_ui_input_file').on("load", uploadHandler);
-    attachmentUploader.uploadEventBinded = true;
+    });
+    //attachmentUploader.uploadEventBinded = true;
   }
 }
 
@@ -139,9 +139,9 @@ CKEDITOR.dialog.add( 'abbrDialog', function( editor ) {
         attachmentUploader.uploadButton.text('Upload attachment').parent('a').show();
       }
       //bindUploadEvent only if not binded before
-      if (!attachmentUploader.uploadEventBinded) {
+      //if (!attachmentUploader.uploadEventBinded) {
         attachmentUploader.bindUploadEvent();
-      }
+      //}
       attachmentUploader.statusMessageContainer.setText('');
       attachmentUploader.statusMessageContainer.hide();
 

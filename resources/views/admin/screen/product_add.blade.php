@@ -914,35 +914,30 @@ $('.date_time').datepicker({
 
 var currTextarea = $('textarea.editor').first().prop("id");
 
-$('textarea.editor').each(function(idx, editor){
-    let currId = $(editor).prop("id");
-    console.log(currId);
-    $(editor).ckeditor(
-        {
-            filebrowserImageBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=product',
-            filebrowserImageUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=product&_token={{csrf_token()}}',
-            filebrowserBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=Files',
-            filebrowserUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=file&_token={{csrf_token()}}',
-            filebrowserWindowWidth: '900',
-            filebrowserWindowHeight: '500',
-            validateSize: 10,
-            onAttachmentUpload: function(response) {
-                let tmpHtml = "<br><div style='width: 100%; margin: 10px 0; text-align: center'> <a href='/data/file/" + response + "'>";
-                tmpHtml += "<img src='/images/attachment.png' style='width: 100px; height: auto' /> <br>";
-                tmpHtml += response + "</a> </div><br>";
-                CKEDITOR.instances[currId].insertHtml(tmpHtml);
-            }
-        }
-    );
-})
-/* 
+$('textarea.editor').ckeditor(
+{
+    filebrowserImageBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=product',
+    filebrowserImageUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=product&_token={{csrf_token()}}',
+    filebrowserBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=Files',
+    filebrowserUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=file&_token={{csrf_token()}}',
+    filebrowserWindowWidth: '900',
+    filebrowserWindowHeight: '500',
+    validateSize: 10,
+    onAttachmentUpload: function(response) {
+        let tmpHtml = "<br><div style='width: 100%; margin: 10px 0; text-align: center'> <a href='/data/file/" + response + "'>";
+        tmpHtml += "<img src='/images/attachment.png' style='width: 100px; height: auto' /> <br>";
+        tmpHtml += response + "</a> </div><br>";
+        CKEDITOR.instances[currTextarea].insertHtml(tmpHtml);
+    }
+});
+
 CKEDITOR.on("instanceReady", function(event)
 {
     $('div.cke').on("click", function() {
         currTextarea = $(this).prop("id");
         currTextarea = currTextarea.substr(4);
     });
-}); */
+});
 
 </script>
 
