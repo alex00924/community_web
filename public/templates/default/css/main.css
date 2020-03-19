@@ -862,7 +862,7 @@ h2.title {
   box-shadow: 0px 0px 20px rgba(9, 130, 223, 0.5);
 }
 
-.product-image-wrapper:hover a, .product-image-wrapper:hover p {
+.product-image-wrapper:hover p {
   color: rgb(9, 130, 223) !important;
 }
 
@@ -920,13 +920,6 @@ h2.title {
   margin-bottom: 25px;
 }
 
-.add-to-cart:hover {
-  background: rgb(14, 140, 228);
-  border: 0 none;
-  border-radius: 0;
-  color: #FFFFFF;
-}
-
 .add-to{
   margin-bottom: 10px;
 }
@@ -937,7 +930,7 @@ h2.title {
 
 .add-to-cart:hover {
   background: rgb(14, 140, 228);
-  color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 
 .choose {

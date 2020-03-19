@@ -29,7 +29,7 @@
         {{ trans('front.empty_product') }}
       @else
           @foreach ($products as  $key => $product)
-          <div class="col-sm-4 col-xs-6">
+          <div class=" col-xs-6 col-sm-4 col-lg-3">
               <div class="product-image-wrapper product-single">
                 <div class="single-products">
                   <div class="productinfo text-center product-box-{{ $product->id }}">
@@ -61,8 +61,8 @@
                 </div>
                 <div class="choose">
                   <ul class="nav nav-pills nav-justified">
-                    <li><a  onClick="addToCartAjax({{ $product->id }},'wishlist')"><i class="fa fa-plus-square"></i>{{trans('front.add_to_wishlist')}}</a></li>
-                    <li><a  onClick="addToCartAjax({{ $product->id }},'compare')"><i class="fa fa-plus-square"></i>{{trans('front.add_to_compare')}}</a></li>
+                    <li><a  onClick="addToCartAjax({{ $product->id }},'wishlist')"><i class="fa fa-heart"></i>{{trans('front.add_to_wishlist')}}</a></li>
+                    <li><a  onClick="addToCartAjax({{ $product->id }},'compare')"><i class="fa fa-exchange"></i>{{trans('front.add_to_compare')}}</a></li>
                   </ul>
                 </div>
               </div>
