@@ -695,7 +695,6 @@
                                 <table style="width: 100%; margin-bottom: 10px;">
                                     <tr>
                                         <td><b>{{ $attName }}:</b><br></td>
-                                        <td colspan="2"><b>Price:</b><br></td>
                                     </tr>
                                     @if (!empty(old('attribute')[$attGroupId]))
                                     @foreach (old('attribute')[$attGroupId] as $idx => $attValue)
@@ -703,7 +702,6 @@
                                     @php
                                     $newHtml = str_replace('attribute_group', $attGroupId, $htmlProductAtrribute);
                                     $newHtml = str_replace('attribute_value', $attValue, $newHtml);
-                                    $newHtml = str_replace('attribute_price_value', old('attribute_price')[$attGroupId][$idx], $newHtml);
                                     @endphp
                                     {!! $newHtml !!}
                                     @endif
@@ -859,7 +857,6 @@ $('.add-attribute').click(function(event) {
     var attGroup = $(this).attr("data-id");
     htmlProductAtrribute = htmlProductAtrribute.replace(/attribute_group/g, attGroup);
     htmlProductAtrribute = htmlProductAtrribute.replace("attribute_value", "");
-    htmlProductAtrribute = htmlProductAtrribute.replace("attribute_price_value", "0");
     $(this).closest('tr').before(htmlProductAtrribute);
     $('.removeAttribute').click(function(event) {
         $(this).closest('tr').remove();

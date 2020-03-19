@@ -1,5 +1,6 @@
 DB.
-1. Added price column for shop_product_attribute.
+1. Added attribute_price column for shop_product.
+    [{a1-a2-a3:p1}, {b1-b2-b3:p2}]
 2. Added specification column for shop_product_description.
 
 3. Offline  

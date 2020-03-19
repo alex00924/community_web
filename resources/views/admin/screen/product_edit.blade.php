@@ -734,14 +734,12 @@
                                     $oldAttr = old('attribute');
                                     foreach ($oldAttr as $groupKey => $row) {
                                         $dataAtt[$groupKey]['name'] = $row;
-                                        $dataAtt[$groupKey]['price'] = old('attribute_price')[$groupKey];
                                     }
                                 } else {
                                     $getDataAtt = $product->attributes->groupBy('attribute_group_id')->toArray();
                                     if(count($getDataAtt)) {
                                         foreach ($getDataAtt as $groupKey => $row) {
                                             $dataAtt[$groupKey]['name'] = array_column($row, 'name');
-                                            $dataAtt[$groupKey]['price'] = array_column($row, 'price');
                                         }
                                     }
                                 }
@@ -758,7 +756,6 @@
                                                 @php
                                                 $newHtml = str_replace('attribute_group', $attGroupId, $htmlProductAtrribute);
                                                 $newHtml = str_replace('attribute_value', $attValue, $newHtml);
-                                                $newHtml = str_replace('attribute_price_value', $dataAtt[$attGroupId]['price'][$idx], $newHtml);
                                                 @endphp
                                                 {!! $newHtml !!}
                                             @endif
@@ -913,7 +910,6 @@ $('.add-attribute').click(function(event) {
     var attGroup = $(this).attr("data-id");
     htmlProductAtrribute = htmlProductAtrribute.replace(/attribute_group/g, attGroup);
     htmlProductAtrribute = htmlProductAtrribute.replace("attribute_value", "");
-    htmlProductAtrribute = htmlProductAtrribute.replace("attribute_price_value", "0");
     $(this).closest('tr').before(htmlProductAtrribute);
     $('.removeAttribute').click(function(event) {
         $(this).closest('tr').remove();

@@ -117,7 +117,7 @@
                     </div>
 
                     @if ($product->kind == SC_PRODUCT_GROUP)
-                    <div id="product-detail-cart-group" style="display:none">
+                    <div class="product-detail-cart-group" style="display:none">
                       <label class="label">{{ trans('product.quantity') }}:</label>
                       <div class="content">
                         <input class="form-control" type="number" name="qty" value="1" min="1" />
@@ -150,8 +150,14 @@
                     </div>
                     <br>
                     @endif
-
-                    @if ($product->allowSale())
+                    @if ($product->kind == SC_PRODUCT_GROUP)
+                    <div class="product-detail-cart-group" style="display:none">
+                      <button type="submit" class="btn btn-primary cart">
+                        <i class="fa fa-shopping-cart"></i>
+                        {{trans('front.add_to_cart')}}
+                      </button>
+                    </div>
+                    @else ($product->allowSale())
                     <button type="submit" class="btn btn-primary cart">
                       <i class="fa fa-shopping-cart"></i>
                       {{trans('front.add_to_cart')}}
@@ -251,7 +257,7 @@
           },
           success: function(data){
             //console.log(data);
-            $('#product-detail-cart-group').show();
+            $('.product-detail-cart-group').show();
             $('#product-detail-name').html(data.name);
             $('#product-detail-model').html(data.sku);
             $('#product-detail-price').html(data.showPrice);
