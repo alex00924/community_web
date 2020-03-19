@@ -14,4 +14,5 @@ CKEDITOR.editorConfig = function( config ) {
     config.enterMode = CKEDITOR.ENTER_BR;
     config.extraPlugins = 'youtube,attach';
     config.filebrowserUploadMethod = 'form'; // Added for file browser
+    config.height = 300;
 };

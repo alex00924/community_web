@@ -924,7 +924,7 @@ let detailEditor = $('textarea.editor').ckeditor(
         filebrowserBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=Files',
         filebrowserUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=file&_token={{csrf_token()}}',
         filebrowserWindowWidth: '900',
-        filebrowserWindowHeight: '700',
+        filebrowserWindowHeight: '500',
         validateSize: 10,
         autoClose: true,
         onAttachmentUpload: function(response) {
