@@ -8,7 +8,7 @@ Customers can register with their email.
 
 Every customers can contact to admin using live chat and email addrss.
 
-<p><img src="https://github.com/guangxu0924/community_web/blob/master/public/images/github/admin-dash.png" /></p>
+[[https://github.com/guangxu0924/community_web/blob/master/public/images/github/admin-dash.png|alt=octocat]]
 
 <a href="https://fluidsforlife.com/community_admin"> <h3>Admin Page</h3> </a>
 
@@ -18,6 +18,6 @@ In this page, admin can manage products, orders, customers, ...
 
 Admin can assists customers using live chat.
 
-<p><img src="https://github.com/guangxu0924/community_web/blob/master/public/images/github/customer-dash.png" /></p>
+[[https://github.com/guangxu0924/community_web/blob/master/public/images/github/customer-dash.png|alt=octocat]]
 
-<p><img src="https://github.com/guangxu0924/community_web/blob/master/public/images/github/customer-product.png" /></p>
+[[https://github.com/guangxu0924/community_web/blob/master/public/images/github/customer-product.png|alt=octocat]]
