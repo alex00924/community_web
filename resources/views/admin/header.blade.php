@@ -18,9 +18,9 @@
         <li><a target="_new" title="Home" href="{{ route('home') }}"><i class="fa fa-home fa-1x"
               aria-hidden="true"></i></a></li>
         @include('admin.component.notice')
-        @if (\Route::current()->getName() != 'admin_chat')
-        @include('admin.component.chat_alert')
-        @endif
+        
+        <!-- Offline -->
+        
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">

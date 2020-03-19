@@ -1,2 +1,8 @@
 DB.
 1. Added price column for shop_product_attribute.
+2. Added specification column for shop_product_description.
+
+3. Offline  
+<!-- @if (\Route::current()->getName() != 'admin_chat')
+        @include('admin.component.chat_alert')
+        @endif -->
