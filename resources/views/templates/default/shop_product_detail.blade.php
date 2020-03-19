@@ -44,7 +44,7 @@
                   @endif
               </div>
               
-              <div class="col-lg-4 col-md-6 col-xs-12" style="padding: 1rem">
+              <div class="col-lg-4 col-md-6 col-xs-12" style="padding: 1rem 3rem">
                   <h1 id="product-detail-name" style="font-size: 25px; margin-bottom: 13px; color: black">{{ $product->name }}</h1>
                   
                   <div class="rating-links">
@@ -165,14 +165,25 @@
             </div>
             
             <div class="category-tab shop-details-tab"><!--category-tab-->
-              <div>
+              <ul class="nav nav-tabs nav-fill">
+                  <li class="nav-item active">
+                      <a class="nav-link active" href="#tab-general" data-toggle="tab">{{ trans('product.content') }}</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#tab-specification" data-toggle="tab">{{ trans('product.specification') }}</a>
+                  </li>
+              </ul>
+              <!-- <div>
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#details" data-toggle="tab">{{ trans('product.description') }}</a></li>
                 </ul>
-              </div>
+              </div> -->
               <div class="tab-content">
-                <div class="tab-pane fade  active in" id="product-detail-content" >
+                <div class="tab-pane fade  active in" id="tab-general" >
                   {!! sc_html_render($product->content) !!}
+                </div>
+                <div class="tab-pane fade" id="tab-specification" >
+                  {!! sc_html_render($product->specification) !!}
                 </div>
               </div>
             </div><!--/category-tab-->
