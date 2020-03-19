@@ -337,7 +337,7 @@ ul.sub-menu {
   padding-left: 5px;
 }
 
-@-webkit-keyframes fadeInUp {
+@keyframes fadeInUp {
   0% {
     opacity: 0;
     -webkit-transform: translateY(20px);
@@ -590,11 +590,6 @@ ul.sub-menu {
 .carousel-indicators li.active {
 	  background: rgb(14, 140, 228);
 }
-
-.item {
-  /*padding-left: 100px;*/
-}
-
 
 .pricing {
   position: absolute;
@@ -1040,9 +1035,6 @@ h2.title {
   background: #ccccc6;
 }
 
-.recommended_items  h2 {
-}
-
 .our_partners{
   overflow:hidden;
 }
@@ -1396,14 +1388,6 @@ h2.title {
   overflow: hidden;
 }
 
-.login-form {
-
-}
-
-.signup-form {
-
-}
-
 .login-form h2, .signup-form h2 {
   color: #696763;
   font-family: 'Roboto', sans-serif;
@@ -1452,11 +1436,6 @@ h2.title {
   font-family: 'Roboto', sans-serif;
   padding: 6px 25px;
 }
-
-.login-form label{
-
-}
-
 
 .login-form label input {
   border: medium none;
@@ -1603,7 +1582,6 @@ h2.title {
   overflow: hidden;
   text-align: center;
   width: 35px;
-  float: left;
 }
 
 
@@ -1712,9 +1690,6 @@ h2.title {
 .user_info > li {
   float: left;
   margin-right: 10px
-}
-
-.user_info > li > span {
 }
 
 .user_info input, select, textarea {
@@ -1962,9 +1937,6 @@ h2.title {
   text-transform: uppercase;
   font-weight: 500;
   margin-bottom: 17px;
-}
-
-.single-blog-post > a {
 }
 
 .blog-post-area
@@ -2377,8 +2349,6 @@ h2.title {
   top: 25px;
   left: 5px
 }
-
-
 
 /*************************
 ******* Contact CSS ********
