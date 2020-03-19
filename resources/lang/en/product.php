@@ -21,7 +21,7 @@ return [
     'keyword'               => 'Keyword',
     'description'           => 'Description',
     'content'               => 'General',
-    'specification'         => 'Specifications',
+    'specification'         => 'Specification',
     'type'                  => 'Type',
     'kind'                  => 'Kind',
     'virtual'               => 'Virtual',
