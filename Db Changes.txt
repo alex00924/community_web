@@ -3,6 +3,8 @@ DB.
     [{a1-a2-a3:p1}, {b1-b2-b3:p2}]
 2. Added specification column for shop_product_description.
 
+3. Added case_study column for shop_product_description.
+
 3. Offline  
 <!-- @if (\Route::current()->getName() != 'admin_chat')
         @include('admin.component.chat_alert')

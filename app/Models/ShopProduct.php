@@ -20,7 +20,8 @@ class ShopProduct extends Model
         'keyword',
         'description',
         'content',
-        'specification'
+        'specification',
+        'case_study'
     ];
 
     protected static $listSingle = null;
@@ -430,7 +431,10 @@ Get image
     {
         return $this->processDescriptions()['specification'] ?? '';
     }
-
+    public function getCase_study()
+    {
+        return $this->processDescriptions()['case_study'] ?? '';
+    }
 //Attributes
     public function getNameAttribute()
     {
@@ -453,6 +457,10 @@ Get image
     public function getSpecificationAttribute()
     {
         return $this->getSpecification();
+    }
+    public function getCaseStudyAttribute()
+    {
+        return $this->getCase_study();
     }
 /**
  * [getArrayProductName description]

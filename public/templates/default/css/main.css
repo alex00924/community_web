@@ -1259,12 +1259,6 @@ h2.title {
   display: flex;
 }
 
-.shop-details-tab .nav-fill .nav-item {
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  text-align: center;
-}
-
 #reviews ul {
   background: #FFFFFF;
   border: 0 none;
@@ -2537,10 +2531,4 @@ li > a{
 
 .description {
   margin: 1.25rem 0;
-}
-
-.nav-fill .nav-item {
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  text-align: center;
 }

@@ -22,6 +22,7 @@ return [
     'description'           => 'Description',
     'content'               => 'General',
     'specification'         => 'Specification',
+    'case_study'            => 'Case Study',
     'type'                  => 'Type',
     'kind'                  => 'Kind',
     'virtual'               => 'Virtual',

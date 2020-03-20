@@ -162,6 +162,24 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div
+                            class="form-group {{ $errors->has('descriptions.'.$code.'.case_study') ? ' has-error' : '' }}">
+                            <label for="{{ $code }}__case_study"
+                                class="col-sm-2 control-label">{{ trans('product.case_study') }}</label>
+                            <div class="col-sm-8">
+                                <textarea id="{{ $code }}__case_study" class="editor"
+                                    name="descriptions[{{ $code }}][case_study]">
+                                    {!! old('descriptions.'.$code.'.case_study',($descriptions[$code]['case_study']??'')) !!}</textarea>
+                                @if ($errors->has('descriptions.'.$code.'.case_study'))
+                                <span class="help-block">
+                                    <i class="fa fa-info-circle"></i>
+                                    {{ $errors->first('descriptions.'.$code.'.case_study') }}
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
                         @endif
 
                         @endforeach

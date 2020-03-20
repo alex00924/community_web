@@ -287,7 +287,8 @@ class ShopProductController extends Controller
         //end select product build
 
         // html select attribute
-        $htmlProductAtrribute = '<tr><td><br><input type="text" name="attribute[attribute_group][]" value="attribute_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_place') . '" /></td><td><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAttribute"><i class="fa fa-times"></i></span></td></tr>';
+        $htmlProductAtrribute = '<tr id="attribute_idx"><td><br><input type="text" name="attribute[attribute_group][]" value="attribute_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_place') . '" onchange="readAttributes()" /></td><td><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAttribute"><i class="fa fa-times"></i></span></td></tr>';
+        // org $htmlProductAtrribute = '<tr><td><br><input type="text" name="attribute[attribute_group][]" value="attribute_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_place') . '" /></td><td><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAttribute"><i class="fa fa-times"></i></span></td></tr>';
         //$htmlProductAtrribute = '<tr><td><br><input type="text" name="attribute[attribute_group][]" value="attribute_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_place') . '" /></td><td><br><input type="number" min="0" name="attribute_price[attribute_group][]" value="attribute_price_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_price') . '" /></td><td><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAttribute"><i class="fa fa-times"></i></span></td></tr>';
         //end select attribute
 
@@ -343,6 +344,7 @@ class ShopProductController extends Controller
                     'descriptions.*.description' => 'nullable|string',
                     'descriptions.*.content' => 'required|string',
                     'descriptions.*.specification' => 'required|string',
+                    'descriptions.*.case_study' => 'required|string',
                     'category' => 'required',
                     'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
                     'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias|string|max:100',
@@ -351,6 +353,7 @@ class ShopProductController extends Controller
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
                     'descriptions.*.content.required' => trans('validation.required', ['attribute' => trans('product.content')]),
                     'descriptions.*.specification.required' => trans('validation.required', ['attribute' => trans('product.specification')]),
+                    'descriptions.*.case_study.required' => trans('validation.required', ['attribute' => trans('product.case_study')]),
                     'category.required' => trans('validation.required', ['attribute' => trans('product.category')]),
                     'sku.regex' => trans('product.sku_validate'),
                     'alias.regex' => trans('product.alias_validate'),
@@ -499,7 +502,8 @@ class ShopProductController extends Controller
                 'keyword' => $descriptions[$code]['keyword'],
                 'description' => $descriptions[$code]['description'],
                 'content' => $descriptions[$code]['content'] ?? '',
-                'specification' => $descriptions[$code]['specification'] ?? ''
+                'specification' => $descriptions[$code]['specification'] ?? '',
+                'case_study' => $descriptions[$code]['case_study'] ?? ''
             ];
         }
 
@@ -556,7 +560,7 @@ class ShopProductController extends Controller
         //end select product build
 
         // html select attribute
-        $htmlProductAtrribute = '<tr><td><br><input type="text" name="attribute[attribute_group][]" value="attribute_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_place') . '" /></td><td><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAttribute"><i class="fa fa-times"></i></span></td></tr>';
+        $htmlProductAtrribute = '<tr id="attribute_idx"><td><br><input type="text" name="attribute[attribute_group][]" value="attribute_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_place') . '" onchange="readAttributes()" /></td><td><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAttribute"><i class="fa fa-times"></i></span></td></tr>';
         //$htmlProductAtrribute = '<tr><td><br><input type="text" name="attribute[attribute_group][]" value="attribute_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_place') . '" /></td><td><br><input type="number" min="0" name="attribute_price[attribute_group][]" value="attribute_price_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_price') . '" /></td><td><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAttribute"><i class="fa fa-times"></i></span></td></tr>';
         //end select attribute
 
@@ -604,6 +608,7 @@ class ShopProductController extends Controller
                     'descriptions.*.description' => 'nullable|string',
                     'descriptions.*.content' => 'required|string',
                     'descriptions.*.specification' => 'required|string',
+                    'descriptions.*.case_study' => 'required|string',
                     'category' => 'required',
                     'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku,' . $product->id . ',id',
                     'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias,' . $product->id . ',id|string|max:100',
@@ -612,6 +617,7 @@ class ShopProductController extends Controller
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
                     'descriptions.*.content.required' => trans('validation.required', ['attribute' => trans('product.content')]),
                     'descriptions.*.specification.required' => trans('validation.required', ['attribute' => trans('product.specification')]),
+                    'descriptions.*.case_study.required' => trans('validation.required', ['attribute' => trans('product.case_study')]),
                     'category.required' => trans('validation.required', ['attribute' => trans('product.category')]),
                     'sku.regex' => trans('product.sku_validate'),
                     'alias.regex' => trans('product.alias_validate'),
@@ -711,6 +717,7 @@ class ShopProductController extends Controller
                 'description' => $row['description'],
                 'content' => $row['content'] ?? '',
                 'specification' => $row['specification'] ?? '',
+                'case_study' => $row['case_study'] ?? ''
             ];
         }
         ShopProductDescription::insert($dataDes);

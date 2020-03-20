@@ -29,6 +29,16 @@
     .select-product {
         margin: 10px 0;
     }
+
+    .attribute-cell {
+        background: #337ab7;
+        color: white;
+        height: 30px;
+        padding: 1rem;
+    }
+    .attribute-cell.small-cell {
+        width: 150px;
+    }
 </style>
 <div class="row">
     <div class="col-md-12">
@@ -184,6 +194,24 @@
                                 <span class="help-block">
                                     <i class="fa fa-info-circle"></i>
                                     {{ $errors->first('descriptions.'.$code.'.specification') }}
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div
+                            class="form-group   kind kind0  {{ $errors->has('descriptions.'.$code.'.case_study') ? ' has-error' : '' }}">
+                            <label for="{{ $code }}__case_study"
+                                class="col-sm-2  control-label">{{ trans('product.case_study') }}</label>
+                            <div class="col-sm-8">
+                                <textarea id="{{ $code }}__case_study" class="editor"
+                                    name="descriptions[{{ $code }}][case_study]">
+                                        {!! old('descriptions.'.$code.'.case_study') !!}
+                                    </textarea>
+                                @if ($errors->has('descriptions.'.$code.'.case_study'))
+                                <span class="help-block">
+                                    <i class="fa fa-info-circle"></i>
+                                    {{ $errors->first('descriptions.'.$code.'.case_study') }}
                                 </span>
                                 @endif
                             </div>
@@ -680,32 +708,30 @@
 
                         @if (!empty($attributeGroup))
                         <div class="form-group kind kind0">
-                            <hr>
-                            <label class="col-sm-2 control-label"></label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-2">
                                 <label>{{ trans('product.attribute') }}</label>
                             </div>
-                        </div>
-
-                        <div class="form-group kind kind0">
-                            <div class="col-sm-2">
-                            </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8" id="attribute-container">
+                                @php
+                                    $attributeID = 1;
+                                @endphp
                                 @foreach ($attributeGroup as $attGroupId => $attName)
-                                <table style="width: 100%; margin-bottom: 10px;">
+                                <table style="width: 100%; margin-bottom: 10px;" data-groupid="{{ $attGroupId }}" data-group="{{ $attName }}">
                                     <tr>
                                         <td><b>{{ $attName }}:</b><br></td>
                                     </tr>
                                     @if (!empty(old('attribute')[$attGroupId]))
-                                    @foreach (old('attribute')[$attGroupId] as $idx => $attValue)
-                                    @if ($attValue)
-                                    @php
-                                    $newHtml = str_replace('attribute_group', $attGroupId, $htmlProductAtrribute);
-                                    $newHtml = str_replace('attribute_value', $attValue, $newHtml);
-                                    @endphp
-                                    {!! $newHtml !!}
-                                    @endif
-                                    @endforeach
+                                        @foreach (old('attribute')[$attGroupId] as $idx => $attValue)
+                                            @if ($attValue)
+                                                @php
+                                                $newHtml = str_replace('attribute_group', $attGroupId, $htmlProductAtrribute);
+                                                $newHtml = str_replace('attribute_value', $attValue, $newHtml);
+                                                $newHtml = str_replace('attribute_idx', $attributeID, $newHtml);
+                                                $attributeID++;
+                                                @endphp
+                                                {!! $newHtml !!}
+                                            @endif
+                                        @endforeach
                                     @endif
                                     <tr>
                                         <td colspan="2"><br>
@@ -719,6 +745,23 @@
                                     </tr>
                                 </table>
                                 @endforeach
+                            </div>
+                        </div>
+
+                        <div class="form-group kind kind0">
+                            <div class="col-sm-2">
+                                <label>{{ trans('product.price') }}</label>
+                            </div>
+                            <div class="col-sm-8" id="attribute-price-container">
+                                <div id="attribute-price-group-container">
+                                </div>
+                                <br>
+                                <label id="attribute-price-table-label"></label>
+                                <table class="table table-bordered table-hover">
+                                    <tbody id="attribute-price-table">
+                                    </tbody>
+                                </table>
+                                <input id="attribute_price" name="attribute_price" type="hidden" value="{!! old('attribute_price') !!}">
                             </div>
                         </div>
                         @endif
@@ -788,154 +831,265 @@
 </script>
 
 <script type="text/javascript">
+    let attributeID = {!! $attributeID !!};
     // Promotion
-$('#add_product_promotion').click(function(event) {
-    $(this).before('<div class="price_promotion"><div class="input-group"><span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span><input type="number" style="width: 100px;"  id="price_promotion" name="price_promotion" value="0" class="form-control input-sm price" placeholder="" /><span title="Remove" class="btn btn-flat btn-sm btn-danger removePromotion"><i class="fa fa-times"></i></span></div><div class="form-inline"><div class="input-group">{{ trans('product.price_promotion_start') }}<br><div class="input-group"><span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span><input type="text" style="width: 100px;"  id="price_promotion_start" name="price_promotion_start" value="" class="form-control input-sm price_promotion_start date_time" placeholder="" /></div></div><div class="input-group">{{ trans('product.price_promotion_end') }}<br><div class="input-group"><span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span><input type="text" style="width: 100px;"  id="price_promotion_end" name="price_promotion_end" value="" class="form-control input-sm price_promotion_end date_time" placeholder="" /></div></div></div></div>');
-    $(this).hide();
+    $('#add_product_promotion').click(function(event) {
+        $(this).before('<div class="price_promotion"><div class="input-group"><span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span><input type="number" style="width: 100px;"  id="price_promotion" name="price_promotion" value="0" class="form-control input-sm price" placeholder="" /><span title="Remove" class="btn btn-flat btn-sm btn-danger removePromotion"><i class="fa fa-times"></i></span></div><div class="form-inline"><div class="input-group">{{ trans('product.price_promotion_start') }}<br><div class="input-group"><span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span><input type="text" style="width: 100px;"  id="price_promotion_start" name="price_promotion_start" value="" class="form-control input-sm price_promotion_start date_time" placeholder="" /></div></div><div class="input-group">{{ trans('product.price_promotion_end') }}<br><div class="input-group"><span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span><input type="text" style="width: 100px;"  id="price_promotion_end" name="price_promotion_end" value="" class="form-control input-sm price_promotion_end date_time" placeholder="" /></div></div></div></div>');
+        $(this).hide();
+        $('.removePromotion').click(function(event) {
+            $(this).closest('.price_promotion').remove();
+            $('#add_product_promotion').show();
+        });
+        $('.date_time').datepicker({
+        autoclose: true,
+        format: 'yyyy-mm-dd'
+        })
+    });
     $('.removePromotion').click(function(event) {
-        $(this).closest('.price_promotion').remove();
         $('#add_product_promotion').show();
+        $(this).closest('.price_promotion').remove();
     });
-    $('.date_time').datepicker({
-      autoclose: true,
-      format: 'yyyy-mm-dd'
-    })
-});
-$('.removePromotion').click(function(event) {
-    $('#add_product_promotion').show();
-    $(this).closest('.price_promotion').remove();
-});
-//End promotion
+    //End promotion
 
-// Add sub images
-var id_sub_image = {{ old('sub_image')?count(old('sub_image')):0 }};
-$('#add_sub_image').click(function(event) {
-    id_sub_image +=1;
-    $(this).before('<div class="group-image"><div class="input-group"><input type="text" id="sub_image_'+id_sub_image+'" name="sub_image[]" value="" class="form-control input-sm sub_image" placeholder=""  /><span class="input-group-btn"><span><a data-input="sub_image_'+id_sub_image+'" data-preview="preview_sub_image_'+id_sub_image+'" data-type="product" class="btn btn-sm btn-flat btn-primary lfm"><i class="fa fa-picture-o"></i> {{trans('product.admin.choose_image')}}</a></span><span title="Remove" class="btn btn-flat btn-sm btn-danger removeImage"><i class="fa fa-times"></i></span></span></div><div id="preview_sub_image_'+id_sub_image+'" class="img_holder"></div></div>');
-    $('.removeImage').click(function(event) {
-        $(this).closest('div').remove();
+    // Add sub images
+    var id_sub_image = {{ old('sub_image')?count(old('sub_image')):0 }};
+    $('#add_sub_image').click(function(event) {
+        id_sub_image +=1;
+        $(this).before('<div class="group-image"><div class="input-group"><input type="text" id="sub_image_'+id_sub_image+'" name="sub_image[]" value="" class="form-control input-sm sub_image" placeholder=""  /><span class="input-group-btn"><span><a data-input="sub_image_'+id_sub_image+'" data-preview="preview_sub_image_'+id_sub_image+'" data-type="product" class="btn btn-sm btn-flat btn-primary lfm"><i class="fa fa-picture-o"></i> {{trans('product.admin.choose_image')}}</a></span><span title="Remove" class="btn btn-flat btn-sm btn-danger removeImage"><i class="fa fa-times"></i></span></span></div><div id="preview_sub_image_'+id_sub_image+'" class="img_holder"></div></div>');
+        $('.removeImage').click(function(event) {
+            $(this).closest('div').remove();
+        });
+        $('.lfm').filemanager();
     });
-    $('.lfm').filemanager();
-});
-    $('.removeImage').click(function(event) {
-        $(this).closest('.group-image').remove();
-    });
-//end sub images
+        $('.removeImage').click(function(event) {
+            $(this).closest('.group-image').remove();
+        });
+    //end sub images
 
-// Select product in group
-$('#add_product_in_group').click(function(event) {
-    var htmlSelectGroup = '{!! $htmlSelectGroup !!}';
-    $(this).before(htmlSelectGroup);
-    $('.select2').select2();
+    // Select product in group
+    $('#add_product_in_group').click(function(event) {
+        var htmlSelectGroup = '{!! $htmlSelectGroup !!}';
+        $(this).before(htmlSelectGroup);
+        $('.select2').select2();
+        $('.removeproductInGroup').click(function(event) {
+            $(this).closest('table').remove();
+        });
+    });
     $('.removeproductInGroup').click(function(event) {
         $(this).closest('table').remove();
     });
-});
-$('.removeproductInGroup').click(function(event) {
-    $(this).closest('table').remove();
-});
-//end select in group
+    //end select in group
 
-// Select product in build
-$('#add_product_in_build').click(function(event) {
-    var htmlSelectBuild = '{!! $htmlSelectBuild !!}';
-    $(this).before(htmlSelectBuild);
-    $('.select2').select2();
+    // Select product in build
+    $('#add_product_in_build').click(function(event) {
+        var htmlSelectBuild = '{!! $htmlSelectBuild !!}';
+        $(this).before(htmlSelectBuild);
+        $('.select2').select2();
+        $('.removeproductBuild').click(function(event) {
+            $(this).closest('table').remove();
+        });
+    });
     $('.removeproductBuild').click(function(event) {
         $(this).closest('table').remove();
     });
-});
-$('.removeproductBuild').click(function(event) {
-    $(this).closest('table').remove();
-});
-//end select in build
+    //end select in build
 
 
-// Select product attributes
-$('.add-attribute').click(function(event) {
-    var htmlProductAtrribute = '{!! $htmlProductAtrribute??'' !!}';
-    var attGroup = $(this).attr("data-id");
-    htmlProductAtrribute = htmlProductAtrribute.replace(/attribute_group/g, attGroup);
-    htmlProductAtrribute = htmlProductAtrribute.replace("attribute_value", "");
-    $(this).closest('tr').before(htmlProductAtrribute);
+    // Select product attributes
+    $('.add-attribute').click(function(event) {
+        var htmlProductAtrribute = '{!! $htmlProductAtrribute??'' !!}';
+        var attGroup = $(this).attr("data-id");
+        htmlProductAtrribute = htmlProductAtrribute.replace(/attribute_group/g, attGroup);
+        htmlProductAtrribute = htmlProductAtrribute.replace("attribute_value", "");
+        htmlProductAtrribute = htmlProductAtrribute.replace("attribute_idx", attributeID);
+        attributeID++;
+        $(this).closest('tr').before(htmlProductAtrribute);
+        readAttributes();
+        $('.removeAttribute').click(function(event) {
+            $(this).closest('tr').remove();
+            readAttributes();
+        });
+    });
     $('.removeAttribute').click(function(event) {
         $(this).closest('tr').remove();
+        readAttributes();
     });
-});
-$('.removeAttribute').click(function(event) {
-    $(this).closest('tr').remove();
-});
-//end select attributes
+    //end select attributes
 
-$(document).ready(function() {
-    $('.select2').select2();
-});
-// image
-// with plugin options
-// $("input.image").fileinput({"browseLabel":"Browse","cancelLabel":"Cancel","showRemove":true,"showUpload":false,"dropZoneEnabled":false});
+    $(document).ready(function() {
+        $('.select2').select2();
+        readAttributeGroup();
+        readAttributes();
+    });
+    // image
+    // with plugin options
+    // $("input.image").fileinput({"browseLabel":"Browse","cancelLabel":"Cancel","showRemove":true,"showUpload":false,"dropZoneEnabled":false});
 
-process_form();
-
-$('[name="kind"]').change(function(event) {
     process_form();
-});
 
-function process_form(){
-    var kind = $('[name="kind"] option:selected').val();
-    if(kind){
-        $('#loading').show();
-        setTimeout(
-            function(){
-                $('.kind').hide();
-                $('.kind'+kind).show();
-                $('#main-add').show();
-                 $('#loading').hide();
-                  }
-            , 500);
-    }else{
-        Swal.fire(
-          '{{ trans('product.admin.select_kind') }}',
-          '',
-          'error'
-        );
-        $('#main-add').hide();
-        $('#box-footer').hide();
-    }
-}
-
-//Date picker
-$('.date_time').datepicker({
-  autoclose: true,
-  format: 'yyyy-mm-dd'
-})
-
-var currTextarea = $('textarea.editor').first().prop("id");
-
-$('textarea.editor').ckeditor(
-{
-    filebrowserImageBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=product',
-    filebrowserImageUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=product&_token={{csrf_token()}}',
-    filebrowserBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=Files',
-    filebrowserUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=file&_token={{csrf_token()}}',
-    filebrowserWindowWidth: '900',
-    filebrowserWindowHeight: '500',
-    validateSize: 10,
-    onAttachmentUpload: function(response) {
-        let tmpHtml = "<br><div style='width: 100%; margin: 10px 0; text-align: center'> <a href='/data/file/" + response + "'>";
-        tmpHtml += "<img src='/images/attachment.png' style='width: 100px; height: auto' /> <br>";
-        tmpHtml += response + "</a> </div><br>";
-        CKEDITOR.instances[currTextarea].insertHtml(tmpHtml);
-    }
-});
-
-CKEDITOR.on("instanceReady", function(event)
-{
-    $('div.cke').on("click", function() {
-        currTextarea = $(this).prop("id");
-        currTextarea = currTextarea.substr(4);
+    $('[name="kind"]').change(function(event) {
+        process_form();
     });
-});
 
+    function process_form(){
+        var kind = $('[name="kind"] option:selected').val();
+        if(kind){
+            $('#loading').show();
+            setTimeout(
+                function(){
+                    $('.kind').hide();
+                    $('.kind'+kind).show();
+                    $('#main-add').show();
+                    $('#loading').hide();
+                }
+                , 100);
+        }else{
+            Swal.fire(
+            '{{ trans('product.admin.select_kind') }}',
+            '',
+            'error'
+            );
+            $('#main-add').hide();
+            $('#box-footer').hide();
+        }
+    }
+
+    //Date picker
+    $('.date_time').datepicker({
+    autoclose: true,
+    format: 'yyyy-mm-dd'
+    })
+
+    var currTextarea = $('textarea.editor').first().prop("id");
+
+    $('textarea.editor').ckeditor(
+    {
+        filebrowserImageBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=product',
+        filebrowserImageUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=product&_token={{csrf_token()}}',
+        filebrowserBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=Files',
+        filebrowserUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=file&_token={{csrf_token()}}',
+        filebrowserWindowWidth: '900',
+        filebrowserWindowHeight: '500',
+        validateSize: 10,
+        onAttachmentUpload: function(response) {
+            let tmpHtml = "<br><div style='width: 100%; margin: 10px 0; text-align: center'> <a href='/data/file/" + response + "'>";
+            tmpHtml += "<img src='/images/attachment.png' style='width: 100px; height: auto' /> <br>";
+            tmpHtml += response + "</a> </div><br>";
+            CKEDITOR.instances[currTextarea].insertHtml(tmpHtml);
+        }
+    });
+
+    CKEDITOR.on("instanceReady", function(event)
+    {
+        $('div.cke').on("click", function() {
+            currTextarea = $(this).prop("id");
+            currTextarea = currTextarea.substr(4);
+        });
+    });
+
+    //----------------------------- Attribute Price ---------------//
+    let attributes = [];
+    let attributeGroup = [];
+    let attributePrice = [];
+    @if(old('attribute_price'))
+        attributePrice = JSON.parse("{!! old('attribute_price') !!}");
+    @endif
+
+    function readAttributeGroup() {
+        attributeGroup = [];
+        $("#attribute-container table").each(function(idx, table) {
+            attributeGroup[$(table).data("groupid")] = $(table).data("group");
+        });
+    }
+
+    // read product attribute values
+    function readAttributes() {
+        attributes = [];
+        $("#attribute-container table").each(function(idx, table) {
+            let groupId = $(table).data("groupid");
+            if ($(table).find("input").length > 0) {
+                let attributeVals = [];
+                $(table).find("input").each(function(id, item) {
+                    attributeVals.push({id: $(item).closest('tr').prop('id'), val: $(item).val()});
+                });
+                attributes.push({groupId, attributeVals});
+            }
+        });
+        loadPriceItems();
+    }
+
+    // load price Items
+    function loadPriceItems() {
+        let groupContainer = "";
+        if (attributes.length > 2)  {
+            for (let i = 2; i < attributes.length; i++) {
+                groupContainer += "<label>" + attributeGroup[attributes[i]["groupId"]] + " :</label>";
+                groupContainer += '<select class="form-control">';
+                attributes[i]["attributeVals"].forEach(function(attribute) {
+                    groupContainer += '<option value="' + attribute.id + '">' + attribute.val + '</option>';
+                });
+                groupContainer += '</select>';
+            }
+        }
+        
+        $("#attribute-price-group-container").html(groupContainer);
+
+        updatePriceTable();
+    }
+
+    // load price table from prices
+    function updatePriceTable() {
+        let tableHtml = "";
+        let tableLabel = "";
+
+        if (attributes.length == 0) {
+            attributePrice = [];
+        } else if (attributes.length == 1) {
+            for (let i = 0 ; i < 2; i ++) {
+                tableHtml += "<tr>";
+                attributes[0]["attributeVals"].forEach(function(attribute) {
+                    if (i == 0) {
+                        tableHtml += '<td class="attribute-cell">' + attribute.val + '</td>';
+                    } else {
+                        tableHtml += "<td>" + 0 + "</td>";
+                    }
+                });
+                tableHtml += "</tr>";
+            }
+            tableLabel = attributeGroup[attributes[0]["groupId"]];
+        } else {
+            for (let i = -1 ; i < attributes[1]["attributeVals"].length; i++) {
+                tableHtml += "<tr>";
+                for (let k = -1 ; k < attributes[0]["attributeVals"].length; k++) {
+                    // first cell : (0,0)
+                    if (i == -1 && k == -1) {
+                        tableHtml += "<td>#</td>";
+                        continue;
+                    }
+
+                    // first row : (0, *)
+                    if (i == -1) {
+                        tableHtml += '<td class="attribute-cell">' + attributes[0]["attributeVals"][k].val + "</td>";
+                        continue;
+                    }
+
+                    // first column : (*, 0)
+                    if (k == -1) {
+                        tableHtml += '<td class="attribute-cell small-cell">' + attributes[1]["attributeVals"][i].val + "</td>";
+                        continue;
+                    }
+                    tableHtml += "<td>" + 0 + "</td>";
+                }
+                tableHtml += "</tr>";
+            }
+            
+            tableLabel = attributeGroup[attributes[0]["groupId"]] + "<strong> : </strong>" + attributeGroup[attributes[1]["groupId"]];
+            
+        }
+        $("#attribute-price-table-label").html(tableLabel);
+        $("#attribute-price-table").html(tableHtml);
+    }
+
+    //----------------------------- Attribute Price ---------------//
 </script>
-
 @endpush

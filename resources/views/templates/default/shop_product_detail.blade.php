@@ -178,6 +178,9 @@
                   <li class="nav-item">
                       <a class="nav-link" href="#tab-specification" data-toggle="tab">{{ trans('product.specification') }}</a>
                   </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#tab-case_study" data-toggle="tab">{{ trans('product.case_study') }}</a>
+                  </li>
               </ul>
               <!-- <div>
                 <ul class="nav nav-tabs">
@@ -190,6 +193,9 @@
                 </div>
                 <div class="tab-pane fade" id="tab-specification" >
                   {!! sc_html_render($product->specification) !!}
+                </div>
+                <div class="tab-pane fade" id="tab-case_study" >
+                  {!! sc_html_render($product->case_study) !!}
                 </div>
               </div>
             </div><!--/category-tab-->
