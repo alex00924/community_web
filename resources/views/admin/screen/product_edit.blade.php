@@ -1022,7 +1022,7 @@ CKEDITOR.on("instanceReady", function(event)
 
     @if(old('attribute_price'))
         orgAttributePrice = JSON.parse('{!! old('attribute_price') !!}');
-    @else
+    @elseif($product->attribute_price)
         orgAttributePrice = JSON.parse('{!! $product->attribute_price !!}');
     @endif
 
@@ -1194,7 +1194,7 @@ CKEDITOR.on("instanceReady", function(event)
                 if (!attributeVal) {
                     delete attributePrice[key];
                 }
-                newKey += attributeGroup[arrId[0]] + "___" + attributeVal;
+                newKey += arrId[0] + "___" + attributeVal;
             });
             arrPrices[newKey] = price;
         }
@@ -1214,28 +1214,24 @@ CKEDITOR.on("instanceReady", function(event)
 
                 let arrId = ids.split("___");
                 
-                let groupId = getGroupId(arrId[0]);
-                if (groupId  == 0) {
-                    return;
-                }
-                let attributeId = getAttributeId(groupId, arrId[1]);
+                let attributeId = getAttributeId(arrId[0], arrId[1]);
                 if (attributeId == 0) {
                     return;
                 }
-                newKey += groupId + "___" + attributeId;
+                newKey += arrId[0] + "___" + attributeId;
             });
             attributePrice[newKey] = price;
         }
     }
 
-    function getGroupId(group) {
-        for (const [id, name] of Object.entries(attributeGroup)) {
-            if (name == group) {
-                return id;
-            }
-        }
-        return 0;
-    }
+    // function getGroupId(group) {
+    //     for (const [id, name] of Object.entries(attributeGroup)) {
+    //         if (name == group) {
+    //             return id;
+    //         }
+    //     }
+    //     return 0;
+    // }
     
     function getAttributeId(groupId, val) {
         for (let i = 0 ; i < attributes.length; i ++) {
