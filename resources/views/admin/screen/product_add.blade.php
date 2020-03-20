@@ -992,7 +992,7 @@
     //----------------------------- Attribute Price ---------------//
     let attributes = [];
     let attributeGroup = [];
-    let attributePrice = []; // [{groupdID___valueID---groupID___valueID : Price}]
+    let attributePrice = {}; // [{groupdID___valueID---groupID___valueID : Price}]
 
     @if(old('attribute_price'))
         attributePrice = JSON.parse("{!! old('attribute_price') !!}");
@@ -1058,7 +1058,7 @@
         let price = 0;
 
         if (attributes.length == 0) {
-            attributePrice = [];
+            attributePrice = {};
         } else if (attributes.length == 1) {
             for (let i = 0 ; i < 2; i ++) {
                 tableHtml += "<tr>";
@@ -1149,7 +1149,7 @@
     });
 
     function updateFormAttributePrice() {
-        let arrPrices = [];
+        let arrPrices = {};
         for (const [key, price] of Object.entries(attributePrice)) {
             let newKey = "";
             let arrIDs = key.split("---");

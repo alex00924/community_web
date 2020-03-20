@@ -437,6 +437,7 @@ class ShopProductController extends Controller
             'image' => $data['image']??'',
             'status' => (!empty($data['status']) ? 1 : 0),
             'sort' => (int) $data['sort'],
+            'attribute_price' => !empty($data['attribute_price']) ? $data['attribute_price'] : null
         ];
         //insert product
         $product = ShopProduct::create($dataInsert);
@@ -693,6 +694,7 @@ class ShopProductController extends Controller
             'alias' => $data['alias'],
             'status' => (!empty($data['status']) ? 1 : 0),
             'sort' => (int) $data['sort'],
+            'attribute_price' => !empty($data['attribute_price']) ? $data['attribute_price'] : null
         ];
 
         $product->update($dataUpdate);
