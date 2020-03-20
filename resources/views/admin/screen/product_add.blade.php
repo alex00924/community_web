@@ -921,7 +921,7 @@
     $(document).ready(function() {
         $('.select2').select2();
         readAttributeGroup();
-        readAttributes();
+        readAttributes(true);
     });
     // image
     // with plugin options
@@ -991,22 +991,23 @@
 
     //----------------------------- Attribute Price ---------------//
     let attributes = [];
-    let attributeGroup = [];
+    let attributeGroup = {};
     let attributePrice = {}; // [{groupdID___valueID---groupID___valueID : Price}]
+    let orgAttributePrice = {};
 
     @if(old('attribute_price'))
-        attributePrice = JSON.parse("{!! old('attribute_price') !!}");
+        orgAttributePrice = JSON.parse('{!! old('attribute_price') !!}');
     @endif
 
     function readAttributeGroup() {
-        attributeGroup = [];
+        attributeGroup = {};
         $("#attribute-container table").each(function(idx, table) {
             attributeGroup[$(table).data("groupid")] = $(table).data("group");
         });
     }
 
     // read product attribute values
-    function readAttributes() {
+    function readAttributes(isConvert = false) {
         attributes = [];
         $("#attribute-container table").each(function(idx, table) {
             let groupId = $(table).data("groupid");
@@ -1018,6 +1019,9 @@
                 attributes.push({groupId, attributeVals});
             }
         });
+        if (isConvert) {
+            convertPriceStyle();
+        }
         loadPriceItems();
     }
 
@@ -1169,6 +1173,56 @@
         }
         console.log(arrPrices);
         $("#attribute_price").val(JSON.stringify(arrPrices));
+    }
+
+    function convertPriceStyle() {
+        
+        for (const [key, price] of Object.entries(orgAttributePrice)) {
+            let newKey = "";
+            let arrIDs = key.split("---");
+            arrIDs.forEach(function(ids) {
+                if (newKey) {
+                    newKey += "---";
+                }
+
+                let arrId = ids.split("___");
+                
+                let groupId = getGroupId(arrId[0]);
+                if (groupId  == 0) {
+                    return;
+                }
+                let attributeId = getAttributeId(groupId, arrId[1]);
+                if (attributeId == 0) {
+                    return;
+                }
+                newKey += groupId + "___" + attributeId;
+            });
+            attributePrice[newKey] = price;
+        }
+    }
+
+    function getGroupId(group) {
+        for (const [id, name] of Object.entries(attributeGroup)) {
+            if (name == group) {
+                return id;
+            }
+        }
+        return 0;
+    }
+    
+    function getAttributeId(groupId, val) {
+        for (let i = 0 ; i < attributes.length; i ++) {
+            if (attributes[i].groupId != groupId) {
+                continue;
+            }
+
+            for (let k = 0 ; k < attributes[i]["attributeVals"].length; k++) {
+                if (attributes[i]["attributeVals"][k].val == val) {
+                    return attributes[i]["attributeVals"][k].id;
+                }
+            }
+        }
+        return 0;
     }
 
     function getAttributeValue(groupId, id) {

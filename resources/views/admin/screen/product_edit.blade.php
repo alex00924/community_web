@@ -9,6 +9,15 @@
     .select-product {
         margin: 10px 0;
     }
+    .attribute-cell {
+        background: #337ab7;
+        color: white;
+        height: 30px;
+        padding: 1rem;
+    }
+    .attribute-cell.small-cell {
+        width: 150px;
+    }
 </style>
 <div class="row">
     <div class="col-md-12">
@@ -736,15 +745,8 @@
                         <hr>
                         @if (!empty($attributeGroup))
                         <div class="form-group">
-                            <label class="col-sm-2 control-label"></label>
-                            <div class="col-sm-8">
-                                <label>{{ trans('product.attribute') }}</label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-2">{{ trans('product.attribute') }}</div>
+                            <div class="col-sm-8" id="attribute-container">
 
                                 @php
                                 $dataAtt = [];
@@ -763,8 +765,12 @@
                                 }
                                 @endphp
 
+                                @php
+                                    $attributeID = 1;
+                                @endphp
+
                                 @foreach ($attributeGroup as $attGroupId => $attName)
-                                    <table style="width: 100%; margin-bottom: 10px">
+                                    <table style="width: 100%; margin-bottom: 10px" data-groupid="{{ $attGroupId }}" data-group="{{ $attName }}">
                                         <tr>
                                             <td colspan="2"><b>{{ $attName }}:</b><br></td>
                                         </tr>
@@ -774,6 +780,8 @@
                                                 @php
                                                 $newHtml = str_replace('attribute_group', $attGroupId, $htmlProductAtrribute);
                                                 $newHtml = str_replace('attribute_value', $attValue, $newHtml);
+                                                $newHtml = str_replace('attribute_idx', $attributeID, $newHtml);
+                                                $attributeID++;
                                                 @endphp
                                                 {!! $newHtml !!}
                                             @endif
@@ -789,6 +797,23 @@
                                         </tr>
                                     </table>
                                 @endforeach
+                            </div>
+                        </div>
+
+                        <div class="form-group kind kind0">
+                            <div class="col-sm-2">
+                                <label>{{ trans('product.price') }}</label>
+                            </div>
+                            <div class="col-sm-8" id="attribute-price-container">
+                                <div id="attribute-price-group-container">
+                                </div>
+                                <br>
+                                <label id="attribute-price-table-label"></label>
+                                <table class="table table-bordered table-hover" id="attribute-price-table">
+                                    <tbody id="attribute-price-table-body">
+                                    </tbody>
+                                </table>
+                                <input id="attribute_price" name="attribute_price" type="hidden" value="{!! old('attribute_price') !!}">
                             </div>
                         </div>
                         @endif
@@ -854,11 +879,15 @@
 {{-- switch --}}
 <script src="{{ asset('admin/plugin/bootstrap-switch.min.js')}}"></script>
 
+{{-- Inline Edit --}}
+<script src="{{ asset('SimpleTableCellEditor/SimpleTableCellEditor.es6.min.js')}}"></script>
+
 <script type="text/javascript">
     $("[name='top'],[name='status']").bootstrapSwitch();
 </script>
 
 <script type="text/javascript">
+let attributeID = {!! $attributeID !!};
     // Promotion
 $('#add_product_promotion').click(function(event) {
     $(this).before('<div class="price_promotion"><div class="input-group"><span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span><input type="number" style="width: 100px;"  id="price_promotion" name="price_promotion" value="0" class="form-control input-sm price" placeholder="" /><span title="Remove" class="btn btn-flat btn-sm btn-danger removePromotion"><i class="fa fa-times"></i></span></div><div class="form-inline"><div class="input-group">{{ trans('product.price_promotion_start') }}<br><div class="input-group"><span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span><input type="text" style="width: 100px;"  id="price_promotion_start" name="price_promotion_start" value="" class="form-control input-sm price_promotion_start date_time" placeholder="" /></div></div><div class="input-group">{{ trans('product.price_promotion_end') }}<br><div class="input-group"><span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span><input type="text" style="width: 100px;"  id="price_promotion_end" name="price_promotion_end" value="" class="form-control input-sm price_promotion_end date_time" placeholder="" /></div></div></div></div>');
@@ -928,18 +957,25 @@ $('.add-attribute').click(function(event) {
     var attGroup = $(this).attr("data-id");
     htmlProductAtrribute = htmlProductAtrribute.replace(/attribute_group/g, attGroup);
     htmlProductAtrribute = htmlProductAtrribute.replace("attribute_value", "");
+    htmlProductAtrribute = htmlProductAtrribute.replace("attribute_idx", attributeID);
+    attributeID++;
     $(this).closest('tr').before(htmlProductAtrribute);
+    readAttributes();
     $('.removeAttribute').click(function(event) {
         $(this).closest('tr').remove();
+        readAttributes();
     });
 });
 $('.removeAttribute').click(function(event) {
     $(this).closest('tr').remove();
+    readAttributes();
 });
 //end select attributes
 
 $(document).ready(function() {
     $('.select2').select2()
+    readAttributeGroup();
+    readAttributes(true);
 });
 
 //Date picker
@@ -977,6 +1013,261 @@ CKEDITOR.on("instanceReady", function(event)
     });
 });
 
+
+    //----------------------------- Attribute Price ---------------//
+    let attributes = [];
+    let attributeGroup = {};
+    let attributePrice = {}; // [{groupdID___valueID---groupID___valueID : Price}]
+    let orgAttributePrice = {};
+
+    @if(old('attribute_price'))
+        orgAttributePrice = JSON.parse('{!! old('attribute_price') !!}');
+    @else
+        orgAttributePrice = JSON.parse('{!! $product->attribute_price !!}');
+    @endif
+
+    function readAttributeGroup() {
+        attributeGroup = {};
+        $("#attribute-container table").each(function(idx, table) {
+            attributeGroup[$(table).data("groupid")] = $(table).data("group");
+        });
+    }
+
+    // read product attribute values
+    function readAttributes(isConvert = false) {
+        attributes = [];
+        $("#attribute-container table").each(function(idx, table) {
+            let groupId = $(table).data("groupid");
+            if ($(table).find("input").length > 0) {
+                let attributeVals = [];
+                $(table).find("input").each(function(id, item) {
+                    attributeVals.push({id: $(item).closest('tr').prop('id'), val: $(item).val()});
+                });
+                attributes.push({groupId, attributeVals});
+            }
+        });
+        if (isConvert) {
+            convertPriceStyle();
+        }
+        loadPriceItems();
+    }
+
+    // remove attribute prices, length of whom is not valid attribute group count.
+    function filterAttributePrice() {
+        for (const [key, value] of Object.entries(attributePrice)) {
+            if (key.split("---").length != attributes.length) {
+                delete attributePrice[key];
+            }
+        }
+    }
+
+    // load price Items
+    function loadPriceItems() {
+        let groupContainer = "";
+        if (attributes.length > 2)  {
+            for (let i = 2; i < attributes.length; i++) {
+                groupContainer += "<label>" + attributeGroup[attributes[i]["groupId"]] + " :</label>";
+                groupContainer += '<select class="form-control" onchange="updatePriceTable()">';
+                attributes[i]["attributeVals"].forEach(function(attribute) {
+                    groupContainer += '<option value="' + attribute.id + '">' + attribute.val + '</option>';
+                });
+                groupContainer += '</select>';
+            }
+        }
+        
+        $("#attribute-price-group-container").html(groupContainer);
+
+        updatePriceTable();
+        filterAttributePrice();
+        updateFormAttributePrice();
+    }
+
+    // load price table from prices
+    function updatePriceTable() {
+        let tableHtml = "";
+        let tableLabel = "";
+        let price = 0;
+
+        if (attributes.length == 0) {
+            attributePrice = {};
+        } else if (attributes.length == 1) {
+            for (let i = 0 ; i < 2; i ++) {
+                tableHtml += "<tr>";
+                attributes[0]["attributeVals"].forEach(function(attribute) {
+                    if (i == 0) {
+                        tableHtml += '<td class="attribute-cell">' + attribute.val + '</td>';
+                    } else {
+                        price = attributePrice[attributes[0].groupId + "___" + attribute.id];
+                        price = price ? price : "";
+                        tableHtml += '<td class="editable" data-ids="' + attribute.id + '">' + price + "</td>";
+                    }
+                });
+                tableHtml += "</tr>";
+            }
+            tableLabel = attributeGroup[attributes[0]["groupId"]];
+        } else {
+            for (let i = -1 ; i < attributes[1]["attributeVals"].length; i++) {
+                tableHtml += "<tr>";
+                for (let k = -1 ; k < attributes[0]["attributeVals"].length; k++) {
+                    // first cell : (0,0)
+                    if (i == -1 && k == -1) {
+                        tableHtml += "<td>#</td>";
+                        continue;
+                    }
+
+                    // first row : (0, *)
+                    if (i == -1) {
+                        tableHtml += '<td class="attribute-cell">' + attributes[0]["attributeVals"][k].val + "</td>";
+                        continue;
+                    }
+
+                    // first column : (*, 0)
+                    if (k == -1) {
+                        tableHtml += '<td class="attribute-cell small-cell">' + attributes[1]["attributeVals"][i].val + "</td>";
+                        continue;
+                    }
+                    let dataID = attributes[0]["attributeVals"][k].id + "_" + attributes[1]["attributeVals"][i].id;
+                    let priceKey = attributes[0].groupId + "___" + attributes[0]["attributeVals"][k].id + "---" + attributes[1].groupId + "___" + attributes[1]["attributeVals"][i].id;
+                    if (attributes.length > 2) {
+                        $("#attribute-price-group-container select").each(function(idx, select) {
+                            priceKey += "---" + attributes[2 + idx].groupId + "___" + $(select).children("option:selected").val();
+                        });
+                    }
+                    price = attributePrice[priceKey];
+                    price = price ? price : "";
+                    tableHtml += '<td class="editable" data-ids="' + dataID + '">' + price + "</td>";
+                }
+                tableHtml += "</tr>";
+            }
+            
+            tableLabel = attributeGroup[attributes[0]["groupId"]] + "<strong> : </strong>" + attributeGroup[attributes[1]["groupId"]];
+            
+        }
+        $("#attribute-price-table-label").html(tableLabel);
+        $("#attribute-price-table-body").html(tableHtml);
+    }
+
+
+    // Inline Edit for table
+    let simpleEditor = new SimpleTableCellEditor("attribute-price-table");
+    simpleEditor.SetEditableClass("editable");
+
+    $('#attribute-price-table').on("cell:edited", function (event) {
+        let dataId = $(event.element).data("ids");
+        console.log(dataId);
+        let key = "";
+        let newVal = Number.parseInt(event.newValue);
+        if (attributes.length < 1) {
+            return;
+        }
+
+        if (attributes.length == 1) {
+            key = attributes[0].groupId + "___" + dataId;
+            attributePrice[key] = newVal;
+        } else {
+            let dataIds = dataId.split("_");
+            key = attributes[0].groupId + "___" + dataIds[0] + "---" + attributes[1].groupId + "___" + dataIds[1];
+            if (attributes.length > 2) {
+                $("#attribute-price-group-container select").each(function(idx, select) {
+                    key += "---" + attributes[2 + idx].groupId + "___" + $(select).children("option:selected").val();
+                });
+            }
+            attributePrice[key] = newVal;
+        }
+        console.log(key);
+        console.log(attributePrice);
+        updateFormAttributePrice();
+    });
+
+    function updateFormAttributePrice() {
+        let arrPrices = {};
+        for (const [key, price] of Object.entries(attributePrice)) {
+            let newKey = "";
+            let arrIDs = key.split("---");
+            arrIDs.forEach(function(ids) {
+                if (newKey) {
+                    newKey += "---";
+                }
+
+                let arrId = ids.split("___");
+                let attributeVal = getAttributeValue(arrId[0], arrId[1]);
+                if (!attributeVal) {
+                    delete attributePrice[key];
+                }
+                newKey += attributeGroup[arrId[0]] + "___" + attributeVal;
+            });
+            arrPrices[newKey] = price;
+        }
+        console.log(arrPrices);
+        $("#attribute_price").val(JSON.stringify(arrPrices));
+    }
+
+    function convertPriceStyle() {
+        
+        for (const [key, price] of Object.entries(orgAttributePrice)) {
+            let newKey = "";
+            let arrIDs = key.split("---");
+            arrIDs.forEach(function(ids) {
+                if (newKey) {
+                    newKey += "---";
+                }
+
+                let arrId = ids.split("___");
+                
+                let groupId = getGroupId(arrId[0]);
+                if (groupId  == 0) {
+                    return;
+                }
+                let attributeId = getAttributeId(groupId, arrId[1]);
+                if (attributeId == 0) {
+                    return;
+                }
+                newKey += groupId + "___" + attributeId;
+            });
+            attributePrice[newKey] = price;
+        }
+    }
+
+    function getGroupId(group) {
+        for (const [id, name] of Object.entries(attributeGroup)) {
+            if (name == group) {
+                return id;
+            }
+        }
+        return 0;
+    }
+    
+    function getAttributeId(groupId, val) {
+        for (let i = 0 ; i < attributes.length; i ++) {
+            if (attributes[i].groupId != groupId) {
+                continue;
+            }
+
+            for (let k = 0 ; k < attributes[i]["attributeVals"].length; k++) {
+                if (attributes[i]["attributeVals"][k].val == val) {
+                    return attributes[i]["attributeVals"][k].id;
+                }
+            }
+        }
+        return 0;
+    }
+
+    function getAttributeValue(groupId, id) {
+        for (let i = 0 ; i < attributes.length; i ++) {
+            if (attributes[i].groupId != groupId) {
+                continue;
+            }
+
+            for (let k = 0 ; k < attributes[i]["attributeVals"].length; k++) {
+                if (attributes[i]["attributeVals"][k].id == id) {
+                    return attributes[i]["attributeVals"][k].val;
+                }
+            }
+        }
+        return "";
+    }
+
+    //----------------------------- Attribute Price ---------------//
 </script>
 
 @endpush
