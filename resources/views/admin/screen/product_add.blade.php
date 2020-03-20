@@ -757,8 +757,8 @@
                                 </div>
                                 <br>
                                 <label id="attribute-price-table-label"></label>
-                                <table class="table table-bordered table-hover">
-                                    <tbody id="attribute-price-table">
+                                <table class="table table-bordered table-hover" id="attribute-price-table">
+                                    <tbody id="attribute-price-table-body">
                                     </tbody>
                                 </table>
                                 <input id="attribute_price" name="attribute_price" type="hidden" value="{!! old('attribute_price') !!}">
@@ -825,6 +825,8 @@
 {{-- switch --}}
 <script src="{{ asset('admin/plugin/bootstrap-switch.min.js')}}"></script>
 
+{{-- Inline Edit --}}
+<script src="{{ asset('SimpleTableCellEditor/SimpleTableCellEditor.es6.min.js')}}"></script>
 
 <script type="text/javascript">
     $("[name='top'],[name='status']").bootstrapSwitch();
@@ -990,7 +992,8 @@
     //----------------------------- Attribute Price ---------------//
     let attributes = [];
     let attributeGroup = [];
-    let attributePrice = [];
+    let attributePrice = []; // [{groupdID___valueID---groupID___valueID : Price}]
+
     @if(old('attribute_price'))
         attributePrice = JSON.parse("{!! old('attribute_price') !!}");
     @endif
@@ -1018,13 +1021,22 @@
         loadPriceItems();
     }
 
+    // remove attribute prices, length of whom is not valid attribute group count.
+    function filterAttributePrice() {
+        for (const [key, value] of Object.entries(attributePrice)) {
+            if (key.split("---").length != attributes.length) {
+                delete attributePrice[key];
+            }
+        }
+    }
+
     // load price Items
     function loadPriceItems() {
         let groupContainer = "";
         if (attributes.length > 2)  {
             for (let i = 2; i < attributes.length; i++) {
                 groupContainer += "<label>" + attributeGroup[attributes[i]["groupId"]] + " :</label>";
-                groupContainer += '<select class="form-control">';
+                groupContainer += '<select class="form-control" onchange="updatePriceTable()">';
                 attributes[i]["attributeVals"].forEach(function(attribute) {
                     groupContainer += '<option value="' + attribute.id + '">' + attribute.val + '</option>';
                 });
@@ -1035,12 +1047,15 @@
         $("#attribute-price-group-container").html(groupContainer);
 
         updatePriceTable();
+        filterAttributePrice();
+        updateFormAttributePrice();
     }
 
     // load price table from prices
     function updatePriceTable() {
         let tableHtml = "";
         let tableLabel = "";
+        let price = 0;
 
         if (attributes.length == 0) {
             attributePrice = [];
@@ -1051,7 +1066,9 @@
                     if (i == 0) {
                         tableHtml += '<td class="attribute-cell">' + attribute.val + '</td>';
                     } else {
-                        tableHtml += "<td>" + 0 + "</td>";
+                        price = attributePrice[attributes[0].groupId + "___" + attribute.id];
+                        price = price ? price : "";
+                        tableHtml += '<td class="editable" data-ids="' + attribute.id + '">' + price + "</td>";
                     }
                 });
                 tableHtml += "</tr>";
@@ -1078,7 +1095,16 @@
                         tableHtml += '<td class="attribute-cell small-cell">' + attributes[1]["attributeVals"][i].val + "</td>";
                         continue;
                     }
-                    tableHtml += "<td>" + 0 + "</td>";
+                    let dataID = attributes[0]["attributeVals"][k].id + "_" + attributes[1]["attributeVals"][i].id;
+                    let priceKey = attributes[0].groupId + "___" + attributes[0]["attributeVals"][k].id + "---" + attributes[1].groupId + "___" + attributes[1]["attributeVals"][i].id;
+                    if (attributes.length > 2) {
+                        $("#attribute-price-group-container select").each(function(idx, select) {
+                            priceKey += "---" + attributes[2 + idx].groupId + "___" + $(select).children("option:selected").val();
+                        });
+                    }
+                    price = attributePrice[priceKey];
+                    price = price ? price : "";
+                    tableHtml += '<td class="editable" data-ids="' + dataID + '">' + price + "</td>";
                 }
                 tableHtml += "</tr>";
             }
@@ -1087,7 +1113,77 @@
             
         }
         $("#attribute-price-table-label").html(tableLabel);
-        $("#attribute-price-table").html(tableHtml);
+        $("#attribute-price-table-body").html(tableHtml);
+    }
+
+
+    // Inline Edit for table
+    let simpleEditor = new SimpleTableCellEditor("attribute-price-table");
+    simpleEditor.SetEditableClass("editable");
+
+    $('#attribute-price-table').on("cell:edited", function (event) {
+        let dataId = $(event.element).data("ids");
+        console.log(dataId);
+        let key = "";
+        let newVal = Number.parseInt(event.newValue);
+        if (attributes.length < 1) {
+            return;
+        }
+
+        if (attributes.length == 1) {
+            key = attributes[0].groupId + "___" + dataId;
+            attributePrice[key] = newVal;
+        } else {
+            let dataIds = dataId.split("_");
+            key = attributes[0].groupId + "___" + dataIds[0] + "---" + attributes[1].groupId + "___" + dataIds[1];
+            if (attributes.length > 2) {
+                $("#attribute-price-group-container select").each(function(idx, select) {
+                    key += "---" + attributes[2 + idx].groupId + "___" + $(select).children("option:selected").val();
+                });
+            }
+            attributePrice[key] = newVal;
+        }
+        console.log(key);
+        console.log(attributePrice);
+        updateFormAttributePrice();
+    });
+
+    function updateFormAttributePrice() {
+        let arrPrices = [];
+        for (const [key, price] of Object.entries(attributePrice)) {
+            let newKey = "";
+            let arrIDs = key.split("---");
+            arrIDs.forEach(function(ids) {
+                if (newKey) {
+                    newKey += "---";
+                }
+
+                let arrId = ids.split("___");
+                let attributeVal = getAttributeValue(arrId[0], arrId[1]);
+                if (!attributeVal) {
+                    delete attributePrice[key];
+                }
+                newKey += attributeGroup[arrId[0]] + "___" + attributeVal;
+            });
+            arrPrices[newKey] = price;
+        }
+        console.log(arrPrices);
+        $("#attribute_price").val(JSON.stringify(arrPrices));
+    }
+
+    function getAttributeValue(groupId, id) {
+        for (let i = 0 ; i < attributes.length; i ++) {
+            if (attributes[i].groupId != groupId) {
+                continue;
+            }
+
+            for (let k = 0 ; k < attributes[i]["attributeVals"].length; k++) {
+                if (attributes[i]["attributeVals"][k].id == id) {
+                    return attributes[i]["attributeVals"][k].val;
+                }
+            }
+        }
+        return "";
     }
 
     //----------------------------- Attribute Price ---------------//
