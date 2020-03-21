@@ -46,7 +46,9 @@
 {{-- //end Process attributes --}}
             <a href="{{$product->getUrl() }}"><img width="100" src="{{asset($product->getImage())}}" alt=""></a>
         </td>
-        <td>{!! $product->showPrice() !!}</td>
+        <td>
+            <span class="sc-new-price">{!! sc_currency_render($item->price) !!}</span>
+        </td>
         <td>{{$item->qty}}</td>
         <td align="right">{{sc_currency_render($item->subtotal)}}</td>
     </tr>

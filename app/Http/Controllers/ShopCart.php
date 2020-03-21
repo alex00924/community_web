@@ -271,11 +271,12 @@ class ShopCart extends GeneralController
                 'id' => $product_id,
                 'name' => $product->sku,
                 'qty' => $qty,
-                'price' => $product->getFinalPrice(),
+                'price' => $product->getFinalPrice($options),
             );
             if ($options) {
                 $dataCart['options'] = $options;
             }
+            
             Cart::add($dataCart);
             return redirect()->route('cart')
                 ->with(

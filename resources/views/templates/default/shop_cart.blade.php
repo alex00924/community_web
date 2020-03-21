@@ -48,7 +48,9 @@
 {{-- //end Process attributes --}}
             <a href="{{$product->getUrl() }}"><img width="100" src="{{asset($product->getImage())}}" alt=""></a>
         </td>
-        <td>{!! $product->showPrice() !!}</td>
+        <td>
+            <span class="sc-new-price">{!! sc_currency_render($item->price) !!}</span>
+        </td>
         <td><input style="width: 70px;" type="number" data-id="{{ $item->id }}" data-rowid="{{$item->rowId}}" onChange="updateCart($(this));" class="item-qty" name="qty-{{$item->id}}" value="{{$item->qty}}"><span class="text-danger item-qty-{{$item->id}}" style="display: none;"></span></td>
         <td align="right">{{sc_currency_render($item->subtotal)}}</td>
         <td>

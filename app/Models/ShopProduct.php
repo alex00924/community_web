@@ -115,8 +115,22 @@ List product single
 /*
 Get final price
  */
-    public function getFinalPrice()
+    public function getFinalPrice($options = null)
     {
+        if (!empty($options)) {
+            $keyString = "";
+            foreach($options as $groupId => $attribute) {
+                if (!empty($keyString)) {
+                    $keyString .= "---";
+                }
+                $keyString .= $groupId . "___" . $attribute;
+            }
+            $attributePrices = json_decode($this->attribute_price, true);
+            if(isset($attributePrices[$keyString])) {
+                return $attributePrices[$keyString];
+            }
+            
+        }
         $promotion = $this->processPromotionPrice();
         if ($promotion != -1) {
             return $promotion;
