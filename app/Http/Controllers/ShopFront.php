@@ -207,7 +207,7 @@ class ShopFront extends GeneralController
         $id = request('id') ?? 0;
         $product = (new ShopProduct)->getProduct($id);
         $product['showPrice'] = $product->showPrice();
-        $product['brand_name'] = $product->brand->name;
+        $product['brand_name'] = !empty($product->brand) ? $product->brand->name : "";
         $showImages = '
         <div class="carousel-inner">
         <div class="view-product item active"  data-slide-number="0">

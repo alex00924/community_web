@@ -738,6 +738,9 @@
                         @endif
 @endif
 
+@php
+    $attributeID = 1;
+@endphp
 
 @if (sc_config('product_attribute'))
                     @if ($product->kind == SC_PRODUCT_SINGLE)
@@ -763,10 +766,6 @@
                                         }
                                     }
                                 }
-                                @endphp
-
-                                @php
-                                    $attributeID = 1;
                                 @endphp
 
                                 @foreach ($attributeGroup as $attGroupId => $attName)

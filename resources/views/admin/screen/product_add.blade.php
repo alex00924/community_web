@@ -702,6 +702,9 @@
                         {{-- //end List product build --}}
 @endif
 
+@php
+    $attributeID = 1;
+@endphp
 
 @if (sc_config('product_attribute'))
                         {{-- List product attributes --}}
@@ -712,9 +715,6 @@
                                 <label>{{ trans('product.attribute') }}</label>
                             </div>
                             <div class="col-sm-8" id="attribute-container">
-                                @php
-                                    $attributeID = 1;
-                                @endphp
                                 @foreach ($attributeGroup as $attGroupId => $attName)
                                 <table style="width: 100%; margin-bottom: 10px;" data-groupid="{{ $attGroupId }}" data-group="{{ $attName }}">
                                     <tr>
