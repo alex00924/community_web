@@ -246,6 +246,44 @@
 
 @push('scripts')
 <script type="text/javascript">
+  let attributePrice = '{!! $product->attribute_price !!}';
+  let currency = '{!! sc_currency_render(0) !!}';
+  let orgPrice;
+  currency = currency.substr(0, currency.length-1);
+
+  $(document).ready(function() {
+    initAttributePrice();
+  });
+
+  function initAttributePrice() {
+    orgPrice = $("#product-detail-price span").html();
+
+    if (attributePrice) {
+      attributePrice = JSON.parse(attributePrice);
+    }
+
+    $(".product-attribute-item").change(function(event) {
+      let formArray = $("#buy_block").serializeArray();
+      let attributePriceKey = "";
+      let attributeName = "form_attr";
+      let groupId = "";
+
+      for(let i = 3; i < formArray.length; i ++) {
+        if (attributePriceKey) {
+          attributePriceKey += "---";
+        }
+        groupId = formArray[i].name.substr(attributeName.length + 1, formArray[i].name.length-attributeName.length-2);
+        attributePriceKey += groupId + "___" + formArray[i].value;
+      }
+      if (attributePrice[attributePriceKey]) {
+        $("#product-detail-price span").html(currency + attributePrice[attributePriceKey]);
+      } else {
+        $("#product-detail-price span").html(orgPrice);
+      }
+      
+    });
+  }
+  
   $('.sc-product-group').click(function(event) {
     if($(this).hasClass('active')){
       return;
@@ -270,9 +308,15 @@
             $('#product-detail-brand').html(data.brand_name);
             $('#product-detail-image').html(data.showImages);
             $('#product-detail-available').html(data.availability);
+            $("#product-detail-attr").html(data.attribute);
+            $("#tab-general").html(data.content);
+            $("#tab-specification").html(data.specification);
+            $("#tab-case_study").html(data.case_study);
             $('#product-detail-id').val(data.id);
             $('#product-detail-image').carousel();
             $('#loading').hide();
+            attributePrice = data.attribute_price;
+            initAttributePrice();
             window.history.pushState("", "", data.url);            
           }
       });

@@ -496,13 +496,13 @@ Get image
             $html .= '<div><label class="label">' . $groups[$groupId] . ' :</label> <br><div class="content">';
             
             if ($groupTypes[$groupId] == "select") {
-                $html .= '<select class="form-control" name="form_attr[' . $groupId . ']">';
+                $html .= '<select class="form-control product-attribute-item" name="form_attr[' . $groupId . ']">';
             }
             foreach ($detailsGroup as $k => $detail) {
                 if ($groupTypes[$groupId] == "select") {
                     $html .= '<option>' . $detail->name . '</option>';
                 } else {
-                    $html .= '<label class="radio-inline"><input ' . (($k == 0) ? "checked" : "") . ' type="radio" name="form_attr[' . $groupId . ']" value="' . $detail->name . '">' . $detail->name . '</label> ';
+                    $html .= '<label class="radio-inline product-attribute-item"><input ' . (($k == 0) ? "checked" : "") . ' type="radio" name="form_attr[' . $groupId . ']" value="' . $detail->name . '">' . $detail->name . '</label> ';
                 }
             }
             if ($groupTypes[$groupId] == "select") {
