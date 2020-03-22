@@ -1472,18 +1472,20 @@ h2.title {
 
 .breadcrumbs {
   position: relative;
+  margin: 2rem 0;
 }
 
 .breadcrumbs .breadcrumb {
   background:transparent;
   padding-left: 0;
   margin: 5px 15px;
+  font-size: 2rem;
 }
 
 .breadcrumbs .breadcrumb li a {
   background:rgb(14, 140, 228);
   color: #FFFFFF;
-  padding: 3px 7px;
+  padding: 1rem;
 }
 
 .breadcrumbs .breadcrumb li a:after {
@@ -1498,7 +1500,9 @@ h2.title {
   left:63px;*/
 
 }
-
+.breadcrumbs .breadcrumb .active {
+  color: #212529;
+}
 .breadcrumbs .breadcrumb > li + li:before {
   content: " ";
 }
