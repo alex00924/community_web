@@ -622,7 +622,16 @@ Check promotion price
     }
 
     // Get product review mean mark
-    public function getMeanReview() {
-        
+    public function getReviewDetails() {
+        $details = $this->reviews()->get();
+        $meanMark = 0;
+        foreach($details as $key => $review) {
+            $meanMark += $review->mark;
+            $details[$key]["user"] = $review->user;
+        }
+        if (count($details) > 0) {
+            $meanMark /= count($details);
+        }
+        return ["meanMark" => $meanMark, "details" => $details];
     }
 }
