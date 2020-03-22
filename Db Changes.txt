@@ -1,11 +1,18 @@
 DB.
-1. Added attribute_price column for shop_product.
+1. Added attribute_price column for shop_product.   text
     [{a1-a2-a3:p1}, {b1-b2-b3:p2}]
-2. Added specification column for shop_product_description.
+2. Added specification, case_study column for shop_product_description. text
 
-3. Added case_study column for shop_product_description.
+3. Added shop_product_review table
 
-4. Added shop_product_review table
+CREATE TABLE `shop_product_review` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `content` text,
+  `mark` float DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 ***. Offline  
 <!-- @if (\Route::current()->getName() != 'admin_chat')
