@@ -5,7 +5,9 @@ DB.
 
 3. Added case_study column for shop_product_description.
 
-3. Offline  
+4. Added shop_product_review table
+
+***. Offline  
 <!-- @if (\Route::current()->getName() != 'admin_chat')
         @include('admin.component.chat_alert')
         @endif -->

@@ -111,7 +111,10 @@ List product single
     {
         return $this->hasMany(ShopProductAttribute::class, 'product_id', 'id');
     }
-
+    public function reviews()
+    {
+        return $this->hasMany(ShopProductReview::class, 'product_id', 'id');
+    }
 /*
 Get final price
  */
@@ -393,6 +396,7 @@ category_id: array or string
             $product->promotionPrice()->delete();
             $product->groups()->delete();
             $product->attributes()->delete();
+            $product->reviews()->delete();
             $product->builds()->delete();
             $product->categories()->detach();
         });
@@ -615,6 +619,10 @@ Check promotion price
             }
 
         }
+    }
 
+    // Get product review mean mark
+    public function getMeanReview() {
+        
     }
 }

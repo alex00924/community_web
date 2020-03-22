@@ -33,6 +33,10 @@ class ShopUser extends Authenticatable
     {
         return $this->hasMany(ShopOrder::class, 'user_id', 'id');
     }
+    public function reviews()
+    {
+        return $this->hasMany(ShopReview::class, 'user_id', 'id');
+    }
 
     public static function getList()
     {
