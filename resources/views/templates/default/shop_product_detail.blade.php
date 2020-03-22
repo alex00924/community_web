@@ -1,6 +1,6 @@
 @extends($templatePath.'.shop_layout')
 @php
-  echo json_encode($product->getReviewDetails());
+//  echo json_encode($product->getReviewDetails());
 @endphp
 
 @section('center')
