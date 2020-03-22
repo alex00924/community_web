@@ -2,12 +2,6 @@
   position: fixed;
   right: 20px;
   bottom: 0;
-  width: 60px;
-  height: 60px;
-  background: #28b351;
-  padding: 10px;
-  z-index: 2;
-  border-radius: 50%;
   cursor: pointer;
 }
 .unread-count {

@@ -13,7 +13,7 @@
     var chatkitRoom = rooms[0];                                // chatkit room instance  dynamic for selecting user
 </script>
 <div class="chat-icon" onclick="showChatContents()">
-    <img src="/chat/img/chat_icon.png" style="width: 40px; height: 40px;">
+    <img src="/chat/img/chat_icon.png" title="Contact to Support Team">
     <span class="unread-count" id="chat-unread-cnt">0</span>
 </div>
 <div class="chat-container">
