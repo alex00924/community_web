@@ -13,7 +13,7 @@
                   <div class="single-products">
                     <div class="productinfo text-center product-box-{{ $item->id }}">
                       <a href="{{ $item->getUrl() }}"><img src="{{ asset($item->getThumb()) }}" alt="{{ $item->name }}" /></a>
-                      <a href="{{ $item->getUrl() }}"><p>{{ $item->name }}</p></a>
+                      <a href="{{ $item->getUrl() }}"><div class="product-name-container"><p>{{ $item->name }}</p></div></a>
                     </div>
                   </div>
                 </div>
@@ -34,11 +34,8 @@
                 <div class="single-products">
                   <div class="productinfo text-center product-box-{{ $product->id }}">
                     <a href="{{ $product->getUrl() }}"><img src="{{ asset($product->getThumb()) }}" alt="{{ $product->name }}" /></a>
-
-                    {!! $product->showPrice() !!}
-
-                    <a href="{{ $product->getUrl() }}"><p>{{ $product->name }}</p></a>
-
+                    <a href="{{ $product->getUrl() }}"><div class="product-name-container"><p>{{ $product->name }}</p></div></a>
+                    <div class="price">{!! $product->showPrice() !!}</div>
                       @if ($product->allowSale())
                        <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product->id }}','default')">
                          <i class="fa fa-shopping-cart"></i>{{trans('front.add_to_cart')}}

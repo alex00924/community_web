@@ -873,7 +873,7 @@ h2.title {
 
 .price {
   text-align: center;
-  margin: 10px 0;
+  margin-bottom: 10px;
 }
 
 .single-products {
@@ -893,7 +893,12 @@ h2.title {
 	font-weight: 700;
 }
 
-
+.product-name-container {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .productinfo p{
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
@@ -902,13 +907,13 @@ h2.title {
 }
 
 .productinfo img{
-  width: 100%;
+  max-width: 100%; /* This if for the object-fit */
+  height: 200px;
 }
 
 .productinfo{
- position:relative;
+  position:relative;
 }
-
 
 .add-to-cart {
   background:#F5F5ED;
