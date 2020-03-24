@@ -10,6 +10,7 @@ use App\Models\ShopProductGroup;
 use App\Models\ShopProductPromotion;
 use DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class ShopProduct extends Model
 {
@@ -625,13 +626,27 @@ Check promotion price
     public function getReviewDetails() {
         $details = $this->reviews()->get();
         $meanMark = 0;
+        $userId = -1;
+        $myReview = null;
+        $count = count($details);
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            $userId = $user->id;
+        }
+
         foreach($details as $key => $review) {
             $meanMark += $review->mark;
             $details[$key]["user"] = $review->user;
+            if ($details[$key]["user"]["id"] == $userId) {
+                $myReview = $review;
+                unset($details[$key]);
+            }
         }
         if (count($details) > 0) {
             $meanMark /= count($details);
         }
-        return ["meanMark" => $meanMark, "details" => $details];
+        
+        return ["meanMark" => $meanMark, "count" => $count , "otherReviews" => $details, "myReview" => $myReview];
     }
 }

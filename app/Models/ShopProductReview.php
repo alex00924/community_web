@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShopProductReview extends Model
 {
-    public $timestamps = false;
     public $table      = 'shop_product_review';
     protected $guarded = [];
     

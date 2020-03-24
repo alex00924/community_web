@@ -165,6 +165,7 @@ class ShopFront extends GeneralController
             $product->view += 1;
             $product->date_lastview = date('Y-m-d H:i:s');
             $product->save();
+            $product["reviewDetails"] = $product->getReviewDetails();
             //End last viewed
 
             //Product last view

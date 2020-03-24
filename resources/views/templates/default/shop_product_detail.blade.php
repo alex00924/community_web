@@ -51,13 +51,27 @@
                   <h1 id="product-detail-name" style="font-size: 25px; margin-bottom: 13px; color: black">{{ $product->name }}</h1>
                   
                   <div class="rating-links">
+                    @for($i = 1; $i <= $product->reviewDetails["meanMark"]; $i++)
                     <i class="fa fa-star" aria-hidden="true" style="color: orange"></i>
-                    <i class="fa fa-star" aria-hidden="true" style="color: orange"></i>
-                    <i class="fa fa-star" aria-hidden="true" style="color: orange"></i>
-                    <i class="fa fa-star" aria-hidden="true" style="color: orange"></i>
-                    <i class="fa fa-star" aria-hidden="true" style="color: orange"></i>
-                    <span>(2 reviews)</span>
-                    <a href="#tab_review" style="margin-left: 10px; color: #878787">Add Your Review</a>
+                    @endfor
+                    @for(; $i <= 5; $i++)
+                    <i class="fa fa-star" aria-hidden="true" style="color: darkgray"></i>
+                    @endfor
+
+                    <span> {{ $product->reviewDetails["count"] }} reviews </span>
+                    
+                      <a href="#product-reviews" style="margin-left: 10px; color: #878787">
+                      @auth
+                        @if(isset($product->reviewDetails["myReview"]))
+                          Edit Your Review
+                        @else
+                          Add Your Review
+                        @endif
+                      @endauth
+                      @guest
+                        Reviews
+                      @endguest
+                    </a>
                   </div>
 
                   <ul style="padding-left: 2rem">
@@ -173,7 +187,7 @@
 
             </div>
             
-            <div class="category-tab shop-details-tab"><!--category-tab-->
+            <div class="category-tab shop-details-tab"><!--product description-tab-->
               <ul class="nav nav-tabs nav-fill">
                   <li class="nav-item active">
                       <a class="nav-link active" href="#tab-general" data-toggle="tab">{{ trans('product.content') }}</a>
@@ -201,7 +215,66 @@
                   {!! sc_html_render($product->case_study) !!}
                 </div>
               </div>
-            </div><!--/category-tab-->
+            </div><!--/product description-tab-->
+
+            <div class="category-tab product-review-tab" id="product-reviews">
+              <h2 class="text-center origin" style="font-size: 30px; ">{{$product->reviewDetails["count"]}} reviews for this product</h2>
+              @auth
+                <div class="review-container">
+                  <div class="row"> 
+                    <div class="col">
+                      <h4 class="origin"> Write your review for this product </h4>
+                    </div>
+                    <div class="col text-right"> 
+                      @if(isset($product->reviewDetails["myReview"]))
+                      <p> {{ $product->reviewDetails["myReview"]["updated_at"] }} </p>
+                      @endif
+                    </div>
+                  </div>
+                  
+                  <form>
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <textarea rows="5" name="content" class="form-control text">
+                      {{ old('content') ?? $product->reviewDetails["myReview"] ?? '' }}
+                    </textarea>
+                    <div class="edit-review-mark">
+                      <i class="fa fa-star" aria-hidden="true" id="mark-1"></i>
+                      <i class="fa fa-star" aria-hidden="true" id="mark-2"></i>
+                      <i class="fa fa-star" aria-hidden="true" id="mark-3"></i>
+                      <i class="fa fa-star" aria-hidden="true" id="mark-4"></i>
+                      <i class="fa fa-star" aria-hidden="true" id="mark-5"></i>
+                    </div>
+                    <input type="hidden" name="mark" id="product-mark" val="0">
+                    <input type="submit" class="btn btn-primary">
+                  </form>
+                </div>
+              @endauth
+
+              @foreach($product->reviewDetails["otherReviews"] as $review)
+              <div class="review-container">
+                <div class="row" style="margin-bottom: 20px"> 
+                  <div class="col">
+                    <img src="{{ $review['user']['avatar'] }}" class="avatar">
+                    <strong>{{ $review['user']['name'] }}</strong>
+                  </div>
+                  <div class="col text-center">
+                      @for($i = 1; $i <= $review['mark']; $i++)
+                      <i class="fa fa-star" aria-hidden="true" style="color: orange"></i>
+                      @endfor
+                      @for(; $i <= 5; $i++)
+                      <i class="fa fa-star" aria-hidden="true" style="color: darkgray"></i>
+                      @endfor
+                  </div>
+                  <div class="col text-right">
+                    <p>{{ $review["updated_at"] }}</p>
+                  </div>
+                </div>
+                <div>
+                  {{ $review["content"] }}
+                </div>
+              </div>
+            </div>
+            @endforeach
 @if ($productsToCategory->count())
             <div class="recommended_items"><!--recommended_items-->
               <h2 class="title text-center">{{ trans('front.recommended_items') }}</h2>
@@ -255,9 +328,31 @@
   currency = currency.substr(0, currency.length-1);
 
   $(document).ready(function() {
+    initMarkEvents();
     initAttributePrice();
   });
 
+  function initMarkEvents() {
+    if (!$(".edit-review-mark")) {
+      return;
+    }
+    $(".edit-review-mark").children().each(function(idx, element) {
+      $(element).focus(function() {
+        $(".edit-review-mark").children().removeClass("focus");
+        for (let i = 1; i <= idx+1; i ++) {
+          $(".edit-review-mark #mark-" + i).addClass("focus");
+        }
+      });
+
+      $(element).click(function() {
+        $(".edit-review-mark").children().removeClass("active");
+        for (let i = 1; i <= idx+1; i ++) {
+          $(".edit-review-mark #mark-" + i).addClass("active");
+        }
+        $("#product-mark").val(idx+1);
+      });
+    });
+  }
   function initAttributePrice() {
     orgPrice = $("#product-detail-price span").html();
 
