@@ -2,7 +2,7 @@
     <div class="header-middle"><!--header-middle-->
       <div class="container">
         <div class="row vertical-align">
-          <div class="col-sm-4" style="display: grid; text-align: center">
+          <div class="col-sm-4" style="display: grid;">
             <div class="logo pull-left">
               <a href="{{ route('home') }}">
                 <img style="height: 200px;" src="{{ asset(sc_store('logo')) }}" alt="" /></a>

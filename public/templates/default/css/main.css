@@ -17,6 +17,9 @@ body {
   flex-direction: column;
   min-height: 100%;
 }
+html, body, div, h1, h2, h3, h4, h5, h6, form {
+  width: 100%;
+}
 .main-content {
   flex: 1;
 }
@@ -2642,4 +2645,12 @@ section {
 
 .ckeditor-content p, .ckeditor-content div {
   width: 100%;
+}
+
+.pull-right {
+  width: auto;
+}
+
+.pull-left {
+  width: auto;
 }
