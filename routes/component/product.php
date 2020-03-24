@@ -7,4 +7,6 @@ Route::group(['prefix' => $prefixProduct], function ($router) use($suffix) {
         ->name('product.info');
     $router->get('/{alias}'.$suffix, 'ShopFront@productDetail')
         ->name('product.detail');
+    $router->post('/review', 'ShopFront@productReview')
+        ->name('product.review')->middleware('auth');
 });

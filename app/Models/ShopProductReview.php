@@ -1,11 +1,12 @@
 <?php
-#app/Models/ShopProductAttribute.php
+#app/Models/ShopProductReview.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class ShopProductReview extends Model
 {
+    public $timestamps = true;
     public $table      = 'shop_product_review';
     protected $guarded = [];
     

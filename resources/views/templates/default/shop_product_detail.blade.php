@@ -1,6 +1,6 @@
 @extends($templatePath.'.shop_layout')
 @php
-//  echo json_encode($product->getReviewDetails());
+  //echo json_encode($product->reviewDetails);
 @endphp
 
 @section('center')
@@ -220,7 +220,7 @@
             <div class="category-tab product-review-tab" id="product-reviews">
               <h2 class="text-center origin" style="font-size: 30px; ">{{$product->reviewDetails["count"]}} reviews for this product</h2>
               @auth
-                <div class="review-container">
+                <div class="review-container" style="padding-bottom: 3rem; border-bottom: 1px solid #eee">
                   <div class="row"> 
                     <div class="col">
                       <h4 class="origin"> Write your review for this product </h4>
@@ -232,24 +232,46 @@
                     </div>
                   </div>
                   
-                  <form>
-                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                    <textarea rows="5" name="content" class="form-control text">
-                      {{ old('content') ?? $product->reviewDetails["myReview"] ?? '' }}
-                    </textarea>
+                  <form id="product-review-form" action="/product/review" method="POST">
+                    @csrf
+                    @php
+                      $content = '';
+                      if(old('content')) {
+                        $content = old('content');
+                      } elseif(isset($product->reviewDetails["myReview"]["content"])) {
+                        $content = $product->reviewDetails["myReview"]["content"];
+                      }
+                    @endphp
+                    <textarea rows="5" name="content" class="form-control text">{{ $content }}</textarea>
                     <div class="edit-review-mark">
-                      <i class="fa fa-star" aria-hidden="true" id="mark-1"></i>
-                      <i class="fa fa-star" aria-hidden="true" id="mark-2"></i>
-                      <i class="fa fa-star" aria-hidden="true" id="mark-3"></i>
-                      <i class="fa fa-star" aria-hidden="true" id="mark-4"></i>
-                      <i class="fa fa-star" aria-hidden="true" id="mark-5"></i>
+                      @php
+                        $mark = 0;
+                        if(old('mark')) {
+                          $mark = old('mark');
+                        } elseif(isset($product->reviewDetails["myReview"])) {
+                          $mark = $product->reviewDetails["myReview"]["mark"];
+                        }
+                      @endphp
+                      @for($i = 1; $i <= $mark; $i++)
+                      <i class="fa fa-star active" aria-hidden="true" id="mark-{{ $i }}"></i>
+                      @endfor
+                      @for(; $i <= 5; $i++)
+                      <i class="fa fa-star" aria-hidden="true" id="mark-{{ $i }}"></i>
+                      @endfor
                     </div>
-                    <input type="hidden" name="mark" id="product-mark" val="0">
-                    <input type="submit" class="btn btn-primary">
+
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="mark" id="product-mark" value="{{ $mark }}">
+                    @if(isset($product->reviewDetails["myReview"]))
+                    <input type="hidden" name="id" value="{{ $product->reviewDetails['myReview']['id'] }}">
+                    @endif
+                    <div class="text-right">
+                      <input type="submit" class="btn btn-primary">
+                    </div>
                   </form>
                 </div>
               @endauth
-
+              
               @foreach($product->reviewDetails["otherReviews"] as $review)
               <div class="review-container">
                 <div class="row" style="margin-bottom: 20px"> 
@@ -332,17 +354,29 @@
     initAttributePrice();
   });
 
+  $( "#product-review-form" ).submit(function( event ) {
+    if ($("#product-mark").val < 1) {
+      alert("Please add mark before submit review!");
+      event.preventDefault();
+    }
+  });
+
   function initMarkEvents() {
     if (!$(".edit-review-mark")) {
       return;
     }
     $(".edit-review-mark").children().each(function(idx, element) {
-      $(element).focus(function() {
-        $(".edit-review-mark").children().removeClass("focus");
-        for (let i = 1; i <= idx+1; i ++) {
-          $(".edit-review-mark #mark-" + i).addClass("focus");
+      $(element).hover(
+        function() {
+          $(".edit-review-mark").children().removeClass("focus");
+          for (let i = 1; i <= idx+1; i ++) {
+            $(".edit-review-mark #mark-" + i).addClass("focus");
+          }
+        },
+        function() {
+          $(".edit-review-mark").children().removeClass("focus");
         }
-      });
+      );
 
       $(element).click(function() {
         $(".edit-review-mark").children().removeClass("active");

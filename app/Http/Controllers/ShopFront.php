@@ -9,6 +9,8 @@ use App\Models\ShopCategory;
 use App\Models\ShopProduct;
 use App\Models\ShopVendor;
 use Illuminate\Http\Request;
+use App\Models\ShopProductReview;
+use Illuminate\Support\Facades\Auth;
 
 class ShopFront extends GeneralController
 {
@@ -197,6 +199,31 @@ class ShopFront extends GeneralController
             return $this->itemNotFound();
         }
 
+    }
+
+    public function productReview()
+    {
+        $data = request()->all();
+
+        if (isset($data["id"])) {
+            $review = ShopProductReview::find($data["id"]);
+            $reviewUpdate = [
+                'content' => $data["content"],
+                'mark' => $data["mark"]
+            ];
+            $review->update($reviewUpdate);
+        } else {
+            $dataInsert = [
+                'user_id' => Auth::user()->id,
+                'product_id' => $data['product_id'],
+                'content' => $data['content'],
+                'mark' => $data['mark']
+            ];
+            
+            ShopProductReview::create($dataInsert);
+        }
+
+        return redirect()->back();
     }
 /**
  * Get product info

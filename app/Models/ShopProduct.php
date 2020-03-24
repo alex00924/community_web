@@ -643,8 +643,8 @@ Check promotion price
                 unset($details[$key]);
             }
         }
-        if (count($details) > 0) {
-            $meanMark /= count($details);
+        if ($count > 0) {
+            $meanMark /= $count;
         }
         
         return ["meanMark" => $meanMark, "count" => $count , "otherReviews" => $details, "myReview" => $myReview];
