@@ -3,7 +3,7 @@
 @section('main')
 
 <section >
-    <div class="container">
+    <div class="container ckeditor-content">
         <div class="row">
             <h2 class="title text-center">{{ $title }}</h2>
             {!! sc_html_render($news_currently->content) !!}

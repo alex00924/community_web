@@ -230,9 +230,9 @@ a#scrollUp i{
 .header-bottom {
   /* padding-bottom: 10px; */
   padding-top: 10px;
-  /* background: white; */
+  background: white;
   margin: 10px 0;
-  /* box-shadow: 0 5px 20px rgba(0, 0, 0, .1); */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
   color: #212529;
 }
 
@@ -2632,5 +2632,14 @@ img.avatar {
 }
 
 section {
+  width: 100%;
+}
+
+.post-item img {
+  width: 100%;
+  height: auto;
+}
+
+.ckeditor-content p, .ckeditor-content div {
   width: 100%;
 }

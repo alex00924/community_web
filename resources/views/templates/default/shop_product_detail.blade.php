@@ -205,13 +205,13 @@
                 </ul>
               </div> -->
               <div class="tab-content">
-                <div class="tab-pane fade  active in" id="tab-general" >
+                <div class="ckeditor-content tab-pane fade  active in" id="tab-general" >
                   {!! sc_html_render($product->content) !!}
                 </div>
-                <div class="tab-pane fade" id="tab-specification" >
+                <div class="ckeditor-content tab-pane fade" id="tab-specification" >
                   {!! sc_html_render($product->specification) !!}
                 </div>
-                <div class="tab-pane fade" id="tab-case_study" >
+                <div class="ckeditor-content tab-pane fade" id="tab-case_study" >
                   {!! sc_html_render($product->case_study) !!}
                 </div>
               </div>

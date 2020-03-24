@@ -1,4 +1,4 @@
-  <header id="header" style="background-image: url('/images/land-bg.png'); background-size: 100% 100%; margin-bottom: 5rem"><!--header-->
+  <header id="header" style="margin-bottom: 5rem"><!--header-->
     <div class="header-middle"><!--header-middle-->
       <div class="container">
         <div class="row vertical-align">
