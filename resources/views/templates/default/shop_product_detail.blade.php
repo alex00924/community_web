@@ -216,7 +216,8 @@
                 </div>
               </div>
             </div><!--/product description-tab-->
-
+            
+            <!-- product review tab -->
             <div class="category-tab product-review-tab" id="product-reviews">
               <h2 class="text-center origin" style="font-size: 30px; ">{{$product->reviewDetails["count"]}} reviews for this product</h2>
               @auth
@@ -295,8 +296,10 @@
                   {{ $review["content"] }}
                 </div>
               </div>
+              @endforeach
             </div>
-            @endforeach
+            <!-- product review tab -->
+            
 @if ($productsToCategory->count())
             <div class="recommended_items"><!--recommended_items-->
               <h2 class="title text-center">{{ trans('front.recommended_items') }}</h2>

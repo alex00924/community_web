@@ -74,8 +74,8 @@
 
     <div class="footer-bottom">
       <div class="container">
-        <div class="row">
-          <p class="pull-right">Copyright © {{date('Y')}} <a href="{{ route('home') }}">{{ sc_store('title') }} </a> Inc. All rights reserved.</p>
+        <div class="row pull-right">
+          <p>Copyright © {{date('Y')}} <a href="{{ route('home') }}">{{ sc_store('title') }} </a> Inc. All rights reserved.</p>
         </div>
       </div>
     </div>
