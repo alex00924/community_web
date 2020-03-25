@@ -3,6 +3,7 @@
   right: 20px;
   bottom: 0;
   cursor: pointer;
+  width: auto;
 }
 .unread-count {
   position: absolute;
