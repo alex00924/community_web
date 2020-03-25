@@ -45,10 +45,10 @@ class AppConfig extends ConfigDefault
                 [
                     'group' => '',
                     'code' => 'card_config',
-                    'key' => 'card_client_id',
+                    'key' => 'card_public_key',
                     'sort' => 0, // Sort extensions in group
                     'value' => '',
-                    'detail' => $this->pathPlugin.'::'.$this->configKey . '.card_client_id',
+                    'detail' => $this->pathPlugin.'::'.$this->configKey . '.card_public_key',
                 ],
                 [
                     'group' => '',
@@ -97,7 +97,7 @@ class AppConfig extends ConfigDefault
     {
         $return = ['error' => 0, 'msg' => ''];
         $process = (new AdminConfig)->where('key', $this->configKey)->delete();
-        $process2 = (new AdminConfig)->whereIn('key', ['card_client_id', 'card_secrect', 'card_currency', 'card_order_status_success', 'card_order_status_faild'])->delete();
+        $process2 = (new AdminConfig)->whereIn('key', ['card_public_key', 'card_secrect', 'card_currency', 'card_order_status_success', 'card_order_status_faild'])->delete();
         if (!$process & !$process2) {
             $return = ['error' => 1, 'msg' => 'Error when uninstall'];
         }
