@@ -19,8 +19,6 @@
                   <th>{{ trans('admin.extension_manager.code') }}</th>
                   <th>{{ trans('admin.extension_manager.name') }}</th>
                   <th>{{ trans('admin.extension_manager.version') }}</th>
-                  <th>{{ trans('admin.extension_manager.auth') }}</th>
-                  <th>{{ trans('admin.extension_manager.link') }}</th>
                   <th>{{ trans('admin.extension_manager.sort') }}</th>
                   <th>{{ trans('admin.extension_manager.status') }}</th>
                   <th>{{ trans('admin.extension_manager.action') }}</th>
@@ -63,8 +61,6 @@
                       <td>{{ $codeExtension }}</td>
                       <td>{{ $extensionClass->title }}</td>
                       <td>{{ $extensionClass->version??'' }}</td>
-                      <td>{{ $extensionClass->auth??'' }}</td>
-                      <td>{{ $extensionClass->link??'' }}</td>
                       <td>{{ $extensionsInstalled[$codeExtension]['sort']??'' }}</td>
                       <td>{{ $extensionStatusTitle }}</td>
                       <td>{!! $extensionAction !!}</td>
