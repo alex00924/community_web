@@ -277,7 +277,7 @@
 
                     <div class="form-group">
                         @foreach ($shippingMethod as $key => $shipping)
-                            <div>
+                            <div style="margin: 5px 10px">
                                 <label class="radio-inline">
                                  <input type="radio" name="shippingMethod" value="{{ $shipping['code'] }}"  {{ (old('shippingMethod') == $key)?'checked':'' }} style="position: relative;" {{ ($shipping['permission'])?'':'disabled' }}>
                                  {{ $shipping['title'] }} ({{ sc_currency_render($shipping['value']) }})
@@ -301,7 +301,7 @@
                     </div>
                     <div class="form-group">
                         @foreach ($paymentMethod as $key => $payment)
-                            <div>
+                            <div style="margin: 5px 10px">
                                 <label class="radio-inline">
                                  <input type="radio" name="paymentMethod" value="{{ $payment['code'] }}"  {{ (old('paymentMethod') == $key)?'checked':'' }} style="position: relative;" {{ ($payment['permission'])?'':'disabled' }}>
                                  <img title="{{ $payment['title'] }}" alt="{{ $payment['title'] }}" src="{{ asset($payment['image']) }}" style="width: 120px;">
