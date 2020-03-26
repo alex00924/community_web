@@ -382,7 +382,8 @@
       arrows: true,
       dots: false,
       centerMode: true,
-      focusOnSelect: true
+      focusOnSelect: true,
+      infinite: false,
     });
   }
 
