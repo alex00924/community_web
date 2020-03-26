@@ -7,6 +7,6 @@ return [
     'card_order_status_success' => 'Order success',
     'card_order_status_faild'   => 'Order faild',
     'card_public_key'           => 'Public Key',
-    'card_secrect'              => 'Secrect Key',
+    'card_secret'              => 'Secrect Key',
 ];
 

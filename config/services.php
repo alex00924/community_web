@@ -31,8 +31,10 @@ return [
 
     'stripe'    => [
         'model'  => App\Models\ShopUser::class,
-        'key'    => env('STRIPE_KEY'),
-        'secret' => env('STRIPE_SECRET'),
+        // 'key'    => sc_config('card_public_key'),
+        // 'secret' => sc_config('card_secret'),
+        'key'    => 'pk_test_Rp7yHFgnC7QcOF4mxH5ljKlW00lZraXPXo',
+        'secret' => 'sk_test_pJXoqSzUlXM8LCWD8gprTpmB00QdUEp3Hw',
     ],
 
     'chatkit' => [

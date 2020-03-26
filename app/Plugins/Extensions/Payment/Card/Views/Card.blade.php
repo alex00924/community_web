@@ -19,8 +19,8 @@
                 <td><a href="#" class="updateData_can_empty" data-name="card_public_key" data-type="text" data-pk="card_public_key" data-url="{{ route('admin_extension.process',['group'=>$group,'key'=>$key]) }}" data-value="{{ sc_config('card_public_key') }}" data-title="{{ trans('Extensions/Payment/Card::Card.card_public_key') }}"></a></td>
               </tr>
               <tr>
-                <th width="40%">{{ trans('Extensions/Payment/Card::Card.card_secrect') }}</th>
-                <td><a href="#" class="updateData_can_empty" data-name="card_secrect" data-type="password" data-pk="card_secrect" data-url="{{ route('admin_extension.process',['group'=>$group,'key'=>$key]) }}" data-value="{{ sc_config('card_secrect') }}" data-title="{{ trans('Extensions/Payment/Card::Card.card_secrect') }}"></a></td>
+                <th width="40%">{{ trans('Extensions/Payment/Card::Card.card_secret') }}</th>
+                <td><a href="#" class="updateData_can_empty" data-name="card_secret" data-type="password" data-pk="card_secret" data-url="{{ route('admin_extension.process',['group'=>$group,'key'=>$key]) }}" data-value="{{ sc_config('card_secret') }}" data-title="{{ trans('Extensions/Payment/Card::Card.card_secret') }}"></a></td>
               </tr>
               <tr>
                 <th width="40%">{{ trans('Extensions/Payment/Card::Card.card_currency') }}</th>
