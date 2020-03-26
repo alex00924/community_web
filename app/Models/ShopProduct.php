@@ -257,7 +257,7 @@ Get final price
  * @param  string $sortOrder [description]
  * @return [type]            [description]
  */
-    public function getProducts($type = null, $limit = null, $opt = null, $sortBy = null, $sortOrder = 'desc')
+    public function getProducts($type = null, $limit = null, $opt = null, $sortBy = 'sort', $sortOrder = 'desc')
     {
         $lang = sc_get_locale();
         $query = $this->where($this->getTable() . '.status', 1)
@@ -291,7 +291,7 @@ Get final price
         }
     }
 
-    public function getSearch($keyword, $limit = 12, $sortBy = null, $sortOrder = 'desc')
+    public function getSearch($keyword, $limit = 12, $sortBy = 'sort', $sortOrder = 'desc')
     {
         $lang = sc_get_locale();
 
@@ -346,7 +346,7 @@ Get final price
 Get products of category
 category_id: array or string
  */
-    public function getProductsToCategory($category_id, $limit = null, $opt = null, $sortBy = null, $sortOrder = 'asc', $status = 1)
+    public function getProductsToCategory($category_id, $limit = null, $opt = null, $sortBy = 'sort', $sortOrder = 'desc', $status = 1)
     {
         $query = (new ShopProduct)
             ->with('promotionPrice')

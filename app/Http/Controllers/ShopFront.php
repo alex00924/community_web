@@ -125,8 +125,8 @@ class ShopFront extends GeneralController
     public function allProducts()
     {
         $sortBy = null;
-        $sortOrder = 'asc';
-        $filter_sort = request('filter_sort') ?? '';
+        $sortOrder = 'desc';
+        $filter_sort = request('filter_sort') ?? 'sort_desc';
         $filterArr = [
             'price_desc' => ['price', 'desc'],
             'price_asc' => ['price', 'asc'],
