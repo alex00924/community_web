@@ -9,7 +9,7 @@
 
               <div class="col-lg-4 col-md-6 col-xs-12">
 
-                <div id="product-detail-image" class="carousel slide" data-ride="carousel" style="margin-left: 15px">
+                <div id="product-detail-image" style="margin-left: 15px; padding: 20px;">
                   @if ($product->price != $product->getFinalPrice() && $product->kind != SC_PRODUCT_GROUP)
                   <img src="{{ asset($templateFile.'/images/home/sale2.png') }}" class="newarrival" alt="" />
                   @elseif($product->type == SC_PRODUCT_NEW)
@@ -23,28 +23,35 @@
                   @endif
 
                   <!-- Wrapper for slides -->
-                  <div class="carousel-inner">
-                    <div class="view-product item active"  data-slide-number="0">
-                      <img src="{{ asset($product->getImage()) }}" alt="">
+                  <div class="product-images">
+                    <div class="view-product item">
+                      <img src="{{ asset($product->getImage()) }}">
                     </div>
                   @if ($product->images->count())
-                    @foreach ($product->images as $key=>$image)
-                      <div class="view-product item"  data-slide-number="{{ $key + 1 }}">
-                        <img src="{{ asset($image->getImage()) }}" alt="">
+                    @foreach ($product->images as $image)
+                      <div class="view-product item">
+                        <img src="{{ asset($image->getImage()) }}">
                       </div>
                       @endforeach
                   @endif
                   </div>
-                </div>
-                @if ($product->images->count())
-                <!-- Controls -->
-                <a class="left item-control" style="display: inherit;" href="#product-detail-image" data-slide="prev">
-                <i class="fa fa-angle-left"></i>
-                </a>
-                <a class="right item-control" href="#product-detail-image" data-slide="next">
-                <i class="fa fa-angle-right"></i>
-                </a>
+
+                  <!-- Slider Nav -->
+                  <div class="product-images-nav">
+                  @if ($product->images->count())
+                    <div class="view-product item">
+                      <img src="{{ asset($product->getImage()) }}">
+                    </div>
+                  
+                    @foreach ($product->images as $image)
+                      <div class="view-product item">
+                        <img src="{{ asset($image->getImage()) }}">
+                      </div>
+                      @endforeach
                   @endif
+                  </div>
+
+                </div>
               </div>
               
               <div class="col-lg-4 col-md-6 col-xs-12" style="padding: 1rem 3rem">
@@ -342,10 +349,12 @@
 @endsection
 
 @push('styles')
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" rel="stylesheet">
 @endpush
 
 @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 <script type="text/javascript">
   let attributePrice = '{!! $product->attribute_price !!}';
   let currency = '{!! sc_currency_render(0) !!}';
@@ -353,9 +362,29 @@
   currency = currency.substr(0, currency.length-1);
 
   $(document).ready(function() {
+    initSliders();
     initMarkEvents();
     initAttributePrice();
   });
+
+  function initSliders() {
+    $('.product-images').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false,
+      fade: true,
+      asNavFor: '.product-images-nav'
+    });
+    $('.product-images-nav').slick({
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      asNavFor: '.product-images',
+      arrows: true,
+      dots: false,
+      centerMode: true,
+      focusOnSelect: true
+    });
+  }
 
   $( "#product-review-form" ).submit(function( event ) {
     if ($("#product-mark").val < 1) {

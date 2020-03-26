@@ -46,7 +46,7 @@ class ContentFront extends GeneralController
             'title' => 'required',
             'content' => 'required',
             'email' => 'required|email',
-            'phone' => 'required|regex:/^0[^0][0-9\-]{7,13}$/',
+            'phone' => 'required|regex:/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/',
         ], [
             'name.required' => trans('validation.required'),
             'content.required' => trans('validation.required'),

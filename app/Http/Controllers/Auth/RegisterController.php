@@ -67,7 +67,7 @@ class RegisterController extends GeneralController
             $validate['reg_address2'] = 'required|max:100';
         }
         if(sc_config('customer_phone')) {
-            $validate['reg_phone'] = 'required|regex:/^0[^0][0-9\-]{7,13}$/';
+            $validate['reg_phone'] = 'required|regex:/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/';
         }
         if(sc_config('customer_country')) {
             $validate['reg_country'] = 'required|min:2';

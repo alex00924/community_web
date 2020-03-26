@@ -2654,3 +2654,7 @@ section {
 .pull-left {
   width: auto;
 }
+
+.slick-next:before, .slick-prev:before {
+  color: rgb(14, 140, 228) !important;
+}

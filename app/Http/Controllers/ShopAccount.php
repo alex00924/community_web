@@ -156,7 +156,7 @@ class ShopAccount extends GeneralController
             $dataUpdate['address2'] = $data['address2']??'';
         }
         if(sc_config('customer_phone')) {
-            $validate['phone'] = 'required|regex:/^0[^0][0-9\-]{7,13}$/';
+            $validate['phone'] = 'required|regex:/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/';
             $dataUpdate['phone'] = $data['phone']??'';
         }
         if(sc_config('customer_country')) {

@@ -277,7 +277,7 @@ class ShopOrderController extends Controller
             'status' => 'required',
             'payment_method' => 'required',
             'shipping_method' => 'required',
-            'phone' => 'required|regex:/^0[^0][0-9\-]{7,13}$/|max:20',
+            'phone' => 'required|regex:/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/|max:20',
         ], [
             'first_name.required' => trans('validation.required'),
             'last_name.required' => trans('validation.required'),

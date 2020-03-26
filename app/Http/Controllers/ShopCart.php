@@ -159,7 +159,7 @@ class ShopCart extends GeneralController
             $validate['address2'] = 'required|max:100';
         }
         if(sc_config('customer_phone')) {
-            $validate['phone'] = 'required|regex:/^0[^0][0-9\-]{7,13}$/';
+            $validate['phone'] = 'required|regex:/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/';
         }
         if(sc_config('customer_country')) {
             $validate['country'] = 'required|min:2';
