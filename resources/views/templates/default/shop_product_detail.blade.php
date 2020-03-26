@@ -9,7 +9,7 @@
 
               <div class="col-lg-4 col-md-6 col-xs-12">
 
-                <div id="product-detail-image" style="margin-left: 15px; padding: 20px;">
+                <div id="product-detail-image" style="margin-left: 15px; padding: 20px;position: relative;">
                   @if ($product->price != $product->getFinalPrice() && $product->kind != SC_PRODUCT_GROUP)
                   <img src="{{ asset($templateFile.'/images/home/sale2.png') }}" class="newarrival" alt="" />
                   @elseif($product->type == SC_PRODUCT_NEW)
