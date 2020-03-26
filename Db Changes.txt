@@ -14,6 +14,21 @@ CREATE TABLE `shop_product_review` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
+4. Added shop_card_transaction table in order to check user used the session id already
+
+
+CREATE TABLE `shop_card_transaction` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `session_id` varchar(100) DEFAULT NULL,
+  `content` text,
+  `order_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `shop_card_transaction_order_id_user_id_index` (`order_id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+
 ***. Offline  
 <!-- @if (\Route::current()->getName() != 'admin_chat')
         @include('admin.component.chat_alert')
