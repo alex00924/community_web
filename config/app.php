@@ -172,7 +172,6 @@ return [
         App\Providers\ExtensionServiceProvider::class,
         App\Providers\ShoppingCartServiceProvider::class,
         App\Admin\Providers\AdminServiceProvider::class,
-
     ],
 
     /*

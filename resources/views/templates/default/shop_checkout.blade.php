@@ -108,6 +108,9 @@
                     @if ($element['value'] !=0)
 
                      @if ($element['code']=='total')
+                     @php 
+                        $totalPrice = $element["value"]
+                     @endphp
                          <tr class="showTotal" style="background:#f5f3f3;font-weight: bold;">
                      @else
                         <tr class="showTotal">
@@ -137,6 +140,9 @@
         {{-- //Payment method --}}
             </div>
         </div>
+
+        {{-- Card Stripe Token --}}
+        <input type="hidden" name="card_token" id="card-token">
 {{-- End total --}}
 
         <div class="row" style="padding-bottom: 20px;">
@@ -145,7 +151,7 @@
                 <button class="btn btn-default" type="button" style="cursor: pointer;padding:10px 30px" onClick="location.href='{{ route('cart') }}'"><i class="fa fa-arrow-left"></i>{{ trans('cart.back_to_cart') }}</button>
                 </div>
                     <div class="pull-right">
-                        <button class="btn btn-success" id="submit-order" type="submit" style="cursor: pointer;padding:10px 30px"><i class="fa fa-check"></i> {{ trans('cart.confirm') }}</button>
+                        <button class="btn btn-success" id="submit-order" type="button" style="cursor: pointer;padding:10px 30px" onclick="submitForm()" ><i class="fa fa-check"></i> {{ trans('cart.confirm') }}</button>
                     </div>
             </div>
         </div>
@@ -170,4 +176,45 @@
 @endsection
 
 @push('scripts')
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+<script type="text/javascript">
+    let paymentMethod = '{{ $paymentMethodData["code"] }}';
+
+  $(document).ready(function () {  
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+  });
+ 
+  function submitForm() {
+    $("#form-order").submit();
+    return;
+    if (paymentMethod == "Card") {
+        cardPay();
+    } else {
+        $("#form-order").submit();
+    }
+  }
+
+  function cardPay() {
+    var handler = StripeCheckout.configure({
+      key: "{{ sc_config('card_public_key') }}",
+      locale: 'auto',
+      token: function (token) {
+        $('#card-token').val(token.id);
+        $("#form-order").submit();
+      }
+    });
+  
+    handler.open({
+      name: '{{ sc_store("title") }}',
+      image: "{{ asset($paymentMethodData['image']) }}",
+      description: '{{ count($cart) }} Products',
+      amount: {{ $totalPrice }} * 100
+    });
+  }
+</script>
 @endpush
