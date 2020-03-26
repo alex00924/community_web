@@ -21,3 +21,6 @@ Admin can assists customers using live chat.
 <p><img src="https://github.com/guangxu0924/community_web/blob/master/public/images/github/customer-dash.png" /></p>
 
 <p><img src="https://github.com/guangxu0924/community_web/blob/master/public/images/github/customer-product.png" /></p>
+
+## Test Card Numbers
+<img src="https://i1.wp.com/justlaravel.com/wp-content/uploads/2016/10/Stripe00.png">
