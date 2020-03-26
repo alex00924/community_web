@@ -1,7 +1,7 @@
   @php
     $productsSpecial = (new \App\Models\ShopProduct)->getProductsSpecial($limit = 1, $random = true)
   @endphp
-  @if (!empty($productsSpecial))
+  @if (!empty($productsSpecial) && count($productsSpecial) > 0)
               <div class="brands_products"><!--product special-->
                 <h2>{{ trans('front.products_special') }}</h2>
                 <div class="products-name">
