@@ -151,7 +151,7 @@
                 <button class="btn btn-default" type="button" style="cursor: pointer;padding:10px 30px" onClick="location.href='{{ route('cart') }}'"><i class="fa fa-arrow-left"></i>{{ trans('cart.back_to_cart') }}</button>
                 </div>
                     <div class="pull-right">
-                        <button class="btn btn-success" id="submit-order" type="button" style="cursor: pointer;padding:10px 30px" onclick="submitForm()" ><i class="fa fa-check"></i> {{ trans('cart.confirm') }}</button>
+                        <button class="btn btn-success" id="submit-order" type="submit" style="cursor: pointer;padding:10px 30px" ><i class="fa fa-check"></i> {{ trans('cart.confirm') }}</button>
                     </div>
             </div>
         </div>
@@ -176,7 +176,7 @@
 @endsection
 
 @push('scripts')
-<script src="https://checkout.stripe.com/checkout.js"></script>
+<!-- <script src="https://checkout.stripe.com/checkout.js"></script>
 
 <script type="text/javascript">
     let paymentMethod = '{{ $paymentMethodData["code"] }}';
@@ -216,5 +216,5 @@
       amount: {{ $totalPrice }} * 100
     });
   }
-</script>
+</script> -->
 @endpush
