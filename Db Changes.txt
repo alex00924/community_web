@@ -28,6 +28,36 @@ CREATE TABLE `shop_card_transaction` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 
+5. Added 3 questionaire tables and a column in admin_menu
+
+CREATE TABLE `questionaire_answer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `question_id` int(11) DEFAULT NULL,
+  `answer` varchar(50) DEFAULT NULL COMMENT 'value',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `questionaire_answer_user_id_question_id_index` (`user_id`,`question_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `questionaire_question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question` text,
+  `answer_type` enum('radio','select','slider','triangle') DEFAULT 'radio',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `questionaire_question_option` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question_id` int(11) DEFAULT NULL,
+  `option` text,
+  `next_question_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `questionaire_question_option_question_id_next_question_id_index` (`question_id`,`next_question_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+INSERT INTO `admin_menu` (`parent_id`, `sort`, `title`, `icon`, `uri`) VALUES ('7', '5', 'lang::questionaire.admin.title', 'fa-question', 'admin::questionaire');
 
 ***. Offline  
 <!-- @if (\Route::current()->getName() != 'admin_chat')
