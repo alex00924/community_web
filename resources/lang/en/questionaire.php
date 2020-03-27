@@ -14,5 +14,10 @@ return [
         'add_new_title' => 'Add a new question',
         'add_new_des' => 'Create a new question',
         'back_questionaire' => 'Back to Questionaire Hierarchy',
+        'question' => 'Question',
+        'type' => 'Answer Type',
+        'answers' => 'Answers',
+        'add_answer' => 'Add answer',
+        'add_answer_place' => 'Add answer value',
     ],
 ];

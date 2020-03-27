@@ -4,8 +4,8 @@ namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\ShopLanguage;
-use App\Models\ShopNews;
-use App\Models\ShopNewsDescription;
+use App\Models\QuestionaireQuestion;
+use App\Models\QuestionaireQuestionOption;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -38,15 +38,15 @@ class ShopQuestionaireController extends Controller
  */
     public function create()
     {
+        $htmlAnswer = '<tr id="answer_idx"><td><br><input type="text" name="answers[]" value="answer_value" class="form-control" placeholder="' . trans('questionaire.admin.add_answer_place') . '" required/></td><td class="fit-content"><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAnswer"><i class="fa fa-times"></i></span></td></tr>';
         $data = [
             'title' => trans('questionaire.admin.add_new_title'),
             'sub_title' => '',
             'title_description' => trans('questionaire.admin.add_new_des'),
             'icon' => 'fa fa-plus',
-            'languages' => $this->languages,
             'question' => [],
             'url_action' => route('admin_questionaire.create'),
-
+            'htmlAnswer' => $htmlAnswer
         ];
 
         return view('admin.screen.shop_questionaire_create')
@@ -59,22 +59,11 @@ class ShopQuestionaireController extends Controller
  */
     public function postCreate()
     {
-
         $data = request()->all();
 
-        $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
-        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['title'];
-        $data['alias'] = sc_word_format_url($data['alias']);
-        $data['alias'] = sc_word_limit($data['alias'], 100);
-
         $validator = Validator::make($data, [
-            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_news,alias|string|max:100',
-            'descriptions.*.title' => 'required|string|max:200',
-            'descriptions.*.keyword' => 'nullable|string|max:200',
-            'descriptions.*.description' => 'nullable|string|max:300',
-        ], [
-            'alias.regex' => trans('news.alias_validate'),
-            'descriptions.*.title.required' => trans('validation.required', ['attribute' => trans('news.title')]),
+            'question' => 'required',
+            'type' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()
@@ -83,29 +72,20 @@ class ShopQuestionaireController extends Controller
         }
 
         $dataInsert = [
-            'image' => $data['image'],
-            'sort' => $data['sort'],
-            'alias' => $data['alias'],
-            'status' => !empty($data['status']) ? 1 : 0,
+            'question' => $data['question'],
+            'answer_type' => $data['type']
         ];
-        $news = ShopNews::create($dataInsert);
-        $id = $news->id;
-        $dataDes = [];
-        $languages = $this->languages;
-        foreach ($languages as $code => $value) {
-            $dataDes[] = [
-                'shop_news_id' => $id,
-                'lang' => $code,
-                'title' => $data['descriptions'][$code]['title'],
-                'keyword' => $data['descriptions'][$code]['keyword'],
-                'description' => $data['descriptions'][$code]['description'],
-                'content' => $data['descriptions'][$code]['content'],
-            ];
+        $question = QuestionaireQuestion::create($dataInsert);
+
+        $answers = $data['answers'] ?? [];
+        $answerOptions = [];
+        foreach($answers as $answer) {
+            $answerOptions[] = new QuestionaireQuestionOption(['option' => $answer]);
         }
-        ShopNewsDescription::insert($dataDes);
 
-        return redirect()->route('admin_news.index')->with('success', trans('news.admin.create_success'));
+        $question->options()->saveMany($answerOptions);
 
+        return redirect()->route('admin_questionaire.index')->with('success', trans('questionaire.admin.create_success'));
     }
 
 /**
