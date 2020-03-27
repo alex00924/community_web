@@ -37,7 +37,11 @@ class ShopUser extends Authenticatable
     {
         return $this->hasMany(ShopReview::class, 'user_id', 'id');
     }
-
+    public function questionaireAnswers()
+    {
+        return $this->hasMany(QuestionaireAnswer::class, 'user_id', 'id');
+    }
+    
     public static function getList()
     {
         if (self::$getList == null) {
