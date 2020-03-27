@@ -21,12 +21,13 @@ class ShopQuestionaireController extends Controller
 
     public function index()
     {
+        $questionaire = QuestionaireQuestion::get();
         $data = [
             'title' => trans('questionaire.admin.title'),
             'sub_title' => '',
             'icon' => 'fa fa-question',
             'languages' => $this->languages,
-            'questionaire' => []
+            'questionaire' => $questionaire
         ];
         return view('admin.screen.shop_questionaire')
             ->with($data);

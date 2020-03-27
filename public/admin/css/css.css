@@ -52,3 +52,11 @@
 .fit-content {
   width: 1px;
 }
+.box-shadow {
+  box-shadow: 0px 0px 5px rgba(100, 100, 100, 0.5);
+}
+
+.v-center {
+  display: flex;
+  align-items: center;
+}
