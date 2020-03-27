@@ -748,7 +748,7 @@
                         <hr>
                         @if (!empty($attributeGroup))
                         <div class="form-group">
-                            <div class="col-sm-2">{{ trans('product.attribute') }}</div>
+                            <label class="col-xs-2 control-label">{{ trans('product.attribute') }}</label>
                             <div class="col-sm-8" id="attribute-container">
 
                                 @php
@@ -800,9 +800,7 @@
                         </div>
 
                         <div class="form-group kind kind0">
-                            <div class="col-sm-2">
-                                <label>{{ trans('product.price') }}</label>
-                            </div>
+                            <label class="col-xs-2 control-label">{{ trans('product.price') }}</label>
                             <div class="col-sm-8" id="attribute-price-container">
                                 <div id="attribute-price-group-container">
                                 </div>
