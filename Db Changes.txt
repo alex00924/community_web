@@ -49,11 +49,9 @@ CREATE TABLE `questionaire_question` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 CREATE TABLE `questionaire_question_option` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `question_id` int(11) DEFAULT NULL,
   `option` text,
   `next_question_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
   KEY `questionaire_question_option_question_id_next_question_id_index` (`question_id`,`next_question_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
