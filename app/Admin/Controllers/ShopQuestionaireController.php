@@ -42,11 +42,8 @@ class ShopQuestionaireController extends Controller
         $htmlAnswer = '<tr id="answer_idx"><td><br><input type="text" name="answers[]" value="answer_value" class="form-control" placeholder="' . trans('questionaire.admin.add_answer_place') . '" required/></td><td class="fit-content"><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAnswer"><i class="fa fa-times"></i></span></td></tr>';
         $data = [
             'title' => trans('questionaire.admin.add_new_title'),
-            'sub_title' => '',
             'title_description' => trans('questionaire.admin.add_new_des'),
             'icon' => 'fa fa-plus',
-            'question' => [],
-            'url_action' => route('admin_questionaire.create'),
             'htmlAnswer' => $htmlAnswer
         ];
 
@@ -94,20 +91,20 @@ class ShopQuestionaireController extends Controller
  */
     public function edit($id)
     {
-        $shopNews = ShopNews::find($id);
-        if ($shopNews === null) {
+        $question = QuestionaireQuestion::find($id);
+        if ($question === null) {
             return 'no data';
         }
+
+        $htmlAnswer = '<tr id="answer_idx"><td><br><input type="text" name="answers[]" value="answer_value" class="form-control" placeholder="' . trans('questionaire.admin.add_answer_place') . '" required/></td><td class="fit-content"><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAnswer"><i class="fa fa-times"></i></span></td></tr>';
         $data = [
-            'title' => trans('news.admin.edit'),
-            'sub_title' => '',
-            'title_description' => '',
-            'icon' => 'fa fa-pencil-square-o',
-            'languages' => $this->languages,
-            'shopNews' => $shopNews,
-            'url_action' => route('admin_news.edit', ['id' => $shopNews['id']]),
+            'title' => trans('questionaire.admin.add_new_title'),
+            'title_description' => trans('questionaire.admin.add_new_des'),
+            'question' => $question,
+            'htmlAnswer' => $htmlAnswer
         ];
-        return view('admin.screen.shop_news')
+
+        return view('admin.screen.shop_questionaire_edit')
             ->with($data);
     }
 
@@ -116,56 +113,35 @@ class ShopQuestionaireController extends Controller
  */
     public function postEdit($id)
     {
-        $shopNews = ShopNews::find($id);
         $data = request()->all();
-
-        $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
-        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['title'];
-        $data['alias'] = sc_word_format_url($data['alias']);
-        $data['alias'] = sc_word_limit($data['alias'], 100);
-
+        
         $validator = Validator::make($data, [
-            'descriptions.*.title' => 'required|string|max:200',
-            'descriptions.*.keyword' => 'nullable|string|max:200',
-            'descriptions.*.description' => 'nullable|string|max:300',
-            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_news,alias,' . $shopNews->id . ',id|string|max:100',
-        ], [
-            'alias.regex' => trans('news.alias_validate'),
-            'descriptions.*.title.required' => trans('validation.required', ['attribute' => trans('news.title')]),
+            'question' => 'required',
+            'type' => 'required',
         ]);
-
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput($data);
         }
-//Edit
+        $question = QuestionaireQuestion::find($id);
 
         $dataUpdate = [
-            'image' => $data['image'],
-            'alias' => $data['alias'],
-            'sort' => $data['sort'],
-            'status' => !empty($data['status']) ? 1 : 0,
+            'question' => $data['question'],
+            'answer_type' => $data['type']
         ];
+        $question->update($dataUpdate);
+        $question->options()->delete();
 
-        $shopNews->update($dataUpdate);
-        $shopNews->descriptions()->delete();
-        $dataDes = [];
-        foreach ($data['descriptions'] as $code => $row) {
-            $dataDes[] = [
-                'shop_news_id' => $id,
-                'lang' => $code,
-                'title' => $row['title'],
-                'keyword' => $row['keyword'],
-                'description' => $row['description'],
-                'content' => $row['content'],
-            ];
+        $answers = $data['answers'] ?? [];
+        $answerOptions = [];
+        foreach($answers as $answer) {
+            $answerOptions[] = new QuestionaireQuestionOption(['option' => $answer]);
         }
-        ShopNewsDescription::insert($dataDes);
 
-//
-        return redirect()->route('admin_news.index')->with('success', trans('news.admin.edit_success'));
+        $question->options()->saveMany($answerOptions);
 
+        return redirect()->route('admin_questionaire.index')->with('success', trans('questionaire.admin.edit_success'));
     }
 
 /*
