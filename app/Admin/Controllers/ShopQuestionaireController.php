@@ -21,7 +21,7 @@ class ShopQuestionaireController extends Controller
 
     public function index()
     {
-        $questionaire = QuestionaireQuestion::get();
+        $questionaire = QuestionaireQuestion::with('options')->get();
         $data = [
             'title' => trans('questionaire.admin.title'),
             'sub_title' => '',

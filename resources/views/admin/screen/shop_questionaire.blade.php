@@ -17,10 +17,10 @@
             <!-- /.box-header -->
             
             <!-- Box body -->
-            <div class="row box-body v-center" >
+            <div class="row box-body" >
                 <div class="col-xs-5">
                     <div class="table-responsive no-padding box-shadow">
-                        <table class="table table-hover">
+                        <table class="table table-hover" id="question-table">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -30,7 +30,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($questionaire as $question)
-                                    <tr id="tr-question_{{ $question->id }}">
+                                    <tr id="tr-question_{{ $question->id }}" data-id="{{ $question->id }}" class="clickable">
                                         <td>{{ $question->id }}</td>
                                         <td>{{ $question->question }}</td>
                                         <td>
@@ -54,17 +54,15 @@
                 <div class="col-xs-3">
                     <div class="box-shadow">
                         <h2 style="padding: 10px 0; text-align: center; font-size: 18px; font-weight: 500;"> Answers </h2>
-                        <div id="answer-container">
-                            answer1
-                            <br>
-                            answer2
+                        <div id="answer-container" class="answers">
+                            
                         </div>
                     </div>
                 </div>
 
                 <div class="col-xs-4">
                     <div class="table-responsive no-padding box-shadow">
-                        <table class="table table-hover">
+                        <table class="table table-hover" id="next-question-table">
                             <thead>
                             <tr>
                                 <th>Next Question</th>
@@ -72,7 +70,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($questionaire as $question)
-                                    <tr id="tr-next-question_{{ $question->id }}">
+                                    <tr id="tr-next-question_{{ $question->id }}" data-id="{{ $question->id }}" class="clickable">
                                         <td>{{ $question->question }}</td>
                                     </tr>
                                 @endforeach
@@ -108,6 +106,9 @@
 
 <script type="text/javascript">
     let deleteUrl = "{{ route('admin_questionaire.delete', ['id'=>'question_ID']) }}";
+    let questionaire = @json($questionaire);
+    let answers = null;
+
     function deleteItem(id) {
         if (!confirm("Are you sure to delete this question?")) {
             return;
@@ -127,6 +128,46 @@
                 }
             }
 
+        });
+    }
+    
+    $(document).ready(function() {
+        $("#question-table tr.clickable").first().addClass('clicked');
+        loadHierarchy();
+    });
+
+    $("#question-table tr.clickable").click(function() {
+        if ($(this).hasClass('clicked')) {
+            return;
+        }
+        $("#question-table tr.clickable").removeClass('clicked');
+        $(this).addClass("clicked");
+        loadHierarchy();
+    });
+
+    function loadHierarchy() {
+        $("#answer-container").empty();
+        $("#next-question-table").removeClass("clicked");
+
+        let question_id = $("#question-table tr.clickable.clicked").data("id");
+        answers = questionaire.find(element => element.id == question_id).options;
+        if (!answers) {
+            return;
+        }
+        answers.forEach(function(answer, idx) {
+            let html = '<div data-id="' + idx + '">' + answer.option + '</div>';
+            $("#answer-container").append(html);
+        });
+        initAnswerEvent();
+    }
+
+    function initAnswerEvent() {
+        $("#answer-container div").click(function() {
+            if (!answers) {
+                return;
+            }
+            let id = $(this).data('id');
+            console.log(id, answers[id]);
         });
     }
 </script>

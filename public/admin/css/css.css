@@ -60,3 +60,27 @@
   display: flex;
   align-items: center;
 }
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable.clicked {
+  background-color: rgb(194, 230, 255);
+}
+
+.answers div {
+  border-top: 1px solid #eee;
+  padding: 15px;
+  margin: 0;
+  text-align: center;
+  cursor: pointer;
+}
+
+.answers div.clicked {
+  background-color: rgb(194, 230, 255);
+}
+
+.answers div:hover {
+  background-color: #eee;
+}
