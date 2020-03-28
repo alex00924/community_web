@@ -14,4 +14,24 @@ class QuestionaireQuestion extends Model
     {
         return $this->hasMany(QuestionaireQuestionOption::class, 'question_id', 'id');
     }
+
+    public function answers()
+    {
+        return $this->hasMany(QuestionaireAnswer::class, 'question_id', 'id');
+    }
+
+    public function nextQuestion()
+    {
+        return $this->belongsTo(QuestionaireQuestion::class, 'next_question_id', 'id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        // before delete() method call this
+        static::deleting(function ($question) {
+            $question->options()->delete();
+            $question->answers()->delete();
+        });
+    }
 }

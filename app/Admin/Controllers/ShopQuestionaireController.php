@@ -148,16 +148,13 @@ class ShopQuestionaireController extends Controller
 Delete list Item
 Need mothod destroy to boot deleting in model
  */
-    public function deleteList()
+    public function delete($id)
     {
-        if (!request()->ajax()) {
-            return response()->json(['error' => 1, 'msg' => 'Method not allow!']);
-        } else {
-            $ids = request('ids');
-            $arrID = explode(',', $ids);
-            ShopNews::destroy($arrID);
-            return response()->json(['error' => 0, 'msg' => '']);
+        if ($id < 1) {
+            return response()->json(['error' => 1, 'msg' => 'Invalid Request']);
         }
+        QuestionaireQuestion::destroy($id);
+        return response()->json(['error' => 0, 'msg' => '']);
     }
 
 }

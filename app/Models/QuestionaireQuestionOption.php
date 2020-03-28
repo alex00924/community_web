@@ -14,9 +14,4 @@ class QuestionaireQuestionOption extends Model
     {
         return $this->belongsTo(QuestionaireQuestion::class, 'question_id', 'id');
     }
-
-    public function nextQuestion()
-    {
-        return $this->belongsTo(QuestionaireQuestion::class, 'next_question_id', 'id');
-    }
 }

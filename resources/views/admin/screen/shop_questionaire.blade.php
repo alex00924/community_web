@@ -106,9 +106,29 @@
     $("[name='top'],[name='status']").bootstrapSwitch();
 </script>
 
-</script>
-
 <script type="text/javascript">
+    let deleteUrl = "{{ route('admin_questionaire.delete', ['id'=>'question_ID']) }}";
+    function deleteItem(id) {
+        if (!confirm("Are you sure to delete this question?")) {
+            return;
+        }
+        if (id < 1) {
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            data: {"_token": "{{ csrf_token() }}"},
+            url: deleteUrl.replace('question_ID', id),
+            success: function(response){
+                if (response.error == 1) {
+                    console.log(response.msg);
+                } else {
+                    $("#tr-question_" + id).remove();
+                }
+            }
+
+        });
+    }
 </script>
 
 @endpush
