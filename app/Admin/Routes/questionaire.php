@@ -6,4 +6,5 @@ $router->group(['prefix' => 'questionaire'], function ($router) {
     $router->get('/edit/{id}', 'ShopQuestionaireController@edit')->name('admin_questionaire.edit');
     $router->post('/edit/{id}', 'ShopQuestionaireController@postEdit')->name('admin_questionaire.edit');
     $router->post('/delete/{id}', 'ShopQuestionaireController@delete')->name('admin_questionaire.delete');
+    $router->post('/update', 'ShopQuestionaireController@updateNextQuestion')->name('admin_questionaire.update');
 });

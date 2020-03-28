@@ -91,7 +91,10 @@ class ShopQuestionaireController extends Controller
  */
     public function edit($id)
     {
-        $question = QuestionaireQuestion::with('options')->find($id);
+        $question = QuestionaireQuestion::with(['options' => function($query) {
+            $query->orderBy('id');
+        }])->find($id);
+        
         if ($question === null) {
             return 'no data';
         }
@@ -169,7 +172,30 @@ Need mothod destroy to boot deleting in model
             return response()->json(['error' => 1, 'msg' => 'Invalid Request']);
         }
         QuestionaireQuestion::destroy($id);
+        QuestionaireQuestionOption::where('next_question_id', '=', $id)->update(['next_question_id' => null]);
         return response()->json(['error' => 0, 'msg' => '']);
     }
 
+    // update questionaire next question id
+    public function updateNextQuestion()
+    {
+        $data = request()->all();
+        $question = QuestionaireQuestion::find($data["question"]);
+        if (empty($question)) {
+            return "Invalid question id";
+        }
+
+        $nextQuestion = QuestionaireQuestion::find($data["nextQuestion"]);
+        if (empty($nextQuestion)) {
+            return "Invalid next question id";
+        }
+
+        $option = $question->options()->find($data['option']);
+        if (empty($option)) {
+            return "Invalid option id";
+        }
+
+        $option->update(['next_question_id' => $nextQuestion->id]);
+        return "update next question success";
+    }
 }

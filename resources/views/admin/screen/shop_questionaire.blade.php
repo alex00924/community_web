@@ -29,8 +29,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach ($questionaire as $question)
-                                    <tr id="tr-question_{{ $question->id }}" data-id="{{ $question->id }}" class="clickable">
+                                @foreach ($questionaire as $key => $question)
+                                    <tr id="tr-question_{{ $question->id }}" data-id="{{ $key }}" class="clickable">
                                         <td>{{ $question->id }}</td>
                                         <td>{{ $question->question }}</td>
                                         <td>
@@ -69,7 +69,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach ($questionaire as $question)
+                                @foreach ($questionaire as $key => $question)
                                     <tr id="tr-next-question_{{ $question->id }}" data-id="{{ $question->id }}" class="clickable">
                                         <td>{{ $question->question }}</td>
                                     </tr>
@@ -81,7 +81,12 @@
         </div>
     </div>
 </div>
-
+<div id="loading-image" style="width: 100%; height: 100%; background: rgba(0,0,0,.6); z-index: 1001; display: none; position: fixed; top: 0; left: 0">
+    <img src="/admin/images/loading.gif" style="position: absolute; width: 100px; height: 100px; left: calc(50% - 50px); top: calc(50% - 50px)">
+    <div style="position: absolute; top: calc(50% + 80px); width: 100%; text-align: center">
+        <p style="font-size: 18px; color: white"> Updating next question...</p>
+    </div>
+</div>
 @endsection
 
 @push('styles')
@@ -116,6 +121,7 @@
         if (id < 1) {
             return;
         }
+        $("#loading-image").show();
         $.ajax({
             type: "POST",
             data: {"_token": "{{ csrf_token() }}"},
@@ -124,8 +130,16 @@
                 if (response.error == 1) {
                     console.log(response.msg);
                 } else {
-                    $("#tr-question_" + id).remove();
+                    if ($("#tr-question_" + id).hasClass('clicked')) {
+                        $("#tr-question_" + id).remove();
+                        $("#tr-next-question_" + id).remove();
+                        $("#question-table tr.clickable").first().addClass('clicked');
+                        loadHierarchy();
+                    } else {
+                        $("#tr-question_" + id).remove();
+                    }
                 }
+                $("#loading-image").hide();
             }
 
         });
@@ -144,13 +158,54 @@
         $(this).addClass("clicked");
         loadHierarchy();
     });
+    
+    $("#next-question-table tr.clickable").click(function() {
+        let currentElement = $(this);
+
+        if (currentElement.hasClass('clicked')) {
+            return;
+        }
+
+        let questionIdx = $("#question-table tr.clickable.clicked").data('id');
+        let answerIdx = $("#answer-container div.clicked").data('id');
+        let nextQuestionId = $(this).data('id');
+
+        if (questionIdx < 0 || answerIdx < 0 || !nextQuestionId) {
+            return;
+        }
+
+        questionaire[questionIdx].options[answerIdx].next_question_id = nextQuestionId;
+
+        $("#loading-image").show();
+        // post
+        $.ajax({
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                question: questionaire[questionIdx].id,
+                option: questionaire[questionIdx].options[answerIdx].id,
+                nextQuestion: nextQuestionId
+            },
+            url: "{{ route('admin_questionaire.update') }}",
+            success: function(response){
+                if (response.indexOf("Invalid") > -1) {
+                    alert(response);
+                } else {
+                    $("#next-question-table div").removeClass("clicked");
+                    currentElement.addClass('clicked');
+                }
+                $("#loading-image").hide();
+            }
+
+        });
+    });
 
     function loadHierarchy() {
         $("#answer-container").empty();
-        $("#next-question-table").removeClass("clicked");
+        $("#next-question-table tr.clicked").removeClass("clicked");
 
         let question_id = $("#question-table tr.clickable.clicked").data("id");
-        answers = questionaire.find(element => element.id == question_id).options;
+        answers = questionaire[question_id].options;
         if (!answers) {
             return;
         }
@@ -158,23 +213,36 @@
             let html = '<div data-id="' + idx + '">' + answer.option + '</div>';
             $("#answer-container").append(html);
         });
-        initAnswerEvent();
-    }
-
-    function initAnswerEvent() {
         $("#answer-container div").click(function() {
+            $("#answer-container div").removeClass('clicked');
             $(this).addClass("clicked");
-            if (!answers) {
-                return;
-            }
-            let id = $(this).data('id');
-            
+            updateNextAnswer();
         });
+
+        $("#answer-container div").first().addClass('clicked');
+        updateNextAnswer();
     }
 
-    function loadNextQuestion() {
-        
+    function updateNextAnswer() {
+        $("#next-question-table tr.clicked").removeClass("clicked");
+
+        if (!answers) {
+            return;
+        }
+
+        let id = $("#answer-container div.clicked").data('id');
+        if (id < 0) {
+            return;
+        }
+
+        let nextQuestionId = answers[id].next_question_id;
+        if(!nextQuestionId) {
+            return;
+        }
+
+        $("#next-question-table #tr-next-question_" + nextQuestionId).addClass('clicked');
     }
+
 </script>
 
 @endpush
