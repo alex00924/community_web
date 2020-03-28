@@ -61,13 +61,13 @@
                                 <table style="width: 100%; margin-bottom: 10px;">
                                     @php
                                         $answerID = 1;
-                                        $answers = empty(old('answers')) ? $question->options()->pluck('option')->toArray() : old('answers');
                                     @endphp
-                                    @foreach ($answers as $idx => $answerVal)
+                                    @foreach ($question->options as $answer)
                                         @php
-                                            $newHtml = str_replace('answer_value', $answerVal, $htmlAnswer);
+                                            $answerID = $answer->id;
+                                            $newHtml = str_replace('answer_value', $answer->option, $htmlAnswer);
                                             $newHtml = str_replace('answer_idx', $answerID, $newHtml);
-                                            $answerID++;
+                                            $newHtml = str_replace('answer_id_value', $answerID, $newHtml);
                                         @endphp
                                         {!! $newHtml !!}
                                     @endforeach
@@ -132,7 +132,7 @@
 </script>
 
 <script type="text/javascript">
-    let answerID = {!! $answerID !!};
+    let answerID = {!! $answerID !!} + 1;
     $(document).ready(function() {
         $('.select2').select2()
     });
@@ -141,6 +141,8 @@
         var htmlAnswer = '{!! $htmlAnswer??'' !!}';
         htmlAnswer = htmlAnswer.replace("answer_value", "");
         htmlAnswer = htmlAnswer.replace("answer_idx", answerID);
+        htmlAnswer = htmlAnswer.replace('answer_id_value', -1);
+
         answerID++;
         $(this).closest('tr').before(htmlAnswer);
         $('.removeAnswer').click(function(event) {
@@ -162,6 +164,20 @@
        if (answerCnt != 3 && $("#type").val() == "triangle") {
            alert("You can choose triangle format for a question which have only 3 answers.");
            return false;
+       }
+
+       let answers = [];
+       $("input[name^='answers']").each(function() {
+        answers.push($(this).val());
+       });
+
+       for (let i = 0 ; i < answerCnt; i ++) {
+           for (let k = i+1; k < answerCnt; k ++) {
+               if (answers[i] == answers[k]) {
+                   alert("There are same answer options. Please add different answers!");
+                   return false;
+               }
+           }
        }
     });
 </script>

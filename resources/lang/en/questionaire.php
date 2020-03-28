@@ -13,6 +13,8 @@ return [
         'add_new' => 'Add new',
         'add_new_title' => 'Add a new question',
         'add_new_des' => 'Create a new question',
+        'edit_title' => 'Edit a question',
+        'edit_des' => 'Update a question',
         'back_questionaire' => 'Back to Questionaire Hierarchy',
         'question' => 'Question',
         'type' => 'Answer Type',

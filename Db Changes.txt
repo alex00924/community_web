@@ -45,15 +45,14 @@ CREATE TABLE `questionaire_question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `question` text,
   `answer_type` enum('radio','select','slider','triangle') DEFAULT 'radio',
-  `next_question_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `questionaire_question_next_question_id_index` (`next_question_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 CREATE TABLE `questionaire_question_option` (
   `question_id` int(11) DEFAULT NULL,
   `option` text,
-  KEY `questionaire_question_option_question_id_index` (`question_id`)
+  `next_question_id` int(11) DEFAULT NULL,
+  KEY `questionaire_question_option_question_id_next_question_id_index` (`question_id`,`next_question_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 INSERT INTO `admin_menu` (`parent_id`, `sort`, `title`, `icon`, `uri`) VALUES ('7', '5', 'lang::questionaire.admin.title', 'fa-question', 'admin::questionaire');

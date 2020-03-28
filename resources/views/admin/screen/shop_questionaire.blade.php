@@ -163,12 +163,17 @@
 
     function initAnswerEvent() {
         $("#answer-container div").click(function() {
+            $(this).addClass("clicked");
             if (!answers) {
                 return;
             }
             let id = $(this).data('id');
-            console.log(id, answers[id]);
+            
         });
+    }
+
+    function loadNextQuestion() {
+        
     }
 </script>
 

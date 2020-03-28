@@ -91,15 +91,15 @@ class ShopQuestionaireController extends Controller
  */
     public function edit($id)
     {
-        $question = QuestionaireQuestion::find($id);
+        $question = QuestionaireQuestion::with('options')->find($id);
         if ($question === null) {
             return 'no data';
         }
 
-        $htmlAnswer = '<tr id="answer_idx"><td><br><input type="text" name="answers[]" value="answer_value" class="form-control" placeholder="' . trans('questionaire.admin.add_answer_place') . '" required/></td><td class="fit-content"><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAnswer"><i class="fa fa-times"></i></span></td></tr>';
+        $htmlAnswer = '<tr id="answer_idx"><td><br><input type="hidden" name="answer_ids[]" value="answer_id_value"> <input type="text" name="answers[]" value="answer_value" class="form-control" placeholder="' . trans('questionaire.admin.add_answer_place') . '" required/></td><td class="fit-content"><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAnswer"><i class="fa fa-times"></i></span></td></tr>';
         $data = [
-            'title' => trans('questionaire.admin.add_new_title'),
-            'title_description' => trans('questionaire.admin.add_new_des'),
+            'title' => trans('questionaire.admin.edit_title'),
+            'title_description' => trans('questionaire.admin.edit_des'),
             'question' => $question,
             'htmlAnswer' => $htmlAnswer
         ];
@@ -131,15 +131,30 @@ class ShopQuestionaireController extends Controller
             'answer_type' => $data['type']
         ];
         $question->update($dataUpdate);
-        $question->options()->delete();
+
+
 
         $answers = $data['answers'] ?? [];
-        $answerOptions = [];
-        foreach($answers as $answer) {
-            $answerOptions[] = new QuestionaireQuestionOption(['option' => $answer]);
+        $answerIds = $data['answer_ids'] ?? [];
+
+        $newAnswerOptions = [];
+        $options = $question->options()->get();
+
+        // delete invalid options
+        foreach($options as $option) {
+            if (!in_array($option->id, $answerIds)) {
+                $option->delete();
+            }
         }
 
-        $question->options()->saveMany($answerOptions);
+        foreach($answers as $key=>$answer) {
+            if ($answerIds[$key] == -1) {
+                $newAnswerOptions[] = new QuestionaireQuestionOption(['option' => $answer]);
+            } else {
+                $options->find($answerIds[$key])->update(['option' => $answer]);
+            }
+        }
+        $question->options()->saveMany($newAnswerOptions);
 
         return redirect()->route('admin_questionaire.index')->with('success', trans('questionaire.admin.edit_success'));
     }
