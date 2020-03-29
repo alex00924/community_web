@@ -910,7 +910,15 @@ h2.title {
 
 .productinfo img{
   max-width: 100%; /* This if for the object-fit */
+  max-height: 200px;
+  margin: auto;
+}
+.productinfo .product-image-container {
+  width: 100%;
   height: 200px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
 }
 
 .productinfo{

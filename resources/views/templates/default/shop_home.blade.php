@@ -8,7 +8,11 @@
                     <div class="product-image-wrapper product-single">
                       <div class="single-products product-box-{{ $product_new->id }}">
                           <div class="productinfo text-center">
-                            <a href="{{ $product_new->getUrl() }}"><img src="{{ asset($product_new->getThumb()) }}" alt="{{ $product_new->name }}" /></a>
+                            <a href="{{ $product_new->getUrl() }}">
+                              <div class="product-image-container">
+                                <img src="{{ asset($product_new->getThumb()) }}" alt="{{ $product_new->name }}" />
+                              </div>
+                            </a>
                             <a href="{{ $product_new->getUrl() }}"><div class="product-name-container"><p>{{ $product_new->name }}</p></div></a>
                             <div class="price">
                               {!! $product_new->showPrice() !!}
@@ -56,7 +60,11 @@
                     <div class="product-image-wrapper product-single">
                       <div class="single-products   product-box-{{ $product_hot->id }}">
                           <div class="productinfo text-center">
-                            <a href="{{ $product_hot->getUrl() }}"><img src="{{ asset($product_hot->getThumb()) }}" alt="{{ $product_hot->name }}" /></a>
+                            <a href="{{ $product_hot->getUrl() }}">
+                              <div class="product-image-container">
+                                <img src="{{ asset($product_hot->getThumb()) }}" alt="{{ $product_hot->name }}" />
+                              </div>
+                            </a>
                             <a href="{{ $product_hot->getUrl() }}"><div class="product-name-container"><p>{{ $product_hot->name }}</p></div></a>
                             <div class="price">
                               {!! $product_hot->showPrice() !!}

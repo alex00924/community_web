@@ -11,7 +11,11 @@
                         <div class="product-image-wrapper product-single">
                           <div class="single-products product-box-{{ $key }}">
                               <div class="productinfo text-center">
-                                <a href="{{ $productSpecial->getUrl() }}"><img src="{{ asset($productSpecial->getThumb()) }}" alt="{{ $productSpecial->name }}" /></a>
+                                <a href="{{ $productSpecial->getUrl() }}">
+                                  <div class="product-image-container">
+                                    <img src="{{ asset($productSpecial->getThumb()) }}" alt="{{ $productSpecial->name }}" />
+                                  </div>
+                                </a>
                                 {!! $productSpecial->showPrice() !!}
                                 <a href="{{ $productSpecial->getUrl() }}"><p>{{ $productSpecial->name }}</p></a>
                               </div>

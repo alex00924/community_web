@@ -10,7 +10,11 @@
                             <div class="product-image-wrapper product-single">
                               <div class="single-products">
                                 <div class="productinfo text-center product-box-{{ $item->id }}">
-                                  <a href="{{ $item->getUrl() }}"><img src="{{ asset($item->getImage()) }}" alt="{{ $item->name }}" /></a>
+                                  <a href="{{ $item->getUrl() }}">
+                                    <div class="product-image-container">
+                                      <img src="{{ asset($item->getImage()) }}" alt="{{ $item->name }}" />
+                                    </div>
+                                  </a>
                                   <a href="{{ $item->getUrl() }}"><div class="product-name-container"><p>{{ $item->name }}</p></div></a>
                                 </div>
                               </div>

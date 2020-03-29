@@ -12,7 +12,11 @@
                 <div class="item-folder-wrapper product-single">
                   <div class="single-products">
                     <div class="productinfo text-center product-box-{{ $item->id }}">
-                      <a href="{{ $item->getUrl() }}"><img src="{{ asset($item->getThumb()) }}" alt="{{ $item->name }}" /></a>
+                      <a href="{{ $item->getUrl() }}">
+                        <div class="product-image-container">
+                          <img src="{{ asset($item->getThumb()) }}" alt="{{ $item->name }}" />
+                        </div>
+                      </a>
                       <a href="{{ $item->getUrl() }}"><div class="product-name-container"><p>{{ $item->name }}</p></div></a>
                     </div>
                   </div>
@@ -33,7 +37,11 @@
               <div class="product-image-wrapper product-single">
                 <div class="single-products">
                   <div class="productinfo text-center product-box-{{ $product->id }}">
-                    <a href="{{ $product->getUrl() }}"><img src="{{ asset($product->getThumb()) }}" alt="{{ $product->name }}" /></a>
+                    <a href="{{ $product->getUrl() }}">
+                      <div class="product-image-container">
+                        <img src="{{ asset($product->getThumb()) }}" alt="{{ $product->name }}" />
+                      </div>
+                    </a>
                     <a href="{{ $product->getUrl() }}"><div class="product-name-container"><p>{{ $product->name }}</p></div></a>
                     <div class="price">{!! $product->showPrice() !!}</div>
                       @if ($product->allowSale())

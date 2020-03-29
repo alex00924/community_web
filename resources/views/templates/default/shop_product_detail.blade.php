@@ -321,7 +321,11 @@
                       <div class="product-image-wrapper product-single">
                         <div class="single-products   product-box-{{ $product_rel->id }}">
                             <div class="productinfo text-center">
-                              <a href="{{ $product_rel->getUrl() }}"><img src="{{ asset($product_rel->getThumb()) }}" alt="{{ $product_rel->name }}" /></a>
+                              <a href="{{ $product_rel->getUrl() }}">
+                                <div class="product-image-container">
+                                  <img src="{{ asset($product_rel->getThumb()) }}" alt="{{ $product_rel->name }}" />
+                                </div>
+                              </a>
                           {!! $product_rel->showPrice() !!}
                               <a href="{{ $product_rel->getUrl() }}"><p>{{ $product_rel->name }}</p></a>
                             </div>
