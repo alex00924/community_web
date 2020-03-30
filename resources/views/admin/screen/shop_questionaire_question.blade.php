@@ -7,7 +7,7 @@
             <div class="box-header with-border">
                 <div class="pull-right">
                     <div class="btn-group">
-                        <a href="{{ route('admin_questionaire.create') }}" class="btn  btn-flat btn-success" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
+                        <a href="{{ route('admin_questionaire.createQuestion', ['questionaire_id' => $questionaire_id]) }}" class="btn  btn-flat btn-success" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
                             <i class="fa fa-plus"></i>
                             <span class="hidden-xs"> {{trans('questionaire.admin.add_new')}}</span>
                         </a>
@@ -34,7 +34,7 @@
                                         <td>{{ $question->id }}</td>
                                         <td>{{ $question->question }}</td>
                                         <td>
-                                            <a href="{{ route('admin_questionaire.edit', ['id' => $question->id]) }}">
+                                            <a href="{{ route('admin_questionaire.editQuestion', ['questionaire_id' => $questionaire_id, 'id' => $question->id]) }}">
                                                 <span title="Edit" type="button" class="btn btn-flat btn-primary">
                                                     <i class="fa fa-edit"></i>
                                                 </span>
@@ -110,7 +110,7 @@
 </script>
 
 <script type="text/javascript">
-    let deleteUrl = "{{ route('admin_questionaire.delete', ['id'=>'question_ID']) }}";
+    let deleteUrl = "{{ route('admin_questionaire.deleteQuestion', ['id'=>'question_ID']) }}";
     let questionaire = @json($questionaire);
     let answers = null;
 
@@ -186,12 +186,12 @@
                 option: questionaire[questionIdx].options[answerIdx].id,
                 nextQuestion: nextQuestionId
             },
-            url: "{{ route('admin_questionaire.update') }}",
+            url: "{{ route('admin_questionaire.updateNextQuestion') }}",
             success: function(response){
                 if (response.indexOf("Invalid") > -1) {
                     alert(response);
                 } else {
-                    $("#next-question-table div").removeClass("clicked");
+                    $("#next-question-table tr.clickable").removeClass("clicked");
                     currentElement.addClass('clicked');
                 }
                 $("#loading-image").hide();

@@ -21,33 +21,39 @@ class ShopQuestionaireController extends Controller
 
     public function index()
     {
-        $questionaire = QuestionaireQuestion::with('options')->get();
+        
+    }
+
+    public function indexQuestions($questionaire_id)
+    {
+        $questionaire = Questionaire::find($questionaire_id)->questions()->with('options')->get();
         $data = [
             'title' => trans('questionaire.admin.title'),
             'sub_title' => '',
             'icon' => 'fa fa-question',
             'languages' => $this->languages,
-            'questionaire' => $questionaire
+            'questionaire' => $questionaire,
+            'questionaire_id' => $questionaire_id
         ];
-        return view('admin.screen.shop_questionaire')
+        return view('admin.screen.shop_questionaire_question')
             ->with($data);
     }
-
 /**
  * Form create new order in admin
  * @return [type] [description]
  */
-    public function create()
+    public function createQuestion($questionaire_id)
     {
         $htmlAnswer = '<tr id="answer_idx"><td><br><input type="text" name="answers[]" value="answer_value" class="form-control" placeholder="' . trans('questionaire.admin.add_answer_place') . '" required/></td><td class="fit-content"><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAnswer"><i class="fa fa-times"></i></span></td></tr>';
         $data = [
             'title' => trans('questionaire.admin.add_new_title'),
             'title_description' => trans('questionaire.admin.add_new_des'),
             'icon' => 'fa fa-plus',
-            'htmlAnswer' => $htmlAnswer
+            'htmlAnswer' => $htmlAnswer,
+            'questionaire_id' => $questionaire_id
         ];
 
-        return view('admin.screen.shop_questionaire_create')
+        return view('admin.screen.shop_questionaire_create_question')
             ->with($data);
     }
 
@@ -55,7 +61,7 @@ class ShopQuestionaireController extends Controller
  * Post create new order in admin
  * @return [type] [description]
  */
-    public function postCreate()
+    public function postCreateQuestion($questionaire_id)
     {
         $data = request()->all();
 
@@ -71,7 +77,8 @@ class ShopQuestionaireController extends Controller
 
         $dataInsert = [
             'question' => $data['question'],
-            'answer_type' => $data['type']
+            'answer_type' => $data['type'],
+            'questionaire_id' => $questionaire_id
         ];
         $question = QuestionaireQuestion::create($dataInsert);
 
@@ -83,13 +90,13 @@ class ShopQuestionaireController extends Controller
 
         $question->options()->saveMany($answerOptions);
 
-        return redirect()->route('admin_questionaire.index')->with('success', trans('questionaire.admin.create_success'));
+        return redirect()->route('admin_questionaire.indexQuestion', ['questionaire_id' => $questionaire_id])->with('success', trans('questionaire.admin.create_success'));
     }
 
 /**
  * Form edit
  */
-    public function edit($id)
+    public function editQuestion($questionaire_id, $id)
     {
         $question = QuestionaireQuestion::with(['options' => function($query) {
             $query->orderBy('id');
@@ -104,17 +111,18 @@ class ShopQuestionaireController extends Controller
             'title' => trans('questionaire.admin.edit_title'),
             'title_description' => trans('questionaire.admin.edit_des'),
             'question' => $question,
-            'htmlAnswer' => $htmlAnswer
+            'htmlAnswer' => $htmlAnswer,
+            'questionaire_id' => $questionaire_id
         ];
 
-        return view('admin.screen.shop_questionaire_edit')
+        return view('admin.screen.shop_questionaire_edit_question')
             ->with($data);
     }
 
 /**
  * update status
  */
-    public function postEdit($id)
+    public function postEditQuestion($questionaire_id, $id)
     {
         $data = request()->all();
         
@@ -159,14 +167,14 @@ class ShopQuestionaireController extends Controller
         }
         $question->options()->saveMany($newAnswerOptions);
 
-        return redirect()->route('admin_questionaire.index')->with('success', trans('questionaire.admin.edit_success'));
+        return redirect()->route('admin_questionaire.indexQuestion', ['questionaire_id' => $questionaire_id])->with('success', trans('questionaire.admin.edit_success'));
     }
 
 /*
 Delete list Item
 Need mothod destroy to boot deleting in model
  */
-    public function delete($id)
+    public function deleteQuestion($id)
     {
         if ($id < 1) {
             return response()->json(['error' => 1, 'msg' => 'Invalid Request']);

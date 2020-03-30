@@ -57,6 +57,14 @@ CREATE TABLE `questionaire_question_option` (
 
 INSERT INTO `admin_menu` (`parent_id`, `sort`, `title`, `icon`, `uri`) VALUES ('7', '5', 'lang::questionaire.admin.title', 'fa-question', 'admin::questionaire');
 
+6. Added questionaire table and altered questionaire_question table
+
+CREATE TABLE `questionaire` ( `id` INT NOT NULL AUTO_INCREMENT, `title` TEXT, `type` VARCHAR(50) COMMENT 'General, Product, Blog...', `target_id` INT, PRIMARY KEY (`id`) ) ENGINE=INNODB CHARSET=utf8 COLLATE=utf8_general_ci; 
+
+ALTER TABLE `questionaire_question` ADD COLUMN `questionaire_id` INT NULL AFTER `answer_type`, ADD INDEX `questionaire_question_questionaire_id_index` (`questionaire_id`); 
+
+
+
 ***. Offline  
 <!-- @if (\Route::current()->getName() != 'admin_chat')
         @include('admin.component.chat_alert')
