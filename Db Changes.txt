@@ -59,7 +59,13 @@ INSERT INTO `admin_menu` (`parent_id`, `sort`, `title`, `icon`, `uri`) VALUES ('
 
 6. Added questionaire table and altered questionaire_question table
 
-CREATE TABLE `questionaire` ( `id` INT NOT NULL AUTO_INCREMENT, `title` TEXT, `type` VARCHAR(50) COMMENT 'General, Product, Blog...', `target_id` INT, PRIMARY KEY (`id`) ) ENGINE=INNODB CHARSET=utf8 COLLATE=utf8_general_ci; 
+CREATE TABLE `questionaire` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` text,
+  `type` enum('General','Product','Blog','Brand') DEFAULT NULL COMMENT 'General, Product, Blog...',
+  `target_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 ALTER TABLE `questionaire_question` ADD COLUMN `questionaire_id` INT NULL AFTER `answer_type`, ADD INDEX `questionaire_question_questionaire_id_index` (`questionaire_id`); 
 

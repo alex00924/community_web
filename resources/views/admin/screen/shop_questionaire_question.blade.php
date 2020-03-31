@@ -12,6 +12,12 @@
                             <span class="hidden-xs"> {{trans('questionaire.admin.add_new')}}</span>
                         </a>
                     </div>
+                    <div class="btn-group">
+                        <a href="{{ route('admin_questionaire.index') }}" class="btn  btn-flat btn-default" title="{{trans('questionaire.admin.back_questionaire')}}" style="margin: 0 5px">
+                            <i class="fa fa-list"></i>
+                            <span class="hidden-xs"> {{trans('questionaire.admin.back_questionaire')}}</span>
+                        </a>
+                    </div>
                 </div>
             </div>
             <!-- /.box-header -->
