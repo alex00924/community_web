@@ -84,3 +84,10 @@
 .answers div:hover {
   background-color: #eee;
 }
+
+.linkable {
+  cursor: pointer;
+}
+.linkable:hover {
+  color: rgb(70, 170, 250);
+}

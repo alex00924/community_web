@@ -90,7 +90,7 @@
 <div id="loading-image" style="width: 100%; height: 100%; background: rgba(0,0,0,.6); z-index: 1001; display: none; position: fixed; top: 0; left: 0">
     <img src="/admin/images/loading.gif" style="position: absolute; width: 100px; height: 100px; left: calc(50% - 50px); top: calc(50% - 50px)">
     <div style="position: absolute; top: calc(50% + 80px); width: 100%; text-align: center">
-        <p style="font-size: 18px; color: white"> Updating next question...</p>
+        <p style="font-size: 18px; color: white"> Updating...</p>
     </div>
 </div>
 @endsection

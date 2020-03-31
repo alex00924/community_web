@@ -10,7 +10,7 @@
                 <div class="box-tools">
                     <div class="btn-group pull-right" style="margin-right: 5px">
                         <a href="{{ route('admin_questionaire.indexQuestion', ['questionaire_id' => $questionaire_id]) }}" class="btn  btn-flat btn-default" title="List"><i
-                                class="fa fa-list"></i><span class="hidden-xs"> {{trans('questionaire.admin.back_questionaire')}}</span></a>
+                                class="fa fa-list"></i><span class="hidden-xs"> {{trans('questionaire.admin.back_questionaire_hierarchy')}}</span></a>
                     </div>
                 </div>
             </div>

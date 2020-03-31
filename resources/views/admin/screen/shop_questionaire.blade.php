@@ -32,7 +32,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($questionaires as $key => $questionaire)
-                                    <tr id="tr-questionaire_{{ $questionaire->id }}">
+                                    <tr data-id="{{ $questionaire->id }}"  class="linkable">
                                         <td>{{ $questionaire->id }}</td>
                                         <td>{{ $questionaire->title }}</td>
                                         <td>{{ $questionaire->type }}</td>
@@ -95,6 +95,8 @@
 
 <script type="text/javascript">
     let deleteUrl = "{{ route('admin_questionaire.delete', ['id'=>'question_ID']) }}";
+    let questionIndexUrl = "{{ route('admin_questionaire.indexQuestion', ['questionaire_id' => 'questionaire_ID']) }}";
+
     function deleteItem(id) {
         if (!confirm("Are you sure to delete this questionaire?")) {
             return;
@@ -116,6 +118,10 @@
 
         });
     }
+
+    $("#question-table tr.linkable").click(function() {
+        document.location.href =  questionIndexUrl.replace("questionaire_ID", $(this).data('id'));
+    })
 </script>
 
 @endpush
