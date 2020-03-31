@@ -15,7 +15,7 @@
                 </div>
             </div>
             <!-- /.box-header -->
-            <form action="{{ route('admin_questionaire.create') }}" id="questionaire-form" method="POST" accept-charset="UTF-8" class="form-horizontal">
+            <form action="{{ route('admin_questionaire.edit', ['id' => $questionaire->id]) }}" id="questionaire-form" method="POST" accept-charset="UTF-8" class="form-horizontal">
                 <!-- Box body -->
                 <div class="box-body">
                     <div class="fields-group">
@@ -23,7 +23,7 @@
                         <div class="form-group {{ $errors->has('title') ? ' has-error' : '' }}">
                             <label class="col-xs-2 control-label" for="title">{{ trans('questionaire.admin.questionaire') }}</label>
                             <div class="col-xs-8">
-                                <input id="title" name="title" class="form-control input-sm" value="{{ old('title') }}" required>
+                                <input id="title" name="title" class="form-control input-sm" value="{{ empty(old('title')) ? $questionaire->title : old('title') }}" required>
                                 @if ($errors->has('title'))
                                 <span class="help-block">
                                     <i class="fa fa-info-circle"></i>
@@ -36,9 +36,12 @@
                         <div class="form-group {{ $errors->has('type') ? ' has-error' : '' }}">
                             <label class="col-xs-2 control-label" for="type">{{ trans('questionaire.admin.type') }}</label>
                             <div class="col-xs-8">
+                                @php
+                                $type = empty(old('type')) ? $questionaire->type : old('type');
+                                @endphp
                                 <select class="form-control select2" style="width: 100%;" name="type" id="type" required onchange="updateTarget()">
-                                    <option value="General" {{ (old('type') == 'General') ? 'selected':'' }}> General </option>
-                                    <option value="Product" {{ (old('type') == 'Product') ? 'selected':'' }}> Product </option>
+                                    <option value="General" {{ ($type == 'General') ? 'selected':'' }}> General </option>
+                                    <option value="Product" {{ ($type == 'Product') ? 'selected':'' }}> Product </option>
                                 </select>
                                 @if ($errors->has('type'))
                                 <span class="help-block">
@@ -48,7 +51,7 @@
                                 @endif
                             </div>
                         </div>
-                        <input type="hidden" id="target_id" name="target_id" value="{{ old('target_id') }}">
+                        <input type="hidden" id="target_id" name="target_id" value="{{ empty(old('target_id')) ? $questionaire->target_id : old('target_id') }}">
                         <div class="form-group">
                             <label class="col-xs-2 control-label">{{ trans('questionaire.admin.target') }}</label>
                             <div class="col-xs-8" style="overflow: auto; height: 60vh">
@@ -64,7 +67,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($products as $product)
-                                            <tr data-id="{{ $product->id }}" class="clickable">
+                                            <tr id="target-element_{{ $product->id }}" data-id="{{ $product->id }}" class="clickable">
                                                 <td> {{ $product->id }} </td>
                                                 <td> <img style="width: 50px; height: auto;" src="{{ $product->image }}" /></td>
                                                 <td> {{ $product->name }} </td>
@@ -126,7 +129,13 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('.select2').select2()
+        $('.select2').select2();
+        let target_id = $("#target_id").val();
+        updateTarget();
+        if (target_id) {
+            $("#target-element_" + target_id).addClass("clicked");
+            $("#target_id").val(target_id);
+        }
     });
     
     $(".clickable").click(function() {

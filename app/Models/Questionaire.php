@@ -20,7 +20,7 @@ class Questionaire extends Model
         parent::boot();
         // before delete() method call this
         static::deleting(function ($questionaire) {
-            $question->questions()->delete();
+            $questionaire->questions()->delete();
         });
     }
 }

@@ -80,38 +80,35 @@ class ShopQuestionaireController extends Controller
     /**
     * Form edit
     */
-    public function edit($questionaire_id, $id)
+    public function edit($id)
     {
-        $question = QuestionaireQuestion::with(['options' => function($query) {
-            $query->orderBy('id');
-        }])->find($id);
+        $products = ShopProduct::get();
+        $questionaire = Questionaire::find($id);
         
-        if ($question === null) {
+        if ($questionaire === null || $products == null) {
             return 'no data';
         }
 
-        $htmlAnswer = '<tr id="answer_idx"><td><br><input type="hidden" name="answer_ids[]" value="answer_id_value"> <input type="text" name="answers[]" value="answer_value" class="form-control" placeholder="' . trans('questionaire.admin.add_answer_place') . '" required/></td><td class="fit-content"><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAnswer"><i class="fa fa-times"></i></span></td></tr>';
         $data = [
-            'title' => trans('questionaire.admin.edit_title'),
-            'title_description' => trans('questionaire.admin.edit_des'),
-            'question' => $question,
-            'htmlAnswer' => $htmlAnswer,
-            'questionaire_id' => $questionaire_id
+            'title' => trans('questionaire.admin.edit_questionaire_title'),
+            'title_description' => trans('questionaire.admin.edit_questionaire_des'),
+            'questionaire' => $questionaire,
+            'products' => $products,
         ];
 
-        return view('admin.screen.shop_questionaire_edit_question')
+        return view('admin.screen.shop_questionaire_edit')
             ->with($data);
     }
 
     /**
     * Update question
     */
-    public function postEdit($questionaire_id, $id)
+    public function postEdit($id)
     {
         $data = request()->all();
         
         $validator = Validator::make($data, [
-            'question' => 'required',
+            'title' => 'required',
             'type' => 'required',
         ]);
         if ($validator->fails()) {
@@ -119,39 +116,16 @@ class ShopQuestionaireController extends Controller
                 ->withErrors($validator)
                 ->withInput($data);
         }
-        $question = QuestionaireQuestion::find($id);
+        $questionaire = Questionaire::find($id);
 
         $dataUpdate = [
-            'question' => $data['question'],
-            'answer_type' => $data['type']
+            'title' => $data['title'],
+            'type' => $data['type'],
+            'target_id' => $data['target_id']
         ];
-        $question->update($dataUpdate);
+        $questionaire->update($dataUpdate);
 
-
-
-        $answers = $data['answers'] ?? [];
-        $answerIds = $data['answer_ids'] ?? [];
-
-        $newAnswerOptions = [];
-        $options = $question->options()->get();
-
-        // delete invalid options
-        foreach($options as $option) {
-            if (!in_array($option->id, $answerIds)) {
-                $option->delete();
-            }
-        }
-
-        foreach($answers as $key=>$answer) {
-            if ($answerIds[$key] == -1) {
-                $newAnswerOptions[] = new QuestionaireQuestionOption(['option' => $answer]);
-            } else {
-                $options->find($answerIds[$key])->update(['option' => $answer]);
-            }
-        }
-        $question->options()->saveMany($newAnswerOptions);
-
-        return redirect()->route('admin_questionaire.indexQuestion', ['questionaire_id' => $questionaire_id])->with('success', trans('questionaire.admin.edit_success'));
+        return redirect()->route('admin_questionaire.index')->with('success', trans('questionaire.admin.edit_success'));
     }
 
     /*
@@ -163,8 +137,7 @@ class ShopQuestionaireController extends Controller
         if ($id < 1) {
             return response()->json(['error' => 1, 'msg' => 'Invalid Request']);
         }
-        QuestionaireQuestion::destroy($id);
-        QuestionaireQuestionOption::where('next_question_id', '=', $id)->update(['next_question_id' => null]);
+        Questionaire::destroy($id);
         return response()->json(['error' => 0, 'msg' => '']);
     }
 
