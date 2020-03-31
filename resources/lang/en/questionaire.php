@@ -4,6 +4,8 @@ return [
     'admin' => [
         'title' => 'Questionaire ',
         'title_des' => 'Manage Questionaire',
+        'create_questionaire_success' => 'Create new questionaire success!',
+        'edit_questionaire_success' => 'Edit questionaire success!',
         'create_success' => 'Create new question success!',
         'edit_success' => 'Edit question success!',
         'action' => 'Action',
@@ -11,6 +13,10 @@ return [
         'edit' => 'Edit',
         'save' => 'Save',
         'add_new' => 'Add new',
+        'add_new_questionaire_title' => 'Add a new questionaire',
+        'add_new_questionaire_des' => 'Create a new questionaire',
+        'edit_questionaire_title' => 'Edit a questionaire',
+        'edit_questionaire_des' => 'Update a questionaire',
         'add_new_title' => 'Add a new question',
         'add_new_des' => 'Create a new question',
         'edit_title' => 'Edit a question',
@@ -18,9 +24,12 @@ return [
         'back_questionaire_hierarchy' => 'Back to Questionaire Hierarchy',
         'back_questionaire' => 'Back to Questionaire List',
         'question' => 'Question',
-        'type' => 'Answer Type',
+        'questionaire' => 'Questionaire',
+        'type' => 'Type',
+        'answer_type' => 'Answer Type',
         'answers' => 'Answers',
         'add_answer' => 'Add answer',
         'add_answer_place' => 'Add answer value',
+        'target' => 'Target'
     ],
 ];

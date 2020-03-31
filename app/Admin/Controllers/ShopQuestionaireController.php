@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ShopLanguage;
 use App\Models\QuestionaireQuestion;
 use App\Models\Questionaire;
+use App\Models\ShopProduct;
 use App\Models\QuestionaireQuestionOption;
 use Illuminate\Http\Request;
 use Validator;
@@ -34,32 +35,31 @@ class ShopQuestionaireController extends Controller
             ->with($data);
     }
     /**
-     * Form create new question in admin
+     * Form create new questionaire in admin
      */
-    public function create($questionaire_id)
+    public function create()
     {
-        $htmlAnswer = '<tr id="answer_idx"><td><br><input type="text" name="answers[]" value="answer_value" class="form-control" placeholder="' . trans('questionaire.admin.add_answer_place') . '" required/></td><td class="fit-content"><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAnswer"><i class="fa fa-times"></i></span></td></tr>';
+        $products = ShopProduct::get();
         $data = [
-            'title' => trans('questionaire.admin.add_new_title'),
-            'title_description' => trans('questionaire.admin.add_new_des'),
+            'title' => trans('questionaire.admin.add_new_questionaire_title'),
+            'title_description' => trans('questionaire.admin.add_new_questionaire_des'),
             'icon' => 'fa fa-plus',
-            'htmlAnswer' => $htmlAnswer,
-            'questionaire_id' => $questionaire_id
+            'products' => $products,
         ];
 
-        return view('admin.screen.shop_questionaire_create_question')
+        return view('admin.screen.shop_questionaire_create')
             ->with($data);
     }
 
     /**
     * Post create new question in admin
     */
-    public function postCreate($questionaire_id)
+    public function postCreate()
     {
         $data = request()->all();
 
         $validator = Validator::make($data, [
-            'question' => 'required',
+            'title' => 'required',
             'type' => 'required',
         ]);
         if ($validator->fails()) {
@@ -69,21 +69,12 @@ class ShopQuestionaireController extends Controller
         }
 
         $dataInsert = [
-            'question' => $data['question'],
-            'answer_type' => $data['type'],
-            'questionaire_id' => $questionaire_id
+            'title' => $data['title'],
+            'type' => $data['type'],
+            'target_id' => $data["target_id"]
         ];
-        $question = QuestionaireQuestion::create($dataInsert);
-
-        $answers = $data['answers'] ?? [];
-        $answerOptions = [];
-        foreach($answers as $answer) {
-            $answerOptions[] = new QuestionaireQuestionOption(['option' => $answer]);
-        }
-
-        $question->options()->saveMany($answerOptions);
-
-        return redirect()->route('admin_questionaire.indexQuestion', ['questionaire_id' => $questionaire_id])->with('success', trans('questionaire.admin.create_success'));
+        $question = Questionaire::create($dataInsert);
+        return redirect()->route('admin_questionaire.index')->with('success', trans('questionaire.admin.create_questionaire_success'));
     }
 
     /**
