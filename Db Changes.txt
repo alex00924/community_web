@@ -70,7 +70,11 @@ CREATE TABLE `questionaire` (
 ALTER TABLE `questionaire_question` ADD COLUMN `questionaire_id` INT NULL AFTER `answer_type`, ADD INDEX `questionaire_question_questionaire_id_index` (`questionaire_id`); 
 
 
+7. Update questionaire answer table
+ ALTER TABLE `questionaire_answer` ADD COLUMN `questionaire_id` INT NULL AFTER `user_id`; 
+ ALTER TABLE `questionaire_answer` DROP INDEX `questionaire_answer_user_id_question_id_index`, ADD KEY `questionaire_answer_user_id_question_id_questionaire_id_index` (`user_id`, `question_id`, `questionaire_id`); 
 
+ 
 ***. Offline  
 <!-- @if (\Route::current()->getName() != 'admin_chat')
         @include('admin.component.chat_alert')

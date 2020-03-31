@@ -10,6 +10,11 @@ class QuestionaireAnswer extends Model
     public $table      = 'questionaire_answer';
     protected $guarded = [];
 
+    public function questionaire()
+    {
+        return $this->belongsTo(Questionaire::class, 'questionaire_id', 'id');
+    }
+
     public function question()
     {
         return $this->belongsTo(QuestionaireQuestion::class, 'question_id', 'id');

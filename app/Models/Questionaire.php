@@ -15,6 +15,11 @@ class Questionaire extends Model
         return $this->hasMany(QuestionaireQuestion::class, 'questionaire_id', 'id');
     }
 
+    public function answers()
+    {
+        return $this->hasMany(QuestionaireAnswers::class, 'questionaire_id', 'id');
+    }
+
     protected static function boot()
     {
         parent::boot();
