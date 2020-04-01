@@ -15,13 +15,13 @@
          </div>
          <div class="row" style="margin-top: 2rem">
             <div class="col-xs-12 text-center">
-               <button type="button" class="btn btn-info" id="btn_prev" onclick="prevQuestion()"><i class="fa fa-angle-left"></i>&nbsp;&nbsp;Prev</button>
-               <button type="button" class="btn btn-info" id="btn_next" onclick="nextQuetion()">Next&nbsp;&nbsp;<i class="fa fa-angle-right"></i></button>
+               <button type="button" class="btn btn-info" id="btn-prev" onclick="prevQuestion()"><i class="fa fa-angle-left"></i>&nbsp;&nbsp;Prev</button>
+               <button type="button" class="btn btn-info" id="btn-next" onclick="nextQuestion()">Next&nbsp;&nbsp;<i class="fa fa-angle-right"></i></button>
             </div>
          </div>
       </div>
       <div class="modal-footer">
-         <button type="button" class="btn btn-success" style="display: none" id="btn_complete" onclick="completeQuestionaire()">Complete</button>
+         <button type="button" class="btn btn-success" style="display: none" id="btn-complete" onclick="completeQuestionaire()">Complete</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -46,7 +46,8 @@
          backdrop: 'static',
          keyboard: false
       });
-      $("#btn_prev").prop("disabled", true);
+      $("#btn-prev").prop("disabled", true);
+      $("#btn-complete").hide();
       updateQuestionContent(questions[0].id);
    }
 
@@ -60,19 +61,29 @@
       } else {
          let contentHtml = '<div><p class="question">' + currQuestion.question + '</p></div>';
          contentHtml += '<div class="answer-container">';
+         let prevVal = answers[currAnswerIdx];
+
          if (currQuestion.answer_type == "radio") {
             currQuestion.options.forEach(function(option, idx) {
-               contentHtml += '<div class="radio"> <label> <input type="radio" class="answer-option" value="' + idx + '">' + option.option + '</label></div>';
+               contentHtml += '<div class="radio"> <label>';
+               contentHtml += '<input type="radio" class="answer-option" value="' + idx + '"' + prevVal == option ? "checked" : "" + '>';
+               contentHtml += option.option + '</label></div>';
             });
          } else if (currQuestion.answer_type == "select") {
             contentHtml += '<select class="form-control answer-option">';
             currQuestion.options.forEach(function(option, idx) {
-               contentHtml += '<option value="' + idx + '">' + option.option + '</option>';
+               contentHtml += '<option value="' + idx + '"' + prevVal == option ? "selected" : "" + '>' + option.option + '</option>';
             });
             contentHtml += '</select>';
          } else if (currQuestion.answer_type == "slider") {
+            let prevIdx = 0;
+            currQuestion.options.forEach(function(option, idx) {
+               if (prevVal == option) {
+                  prevIdx = idx;
+               }
+            });
             contentHtml += '<div class="range">';
-            contentHtml += '<input type="range" min="0" max="' + (currQuestion.options.length-1) + '" value="0" class="slider answer-option">' ;
+            contentHtml += '<input type="range" min="0" max="' + (currQuestion.options.length-1) + '" value="' + prevIdx + '" class="slider answer-option">' ;
             contentHtml += '<div class="sliderticks">';
             currQuestion.options.forEach(function(option) {
                contentHtml += '<p>' + option.option + '</p>';
@@ -86,7 +97,7 @@
             currQuestion.options.forEach(function(option, idx) {
                contentHtml += '<div style="margin: 10px 0;"><span style="border-bottom: 1px solid #eee;">';
                contentHtml += '<label style="font-weight: 400">' + option.option + ' &nbsp;:&nbsp;</label>';
-               contentHtml += '<label id="triangle_' + option.option + '">33</label>%';
+               contentHtml += '<label id="label_triangle_' + idx + '">33</label>%';
                contentHtml += '</span></div>';
             });
             contentHtml += '</div></div></div>';
@@ -100,13 +111,19 @@
       }
    }
 
-   function prevQuetion() {
+   function completeQuestionaire() {
+      answers.splice(currAnswerIdx);
+      console.log(answers);
+   }
+
+   function prevQuestion() {
       if (currAnswerIdx < 0) {
          $("#btn-prev").prop("disabled", true);
          return;
       }
 
       $("#btn-next").prop("disabled", false);
+      $("#btn-complete").hide();
 
       currAnswerIdx--;
       updateQuestionContent(answers[currAnswerIdx].question_id);
@@ -119,20 +136,29 @@
    }
 
    function nextQuestion() {
-      $("#btn-prev").prop("disabled", false;);
+      $("#btn-prev").prop("disabled", false);
       let answerVal = '';
       let idx;
       switch(currQuestion.answer_type) {
          case "radio":
             idx = $("#question-content input.answer-option:checked").val();
+            if (typeof idx === 'undefined' || idx === null || idx < 0) {
+               return;
+            }
             answerVal = currQuestion.options[idx].option;
          break;
          case "select":
             idx = $("#question-content select.answer-option").val();
+            if (typeof idx === 'undefined' || idx === null || idx < 0) {
+               return;
+            }
             answerVal = currQuestion.options[idx].option;
          break;
          case "slider":
             idx = $("#question-content input.answer-option").val();
+            if (typeof idx === 'undefined' || idx === null || idx < 0) {
+               return;
+            }
             answerVal = currQuestion.options[idx].option;
          break;
          case "triangle":
@@ -198,7 +224,7 @@
       $("#picker").trianglePicker(defaults, function(name, values) {
          let idx = 0;
          for(k in values) {
-            $("label#triangle_"+k).text(values[k]);
+            $("label#label_triangle_"+idx).text(values[k]);
             idx++;
          }
       });
