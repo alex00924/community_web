@@ -155,6 +155,7 @@
 
 @include($templatePath.'.footer')
 
+
 <script src="{{ asset($templateFile.'/js/jquery.js')}}"></script>
 <script src="{{ asset($templateFile.'/js/jquery-ui.min.js')}}"></script>
 <script src="{{ asset($templateFile.'/js/bootstrap.min.js')}}"></script>
@@ -164,6 +165,9 @@
 
 
 @stack('scripts')
+
+<!-- include questionaire form -->
+@include($templatePath.'.questionaire_survey')
 
 <!-- js default for item s-cart -->
 @include('common.js')
@@ -206,7 +210,7 @@
     <script src="{{ asset('chat/chatkit.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('chat/client_chat.css') }}">
     <script src="{{ asset('chat/client_chat.js') }}"></script>
-  @include('chat.client_chat_content')
+  {{--@include('chat.client_chat_content')--}}
   @endauth
 </body>
 </html>

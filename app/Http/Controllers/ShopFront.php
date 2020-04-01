@@ -11,6 +11,9 @@ use App\Models\ShopVendor;
 use Illuminate\Http\Request;
 use App\Models\ShopProductReview;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Questionaire;
+use App\Models\QuestionaireQuestion;
+use App\Models\QuestionaireAnswer;
 
 class ShopFront extends GeneralController
 {
@@ -24,6 +27,17 @@ class ShopFront extends GeneralController
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
+        $questionaire = null;
+
+        if (!empty($user)) {
+            $answeredIds = $user->questionaireAnswers()->groupBy('questionaire_id')->pluck('questionaire_id')->toArray();
+            $questionaire = Questionaire::where('type', 'General')->whereNotIn('id', $answeredIds)->first();
+            if (isset($questionaire))
+            {
+                $questionaire['questions'] = QuestionaireQuestion::with("options")->where('questionaire_id', $questionaire->id)->get();
+            }
+        }
         return view($this->templatePath . '.shop_home',
             array(
                 'products_new' => (new ShopProduct)->getProducts($type = null, $limit = sc_config('product_new'), $opt = null),
@@ -32,7 +46,7 @@ class ShopFront extends GeneralController
                 'products_build' => (new ShopProduct)->getTopBuild($limit = 4),
                 'products_group' => (new ShopProduct)->getTopGroup($limit = 4),
                 'layout_page' => 'home',
-
+                'questionaire' => $questionaire
             )
         );
     }

@@ -9,7 +9,7 @@ class Questionaire extends Model
     public $timestamps = false;
     public $table      = 'questionaire';
     protected $guarded = [];
-
+    
     public function questions()
     {
         return $this->hasMany(QuestionaireQuestion::class, 'questionaire_id', 'id');
