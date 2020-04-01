@@ -61,6 +61,11 @@ require_once 'component/product.php';
 require_once 'component/content.php';
 
 /*
+ Questionaire
+*/
+require_once 'component/questionaire.php';
+
+/*
  Content
 */
 require_once 'component/chat.php';

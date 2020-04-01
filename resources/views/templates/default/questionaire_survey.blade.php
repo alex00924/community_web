@@ -113,7 +113,21 @@
 
    function completeQuestionaire() {
       answers.splice(currAnswerIdx);
-      console.log(answers);
+      $.ajax({
+         type: "POST",
+         data: {
+            _token: "{{ csrf_token() }}",
+            answers: answers,
+            questionaire_id: {{ $questionaire->id }}
+         },
+         url: "{{ route('questionaire.add_answer') }}",
+         success: function(response){
+            $("#questionaire-modal").modal("hide");
+            if (response == 'ok') {
+               alert("Thank you for your answers. Your answers are saved successfully");
+            }
+         }
+      });
    }
 
    function prevQuestion() {
@@ -131,8 +145,6 @@
       if (currAnswerIdx == 0) {
          $("#btn-prev").prop("disabled", true);
       }
-
-      console.log(answers);
    }
 
    function nextQuestion() {
