@@ -61,24 +61,24 @@
       } else {
          let contentHtml = '<div><p class="question">' + currQuestion.question + '</p></div>';
          contentHtml += '<div class="answer-container">';
-         let prevVal = answers[currAnswerIdx];
+         let prevVal = answers[currAnswerIdx] ? answers[currAnswerIdx].answer : "";
 
          if (currQuestion.answer_type == "radio") {
             currQuestion.options.forEach(function(option, idx) {
                contentHtml += '<div class="radio"> <label>';
-               contentHtml += '<input type="radio" class="answer-option" value="' + idx + '"' + prevVal == option ? "checked" : "" + '>';
+               contentHtml += '<input type="radio" class="answer-option" name="optradio" value="' + idx + '"' + (prevVal == option.option ? "checked" : "") + '>';
                contentHtml += option.option + '</label></div>';
             });
          } else if (currQuestion.answer_type == "select") {
             contentHtml += '<select class="form-control answer-option">';
             currQuestion.options.forEach(function(option, idx) {
-               contentHtml += '<option value="' + idx + '"' + prevVal == option ? "selected" : "" + '>' + option.option + '</option>';
+               contentHtml += '<option value="' + idx + '"' + (prevVal == option.option ? " selected" : "") + '>' + option.option + '</option>';
             });
             contentHtml += '</select>';
          } else if (currQuestion.answer_type == "slider") {
             let prevIdx = 0;
             currQuestion.options.forEach(function(option, idx) {
-               if (prevVal == option) {
+               if (prevVal == option.option) {
                   prevIdx = idx;
                }
             });
@@ -163,12 +163,12 @@
          break;
          case "triangle":
             let vals = [
-               $("#question-content #triangle_0").val(),
-               $("#question-content #triangle_1").val(),
-               $("#question-content #triangle_2").val(),
+               Number.parseInt($("#question-content #triangle_0").val()),
+               Number.parseInt($("#question-content #triangle_1").val()),
+               Number.parseInt($("#question-content #triangle_2").val()),
             ];
 
-            idx = vals.indexOf(Math.max(vals));
+            idx = vals.indexOf(Math.max(...vals));
             answerVal = JSON.stringify(vals);
          break;
       }
@@ -179,9 +179,9 @@
       }
 
       answers[currAnswerIdx] = {question_id: currQuestion.id, answer: answerVal};
-      updateQuestionContent(currQuestion.options[idx].next_question_id);
       currAnswerIdx++;
-      console.log(answers);
+
+      updateQuestionContent(currQuestion.options[idx].next_question_id);
    }
 
    function initTrianglePicker() {
@@ -222,9 +222,9 @@
          },
 		};
       $("#picker").trianglePicker(defaults, function(name, values) {
-         let idx = 0;
+         let idx = 1;
          for(k in values) {
-            $("label#label_triangle_"+idx).text(values[k]);
+            $("label#label_triangle_"+(idx%3)).text(values[k]);
             idx++;
          }
       });
