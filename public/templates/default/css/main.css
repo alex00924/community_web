@@ -2698,7 +2698,7 @@ section {
   appearance: none;
   width: 25px;
   height: 25px;
-  background: #FF0000;
+  background: rgb(123, 93, 235);
   cursor: pointer;
 }
 
@@ -2725,4 +2725,21 @@ section {
   height: 10px;
   line-height: 40px;
   margin: 0 0 20px 0;
+}
+
+.v-center {
+  display: flex;
+  align-items: center;
+}
+.modal-lg {
+  width: 50%;
+}
+.modal-body .row {
+  margin: 0;
+}
+@media (min-width: 992) {
+  .modal-lg { width: 60%; }
+}
+@media (min-width: 768) {
+  .modal-lg { width: 80%; }
 }

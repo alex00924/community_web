@@ -210,7 +210,7 @@
     <script src="{{ asset('chat/chatkit.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('chat/client_chat.css') }}">
     <script src="{{ asset('chat/client_chat.js') }}"></script>
-  {{--@include('chat.client_chat_content')--}}
+  @include('chat.client_chat_content')
   @endauth
 </body>
 </html>
