@@ -10,8 +10,8 @@
 
 .triangle-picker-wrapper .triangle-picker .triangle-picker-handle {
     position: absolute !important;
-    width: 3%;
-    height: 3%;
+    width: 0.7vw;
+    height: 0.7vw;
     background-color: black;
     border-radius: 100%;
     margin: 0;

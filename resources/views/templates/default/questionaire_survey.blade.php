@@ -100,7 +100,7 @@
             }
          },
          handle: {
-            color: '#CCDDFF',
+            color: 'rgb(255, 50, 50)',
             width: null,
             height: null,
             borderRadius: null
@@ -127,9 +127,7 @@
       $("#picker").trianglePicker(defaults, function(name, values) {
          let idx = 0;
          for(k in values) {
-            let showK = values[k];
-            showK = Math.max(1, Math.min(showK, 99));
-            $("label#triangle_"+k).text(showK);
+            $("label#triangle_"+k).text(values[k]);
             idx++;
          }
       });
