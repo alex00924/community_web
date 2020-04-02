@@ -127,7 +127,7 @@
             $("#questionaire-modal").modal("hide");
             if (response == 'ok') {
                alert("Thank you for your answers. Your answers are saved successfully");
-               document.location.href = {{ route('questionaire.index') }};
+               document.location.href = "{{ route('questionaire.index') }}";
             }
          }
       });
