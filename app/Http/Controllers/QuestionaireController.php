@@ -15,6 +15,11 @@ class QuestionaireController extends GeneralController
         parent::__construct();
     }
 
+    public function index()
+    {
+        
+    }
+
     public function addAnswer()
     {
         $data = request()->all();

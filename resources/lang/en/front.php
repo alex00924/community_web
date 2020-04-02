@@ -111,4 +111,7 @@ return [
         'id_asc'     => 'Sort by oldest product',
     ],
 
+    'questionaire' => [
+        'survey' => 'Survey',
+    ]
 ];

@@ -2647,8 +2647,12 @@ section {
 }
 
 .post-item img {
-  width: 100%;
-  height: auto;
+  max-width: 100%;
+  max-height: 150px;
+}
+
+.entry-thumb {
+  text-align: center;
 }
 
 .ckeditor-content p, .ckeditor-content div {

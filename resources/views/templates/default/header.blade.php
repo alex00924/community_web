@@ -48,21 +48,31 @@
                 <span class="icon-bar"></span>
               </button>
             </div>
+            @php
+              $routeName = \Request::route()->getName();
+            @endphp
             <div class="mainmenu pull-left">
               <ul class="nav navbar-nav collapse navbar-collapse">
-                <li><a href="{{ route('home') }}" class="active">{{ trans('front.home') }}</a></li>
-                <li class="dropdown"><a href="#">{{ trans('front.shop') }}<i class="fa fa-angle-down"></i></a>
+                <li>
+                  <a href="{{ route('home') }}" class="{{ ( $routeName == 'home') ? 'active' : '' }}">
+                    {{ trans('front.home') }}
+                  </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="{{ ($routeName == 'product.all' || $routeName == 'compare' || $routeName == 'cart' || $routeName == 'categories' || $routeName == 'brands' || $routeName == 'vendors') ? 'active' : '' }}">
+                      {{ trans('front.shop') }}<i class="fa fa-angle-down"></i>
+                    </a>
                     <ul role="menu" class="sub-menu">
-                        <li><a href="{{ route('product.all') }}">{{ trans('front.all_product') }}</a></li>
-                        <li><a href="{{ route('compare') }}">{{ trans('front.compare') }}</a></li>
-                        <li><a href="{{ route('cart') }}">{{ trans('front.cart_title') }}</a></li>
-                        <li><a href="{{ route('categories') }}">{{ trans('front.categories') }}</a></li>
-                        <li><a href="{{ route('brands') }}">{{ trans('front.brands') }}</a></li>
-                        <li><a href="{{ route('vendors') }}">{{ trans('front.vendors') }}</a></li>
+                        <li><a class="{{ ( $routeName == 'product.all') ? 'active' : '' }}" href="{{ route('product.all') }}">{{ trans('front.all_product') }}</a></li>
+                        <li><a class="{{ ( $routeName == 'compare') ? 'active' : '' }}" href="{{ route('compare') }}">{{ trans('front.compare') }}</a></li>
+                        <li><a class="{{ ( $routeName == 'cart') ? 'active' : '' }}" href="{{ route('cart') }}">{{ trans('front.cart_title') }}</a></li>
+                        <li><a class="{{ ( $routeName == 'categories') ? 'active' : '' }}" href="{{ route('categories') }}">{{ trans('front.categories') }}</a></li>
+                        <li><a class="{{ ( $routeName == 'brands') ? 'active' : '' }}" href="{{ route('brands') }}">{{ trans('front.brands') }}</a></li>
+                        <li><a class="{{ ( $routeName == 'vendors') ? 'active' : '' }}" href="{{ route('vendors') }}">{{ trans('front.vendors') }}</a></li>
                     </ul>
                 </li>
 
-                <li><a href="{{ route('news') }}">{{ trans('front.blog') }}</a></li>
+                <li><a class="{{ ( $routeName == 'news') ? 'active' : '' }}"  href="{{ route('news') }}">{{ trans('front.blog') }}</a></li>
 
                 @if (!empty(sc_config('Content')))
                 <li class="dropdown"><a href="#">{{ trans('front.cms_category') }}<i class="fa fa-angle-down"></i></a>
@@ -72,17 +82,23 @@
                         $cmsCategories = (new $nameSpace)->where('status', 1)->get();
                       @endphp
                       @foreach ($cmsCategories as $cmsCategory)
-                        <li><a href="{{ $cmsCategory->getUrl() }}">{{ sc_language_render($cmsCategory->title) }}</a></li>
+                        <li><a class="{{ ( \Request::fullUrl() == $cmsCategory->getUrl() ) ? 'active' : '' }}" href="{{ $cmsCategory->getUrl() }}">{{ sc_language_render($cmsCategory->title) }}</a></li>
                       @endforeach
                     </ul>
                 </li>
                 @endif
 
-                  @if (!empty($layoutsUrl['menu']))
-                    @foreach ($layoutsUrl['menu'] as $url)
-                      <li><a {{ ($url->target =='_blank')?'target=_blank':''  }} href="{{ sc_url_render($url->url) }}">{{ sc_language_render($url->name) }}</a></li>
-                    @endforeach
-                  @endif
+                <li>
+                  <a class="{{ ( $routeName == 'questionaire.index') ? 'active' : '' }}" href="{{ route('questionaire.index') }}">
+                    {{ trans('front.questionaire.survey') }}
+                  </a>
+                </li>
+
+                @if (!empty($layoutsUrl['menu']))
+                  @foreach ($layoutsUrl['menu'] as $url)
+                    <li><a class="{{ ( \Request::fullUrl() == sc_url_render($url->url) ) ? 'active' : '' }}" {{ ($url->target =='_blank')?'target=_blank':''  }} href="{{ sc_url_render($url->url) }}">{{ sc_language_render($url->name) }}</a></li>
+                  @endforeach
+                @endif
               </ul>
             </div>
           </div>
