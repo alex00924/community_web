@@ -8,6 +8,7 @@ use App\Models\QuestionaireQuestion;
 use App\Models\Questionaire;
 use App\Models\ShopProduct;
 use App\Models\QuestionaireQuestionOption;
+use App\Models\QuestionaireAnswer;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -327,4 +328,41 @@ class ShopQuestionaireController extends Controller
         return "update next question success";
     }
     /////////////---------------Question--------------/////////////
+
+    ////////////----------------Statistic------------/////////////
+    public function statistic()
+    {
+        $questionaires = Questionaire::with('questions')->get()->toArray();
+        foreach($questionaires as $questionaire_key => $questionaire)
+        {
+            foreach($questionaire["questions"] as $question_key => $question)
+            {
+                $questionaires[$questionaire_key]["questions"][$question_key]["options"] = QuestionaireQuestionOption::where('question_id', $question["id"])->select(["option"])->get()->toArray();
+                if ($question["answer_type"] == 'triangle')
+                {
+                    $answers = QuestionaireAnswer::where('question_id', $question["id"])->select(["answer"])->get()->toArray();
+                    $questionaires[$questionaire_key]["questions"][$question_key]["answers"] = [];
+                    foreach($answers as $answer_key => $answer)
+                    {
+                        $questionaires[$questionaire_key]["questions"][$question_key]["answers"][] = json_decode($answer["answer"]);
+                    }
+                }
+                else
+                {
+                    foreach($questionaires[$questionaire_key]["questions"][$question_key]["options"] as $option_key => $option)
+                    {
+                        $questionaires[$questionaire_key]["questions"][$question_key]["options"][$option_key]["cnt"] = QuestionaireAnswer::where('question_id', $question["id"])->where('answer', $option["option"])->count();
+                    }
+                }
+            }
+        }
+        $data = [
+            'title' => trans('questionaire.admin.statistic'),
+            'title_description' => '',
+            'questionaires' => $questionaires
+        ];
+
+        return view('admin.screen.shop_questionaire_statistics')
+            ->with($data);
+    }
 }

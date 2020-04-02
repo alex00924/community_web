@@ -75,6 +75,11 @@ ALTER TABLE `questionaire_question` ADD COLUMN `questionaire_id` INT NULL AFTER 
  ALTER TABLE `questionaire_answer` DROP INDEX `questionaire_answer_user_id_question_id_index`, ADD KEY `questionaire_answer_user_id_question_id_questionaire_id_index` (`user_id`, `question_id`, `questionaire_id`); 
 
  
+ 8. Update Admin questionaire admin_menu
+ UPDATE `admin_menu` SET `uri` = '' WHERE `id` = '58'; 
+ INSERT INTO `admin_menu` (`parent_id`, `sort`, `title`, `icon`, `uri`) VALUES ('58', '1', 'lang::questionaire.admin.title', 'fa-question', 'admin::questionaire'); 
+ INSERT INTO `admin_menu` (`parent_id`, `sort`, `title`, `icon`, `uri`) VALUES ('58', '1', 'lang::questionaire.admin.statistic', 'fa-pie-chart', 'admin::questionaire/statistic');
+
 ***. Offline  
 <!-- @if (\Route::current()->getName() != 'admin_chat')
         @include('admin.component.chat_alert')

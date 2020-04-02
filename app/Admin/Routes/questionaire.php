@@ -14,4 +14,6 @@ $router->group(['prefix' => 'questionaire'], function ($router) {
     $router->post('/edit/q/{questionaire_id}/{id}', 'ShopQuestionaireController@postEditQuestion')->name('admin_questionaire.editQuestion');
     $router->post('/delete/q/{id}', 'ShopQuestionaireController@deleteQuestion')->name('admin_questionaire.deleteQuestion');
     $router->post('/update_next_question', 'ShopQuestionaireController@updateNextQuestion')->name('admin_questionaire.updateNextQuestion');
+
+    $router->get('/statistic', 'ShopQuestionaireController@statistic')->name('admin_questionaire.statistic');
 });

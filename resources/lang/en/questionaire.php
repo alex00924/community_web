@@ -3,6 +3,7 @@
 return [
     'admin' => [
         'title' => 'Questionaire ',
+        'statistic' => 'Statistics',
         'title_des' => 'Manage Questionaire',
         'create_questionaire_success' => 'Create new questionaire success!',
         'edit_questionaire_success' => 'Edit questionaire success!',
