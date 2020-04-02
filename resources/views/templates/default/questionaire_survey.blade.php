@@ -1,15 +1,14 @@
-@if(isset($questionaire_survey))
-<!-- Modal -->
-<div class="modal" id="questionaire-modal">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-         <h4 class="modal-title" id="myModalLabel">{{ $questionaire_survey->title }}</h4>
-      </div>
-      <div class="modal-body">
+@extends($templatePath.'.shop_layout')
+
+@section('main')
+<section >
+    <div class="container">
+         <h2 class="title text-center">{{ trans('front.questionaire.survey') }}</h2>
+         <!-- Center colunm-->
+         <h4 style="font-weight: 600; font-size: 20px; text-align: center">{{ $questionaire->title }} </h4>
+         <br><br>
          <div class="row">
-            <div class="col-xs-12" id="question-content">
+            <div class="col-xs-12" id="question-content" style="padding: 0 20%">
 
             </div>
          </div>
@@ -19,17 +18,20 @@
                <button type="button" class="btn btn-info" id="btn-next" onclick="nextQuestion()">Next&nbsp;&nbsp;<i class="fa fa-angle-right"></i></button>
             </div>
          </div>
-      </div>
-      <div class="modal-footer">
-         <button type="button" class="btn btn-success" style="display: none" id="btn-complete" onclick="completeQuestionaire()">Complete</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+         <div class="row" style="margin-top: 2rem">
+            <div class="col-xs-12 text-right">
+               <button type="button" class="btn btn-success" style="display: none" id="btn-complete" onclick="completeQuestionaire()">Complete</button>
+            </div>
+         </div>
+    </div>
+</section>
+@endsection
+
+@push('scripts')
 <script src="{{ asset('triangle_picker/picker.js') }}"></script>
 <link rel='stylesheet prefetch' href="{{ asset('triangle_picker/style.css') }}">
 <script>
-   let questions = @json($questionaire_survey->questions);
+   let questions = @json($questionaire->questions);
    let currQuestion;
    let answers = [];
    let currAnswerIdx = 0;
@@ -118,13 +120,14 @@
          data: {
             _token: "{{ csrf_token() }}",
             answers: answers,
-            questionaire_id: {{ $questionaire_survey->id }}
+            questionaire_id: {{ $questionaire->id }}
          },
          url: "{{ route('questionaire.add_answer') }}",
          success: function(response){
             $("#questionaire-modal").modal("hide");
             if (response == 'ok') {
                alert("Thank you for your answers. Your answers are saved successfully");
+               document.location.href = {{ route('questionaire.index') }};
             }
          }
       });
@@ -241,6 +244,5 @@
          }
       });
    }
-
 </script>
-@endif
+@endpush
