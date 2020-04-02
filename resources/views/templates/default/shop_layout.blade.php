@@ -78,7 +78,7 @@
 
 @include($templatePath.'.header')
 
-<div class="main-content" style="padding: 5rem 0">
+<div class="main-content">
 <!--Module banner -->
   @isset ($blocksContent['banner_top'])
       @foreach ( $blocksContent['banner_top']  as $layout)
@@ -167,7 +167,7 @@
 @stack('scripts')
 
 <!-- include questionaire form -->
-@include($templatePath.'.questionaire_survey')
+@include($templatePath.'.questionaire_survey_modal')
 
 <!-- js default for item s-cart -->
 @include('common.js')

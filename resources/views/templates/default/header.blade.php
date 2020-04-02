@@ -89,7 +89,7 @@
                 @endif
 
                 <li>
-                  <a class="{{ ( $routeName == 'questionaire.index') ? 'active' : '' }}" href="{{ route('questionaire.index') }}">
+                  <a class="{{ ( request()->is('questionaire*') ) ? 'active' : '' }}" href="{{ route('questionaire.index') }}">
                     {{ trans('front.questionaire.survey') }}
                   </a>
                 </li>

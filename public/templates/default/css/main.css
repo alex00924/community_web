@@ -360,6 +360,7 @@ ul.sub-menu {
 #footer {
   background: rgb(38, 43, 47);
   padding: 2.5rem 0;
+  margin-top: 5rem;
 }
 
 
@@ -2750,4 +2751,11 @@ section {
 
 button.close {
   z-index: 1;
+}
+
+.linkable {
+  cursor: pointer;
+}
+.linkable:hover {
+  color: rgb(70, 170, 250);
 }

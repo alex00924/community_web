@@ -17,7 +17,19 @@ class QuestionaireController extends GeneralController
 
     public function index()
     {
-        
+        $questionaires = Questionaire::get();
+        $data = [
+            'questionaires' => $questionaires
+        ];
+        return view($this->templatePath . '.questionaire')
+            ->with($data);
+    }
+
+    public function detail($questionaire_id)
+    {
+        $data = [];
+        return view($this->templatePath . '.questionaire_detail')
+        ->with($data);
     }
 
     public function addAnswer()
