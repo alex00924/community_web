@@ -46,7 +46,7 @@ class ShopFront extends GeneralController
                 'products_build' => (new ShopProduct)->getTopBuild($limit = 4),
                 'products_group' => (new ShopProduct)->getTopGroup($limit = 4),
                 'layout_page' => 'home',
-                'questionaire' => $questionaire
+                'questionaire_survey' => $questionaire
             )
         );
     }
@@ -196,6 +196,17 @@ class ShopFront extends GeneralController
             $categories = $product->categories->keyBy('id')->toArray();
             $arrCategoriId = array_keys($categories);
             $productsToCategory = (new ShopProduct)->getProductsToCategory($arrCategoriId, $limit = sc_config('product_relation'), $opt = 'random');
+
+            $questionaire = null;
+            $user = Auth::user();
+            if (!empty($user)) {
+                $answeredIds = $user->questionaireAnswers()->groupBy('questionaire_id')->pluck('questionaire_id')->toArray();
+                $questionaire = Questionaire::where('type', 'Product')->where('target_id', $product->id)->whereNotIn('id', $answeredIds)->first();
+                if (isset($questionaire))
+                {
+                    $questionaire['questions'] = QuestionaireQuestion::with("options")->where('questionaire_id', $questionaire->id)->get();
+                }
+            }
             //Check product available
             return view($this->templatePath . '.shop_product_detail',
                 array(
@@ -207,6 +218,7 @@ class ShopFront extends GeneralController
                     'productsToCategory' => $productsToCategory,
                     'og_image' => url($product->getImage()),
                     'layout_page' => 'product_detail',
+                    'questionaire_survey' => $questionaire
                 )
             );
         } else {

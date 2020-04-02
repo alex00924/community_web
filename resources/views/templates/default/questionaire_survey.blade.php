@@ -1,11 +1,11 @@
-@if(isset($questionaire))
+@if(isset($questionaire_survey))
 <!-- Modal -->
 <div class="modal" id="questionaire-modal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-         <h4 class="modal-title" id="myModalLabel">{{ $questionaire->title }}</h4>
+         <h4 class="modal-title" id="myModalLabel">{{ $questionaire_survey->title }}</h4>
       </div>
       <div class="modal-body">
          <div class="row">
@@ -29,7 +29,7 @@
 <script src="{{ asset('triangle_picker/picker.js') }}"></script>
 <link rel='stylesheet prefetch' href="{{ asset('triangle_picker/style.css') }}">
 <script>
-   let questions = @json($questionaire->questions);
+   let questions = @json($questionaire_survey->questions);
    let currQuestion;
    let answers = [];
    let currAnswerIdx = 0;
@@ -118,7 +118,7 @@
          data: {
             _token: "{{ csrf_token() }}",
             answers: answers,
-            questionaire_id: {{ $questionaire->id }}
+            questionaire_id: {{ $questionaire_survey->id }}
          },
          url: "{{ route('questionaire.add_answer') }}",
          success: function(response){
