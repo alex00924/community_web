@@ -38,7 +38,7 @@
                             <label class="col-xs-2 control-label" for="type">{{ trans('questionaire.admin.type') }}</label>
                             <div class="col-xs-8">
                                 @php
-                                    $type = empty(old('type')) ? old('type') : $question->answer_type
+                                    $type = empty(old('type')) ? $question->answer_type : old('type');
                                 @endphp
                                 <select class="form-control select2" style="width: 100%;" name="type" id="type" required>
                                     <option value="radio" {{ ($type == 'radio') ? 'selected':'' }}> Radio </option>
