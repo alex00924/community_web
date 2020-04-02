@@ -27,9 +27,42 @@ class QuestionaireController extends GeneralController
 
     public function detail($questionaire_id)
     {
-        $data = [];
-        return view($this->templatePath . '.questionaire_detail')
-        ->with($data);
+        $user = Auth::user();
+        $questionaire = null;
+
+        $answers = $user->questionaireAnswers();
+        $answeredIds = $user->questionaireAnswers()->groupBy('questionaire_id')->pluck('questionaire_id')->toArray();
+        $questionaire = Questionaire::find($questionaire_id);
+
+        // if current user didn't answer for this questionaire, show questionaire edit page
+        if (!in_array($questionaire_id, $answeredIds))
+        {
+            $questionaire['questions'] = QuestionaireQuestion::with(["options" => function($query) {
+                    $query->orderBy('id');
+                }])->where('questionaire_id', $questionaire->id)->get();
+            $data = [
+                'questionaire' => $questionaire
+            ];
+            return view($this->templatePath . '.questionaire_survey')
+                ->with($data);
+        } 
+        // if answered already, show answer details.
+        else
+        {
+            $answers = $user->questionaireAnswers()->where('questionaire_id', $questionaire_id)->get();
+            foreach($answers as $key => $answer)
+            {
+                $answers[$key]['question'] = QuestionaireQuestion::with(["options" => function($query) {
+                        $query->orderBy('id');
+                    }])->find($answer->question_id);
+            }
+            $data = [
+                'answers' => $answers,
+                'questionaire' => $questionaire
+            ];
+            return view($this->templatePath . '.questionaire_detail')
+                ->with($data);
+        }
     }
 
     public function addAnswer()

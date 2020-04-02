@@ -2759,3 +2759,23 @@ button.close {
 .linkable:hover {
   color: rgb(70, 170, 250);
 }
+
+.answer-ul {
+  display: block;
+  list-style-type: disc;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 15px;
+}
+
+.answer-ul li {
+  margin: 5px 0;
+  padding: 5px;
+}
+
+.answer-ul .selected {
+  background-color: skyblue;
+  color: black;
+}
