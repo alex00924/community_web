@@ -264,7 +264,7 @@ class ShopCart extends GeneralController
         $form_attr = $data['form_attr'] ?? null;
         $qty = $data['qty'];
         $product = ShopProduct::find($product_id);
-        if ($product->allowSale()) {
+        if ($product->allowSale($qty)) {
             $options = array();
             $options = $form_attr;
             $dataCart = array(

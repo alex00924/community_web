@@ -560,14 +560,14 @@ Get image
 //Date availabe
 // Not SC_PRODUCT_GROUP
  */
-    public function allowSale()
+    public function allowSale($qty=1)
     {
         if(!sc_config('product_price')) {
             return false;
         }
         if ($this->status &&
             (sc_config('product_preorder') == 1 || $this->date_available == null || date('Y-m-d H:i:s') >= $this->date_available) &&
-            (sc_config('product_buy_out_of_stock') || $this->stock) &&
+            (sc_config('product_buy_out_of_stock') || $this->stock>=$qty) &&
             $this->kind != SC_PRODUCT_GROUP
         ) {
             return true;

@@ -147,7 +147,7 @@
                         <input class="form-control" type="number" name="qty" value="1" min="1" />
                       </div>
                     </div>
-                    @else ($product->allowSale())
+                    @elseif($product->allowSale())
                     <label class="label">{{ trans('product.quantity') }}:</label>
                     <div class="content">
                       <input class="form-control" type="number" name="qty" value="1" min="1" />
@@ -181,7 +181,7 @@
                         {{trans('front.add_to_cart')}}
                       </button>
                     </div>
-                    @else ($product->allowSale())
+                    @elseif($product->allowSale())
                     <button type="submit" class="btn btn-primary cart">
                       <i class="fa fa-shopping-cart"></i>
                       {{trans('front.add_to_cart')}}
