@@ -129,7 +129,7 @@
                 chartData[idx] = option["cnt"];
             });
             question["options"].forEach(function(option, idx) {
-                let percentage = totalCnt == 0 ? 0 : Math.round(option["cnt"] * 100 / totalCnt_;
+                let percentage = totalCnt == 0 ? 0 : Math.round(option["cnt"] * 100 / totalCnt);
                 if (idx > 0) {
                     resHtml += "&emsp;";
                 }
