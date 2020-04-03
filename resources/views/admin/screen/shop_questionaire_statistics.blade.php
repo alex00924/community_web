@@ -6,7 +6,7 @@
         <div class="box">
             <!-- Box body -->
             <div class="row box-body" >
-                <div class="col-xs-4" >
+                <div class="col-xs-4" style="overflow: auto; max-height: 80vh">
                     @foreach($questionaires as $questionaire_key => $questionaire)
                     <h3 class="text-center" style="font-size: 20px; font-weight: 400; margin-top: 3rem; margin-bottom: 1rem"> {{ $questionaire['title'] }} </h3>
                     <div class="table-responsive no-padding box-shadow">

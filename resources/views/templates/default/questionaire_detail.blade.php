@@ -9,7 +9,7 @@
         <br><br>
         <div class="row">
             @if($questionaire["type"] == 'General')
-            <div class="col-xs-4">
+            <div class="col-xs-4" style="overflow: auto; max-height: 80vh">
             @else
             <div class="col-xs-12" style="padding: 0 20%">
             @endif
