@@ -2779,3 +2779,7 @@ button.close {
   background-color: skyblue;
   color: black;
 }
+
+.no-margin {
+  margin: 0;
+}

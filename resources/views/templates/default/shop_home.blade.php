@@ -1,7 +1,7 @@
 @extends($templatePath.'.shop_layout')
 
 @section('center')
-          <div class="features_items"><!--features_items-->
+          <div class="features_items row no-margin"><!--features_items-->
             <h2 class="title text-center">{{ trans('front.features_items') }}</h2>
                 @foreach ($products_new as  $key => $product_new)
                   <div class=" col-xs-6 col-sm-4 col-lg-3">

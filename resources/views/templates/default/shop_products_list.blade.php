@@ -1,7 +1,7 @@
 @extends($templatePath.'.shop_layout')
 
 @section('center')
-  <div class="features_items">
+  <div class="features_items row no-margin">
     <h2 class="title text-center">{{ $title }}</h2>
 
     @isset ($itemsList)
