@@ -5,7 +5,7 @@
     <div class="container">
          <h2 class="title text-center">{{ trans('front.questionaire.survey') }}</h2>
          <!-- Center colunm-->
-         <h4 style="font-weight: 600; font-size: 20px; text-align: center">{{ $questionaire->title }} </h4>
+         <h4 style="font-weight: 600; font-size: 20px; text-align: center">{{ $questionaire['title'] }} </h4>
          <br><br>
          <div class="row">
             <div class="col-xs-12" id="question-content" style="padding: 0 20%">
@@ -31,7 +31,7 @@
 <script src="{{ asset('triangle_picker/picker.js') }}"></script>
 <link rel='stylesheet prefetch' href="{{ asset('triangle_picker/style.css') }}">
 <script>
-   let questions = @json($questionaire->questions);
+   let questions = @json($questionaire['questions']);
    let currQuestion;
    let answers = [];
    let currAnswerIdx = 0;
@@ -120,7 +120,7 @@
          data: {
             _token: "{{ csrf_token() }}",
             answers: answers,
-            questionaire_id: {{ $questionaire->id }}
+            questionaire_id: {{ $questionaire['id'] }}
          },
          url: "{{ route('questionaire.add_answer') }}",
          success: function(response){

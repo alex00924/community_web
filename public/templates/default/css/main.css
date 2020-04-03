@@ -2767,7 +2767,7 @@ button.close {
   margin-bottom: 1em;
   margin-left: 0;
   margin-right: 0;
-  padding-left: 15px;
+  padding-left: 25px;
 }
 
 .answer-ul li {
@@ -2782,4 +2782,23 @@ button.close {
 
 .no-margin {
   margin: 0;
+}
+
+.statistic-question {
+  font-weight: 500;
+  font-size: 18px;
+  padding: 10px;
+}
+
+.statistic-question.clickable {
+  cursor: pointer;
+}
+
+.statistic-question.clickable:hover {
+  color: #0e8ce4;
+}
+
+.statistic-question.clicked{
+  background: gold;
+  color: #0e8ce4;
 }

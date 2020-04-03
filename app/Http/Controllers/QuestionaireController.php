@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Questionaire;
 use App\Models\QuestionaireQuestion;
 use App\Models\QuestionaireAnswer;
+use App\Models\QuestionaireQuestionOption;
 
 class QuestionaireController extends GeneralController
 {
@@ -32,14 +33,14 @@ class QuestionaireController extends GeneralController
 
         $answers = $user->questionaireAnswers();
         $answeredIds = $user->questionaireAnswers()->groupBy('questionaire_id')->pluck('questionaire_id')->toArray();
-        $questionaire = Questionaire::find($questionaire_id);
+        $questionaire = Questionaire::find($questionaire_id)->toArray();
 
         // if current user didn't answer for this questionaire, show questionaire edit page
         if (!in_array($questionaire_id, $answeredIds))
         {
             $questionaire['questions'] = QuestionaireQuestion::with(["options" => function($query) {
                     $query->orderBy('id');
-                }])->where('questionaire_id', $questionaire->id)->get();
+                }])->where('questionaire_id', $questionaire["id"])->get();
             $data = [
                 'questionaire' => $questionaire
             ];
@@ -49,6 +50,32 @@ class QuestionaireController extends GeneralController
         // if answered already, show answer details.
         else
         {
+            if ($questionaire["type"] == "General")
+            {
+                $questionaire["questions"] = QuestionaireQuestion::where('questionaire_id', $questionaire["id"])->get()->toArray();
+                foreach($questionaire["questions"] as $question_key => $question)
+                {
+                    $questionaire["questions"][$question_key]["options"] = QuestionaireQuestionOption::where('question_id', $question["id"])->select(["option"])->get()->toArray();
+                    if ($question["answer_type"] == 'triangle')
+                    {
+                        $answers = QuestionaireAnswer::where('question_id', $question["id"])->select(["answer"])->get()->toArray();
+                        $questionaire["questions"][$question_key]["answers"] = [];
+                        foreach($answers as $answer_key => $answer)
+                        {
+                            $questionaire["questions"][$question_key]["answers"][] = json_decode($answer["answer"]);
+                        }
+                    }
+                    else
+                    {
+                        foreach($questionaire["questions"][$question_key]["options"] as $option_key => $option)
+                        {
+                            $questionaire["questions"][$question_key]["options"][$option_key]["cnt"] = QuestionaireAnswer::where('question_id', $question["id"])->where('answer', $option["option"])->count();
+                        }
+                    }
+                }
+            }
+            
+            // Find current user's answer
             $answers = $user->questionaireAnswers()->where('questionaire_id', $questionaire_id)->get();
             foreach($answers as $key => $answer)
             {
