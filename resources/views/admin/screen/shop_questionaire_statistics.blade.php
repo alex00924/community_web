@@ -118,7 +118,7 @@
                 if (i > 0) {
                     resHtml += "&emsp;";
                 }
-                resHtml += chartLabels[i] + " - " + sumVals[i] / length;
+                resHtml += chartLabels[i] + " - " + Math.round(sumVals[i] / length);
             }
         } else {
             let totalCnt = 0;
@@ -129,7 +129,7 @@
                 chartData[idx] = option["cnt"];
             });
             question["options"].forEach(function(option, idx) {
-                let percentage = totalCnt == 0 ? 0 : option["cnt"] * 100 / totalCnt;
+                let percentage = totalCnt == 0 ? 0 : Math.round(option["cnt"] * 100 / totalCnt_;
                 if (idx > 0) {
                     resHtml += "&emsp;";
                 }
