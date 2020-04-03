@@ -176,6 +176,7 @@ class ShopFront extends GeneralController
     public function productDetail($alias)
     {
         $product = (new ShopProduct)->getProduct($id = null, $alias);
+        
         if ($product && $product->status && (sc_config('product_display_out_of_stock') || $product->stock > 0)) {
             //Update last view
             $product->view += 1;
@@ -195,7 +196,11 @@ class ShopFront extends GeneralController
 
             $categories = $product->categories->keyBy('id')->toArray();
             $arrCategoriId = array_keys($categories);
-            $productsToCategory = (new ShopProduct)->getProductsToCategory($arrCategoriId, $limit = sc_config('product_relation'), $opt = 'random');
+            $productsToCategory = $product->getRelatedProducts();
+
+            if (count($productsToCategory) < 1) {
+                $productsToCategory = (new ShopProduct)->getProductsToCategory($arrCategoriId, $limit = sc_config('product_relation'), $opt = 'random');
+            }
 
             $questionaire = null;
             $user = Auth::user();

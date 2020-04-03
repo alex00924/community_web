@@ -86,6 +86,31 @@ List product single
     {
         return $this->belongsToMany(ShopCategory::class, ShopProductCategory::class, 'product_id', 'category_id');
     }
+    public function relatedProducts()
+    {
+        return $this->hasMany(ShopRelatedProduct::class,  'product_id', 'id');
+    }
+    public function inverseRelatedProducts()
+    {
+        return $this->hasMany(ShopRelatedProduct::class,  'related_product_id', 'id');
+    }
+    // get all related product lists
+    public function getRelatedProducts()
+    {
+        $relatedProducts = $this->relatedProducts()->get();
+        $inverseRelatedProducts = $this->inverseRelatedProducts()->get();
+
+        $totalRes = [];
+        foreach($relatedProducts as $relation)
+        {
+            $totalRes[] = $relation->relatedProduct;
+        }
+        foreach($inverseRelatedProducts as $relation)
+        {
+            $totalRes[] = $relation->product;
+        }
+        return $totalRes;
+    }
     public function groups()
     {
         return $this->hasMany(ShopProductGroup::class, 'group_id', 'id');
@@ -400,6 +425,8 @@ category_id: array or string
             $product->reviews()->delete();
             $product->builds()->delete();
             $product->categories()->detach();
+            $product->relations()->delete();
+            $product->inverseRelations()->delete();
         });
     }
 

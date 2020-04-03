@@ -307,7 +307,7 @@
             </div>
             <!-- product review tab -->
             
-@if ($productsToCategory->count())
+@if (count($productsToCategory))
             <div class="recommended_items"><!--recommended_items-->
               <h2 class="title text-center">{{ trans('front.recommended_items') }}</h2>
 
