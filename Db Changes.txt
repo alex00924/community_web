@@ -85,6 +85,7 @@ CREATE TABLE `shop_product_relationship` ( `product_id` INT, `related_product_id
 
 10. Add admin menu
 
+UPDATE `admin_menu` SET `uri` = '' WHERE `id` = '16'; 
 INSERT INTO `admin_menu` (`parent_id`, `sort`, `title`, `icon`, `uri`) VALUES ('16', '1', 'lang::product.admin.manager', 'fa-file-photo-o', 'admin::product'); 
 INSERT INTO `admin_menu` (`parent_id`, `sort`, `title`, `icon`, `uri`) VALUES ('16', '2', 'lang::product.admin.relationship', 'fa-th-list', 'admin::product/relationship'); 
 
