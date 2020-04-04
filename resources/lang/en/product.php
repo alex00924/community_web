@@ -50,7 +50,9 @@ return [
     'groups'                => 'Products group',
     'builds'                => 'Products build',
     'admin'                 => [
-        'title'                   => 'Product manager',
+        'title'                   => 'Product',
+        'manager'                 => 'Product Manager',
+        'relationship'            => 'Product Relationship',
         'create_success'          => 'Create new item success!',
         'edit_success'            => 'Edit item success!',
         'list'                    => 'Product list',

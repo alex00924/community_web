@@ -97,17 +97,23 @@ List product single
     // get all related product lists
     public function getRelatedProducts()
     {
+        $relatedIds = $this->getRelatedProductIds();
+        $totalRes = ShopProduct::whereIn('id', $relatedIds)->get();
+        return $totalRes;
+    }
+    public function getRelatedProductIds()
+    {
         $relatedProducts = $this->relatedProducts()->get();
         $inverseRelatedProducts = $this->inverseRelatedProducts()->get();
 
         $totalRes = [];
         foreach($relatedProducts as $relation)
         {
-            $totalRes[] = $relation->relatedProduct;
+            $totalRes[] = $relation->related_product_id;
         }
         foreach($inverseRelatedProducts as $relation)
         {
-            $totalRes[] = $relation->product;
+            $totalRes[] = $relation->product_id;
         }
         return $totalRes;
     }

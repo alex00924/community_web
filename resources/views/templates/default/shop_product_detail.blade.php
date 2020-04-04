@@ -311,7 +311,7 @@
             <div class="recommended_items"><!--recommended_items-->
               <h2 class="title text-center">{{ trans('front.recommended_items') }}</h2>
 
-              <div id="recommended-item-carousel" class="carousel slide">
+              <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                 @foreach ($productsToCategory as  $key => $product_rel)
                   @if ($key % 4 == 0)
@@ -337,11 +337,17 @@
                         </div>
                       </div>
                     </div>
-                  @if ($key % 4 == 3)
+                  @if ($key % 4 == 3 || $key+1 == count($productsToCategory))
                     </div>
                   @endif
                 @endforeach
                 </div>
+                <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                  <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                  <i class="fa fa-angle-right"></i>
+                </a>
               </div>
             </div><!--/recommended_items-->
 @endif

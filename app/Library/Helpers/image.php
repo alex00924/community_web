@@ -99,8 +99,8 @@ function sc_image_render($path, $width = null, $height = null, $alt = null, $tit
 {
     $image = sc_image_get_path($path, $url);
     $style = '';
-    $style .= ($width) ? ' width:' . $width . ';' : '';
-    $style .= ($height) ? ' height:' . $height . ';' : '';
+    $style .= ($width) ? ' max-width:' . $width . ';' : '';
+    $style .= ($height) ? ' max-height:' . $height . ';' : '';
     return '<img  alt="' . $alt . '" title="' . $title . '" ' . (($options) ?? '') . ' src="' . asset($image) . '"   ' . ($style ? 'style="' . $style . '"' : '') . '   >';
 }
 

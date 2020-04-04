@@ -83,6 +83,11 @@ ALTER TABLE `questionaire_question` ADD COLUMN `questionaire_id` INT NULL AFTER 
 9. Create product relationship table
 CREATE TABLE `shop_product_relationship` ( `product_id` INT, `related_product_id` INT, INDEX `shop_product_relationship_product_id_related_product_id_index` (`product_id`, `related_product_id`) ) ENGINE=INNODB CHARSET=utf8 COLLATE=utf8_general_ci; 
 
+10. Add admin menu
+
+INSERT INTO `admin_menu` (`parent_id`, `sort`, `title`, `icon`, `uri`) VALUES ('16', '1', 'lang::product.admin.manager', 'fa-file-photo-o', 'admin::product'); 
+INSERT INTO `admin_menu` (`parent_id`, `sort`, `title`, `icon`, `uri`) VALUES ('16', '2', 'lang::product.admin.relationship', 'fa-th-list', 'admin::product/relationship'); 
+
 ***. Offline  
 <!-- @if (\Route::current()->getName() != 'admin_chat')
         @include('admin.component.chat_alert')

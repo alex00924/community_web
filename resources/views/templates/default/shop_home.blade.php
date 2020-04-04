@@ -53,7 +53,7 @@
             <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner" style="padding-top: 15px;">
                 @foreach ($products_hot as  $key => $product_hot)
-                @if ($key % 3 == 0)
+                @if ($key % 4 == 0)
                   <div class="item {{  ($key ==0)?'active':'' }}">
                 @endif
                   <div class=" col-xs-6 col-sm-4 col-lg-3">
@@ -97,7 +97,7 @@
                       </div>
                     </div>
                   </div>
-                @if ($key % 3 == 2 || $key+1 == $products_hot->count())
+                @if ($key % 4 == 3 || $key+1 == $products_hot->count())
                   </div>
                 @endif
                @endforeach

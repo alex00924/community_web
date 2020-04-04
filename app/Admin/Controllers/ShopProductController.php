@@ -14,6 +14,7 @@ use App\Models\ShopProductDescription;
 use App\Models\ShopProductGroup;
 use App\Models\ShopProductImage;
 use App\Models\ShopVendor;
+use App\Models\ShopRelatedProduct;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -825,4 +826,42 @@ Need mothod destroy to boot deleting in model
         }
     }
 
+    public function relationshipIndex()
+    {
+        $products = ShopProduct::get();
+        $data = [
+            'title' => trans('product.admin.relationship'),
+            'sub_title' => '',
+            'icon' => 'fa fa-th-list',
+            'languages' => $this->languages,
+            'products' => $products
+        ];
+        return view('admin.screen.product_relationship')
+            ->with($data);
+    }
+    
+    public function getRelationship($product_id)
+    {
+        $product = ShopProduct::find($product_id);
+        $relatedIds = $product->getRelatedProductIds();
+        return json_encode($relatedIds);
+    }
+
+    public function updateRelationship()
+    {
+        $data = request()->all();
+        if ($data["hasRelation"] == 'true') {
+            $dataInsert = [
+                'product_id' => $data['productId'],
+                'related_product_id' => $data['relatedProductId']
+            ];
+            ShopRelatedProduct::create($dataInsert);
+            return "added";
+        } else {
+            ShopRelatedProduct::where('product_id', $data['productId'])
+                ->where('related_product_id', $data['relatedProductId'])
+                ->delete();
+            return 'deleted';
+        }
+    }
 }
