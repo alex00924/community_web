@@ -98,6 +98,9 @@ List product single
     public function getRelatedProducts()
     {
         $relatedIds = $this->getRelatedProductIds();
+        if (count($relatedIds) < 1) {
+            return [];
+        }
         $totalRes = ShopProduct::whereIn('id', $relatedIds)->get();
         return $totalRes;
     }
