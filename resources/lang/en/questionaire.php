@@ -31,6 +31,7 @@ return [
         'answers' => 'Answers',
         'add_answer' => 'Add answer',
         'add_answer_place' => 'Add answer value',
-        'target' => 'Target'
+        'target' => 'Target',
+        'access_level' => 'Only Login User Can Access'
     ],
 ];

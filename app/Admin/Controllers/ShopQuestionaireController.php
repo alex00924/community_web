@@ -72,7 +72,8 @@ class ShopQuestionaireController extends Controller
         $dataInsert = [
             'title' => $data['title'],
             'type' => $data['type'],
-            'target_id' => $data["target_id"]
+            'target_id' => $data["target_id"],
+            'access_level' => $data["access_level"]
         ];
         $question = Questionaire::create($dataInsert);
         return redirect()->route('admin_questionaire.index')->with('success', trans('questionaire.admin.create_questionaire_success'));
@@ -122,7 +123,8 @@ class ShopQuestionaireController extends Controller
         $dataUpdate = [
             'title' => $data['title'],
             'type' => $data['type'],
-            'target_id' => $data['target_id']
+            'target_id' => $data['target_id'],
+            'access_level' => $data['access_level']
         ];
         $questionaire->update($dataUpdate);
 

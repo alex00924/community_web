@@ -230,7 +230,7 @@
                 <!-- <div class="category-tab product-review-tab" id="product-reviews"> -->
                   <h2 class="text-center origin" style="font-size: 30px; ">{{$product->reviewDetails["count"]}} reviews for this product</h2>
                   @auth
-                    <div class="review-container" style="padding: 2rem; border-bottom: 1px solid #eee">
+                    <div class="review-container" style="padding: 0 2rem;">
                       <div class="row"> 
                         <div class="col">
                           <h4 class="origin"> Write your review for this product </h4>

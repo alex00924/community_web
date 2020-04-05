@@ -51,6 +51,24 @@
                                 @endif
                             </div>
                         </div>
+                        
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label" for="type">{{ trans('questionaire.admin.access_level') }}</label>
+                            <div class="col-xs-8">
+                                @php
+                                    $access_level = empty(old('access_level')) ? $questionaire->access_level : old('access_level');
+                                @endphp
+                                <label class="radio-inline">
+                                    <input type="radio" name="access_level" {{ ( $access_level == '1' ) ? 'checked' : '' }} value="1">
+                                    Yes
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="access_level" {{ ( $access_level == '0' ) ? 'checked' : '' }} value="0">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+
                         <input type="hidden" id="target_id" name="target_id" value="{{ empty(old('target_id')) ? $questionaire->target_id : old('target_id') }}">
                         <div class="form-group">
                             <label class="col-xs-2 control-label">{{ trans('questionaire.admin.target') }}</label>

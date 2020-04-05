@@ -27,6 +27,7 @@
                                 <th>Title</th>
                                 <th>Type</th>
                                 <th>Specification</th>
+                                <th>Only Login User Can Access</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -50,6 +51,7 @@
                                             }
                                             @endphp
                                         </td>
+                                        <td>{{ $questionaire->access_level == 1 ? 'Yes' : 'No' }}</td>
                                         <td>
                                             <a href="{{ route('admin_questionaire.edit', ['id' => $questionaire->id]) }}">
                                                 <span title="Edit" type="button" class="btn btn-flat btn-primary">
