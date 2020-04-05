@@ -58,19 +58,19 @@ class RegisterController extends GeneralController
             'reg_email' => 'required|string|email|max:255|unique:' . (new ShopUser)->getTable() . ',email',
             'reg_password' => 'required|string|min:6|confirmed',
             'reg_address1' => 'required|string|max:255',
-            'reg_avatar' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
+            'reg_avatar' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ];
         if(sc_config('customer_lastname')) {
             $validate['reg_last_name'] = 'required|max:100';
         }
-        if(sc_config('customer_address2')) {
-            $validate['reg_address2'] = 'required|max:100';
-        }
+        // if(sc_config('customer_address2')) {
+        //     $validate['reg_address2'] = 'required|max:100';
+        // }
         if(sc_config('customer_phone')) {
             $validate['reg_phone'] = 'required|regex:/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/';
         }
         if(sc_config('customer_country')) {
-            $validate['reg_country'] = 'required|min:2';
+            $validate['reg_country'] = 'required|min:2|max:10';
         }
         if(sc_config('customer_postcode')) {
             $validate['reg_postcode'] = 'nullable|min:5';

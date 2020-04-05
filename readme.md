@@ -24,3 +24,10 @@ Admin can assists customers using live chat.
 
 ## Test Card Numbers
 <img src="https://i1.wp.com/justlaravel.com/wp-content/uploads/2016/10/Stripe00.png">
+
+
+## Customer Assistance
+
+This app let admin support customers using live chat.
+It's using Pusher Chatkit - the console link https://dash.pusher.com/chatkit/60842cef-f479-4331-b31b-1812752cf046/console
+The login credential of this manager is guangxu924@outlook.com / ahfmqslek12345
