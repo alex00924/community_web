@@ -7,23 +7,44 @@
         <!-- Center colunm-->
         <h4 style="font-weight: 600; font-size: 20px; text-align: center">{{ $questionaire["title"] }} </h4>
         <br><br>
+        @guest
+        <div class="row">
+            <div class="col-xs-12" style="text-align: right">
+                <a class="btn btn-primary" href="{{ route('questionaire.detail', ['questionaire_id' => $questionaire['id'], 'method' => 'edit' ]) }}">Attend This Survey</a>
+            </div>
+        </div>
+        @endguest
         <div class="row">
             @if($questionaire["type"] == 'General')
             <div class="col-xs-4" style="overflow: auto; max-height: 80vh">
             @else
             <div class="col-xs-12" style="padding: 0 20%">
             @endif
-                @foreach($answers as $answer_key => $answer)
-                <div class="statistic-question {{ $questionaire['type'] == 'General' ? 'clickable' : '' }}" data-question_id = "{{ $answer->question->id }}" > {{ ($answer_key+1) . ". " . $answer->question->question }} </div>
+                @foreach($questionaire["questions"] as $question_key => $question)
+                <div class="statistic-question {{ $questionaire['type'] == 'General' ? 'clickable' : '' }}" data-question_id = "{{ $question['id'] }}" > {{ ($question_key+1) . ". " . $question['question'] }} </div>
                 <ul class="answer-ul">
-                    @foreach($answer->question->options as $key => $option)
-                        @if($answer->question->answer_type == "triangle")
-                            @php
-                                $answerOpts = json_decode($answer->answer);
-                            @endphp
-                            <li> {{ $option->option }} : {{ $answerOpts[$key] }}% </li>
+                    @php
+                        if(isset($answers))
+                        {
+                            $answer_key = array_search($question['id'], array_column($answers, 'question_id'));
+                            if ($answer_key !== false)
+                            {
+                                $answer = $answers[$answer_key];
+                            }
+                        }
+                    @endphp
+                    @foreach($question['options'] as $key => $option)
+                        @if($question['answer_type'] == "triangle")
+                            @if(isset($answer))
+                                @php
+                                    $answerOpts = json_decode($answer['answer']);
+                                @endphp
+                                <li> {{ $option['option'] }} : {{ $answerOpts[$key] }}% </li>
+                            @else
+                                <li> {{ $option['option'] }} </li>
+                            @endif
                         @else
-                            <li class="{{ $answer->answer == $option->option ? 'selected' : '' }}"> {{ $option->option }} </li>
+                            <li class="{{ (isset($answer) && $answer['answer'] == $option['option']) ? 'selected' : '' }}"> {{ $option['option'] }} </li>
                         @endif
                     @endforeach
                 </ul>

@@ -36,6 +36,9 @@
 
    $(document).ready(function() {
       if (questions.length < 1) {
+         $("#btn-prev").prop('disabled', true);
+         $("#btn-next").prop('disabled', true);
+         $("#question-content").html('No questions.');
          return;
       }
       setTimeout(function() { showQuestionaire() }, 2000);

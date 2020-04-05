@@ -18,7 +18,14 @@ class QuestionaireController extends GeneralController
 
     public function index()
     {
-        $questionaires = Questionaire::get();
+        if(Auth::check())
+        {
+            $questionaires = Questionaire::get();
+        }
+        else
+        {
+            $questionaires = Questionaire::where('access_level', 0)->get();
+        }
         $data = [
             'questionaires' => $questionaires
         ];
@@ -26,17 +33,25 @@ class QuestionaireController extends GeneralController
             ->with($data);
     }
 
-    public function detail($questionaire_id)
+    public function detail($questionaire_id, $method = '')
     {
-        $user = Auth::user();
-        $questionaire = null;
-
-        $answers = $user->questionaireAnswers();
-        $answeredIds = $user->questionaireAnswers()->groupBy('questionaire_id')->pluck('questionaire_id')->toArray();
         $questionaire = Questionaire::find($questionaire_id)->toArray();
+        if (Auth::check())
+        {
+            $user = Auth::user();
+            $answers = $user->questionaireAnswers();
+            $answeredIds = $user->questionaireAnswers()->groupBy('questionaire_id')->pluck('questionaire_id')->toArray();
+        }
+        elseif($questionaire["access_level"] == 1)
+        {
+            return redirect(url('/'));
+        }
 
+        
         // if current user didn't answer for this questionaire, show questionaire edit page
-        if (!in_array($questionaire_id, $answeredIds))
+        // Or if current user is not login and want to edit
+        if ( (isset($user) && !in_array($questionaire_id, $answeredIds)) ||
+            (!isset($user) && $method == 'edit') )
         {
             $questionaire['questions'] = QuestionaireQuestion::with(["options" => function($query) {
                     $query->orderBy('id');
@@ -47,49 +62,58 @@ class QuestionaireController extends GeneralController
             return view($this->templatePath . '.questionaire_survey')
                 ->with($data);
         } 
+
         // if answered already, show answer details.
-        else
+        // Or if current user is not login and want to view statistic result
+        
+        $questionaire["questions"] = QuestionaireQuestion::where('questionaire_id', $questionaire["id"])->get()->toArray();
+        foreach($questionaire["questions"] as $question_key => $question)
         {
-            if ($questionaire["type"] == "General")
+            $questionaire["questions"][$question_key]["options"] = QuestionaireQuestionOption::where('question_id', $question["id"])->select(["option"])->get()->toArray();
+        }
+
+        // if questionaire is General, read statistical resutls too.
+        if ($questionaire["type"] == "General")
+        {
+            foreach($questionaire["questions"] as $question_key => $question)
             {
-                $questionaire["questions"] = QuestionaireQuestion::where('questionaire_id', $questionaire["id"])->get()->toArray();
-                foreach($questionaire["questions"] as $question_key => $question)
+                if ($question["answer_type"] == 'triangle')
                 {
-                    $questionaire["questions"][$question_key]["options"] = QuestionaireQuestionOption::where('question_id', $question["id"])->select(["option"])->get()->toArray();
-                    if ($question["answer_type"] == 'triangle')
+                    $answers = QuestionaireAnswer::where('question_id', $question["id"])->select(["answer"])->get()->toArray();
+                    $questionaire["questions"][$question_key]["answers"] = [];
+                    foreach($answers as $answer_key => $answer)
                     {
-                        $answers = QuestionaireAnswer::where('question_id', $question["id"])->select(["answer"])->get()->toArray();
-                        $questionaire["questions"][$question_key]["answers"] = [];
-                        foreach($answers as $answer_key => $answer)
-                        {
-                            $questionaire["questions"][$question_key]["answers"][] = json_decode($answer["answer"]);
-                        }
+                        $questionaire["questions"][$question_key]["answers"][] = json_decode($answer["answer"]);
                     }
-                    else
+                }
+                else
+                {
+                    foreach($questionaire["questions"][$question_key]["options"] as $option_key => $option)
                     {
-                        foreach($questionaire["questions"][$question_key]["options"] as $option_key => $option)
-                        {
-                            $questionaire["questions"][$question_key]["options"][$option_key]["cnt"] = QuestionaireAnswer::where('question_id', $question["id"])->where('answer', $option["option"])->count();
-                        }
+                        $questionaire["questions"][$question_key]["options"][$option_key]["cnt"] = QuestionaireAnswer::where('question_id', $question["id"])->where('answer', $option["option"])->count();
                     }
                 }
             }
-            
-            // Find current user's answer
-            $answers = $user->questionaireAnswers()->where('questionaire_id', $questionaire_id)->get();
-            foreach($answers as $key => $answer)
-            {
-                $answers[$key]['question'] = QuestionaireQuestion::with(["options" => function($query) {
-                        $query->orderBy('id');
-                    }])->find($answer->question_id);
-            }
-            $data = [
-                'answers' => $answers,
-                'questionaire' => $questionaire
-            ];
-            return view($this->templatePath . '.questionaire_detail')
-                ->with($data);
         }
+        
+        if(isset($user))
+        {
+            // Find current user's answer
+            $answers = $user->questionaireAnswers()->where('questionaire_id', $questionaire_id)->get()->toArray();
+            // foreach($answers as $key => $answer)
+            // {
+            //     $answers[$key]['question'] = QuestionaireQuestion::with(["options" => function($query) {
+            //             $query->orderBy('id');
+            //         }])->find($answer->question_id);
+            // }
+        }
+        
+        $data = [
+            'answers' => isset($answers) ? $answers : [],
+            'questionaire' => isset($questionaire) ? $questionaire : []
+        ];
+        return view($this->templatePath . '.questionaire_detail')
+            ->with($data);
     }
 
     public function addAnswer()
@@ -97,7 +121,19 @@ class QuestionaireController extends GeneralController
         $data = request()->all();
         $questionaireId = $data["questionaire_id"];
         $answers = $data["answers"];
-        $userId = auth()->user()->id;
+        $userId = null;
+        if(Auth::check())
+        {
+            $userId = auth()->user()->id;
+        }
+        else
+        {
+            $questionaire = Questionaire::find($questionaireId);
+            if($questionaire->access_level != 0)
+            {
+                return "Invalid Request. Guest can't post answer for specific questionaire";
+            }
+        }
 
         foreach($answers as $answer)
         {
