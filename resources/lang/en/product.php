@@ -49,6 +49,7 @@ return [
     'price_group_chose'     => 'Please chose product',
     'groups'                => 'Products group',
     'builds'                => 'Products build',
+    'review'                => 'Reviews',
     'admin'                 => [
         'title'                   => 'Product',
         'manager'                 => 'Product Manager',

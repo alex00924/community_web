@@ -66,8 +66,8 @@
                     @endfor
 
                     <span> {{ $product->reviewDetails["count"] }} reviews </span>
-                    
-                      <a href="#product-reviews" style="margin-left: 10px; color: #878787">
+                    {{--
+                      <a style="margin-left: 10px; color: #878787; cursor: pointer" onclick="openReviewTab()">
                       @auth
                         @if(isset($product->reviewDetails["myReview"]))
                           Edit Your Review
@@ -79,6 +79,7 @@
                         Reviews
                       @endguest
                     </a>
+                    --}}
                   </div>
 
                   <ul style="padding-left: 2rem">
@@ -205,6 +206,9 @@
                   <li class="nav-item">
                       <a class="nav-link" href="#tab-case_study" data-toggle="tab">{{ trans('product.case_study') }}</a>
                   </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#tab-review" data-toggle="tab">{{ trans('product.review') }}</a>
+                  </li>
               </ul>
               <!-- <div>
                 <ul class="nav nav-tabs">
@@ -221,91 +225,92 @@
                 <div class="ckeditor-content tab-pane fade" id="tab-case_study" >
                   {!! sc_html_render($product->case_study) !!}
                 </div>
+                <div class="ckeditor-content tab-pane fade" id="tab-review" >
+                  <!-- product review tab -->
+                <!-- <div class="category-tab product-review-tab" id="product-reviews"> -->
+                  <h2 class="text-center origin" style="font-size: 30px; ">{{$product->reviewDetails["count"]}} reviews for this product</h2>
+                  @auth
+                    <div class="review-container" style="padding: 2rem; border-bottom: 1px solid #eee">
+                      <div class="row"> 
+                        <div class="col">
+                          <h4 class="origin"> Write your review for this product </h4>
+                        </div>
+                        <div class="col text-right"> 
+                          @if(isset($product->reviewDetails["myReview"]))
+                          <p> {{ $product->reviewDetails["myReview"]["updated_at"] }} </p>
+                          @endif
+                        </div>
+                      </div>
+                      
+                      <form id="product-review-form" action="/product/review" method="POST">
+                        @csrf
+                        @php
+                          $content = '';
+                          if(old('content')) {
+                            $content = old('content');
+                          } elseif(isset($product->reviewDetails["myReview"]["content"])) {
+                            $content = $product->reviewDetails["myReview"]["content"];
+                          }
+                        @endphp
+                        <textarea rows="5" name="content" class="form-control text">{{ $content }}</textarea>
+                        <div class="edit-review-mark">
+                          @php
+                            $mark = 0;
+                            if(old('mark')) {
+                              $mark = old('mark');
+                            } elseif(isset($product->reviewDetails["myReview"])) {
+                              $mark = $product->reviewDetails["myReview"]["mark"];
+                            }
+                          @endphp
+                          @for($i = 1; $i <= $mark; $i++)
+                          <i class="fa fa-star active" aria-hidden="true" id="mark-{{ $i }}"></i>
+                          @endfor
+                          @for(; $i <= 5; $i++)
+                          <i class="fa fa-star" aria-hidden="true" id="mark-{{ $i }}"></i>
+                          @endfor
+                        </div>
+
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="mark" id="product-mark" value="{{ $mark }}">
+                        @if(isset($product->reviewDetails["myReview"]))
+                        <input type="hidden" name="id" value="{{ $product->reviewDetails['myReview']['id'] }}">
+                        @endif
+                        <div class="text-right">
+                          <input type="submit" class="btn btn-primary">
+                        </div>
+                      </form>
+                    </div>
+                  @endauth
+                  
+                  @foreach($product->reviewDetails["otherReviews"] as $review)
+                  <div class="review-container">
+                    <div class="row" style="margin-bottom: 20px"> 
+                      <div class="col">
+                        <img src="{{ $review['user']['avatar'] }}" class="avatar">
+                        <strong>{{ $review['user']['name'] }}</strong>
+                      </div>
+                      <div class="col text-center">
+                          @for($i = 1; $i <= $review['mark']; $i++)
+                          <i class="fa fa-star" aria-hidden="true" style="color: orange"></i>
+                          @endfor
+                          @for(; $i <= 5; $i++)
+                          <i class="fa fa-star" aria-hidden="true" style="color: darkgray"></i>
+                          @endfor
+                      </div>
+                      <div class="col text-right">
+                        <p>{{ $review["updated_at"] }}</p>
+                      </div>
+                    </div>
+                    <div>
+                      {{ $review["content"] }}
+                    </div>
+                  </div>
+                  @endforeach
+                <!-- </div> -->
+                <!-- product review tab -->
+                </div>
               </div>
             </div><!--/product description-tab-->
-            
-            <!-- product review tab -->
-            <div class="category-tab product-review-tab" id="product-reviews">
-              <h2 class="text-center origin" style="font-size: 30px; ">{{$product->reviewDetails["count"]}} reviews for this product</h2>
-              @auth
-                <div class="review-container" style="padding: 2rem; border-bottom: 1px solid #eee">
-                  <div class="row"> 
-                    <div class="col">
-                      <h4 class="origin"> Write your review for this product </h4>
-                    </div>
-                    <div class="col text-right"> 
-                      @if(isset($product->reviewDetails["myReview"]))
-                      <p> {{ $product->reviewDetails["myReview"]["updated_at"] }} </p>
-                      @endif
-                    </div>
-                  </div>
-                  
-                  <form id="product-review-form" action="/product/review" method="POST">
-                    @csrf
-                    @php
-                      $content = '';
-                      if(old('content')) {
-                        $content = old('content');
-                      } elseif(isset($product->reviewDetails["myReview"]["content"])) {
-                        $content = $product->reviewDetails["myReview"]["content"];
-                      }
-                    @endphp
-                    <textarea rows="5" name="content" class="form-control text">{{ $content }}</textarea>
-                    <div class="edit-review-mark">
-                      @php
-                        $mark = 0;
-                        if(old('mark')) {
-                          $mark = old('mark');
-                        } elseif(isset($product->reviewDetails["myReview"])) {
-                          $mark = $product->reviewDetails["myReview"]["mark"];
-                        }
-                      @endphp
-                      @for($i = 1; $i <= $mark; $i++)
-                      <i class="fa fa-star active" aria-hidden="true" id="mark-{{ $i }}"></i>
-                      @endfor
-                      @for(; $i <= 5; $i++)
-                      <i class="fa fa-star" aria-hidden="true" id="mark-{{ $i }}"></i>
-                      @endfor
-                    </div>
-
-                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                    <input type="hidden" name="mark" id="product-mark" value="{{ $mark }}">
-                    @if(isset($product->reviewDetails["myReview"]))
-                    <input type="hidden" name="id" value="{{ $product->reviewDetails['myReview']['id'] }}">
-                    @endif
-                    <div class="text-right">
-                      <input type="submit" class="btn btn-primary">
-                    </div>
-                  </form>
-                </div>
-              @endauth
-              
-              @foreach($product->reviewDetails["otherReviews"] as $review)
-              <div class="review-container">
-                <div class="row" style="margin-bottom: 20px"> 
-                  <div class="col">
-                    <img src="{{ $review['user']['avatar'] }}" class="avatar">
-                    <strong>{{ $review['user']['name'] }}</strong>
-                  </div>
-                  <div class="col text-center">
-                      @for($i = 1; $i <= $review['mark']; $i++)
-                      <i class="fa fa-star" aria-hidden="true" style="color: orange"></i>
-                      @endfor
-                      @for(; $i <= 5; $i++)
-                      <i class="fa fa-star" aria-hidden="true" style="color: darkgray"></i>
-                      @endfor
-                  </div>
-                  <div class="col text-right">
-                    <p>{{ $review["updated_at"] }}</p>
-                  </div>
-                </div>
-                <div>
-                  {{ $review["content"] }}
-                </div>
-              </div>
-              @endforeach
-            </div>
-            <!-- product review tab -->
             
 @if (count($productsToCategory))
             <div class="recommended_items"><!--recommended_items-->
@@ -497,5 +502,10 @@
       });
 
   });
+
+  // function openReviewTab() {
+  //   $('.nav-tabs a[href="#tab-review"]').tab('show');
+  //   document.location.href = "#tab-review";
+  // }
 </script>
 @endpush

@@ -89,6 +89,9 @@ UPDATE `admin_menu` SET `uri` = '' WHERE `id` = '16';
 INSERT INTO `admin_menu` (`parent_id`, `sort`, `title`, `icon`, `uri`) VALUES ('16', '1', 'lang::product.admin.manager', 'fa-file-photo-o', 'admin::product'); 
 INSERT INTO `admin_menu` (`parent_id`, `sort`, `title`, `icon`, `uri`) VALUES ('16', '2', 'lang::product.admin.relationship', 'fa-th-list', 'admin::product/relationship'); 
 
+11. Alter questionaire table
+ALTER TABLE `questionaire` ADD COLUMN `access_level` INT DEFAULT 1 NULL COMMENT '0: can access without login, 1: can access only after login' AFTER `target_id`; 
+
 ***. Offline  
 <!-- @if (\Route::current()->getName() != 'admin_chat')
         @include('admin.component.chat_alert')

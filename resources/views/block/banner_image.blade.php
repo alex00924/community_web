@@ -2,7 +2,7 @@
     $banners = \App\Models\ShopBanner::where('status', 1)->where('type', 0)->sort()->get()
   @endphp
  @if (!empty($banners))
- <section id="slider"><!--slider-->
+ <section id="slider" style="width: 50%; margin: auto"><!--slider-->
     <div class="row">
       <div class="col-sm-12">
         <div id="slider-carousel" class="carousel slide" data-ride="carousel">
@@ -16,7 +16,7 @@
                 <div class="item {{ ($key)?'':'active' }}">
                   <div class="col-sm-12">
                     <a href="{{ route('banner.click',['id' => $banner->id]) }}" target="{{ $banner->target }}">
-                      <img src="{{ asset($banner->image) }}" class="girl img-responsive" alt="" style="max-width: 100%; height: 600px; margin: auto"/>
+                      <img src="{{ asset($banner->image) }}" class="girl img-responsive" alt="" style="max-width: 100%; height: 300px; margin: auto"/>
                     </a>
                   </div>
                 </div>
