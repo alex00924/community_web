@@ -8,6 +8,7 @@ use App\Models\ShopBanner;
 use App\Models\ShopCategory;
 use App\Models\ShopProduct;
 use App\Models\ShopVendor;
+use App\Models\ShopNews;
 use Illuminate\Http\Request;
 use App\Models\ShopProductReview;
 use Illuminate\Support\Facades\Auth;
@@ -38,13 +39,12 @@ class ShopFront extends GeneralController
                 $questionaire['questions'] = QuestionaireQuestion::with("options")->where('questionaire_id', $questionaire->id)->get();
             }
         }
+        
+        $news = (new ShopNews)->getCovidNews();
+
         return view($this->templatePath . '.shop_home',
             array(
-                'products_new' => (new ShopProduct)->getProducts($type = null, $limit = sc_config('product_new'), $opt = null),
-                'products_hot' => (new ShopProduct)->getProducts($type = SC_PRODUCT_HOT, $limit = sc_config('product_hot'), $opt = 'random'),
-                'categories' => (new ShopCategory)->getCategoriesAll($onlyActive = true),
-                'products_build' => (new ShopProduct)->getTopBuild($limit = 4),
-                'products_group' => (new ShopProduct)->getTopGroup($limit = 4),
+                'news' => $news,
                 'layout_page' => 'home',
                 'questionaire_survey' => $questionaire
             )

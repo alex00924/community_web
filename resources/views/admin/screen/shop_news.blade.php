@@ -192,10 +192,16 @@
                             <div class="col-sm-8">
                                 <input type="checkbox" name="status"
                                     {{ old('status',(empty($shopNews['status'])?0:1))?'checked':''}}>
-
                             </div>
                         </div>
 
+                        <div class="form-group  ">
+                            <label for="for_covid" class="col-sm-2  control-label">{{ trans('news.covid') }}</label>
+                            <div class="col-sm-8">
+                                <input type="checkbox" name="for_covid"
+                                    {{ old('status',(empty($shopNews['for_covid'])?0:1))?'checked':''}}>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

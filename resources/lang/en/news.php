@@ -10,6 +10,7 @@ return [
     'content' => 'Content',
     'image' => 'Image',
     'status' => 'Status',
+    'covid' => 'related to COVID-19',
     'sort' => 'Sort',
     'help_top' => 'Display this category out site',
     'admin' => [

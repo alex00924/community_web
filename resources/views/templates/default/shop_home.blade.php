@@ -1,116 +1,139 @@
 @extends($templatePath.'.shop_layout')
 
-@section('center')
-          <div class="features_items row no-margin"><!--features_items-->
-            <h2 class="title text-center">{{ trans('front.features_items') }}</h2>
-                @foreach ($products_new as  $key => $product_new)
-                  <div class=" col-xs-6 col-sm-4 col-lg-3">
-                    <div class="product-image-wrapper product-single">
-                      <div class="single-products product-box-{{ $product_new->id }}">
-                          <div class="productinfo text-center">
-                            <a href="{{ $product_new->getUrl() }}">
-                              <div class="product-image-container">
-                                <img src="{{ asset($product_new->getThumb()) }}" alt="{{ $product_new->name }}" />
-                              </div>
-                            </a>
-                            <a href="{{ $product_new->getUrl() }}"><div class="product-name-container"><p>{{ $product_new->name }}</p></div></a>
-                            <div class="price">
-                              {!! $product_new->showPrice() !!}
-                            </div>
-                            @if ($product_new->allowSale())
-                             <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product_new->id }}','default')"><i class="fa fa-shopping-cart"></i>{{trans('front.add_to_cart')}}</a>
-                            @else
-                              &nbsp;
-                            @endif
+@section('main')
+  <div class="row welcome">
+    <div class="col-xs-12 col-md-10 col-lg-8" style="margin: auto;">
+      <h1 style="font-size: 30px; font-weight: 500">Fluids For Life</h1>
+      <p style="font-size: 25px; text-align: left">
+        Connecting biologists with microfluidics / engineering, information, and networking tools
+      </p>
+      <img src="/images/welcome_bg.jpg" style="margin: auto; max-width: 100%">
+    </div>
+    <div class="col-xs-12 col-md-10 col-lg-8 text-center" style="position: relative; margin: auto">
+      <a href="#covid-19-container" class="btn btn-danger">COVID-19</a>
+      <a href="#information-container" class="btn btn-success">Information</a>
+      <a href="#equipment-container" class="btn btn-info">Equipment</a>
+      <a href="#network-container" class="btn btn-network">Networking</a>
+      <a href="#feedback-container" class="btn btn-feedback">Feedback</a>
+    </div>
+  </div>
 
-                          </div>
-                      @if ($product_new->price != $product_new->getFinalPrice() && $product_new->kind != SC_PRODUCT_GROUP)
-                      <img src="{{ asset($templateFile.'/images/home/sale.png') }}" class="new" alt="" />
-                      @elseif($product_new->type == SC_PRODUCT_NEW)
-                      <img src="{{ asset($templateFile.'/images/home/new.png') }}" class="new" alt="" />
-                      @elseif($product_new->type == SC_PRODUCT_HOT)
-                      <img src="{{ asset($templateFile.'/images/home/hot.png') }}" class="new" alt="" />
-                      @elseif($product_new->kind == SC_PRODUCT_BUILD)
-                      <img src="{{ asset($templateFile.'/images/home/bundle.png') }}" class="new" alt="" />
-                      @elseif($product_new->kind == SC_PRODUCT_GROUP)
-                      <img src="{{ asset($templateFile.'/images/home/group.png') }}" class="new" alt="" />
-                      @endif
-                      </div>
-                      <div class="choose">
-                        <ul class="nav nav-pills nav-justified">
-                          <li><a onClick="addToCartAjax('{{ $product_new->id }}','wishlist')"><i class="fa fa-heart"></i>{{trans('front.add_to_wishlist')}}</a></li>
-                          <li><a onClick="addToCartAjax('{{ $product_new->id }}','compare')"><i class="fa fa-exchange"></i>{{trans('front.add_to_compare')}}</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-               @endforeach
-          </div><!--features_items-->
+  <!-- COVID-19 -->
+  <div class="row v-center" style="padding: 2rem 0" id="covid-19-container">
+    <div class="col-xs-4">
+      <img src="/images/covid-19.png" alt="COVID-19" style="max-width: 100%; height: auto">
+      <p>
+        <b>COVID-19</b> – shortcut to posted articles, equipment, and networking opportunities related to SARS-CoV-2
+      </p>
+    </div>
 
-          <div class="recommended_items"><!--recommended_items-->
-            <h2 class="title text-center">{{ trans('front.products_hot') }}</h2>
-
-            <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner" style="padding-top: 15px;">
-                @foreach ($products_hot as  $key => $product_hot)
-                @if ($key % 4 == 0)
-                  <div class="item {{  ($key ==0)?'active':'' }}">
-                @endif
-                  <div class=" col-xs-6 col-sm-4 col-lg-3">
-                    <div class="product-image-wrapper product-single">
-                      <div class="single-products   product-box-{{ $product_hot->id }}">
-                          <div class="productinfo text-center">
-                            <a href="{{ $product_hot->getUrl() }}">
-                              <div class="product-image-container">
-                                <img src="{{ asset($product_hot->getThumb()) }}" alt="{{ $product_hot->name }}" />
-                              </div>
-                            </a>
-                            <a href="{{ $product_hot->getUrl() }}"><div class="product-name-container"><p>{{ $product_hot->name }}</p></div></a>
-                            <div class="price">
-                              {!! $product_hot->showPrice() !!}
-                            </div>
-                            @if ($product_hot->allowSale())
-                             <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product_hot->id }}','default')"><i class="fa fa-shopping-cart"></i>{{trans('front.add_to_cart')}}</a>
-                            @else
-                              &nbsp;
-                            @endif
-                          </div>
-
-                      @if ($product_hot->price != $product_hot->getFinalPrice() && $product_hot->kind != SC_PRODUCT_GROUP)
-                      <img src="{{ asset($templateFile.'/images/home/sale.png') }}" class="new" alt="" />
-                      @elseif($product_hot->type == SC_PRODUCT_NEW)
-                      <img src="{{ asset($templateFile.'/images/home/new.png') }}" class="new" alt="" />
-                      @elseif($product_hot->type == SC_PRODUCT_HOT)
-                      <img src="{{ asset($templateFile.'/images/home/hot.png') }}" class="new" alt="" />
-                      @elseif($product_hot->kind == SC_PRODUCT_BUILD)
-                      <img src="{{ asset($templateFile.'/images/home/bundle.png') }}" class="new" alt="" />
-                      @elseif($product_hot->kind == SC_PRODUCT_GROUP)
-                      <img src="{{ asset($templateFile.'/images/home/group.png') }}" class="new" alt="" />
-                      @endif
-
-                      </div>
-                      <div class="choose">
-                        <ul class="nav nav-pills nav-justified">
-                          <li><a onClick="addToCartAjax('{{ $product_hot->id }}','wishlist')"><i class="fa fa-heart"></i>{{trans('front.add_to_wishlist')}}</a></li>
-                          <li><a onClick="addToCartAjax('{{ $product_hot->id }}','compare')"><i class="fa fa-exchange"></i>{{trans('front.add_to_compare')}}</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                @if ($key % 4 == 3 || $key+1 == $products_hot->count())
-                  </div>
-                @endif
-               @endforeach
-
+    <div class="col-xs-8">
+      <ul class="blog-posts">
+        @foreach ($news as $newsDetail)
+        <li class="post-item">
+          <article class="entry">
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="entry-thumb image-hover2"> <a href="{{ $newsDetail->getUrl() }}">
+                  <figure><img src="{{ asset($newsDetail->getThumb()) }}" alt="{{ $newsDetail->title }}" alt="Blog"></figure>
+                  </a> </div>
               </div>
-               <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                <i class="fa fa-angle-left"></i>
-                </a>
-                <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-                <i class="fa fa-angle-right"></i>
-                </a>
+              <div class="col-sm-9">
+                <h3 class="entry-title"><a href="{{ $newsDetail->getUrl() }}">{{ $newsDetail->title }}</a></h3>
+                <div class="entry-meta-data"> <span class="author">  <span class="date"><i class="pe-7s-date"></i>&nbsp; {{ $newsDetail->created_at }}</span> </div>
+                <div class="entry-excerpt">{{ $newsDetail->description }}</div>
+                <a href="{{ $newsDetail->getUrl() }}" class="button read-more">{{ trans('front.view_more') }}&nbsp; <i class="fa fa-angle-double-right"></i></a> </div>
             </div>
-          </div><!--/recommended_items-->
+          </article>
+          <hr>
+        </li>
+        @endforeach
+      </ul>
+    </div>
+  </div>
+
+  <div class="row v-center" style="padding: 2rem 0" id="information-container">
+  
+  </div>
+
+  <div class="row v-center" style="padding: 2rem 0" id="equipment-container">
+  
+  </div>
+
+  <div class="row" style="padding: 2rem 0" id="network-container">
+    <h2 style="font-size: 25px; font-weight: 500">Networking on PC & on Mobile</h2>
+
+    <div class="col-xs-12 col-md-6 col-lg-4">
+      <div style="width: 100%; text-align: center; padding: 1rem 0">
+        <img src="images/network_person_1.png" alt="person" style="margin: auto">
+      </div>
+      <div class="row">
+        <div class="col-xs-12" style="background: rgb(0,122,192); color: white; padding: 8px 10px;">
+          Max Narovlyansky, PhD
+        </div>
+        <div class="col-xs-6" style="background: rgb(0,176,240); color: white; padding: 8px 10px;">
+          <b>Skills:</b>
+          <ul>
+            <li>Microfluidics</li>
+            <li>Drug discovery</li>
+            <li>Bio-chemistry</li>
+            <li>Multi-physics modeling</li>
+            <li>Sensors & analytics</li>
+          </ul>
+        </div>
+        <div class="col-xs-6" style="background: rgb(180,199,231); color: white; padding: 8px 10px;">
+          <b>Needs:</b>
+          <ul>
+            <li style="color: red">Partners for NIH grant for use of MPS for COVID19</li>
+            <li>Organoid specialists</li>
+            <li>Fundraising</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-4">
+      <div style="width: 100%; text-align: center; padding: 1rem 0">
+        <img src="images/network_person_2.png" alt="person" style="margin: auto">
+      </div>
+      <div class="row">
+        <div class="col-xs-12" style="background: rgb(0,122,192); color: white; padding: 8px 10px;">
+          Jean Zhang, PhD
+        </div>
+        <div class="col-xs-6" style="background: rgb(0,176,240); color: white; padding: 8px 10px;">
+          <b>Skills:</b>
+          <ul>
+            <li>Drug discovery</li>
+            <li>Cancer biology</li>
+            <li>Organoid culture</li>
+            <li>Chemical library screening</li>
+          </ul>
+        </div>
+        <div class="col-xs-6" style="background: rgb(180,199,231); color: white; padding: 8px 10px;">
+          <b>Needs:</b>
+          <ul>
+            <li style="color: red">Leadership opportunities in biotech</li>
+            <li>Technology specialists</li>
+            <li>Flexible partnership</li>
+          </ul>
+        </div>
+      </div>    
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-4">
+      <div style="width: 100%; text-align: center">
+        <img src="images/network_mobile.png" alt="mobile" style="margin: auto">
+      </div>
+    </div>
+  
+  </div>
+
+  <div class="row v-center" style="padding: 2rem 0" id="feedback-container">
+    <p>
+      we want to continually improve the user experience. Please contact us with suggestions.
+    </p>
+  </div>
+
 @endsection
 
 

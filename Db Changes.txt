@@ -92,6 +92,9 @@ INSERT INTO `admin_menu` (`parent_id`, `sort`, `title`, `icon`, `uri`) VALUES ('
 11. Alter questionaire table
 ALTER TABLE `questionaire` ADD COLUMN `access_level` INT DEFAULT 1 NULL COMMENT '0: can access without login, 1: can access only after login' AFTER `target_id`; 
 
+12. For Blog, add covid-19
+ALTER TABLE `shop_news` ADD COLUMN `for_covid` TINYINT DEFAULT 0 NULL AFTER `status`; 
+
 ***. Offline  
 <!-- @if (\Route::current()->getName() != 'admin_chat')
         @include('admin.component.chat_alert')

@@ -41,6 +41,7 @@ class ShopNewsController extends Controller
         $listTh = [
             'title' => trans('news.title'),
             'image' => trans('news.image'),
+            'for_covid' => trans('news.covid'),
             'sort' => trans('news.sort'),
             'status' => trans('news.status'),
             'action' => trans('news.admin.action'),
@@ -76,6 +77,7 @@ class ShopNewsController extends Controller
             $dataTr[] = [
                 'title' => $row['title'],
                 'image' => sc_image_render($row['image'], '50px'),
+                'for_covid' => $row['for_covid'] == 1 ? 'Yes' : 'No',
                 'sort' => $row['sort'],
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',
                 'action' => '
@@ -219,6 +221,7 @@ class ShopNewsController extends Controller
             'sort' => $data['sort'],
             'alias' => $data['alias'],
             'status' => !empty($data['status']) ? 1 : 0,
+            'for_covid' => !empty($data['for_covid']) ? 1 : 0,
         ];
         $news = ShopNews::create($dataInsert);
         $id = $news->id;
@@ -297,6 +300,7 @@ class ShopNewsController extends Controller
             'alias' => $data['alias'],
             'sort' => $data['sort'],
             'status' => !empty($data['status']) ? 1 : 0,
+            'for_covid' => !empty($data['for_covid']) ? 1 : 0,
         ];
 
         $shopNews->update($dataUpdate);

@@ -39,7 +39,7 @@ return [
     'brands'             => 'Brands',
     'vendors'            => 'Vendors',
     'maintenance'        => 'Maintenance',
-    'features_items'     => 'Features Items',
+    'features_items'     => 'Featured Items',
     'recommended_items'  => 'Recommended items',
     'thank_contact'      => 'Thanks!. We will contact as soon as possible!',
     'date_available'     => 'Date available',

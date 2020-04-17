@@ -148,10 +148,8 @@ a#scrollUp i{
 
 .header-middle .container .row {
   /* border-bottom: 1px solid #f5f5f5; */
-  margin-left: 0;
-  margin-right: 0;
-  padding-bottom: 20px;
-  padding-top: 20px;
+  margin: 0;
+  padding: 5px 0;
 }
 
 .header-middle .container .row .col-sm-4{
@@ -1414,17 +1412,25 @@ h2.title {
   margin-bottom: 30px;
 }
 
+.login-form-container {
+  background: url('/images/login_bg.jpg') no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding: 10rem 0;
+}
 
 .login-form form input, .signup-form form input,.signup-form form select {
-  background: white;
+  background: transparent;
   /* border: medium none; */
   color: #696763;
   display: block;
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   /* height: 40px; */
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   outline: medium none;
   padding-left: 10px;
   width: 100%;
@@ -1472,10 +1478,11 @@ h2.title {
 	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
 	height: 50px;
-	line-height: 50px;
+  line-height: 50px;
+  margin: auto;
 	margin-top: 75px;
 	text-align: center;
-	width: 50px;
+  width: 50px;
 }
 
 
@@ -2801,4 +2808,45 @@ button.close {
 .statistic-question.clicked{
   background: gold;
   color: #0e8ce4;
+}
+
+.welcome button {
+  font-size: 18px;
+  margin: 0 5px;
+  color: white;
+}
+
+.btn-network {
+  background-color: rgb(112, 48, 160);
+  border-color: rgb(112, 48, 160);
+}
+
+.btn-network:hover {
+  background-color: rgb(132, 59, 187);
+  border-color: rgb(132, 59, 187);
+}
+
+.btn-feedback {
+  background-color: rgb(199, 4, 204);
+  border-color: rgb(199, 4, 204);
+}
+
+.btn-feedback:hover {
+  background-color: rgb(211, 18, 214);
+  border-color: rgb(211, 18, 214);
+}
+
+.btn-tour {
+  background-color: rgb(220, 220, 0);
+  border-color: rgb(220, 220, 0);
+}
+
+.btn-tour:hover {
+  background-color: rgb(250, 250, 0);
+  border-color: rgb(250, 250, 0);
+}
+
+.row {
+  margin: 0 !important;
+  padding: 0 !important;
 }
