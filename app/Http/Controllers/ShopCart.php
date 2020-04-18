@@ -754,7 +754,7 @@ class ShopCart extends GeneralController
 
         }
 
-        return redirect()->route('order.success')->with('orderID', $orderID);
+        return redirect()->route('order.success', ['orderID' => $orderID]);
     }
 
     /**
@@ -762,16 +762,18 @@ class ShopCart extends GeneralController
      *
      * @return  [type]  [return description]
      */
-    public function orderSuccess(){
+    public function orderSuccess($orderID){
 
-        if(!session('orderID')) {
+        if(!$orderID) {
             return redirect()->route('home');
         }
+        $order = ShopOrder::with('details')->find($orderID);
         return view(
             $this->templatePath . '.shop_order_success',
             [
                 'title' => trans('order.success.title'),
                 'layout_page' =>'shop_order_success',
+                'order'=>$order
             ]
         );
     }

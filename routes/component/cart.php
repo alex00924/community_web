@@ -36,5 +36,5 @@ Route::get('/'.$prefixCartCheckout.$suffix, 'ShopCart@getCheckout')
 Route::post('/order_add', 'ShopCart@addOrder')
 ->name('order.add');
 
-Route::get('/'.$prefixOrderSuccess.$suffix, 'ShopCart@orderSuccess')
+Route::get('/'.$prefixOrderSuccess.$suffix.'/{orderID}', 'ShopCart@orderSuccess')
 ->name('order.success');

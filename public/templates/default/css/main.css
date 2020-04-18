@@ -2850,3 +2850,43 @@ button.close {
   margin: 0 !important;
   padding: 0 !important;
 }
+
+.report {
+  background: white;
+  width: 842px;
+  padding: 50px 20px;
+  margin: auto;
+  overflow: auto;
+}
+
+.report table, .report th {
+  text-align: center;
+}
+.report .table-header {
+  background-color: rgb(59, 78, 135);
+  color: white;
+  padding: 10px;
+}
+
+.report .total {
+  background-color: rgb(167, 174, 212);
+  font-weight: 400;
+}
+
+.report .total-column {
+  background-color: rgb(242, 242, 242);
+}
+
+.report .comment {
+  background-color: rgb(191, 191, 191);
+  color: rgb(91, 6, 0);
+  padding: 10px;
+}
+
+.report .property {
+  border: 1px solid; 
+  width: 100px; 
+  text-align: center; 
+  display: inline-block;
+  padding: 5px;
+}
