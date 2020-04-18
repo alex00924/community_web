@@ -5,7 +5,7 @@
     <div class="container">
         <h2 class="title text-center">{{ $title }}</h2>
         <div class="row">
-            <div class="cox-sx-2"></div>
+            <div class="col-xs-2"></div>
             <div class="col-xs-4 text-success">
                 {{ trans('order.success.msg') }}
             </div>
