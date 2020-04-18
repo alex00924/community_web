@@ -31,4 +31,5 @@ return [
     'name'             => 'Full name',
     'company'          => 'Company',
     'postcode'         => 'Postcode',
+    'po_doc'           => 'Purchase Order Document'
 ];

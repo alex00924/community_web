@@ -95,6 +95,9 @@ ALTER TABLE `questionaire` ADD COLUMN `access_level` INT DEFAULT 1 NULL COMMENT 
 12. For Blog, add covid-19
 ALTER TABLE `shop_news` ADD COLUMN `for_covid` TINYINT DEFAULT 0 NULL AFTER `status`; 
 
+13. add PO DOc column
+ALTER TABLE `shop_order` ADD COLUMN `po_doc` VARCHAR(100) NULL AFTER `comment`; 
+
 ***. Offline  
 <!-- @if (\Route::current()->getName() != 'admin_chat')
         @include('admin.component.chat_alert')

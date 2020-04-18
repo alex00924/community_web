@@ -45,7 +45,10 @@ return [
             'driver' => 'local',
             'root'   => storage_path('app'),
         ],
-
+        'po_doc' => [
+            'driver' => 'local',
+            'root' => public_path('data') . '/po_doc'
+        ],
         'public' => [
             'driver'     => 'local',
             'root'       => storage_path('app/public'),

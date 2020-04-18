@@ -11,6 +11,7 @@ use App\Models\ShopProduct;
 use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ShopCart extends GeneralController
 {
@@ -169,7 +170,12 @@ class ShopCart extends GeneralController
         }
         if(sc_config('customer_company')) {
             $validate['company'] = 'required|min:3';
-        }        
+        }
+        $payment_method = request('paymentMethod');
+        if ($payment_method == "Po") {
+            $validate['purchase_order_document'] = 'required|max:10000|mimes:doc,docx,pdf,ppt,pptx,xlx,xlsx';
+            $validate['comment'] = 'required';
+        }
         $v = Validator::make(
             request()->all(), 
             $validate, 
@@ -181,10 +187,19 @@ class ShopCart extends GeneralController
                 ->withErrors($v->errors());
         }
 
+        // if PO payment, save po_doc
+        $poFileName='';
+        if ($payment_method == "Po") {
+            $file = request()->file('purchase_order_document');
+            $poFileName = uniqid() . "_" . $file->getClientOriginalName();
+            if(!Storage::disk('po_doc')->putFileAs('', $file, $poFileName)) {
+                return redirect()->back();
+            }
+        }
         //Set session shippingMethod
         session(['shippingMethod' => request('shippingMethod')]);
         //Set session paymentMethod
-        session(['paymentMethod' => request('paymentMethod')]);
+        session(['paymentMethod' => $payment_method]);
         //Set session shippingAddress
         session(
             [
@@ -199,6 +214,7 @@ class ShopCart extends GeneralController
                     'postcode' => request('postcode'),
                     'company' => request('company'),
                     'comment' => request('comment'),
+                    'po_doc' => $poFileName
                 ],
             ]
         );
@@ -349,6 +365,7 @@ class ShopCart extends GeneralController
         $dataOrder['user_agent'] = $request->header('User-Agent');
         $dataOrder['ip'] = $request->ip();
         $dataOrder['created_at'] = date('Y-m-d H:i:s');
+        $dataOrder['po_doc'] = '/data/po_doc/' . $shippingAddress['po_doc']??'';
 
         $arrCartDetail = [];
         foreach (Cart::content() as $cartItem) {

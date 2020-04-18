@@ -97,6 +97,13 @@
                 <th>{{ trans('cart.note') }}:</td>
                 <td>{{ $shippingAddress['comment'] }}</td>
             </tr>
+
+            @if(strlen($shippingAddress['po_doc']) > 0)
+            <tr>
+                <th>{{ trans('cart.po_doc') }}:</td>
+                <td><a href="/data/po_doc/{{ $shippingAddress['po_doc'] }}" target="_blank">{{ substr($shippingAddress['po_doc'], strpos($shippingAddress['po_doc'], "_")+1) }}</a></td>
+            </tr>
+            @endif
         </table>
     </div>
     <div class="col-md-6">

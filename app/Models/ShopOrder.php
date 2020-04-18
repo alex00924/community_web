@@ -150,6 +150,7 @@ class ShopOrder extends Model
             $dataOrder['shipping_method'] = sc_clean($dataOrder['shipping_method']);
             $dataOrder['comment'] = sc_clean($dataOrder['comment']);
             $dataOrder['created_at'] = date('Y-m-d H:i:s');
+            $dataOrder['po_doc'] = sc_clean($dataOrder['po_doc']);
 
             $order = ShopOrder::create($dataOrder);
             $orderID = $order->id;

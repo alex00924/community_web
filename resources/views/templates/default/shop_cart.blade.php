@@ -54,7 +54,7 @@
         <td><input style="width: 70px;" type="number" data-id="{{ $item->id }}" data-rowid="{{$item->rowId}}" onChange="updateCart($(this));" class="item-qty" name="qty-{{$item->id}}" value="{{$item->qty}}"><span class="text-danger item-qty-{{$item->id}}" style="display: none;"></span></td>
         <td align="right">{{sc_currency_render($item->subtotal)}}</td>
         <td>
-            <a onClick="return confirm('Are you sure to delete this item?')" title="Remove Item" alt="Remove Item" class="cart_quantity_delete" href="{{route("cart.remove",['id'=>$item->rowId])}}"><i class="fa fa-times" aria-hidden="true"></i></a>
+            <a onClick="return confirm('Are you sure to delete this item?')" title="Remove Item" alt="Remove Item" class="cart_quantity_delete" href="{{route("cart.remove",['id'=>$item->rowId])}}"><i class="fa fa-times" aria-hidden="true" aria-hidden="true"></i></a>
         </td>
     </tr>
     @endforeach
@@ -63,11 +63,11 @@
         <tr  style="background: #eaebec">
             <td colspan="7">
                  <div class="pull-left">
-                <button class="btn btn-default" type="button" style="cursor: pointer;padding:10px 30px" onClick="location.href='{{ route('home') }}'"><i class="fa fa-arrow-left"></i> {{ trans('cart.back_to_shop') }}</button>
+                <button class="btn btn-default" type="button" style="cursor: pointer;padding:10px 30px" onClick="location.href='{{ route('home') }}'"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{ trans('cart.back_to_shop') }}</button>
                 </div>
                  <div class="pull-right">
                 <button class="btn" type="button" style="cursor: pointer;padding:10px 30px" onClick="if(confirm('Confirm ?')) window.location.href='{{ route('cart.clear') }}';" >
-                    <i class="fa fa-window-close" aria-hidden="true"></i>
+                    <i class="fa fa-window-close" aria-hidden="true" aria-hidden="true"></i>
                     {{ trans('cart.remove_all') }}</button>
                 </div>
             </td>
@@ -76,7 +76,7 @@
   </table>
   </div>
 
-<form class="sc-shipping-address" id="form-order" role="form" method="POST" action="{{ route('cart.process') }}">
+<form class="sc-shipping-address" id="form-order" role="form" method="POST" action="{{ route('cart.process') }}" data-toggle="validator" enctype="multipart/form-data">
 <div class="row">
     <div class="col-md-6">
             @csrf
@@ -84,15 +84,15 @@
                 <tr>
                 @if (sc_config('customer_lastname'))
                     <td class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                        <label for="phone" class="control-label"><i class="fa fa-user"></i> {{ trans('cart.first_name') }}:</label> 
-                        <input name="first_name" type="text" placeholder="{{ trans('cart.first_name') }}" value="{{(old('first_name'))?old('first_name'):$shippingAddress['first_name']}}">
+                        <label for="first_name" class="control-label"><i class="fa fa-user-o" aria-hidden="true"></i> {{ trans('cart.first_name') }}:</label> 
+                        <input name="first_name" type="text" placeholder="{{ trans('cart.first_name') }}" value="{{(old('first_name'))?old('first_name'):$shippingAddress['first_name']}}" required>
                             @if($errors->has('first_name'))
                                 <span class="help-block">{{ $errors->first('first_name') }}</span>
                             @endif
                     </td>
                     <td class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                        <label for="phone" class="control-label"><i class="fa fa-user"></i> {{ trans('cart.last_name') }}:</label> 
-                        <input name="last_name" type="text" placeholder="{{ trans('cart.last_name') }}" value="{{(old('last_name'))?old('last_name'):$shippingAddress['last_name']}}">
+                        <label for="last_name" class="control-label"><i class="fa fa-user-o" aria-hidden="true"></i> {{ trans('cart.last_name') }}:</label> 
+                        <input name="last_name" type="text" placeholder="{{ trans('cart.last_name') }}" value="{{(old('last_name'))?old('last_name'):$shippingAddress['last_name']}}" required>
                             @if($errors->has('last_name'))
                                 <span class="help-block">{{ $errors->first('last_name') }}</span>
                             @endif
@@ -100,8 +100,8 @@
 
                 @else
                 <td colspan="2" class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                    <label for="phone" class="control-label"><i class="fa fa-user"></i> {{ trans('cart.name') }}:</label> 
-                    <input name="first_name" type="text" placeholder="{{ trans('cart.name') }}" value="{{(old('first_name'))?old('first_name'):$shippingAddress['first_name']}}">
+                    <label for="first_name" class="control-label"><i class="fa fa-user-o" aria-hidden="true"></i> {{ trans('cart.name') }}:</label> 
+                    <input name="first_name" type="text" placeholder="{{ trans('cart.name') }}" value="{{(old('first_name'))?old('first_name'):$shippingAddress['first_name']}}" required>
                     @if($errors->has('first_name'))
                         <span class="help-block">{{ $errors->first('first_name') }}</span>
                     @endif
@@ -112,23 +112,23 @@
                 <tr>
                     @if (sc_config('customer_phone'))
                     <td  class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                        <label for="email" class="control-label"><i class="fa fa-envelope"></i> {{ trans('cart.email') }}:</label> 
-                        <input name="email" type="text" placeholder="{{ trans('cart.email') }}" value="{{(old('email'))?old('email'):$shippingAddress['email']}}">
+                        <label for="email" class="control-label"><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ trans('cart.email') }}:</label> 
+                        <input name="email" type="text" placeholder="{{ trans('cart.email') }}" value="{{(old('email'))?old('email'):$shippingAddress['email']}}" required>
                             @if($errors->has('email'))
                                 <span class="help-block">{{ $errors->first('email') }}</span>
                             @endif
                     </td>
                     <td class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                        <label for="phone" class="control-label"><i class="fa fa-phone" aria-hidden="true"></i> {{ trans('cart.phone') }}:</label> 
-                        <input name="phone" type="text" placeholder="{{ trans('cart.phone') }}" value="{{(old('phone'))?old('phone'):$shippingAddress['phone']}}">
+                        <label for="phone" class="control-label"><i class="fa fa-phone" aria-hidden="true" aria-hidden="true"></i> {{ trans('cart.phone') }}:</label> 
+                        <input name="phone" type="text" placeholder="{{ trans('cart.phone') }}" value="{{(old('phone'))?old('phone'):$shippingAddress['phone']}}" required>
                         @if($errors->has('phone'))
                             <span class="help-block">{{ $errors->first('phone') }}</span>
                         @endif
                     </td>
                     @else
                     <td  colspan="2" class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                        <label for="email" class="control-label"><i class="fa fa-envelope"></i> {{ trans('cart.email') }}:</label> 
-                        <input name="email" type="text" placeholder="{{ trans('cart.email') }}" value="{{(old('email'))?old('email'):$shippingAddress['email']}}">
+                        <label for="email" class="control-label"><i class="fa fa-envelope" aria-hidden="true"></i> {{ trans('cart.email') }}:</label> 
+                        <input name="email" type="text" placeholder="{{ trans('cart.email') }}" value="{{(old('email'))?old('email'):$shippingAddress['email']}}" required>
                         @if($errors->has('email'))
                             <span class="help-block">{{ $errors->first('email') }}</span>
                         @endif
@@ -141,11 +141,11 @@
                 @if (sc_config('customer_country'))
                     <tr>
                         <td colspan="2" class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
-                            <label  for="country" class="control-label"><i class="fa fa-dribbble" aria-hidden="true"></i> {{ trans('cart.country') }}:</label>
+                            <label  for="country" class="control-label"><i class="fa fa-dribbble" aria-hidden="true" aria-hidden="true"></i> {{ trans('cart.country') }}:</label>
                             @php
                                 $ct = (old('country'))?old('country'):$shippingAddress['country'];
                             @endphp
-                            <select class="form-control country " style="width: 100%;" name="country" >
+                            <select class="form-control country " style="width: 100%;" name="country"  required>
                                 <option value="">__{{ trans('cart.country') }}__</option>
                                 @foreach ($countries as $k => $v)
                                     <option value="{{ $k }}" {{ ($ct ==$k) ? 'selected':'' }}>{{ $v }}</option>
@@ -164,8 +164,8 @@
                 <tr>
                     @if (sc_config('customer_postcode'))
                     <td class="form-group {{ $errors->has('postcode') ? ' has-error' : '' }}">
-                        <label for="postcode" class="control-label"><i class="fa fa-tablet"></i> {{ trans('cart.postcode') }}:</label> 
-                        <input name="postcode" type="text" placeholder="{{ trans('cart.postcode') }}" value="{{ (old('postcode'))?old('postcode'):$shippingAddress['postcode']}}">
+                        <label for="postcode" class="control-label"><i class="fa fa-tablet" aria-hidden="true"></i> {{ trans('cart.postcode') }}:</label> 
+                        <input name="postcode" type="text" placeholder="{{ trans('cart.postcode') }}" value="{{ (old('postcode'))?old('postcode'):$shippingAddress['postcode']}}"  required>
                         @if($errors->has('postcode'))
                             <span class="help-block">{{ $errors->first('postcode') }}</span>
                         @endif
@@ -174,8 +174,8 @@
 
                     @if (sc_config('customer_company'))
                     <td class="form-group{{ $errors->has('company') ? ' has-error' : '' }}">
-                        <label for="company" class="control-label"><i class="fa fa-university"></i> {{ trans('cart.company') }}</label>
-                        <input name="company" type="text" placeholder="{{ trans('cart.company') }}" value="{{ (old('company'))?old('company'):$shippingAddress['company']}}">
+                        <label for="company" class="control-label"><i class="fa fa-university" aria-hidden="true"></i> {{ trans('cart.company') }}</label>
+                        <input name="company" type="text" placeholder="{{ trans('cart.company') }}" value="{{ (old('company'))?old('company'):$shippingAddress['company']}}" required>
                         @if($errors->has('company'))
                         <span class="help-block">{{ $errors->first('company') }}</span>
                         @endif
@@ -186,23 +186,23 @@
                 <tr>
                     @if (sc_config('customer_address2'))
                     <td class="form-group {{ $errors->has('address1') ? ' has-error' : '' }}">
-                        <label for="address1" class="control-label"><i class="fa fa-list-ul"></i> {{ trans('cart.address1') }}:</label> 
-                        <input name="address1" type="text" placeholder="{{ trans('cart.address1') }}" value="{{ (old('address1'))?old('address1'):$shippingAddress['address1']}}">
+                        <label for="address1" class="control-label"><i class="fa fa-list-ul" aria-hidden="true"></i> {{ trans('cart.address1') }}:</label> 
+                        <input name="address1" type="text" placeholder="{{ trans('cart.address1') }}" value="{{ (old('address1'))?old('address1'):$shippingAddress['address1']}}" required>
                         @if($errors->has('address1'))
                             <span class="help-block">{{ $errors->first('address1') }}</span>
                         @endif
                     </td>                    
                     <td class="form-group{{ $errors->has('address2') ? ' has-error' : '' }}">
-                        <label for="address2" class="control-label"><i class="fa fa-list-ul"></i> {{ trans('cart.address2') }}</label>
-                        <input name="address2" type="text" placeholder="{{ trans('cart.address2') }}" value="{{ (old('address2'))?old('address2'):$shippingAddress['address2']}}">
+                        <label for="address2" class="control-label"><i class="fa fa-list-ul" aria-hidden="true"></i> {{ trans('cart.address2') }}</label>
+                        <input name="address2" type="text" placeholder="{{ trans('cart.address2') }}" value="{{ (old('address2'))?old('address2'):$shippingAddress['address2']}}" required>
                         @if($errors->has('address2'))
                         <span class="help-block">{{ $errors->first('address2') }}</span>
                         @endif
                     </td>
                     @else
                     <td colspan="2" class="form-group {{ $errors->has('address1') ? ' has-error' : '' }}">
-                        <label for="address1" class="control-label"><i class="fa fa-list-ul"></i> {{ trans('cart.address') }}:</label> 
-                        <input name="address1" type="text" placeholder="{{ trans('cart.address') }}" value="{{ (old('address1'))?old('address1'):$shippingAddress['address1']}}">
+                        <label for="address1" class="control-label"><i class="fa fa-list-ul" aria-hidden="true"></i> {{ trans('cart.address') }}:</label> 
+                        <input name="address1" type="text" placeholder="{{ trans('cart.address') }}" value="{{ (old('address1'))?old('address1'):$shippingAddress['address1']}}" required>
                         @if($errors->has('address1'))
                             <span class="help-block">{{ $errors->first('address1') }}</span>
                         @endif
@@ -211,12 +211,25 @@
                 </tr>
 
                 <tr>
-                    <td colspan="2">
-                        <label  class="control-label"><i class="fa fa-calendar-o"></i> {{ trans('cart.note') }}:</label>
-                        <textarea rows="5" name="comment" placeholder="{{ trans('cart.note') }}....">{{ (old('comment'))?old('comment'):$shippingAddress['comment'] }}</textarea>
+                    <td colspan="2" class="{{ $errors->has('comment') ? 'has-error' : '' }}">
+                        <label for="comment" class="control-label"><i class="fa fa-calendar-o" aria-hidden="true"></i> {{ trans('cart.note') }}:</label>
+                        <textarea rows="5" id="comment" name="comment" placeholder="{{ trans('cart.note') }}....">{{ (old('comment'))?old('comment'):$shippingAddress['comment'] }}</textarea>
+                        @if($errors->has('comment'))
+                        <span class="help-block">{{ $errors->first('comment') }}</span>
+                        @endif
                     </td>
-                </tr>                    
+                </tr>
 
+                <tr id="po_doc-container" style="display: none">
+                    <td colspan="2" class="{{ $errors->has('purchase_order_document') ? 'has-error' : '' }}">
+                        <label for="purchase_order_document" class="control-label"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {{ trans('cart.po_doc') }}:</label>
+                        <input type="file" id="purchase_order_document" class="form-control" name="purchase_order_document" value="{{ (old('purchase_order_document'))?old('purchase_order_document'):'' }}"
+                        accept= ".doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf" >
+                        @if($errors->has('purchase_order_document'))
+                        <span class="help-block">{{ $errors->first('purchase_order_document') }}</span>
+                        @endif
+                    </td>
+                </tr>
 
             </table>
 
@@ -249,12 +262,12 @@
         @if ($extensionDiscount)
                 <div class="row">
                   <div class="form-group col-md-6">
-                    <label class="control-label" for="inputGroupSuccess3"><i class="fa fa-exchange" aria-hidden="true"></i> {{ trans('cart.coupon') }}
-                        <span style="display:inline; cursor: pointer; display: {{ ($hasCoupon)?'inline':'none' }}" class="text-danger" id="removeCoupon">({{ trans('cart.remove_coupon') }} <i class="fa fa fa-times"></i>)</span>
+                    <label class="control-label" for="inputGroupSuccess3"><i class="fa fa-exchange" aria-hidden="true" aria-hidden="true"></i> {{ trans('cart.coupon') }}
+                        <span style="display:inline; cursor: pointer; display: {{ ($hasCoupon)?'inline':'none' }}" class="text-danger" id="removeCoupon">({{ trans('cart.remove_coupon') }} <i class="fa fa fa-times" aria-hidden="true"></i>)</span>
                     </label>
                     <div id="coupon-group" class="input-group {{ Session::has('error_discount')?'has-error':'' }}">
                       <input type="text" {{ ($extensionDiscount['permission'])?'':'disabled' }} placeholder="Your coupon" class="form-control" id="coupon-value" aria-describedby="inputGroupSuccess3Status">
-                      <span class="input-group-addon {{ ($extensionDiscount['permission'])?'':'disabled' }}"  {!! ($extensionDiscount['permission'])?'id="coupon-button"':'' !!} style="cursor: pointer;" data-loading-text="<i class='fa fa-spinner fa-spin'></i> checking">{{ trans('cart.apply') }}</span>
+                      <span class="input-group-addon {{ ($extensionDiscount['permission'])?'':'disabled' }}"  {!! ($extensionDiscount['permission'])?'id="coupon-button"':'' !!} style="cursor: pointer;" data-loading-text="<i class='fa fa-spinner fa-spin' aria-hidden='true'></i> checking">{{ trans('cart.apply') }}</span>
                     </div>
                     <span class="status-coupon" style="display: none;" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                     <div class="coupon-msg  {{ Session::has('error_discount')?'text-danger':'' }}" style="text-align: left;padding-left: 10px;">{{ Session::has('error_discount')?Session::get('error_discount'):'' }}</div>
@@ -269,7 +282,7 @@
         <div class="row">
             <div class="col-md-12">
                     <div class="form-group {{ $errors->has('shippingMethod') ? ' has-error' : '' }}">
-                        <h3 class="control-label"><i class="fa fa-truck" aria-hidden="true"></i> {{ trans('cart.shipping_method') }}:<br></h3>
+                        <h3 class="control-label"><i class="fa fa-truck" aria-hidden="true" aria-hidden="true"></i> {{ trans('cart.shipping_method') }}:<br></h3>
                         @if($errors->has('shippingMethod'))
                             <span class="help-block">{{ $errors->first('shippingMethod') }}</span>
                         @endif
@@ -294,7 +307,7 @@
         <div class="row">
             <div class="col-md-12">
                     <div class="form-group {{ $errors->has('paymentMethod') ? ' has-error' : '' }}">
-                        <h3 class="control-label"><i class="fa fa-credit-card-alt"></i> {{ trans('cart.payment_method') }}:<br></h3>
+                        <h3 class="control-label"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> {{ trans('cart.payment_method') }}:<br></h3>
                         @if($errors->has('paymentMethod'))
                             <span class="help-block">{{ $errors->first('paymentMethod') }}</span>
                         @endif
@@ -303,7 +316,7 @@
                         @foreach ($paymentMethod as $key => $payment)
                             <div style="margin: 5px 10px">
                                 <label class="radio-inline">
-                                 <input type="radio" name="paymentMethod" value="{{ $payment['code'] }}"  {{ (old('paymentMethod') == $key)?'checked':'' }} style="position: relative;" {{ ($payment['permission'])?'':'disabled' }}>
+                                 <input type="radio" name="paymentMethod" value="{{ $payment['code'] }}"  {{ (old('paymentMethod') == $key)?'checked':'' }} style="position: relative;" {{ ($payment['permission'])?'':'disabled' }} onchange="changePaymentMethod()"/>
                                  <img title="{{ $payment['title'] }}" alt="{{ $payment['title'] }}" src="{{ asset($payment['image']) }}" style="width: 120px;">
                                 </label>
                             </div>
@@ -320,7 +333,7 @@
         <div class="row" style="padding-bottom: 20px;">
             <div class="col-md-12 text-center">
                     <div class="pull-right">
-                        <button class="btn btn-success" id="submit-order" type="button" style="cursor: pointer;padding:10px 30px"><i class="fa fa-check"></i> {{ trans('cart.checkout') }}</button>
+                        <button class="btn btn-success" id="submit-order" type="submit" style="cursor: pointer;padding:10px 30px"><i class="fa fa-check" aria-hidden="true"></i> {{ trans('cart.checkout') }}</button>
                     </div>
             </div>
         </div>
@@ -346,6 +359,7 @@
 @endsection
 
 @push('scripts')
+
 <script type="text/javascript">
     function updateCart(obj){
         var new_qty = obj.val();
@@ -374,11 +388,25 @@
                 }
         });
     }
-
-$('#submit-order').click(function(){
-    $('#form-order').submit();
-    $(this).prop('disabled',true);
-});
+    function changePaymentMethod() {
+        let payMethod = $("input[name='paymentMethod']:checked").val();
+        if (payMethod == "Po") {
+            $("#po_doc-container").show();
+        } else {
+            $("#po_doc-container").hide();
+        }
+    }
+    changePaymentMethod();
+    $('#form-order').submit(function() {
+        let paymentMethod = $('input[name=paymentMethod]:checked', '#form-order').val();
+        if (paymentMethod == "Po") {
+            if (!$("#comment").val() || !$("#purchase_order_document").val()) {
+                alert("When use purchase order option, you have to choose PO document and write notes.");
+                $("#comment").focus();
+                return false;
+            }
+        }
+    });
 
 @if ($extensionDiscount)
     $('#coupon-button').click(function() {
