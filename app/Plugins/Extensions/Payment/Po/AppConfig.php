@@ -10,7 +10,7 @@ class AppConfig extends ConfigDefault
 
     public $configGroup = 'Extensions';
     public $configCode = 'Payment';
-    public $configKey = 'Po';
+    public $configKey = 'PO';
     public $pathPlugin;
     public const ORDER_STATUS_FAILD = 6;
     public const ORDER_STATUS_SUCCESS = 5;

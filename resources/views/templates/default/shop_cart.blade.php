@@ -390,7 +390,7 @@
     }
     function changePaymentMethod() {
         let payMethod = $("input[name='paymentMethod']:checked").val();
-        if (payMethod == "Po") {
+        if (payMethod == "PO") {
             $("#po_doc-container").show();
         } else {
             $("#po_doc-container").hide();
@@ -399,7 +399,7 @@
     changePaymentMethod();
     $('#form-order').submit(function() {
         let paymentMethod = $('input[name=paymentMethod]:checked', '#form-order').val();
-        if (paymentMethod == "Po") {
+        if (paymentMethod == "PO") {
             if (!$("#comment").val() || !$("#purchase_order_document").val()) {
                 alert("When use purchase order option, you have to choose PO document and write notes.");
                 $("#comment").focus();

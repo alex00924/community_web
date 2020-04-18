@@ -172,7 +172,7 @@ class ShopCart extends GeneralController
             $validate['company'] = 'required|min:3';
         }
         $payment_method = request('paymentMethod');
-        if ($payment_method == "Po") {
+        if ($payment_method == "PO") {
             $validate['purchase_order_document'] = 'required|max:10000|mimes:doc,docx,pdf,ppt,pptx,xlx,xlsx';
             $validate['comment'] = 'required';
         }
@@ -189,7 +189,7 @@ class ShopCart extends GeneralController
 
         // if PO payment, save po_doc
         $poFileName='';
-        if ($payment_method == "Po") {
+        if ($payment_method == "PO") {
             $file = request()->file('purchase_order_document');
             $poFileName = uniqid() . "_" . $file->getClientOriginalName();
             if(!Storage::disk('po_doc')->putFileAs('', $file, $poFileName)) {
