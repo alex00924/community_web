@@ -15,8 +15,6 @@ use Cart;
 class PoController extends GeneralController
 {
     public function processOrder() {
-        $orderID = session('orderID') ?? 0;
-        (new ShopOrder)->updateStatus($orderID, $status = sc_config('po_order_status_success'), "New PO Requested");
         return (new ShopCart)->completeOrder();
     }
 }

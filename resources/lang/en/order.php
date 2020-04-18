@@ -23,6 +23,7 @@ return [
     'shipping_address'      => 'Address',
     'shipping_address1'     => 'Address 1',
     'address1'              => 'Address 1',
+    'po_doc'                => 'PO document',
     'shipping_address2'     => 'Address 2',
     'postcode'              => 'Postcode',
     'company'               => 'Company',

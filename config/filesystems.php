@@ -47,7 +47,7 @@ return [
         ],
         'po_doc' => [
             'driver' => 'local',
-            'root' => public_path('data') . '/po_doc'
+            'root' => public_path('data') . '/podoc'
         ],
         'public' => [
             'driver'     => 'local',

@@ -12,8 +12,8 @@ class AppConfig extends ConfigDefault
     public $configCode = 'Payment';
     public $configKey = 'Po';
     public $pathPlugin;
-    const ORDER_STATUS_PROCESSING = 2;
-    const ORDER_STATUS_FAILD = 6;
+    public const ORDER_STATUS_FAILD = 6;
+    public const ORDER_STATUS_SUCCESS = 5;
 
     public function __construct()
     {
@@ -55,7 +55,7 @@ class AppConfig extends ConfigDefault
                     'code' => 'po_config',
                     'key' => 'po_order_status_success',
                     'sort' => 0, // Sort extensions in group
-                    'value' => self::ORDER_STATUS_PROCESSING,
+                    'value' => self::ORDER_STATUS_SUCCESS,
                     'detail' => $this->pathPlugin.'::'.$this->configKey . '.po_order_status_success',
                 ],
                 [

@@ -365,7 +365,7 @@ class ShopCart extends GeneralController
         $dataOrder['user_agent'] = $request->header('User-Agent');
         $dataOrder['ip'] = $request->ip();
         $dataOrder['created_at'] = date('Y-m-d H:i:s');
-        $dataOrder['po_doc'] = '/data/po_doc/' . $shippingAddress['po_doc']??'';
+        $dataOrder['po_doc'] = '/data/podoc/' . $shippingAddress['po_doc']??'';
 
         $arrCartDetail = [];
         foreach (Cart::content() as $cartItem) {

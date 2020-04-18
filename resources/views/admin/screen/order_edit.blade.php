@@ -44,9 +44,14 @@
                       <tr>
                       <td class="td-title">{{ trans('order.shipping_address2') }}:</td><td><a href="#" class="updateInfoRequired" data-name="address2" data-type="text" data-pk="{{ $order->id }}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.address2') }}" >{!! $order->address2 !!}</a></td>
                     </tr>
-                      <tr>
+                    <tr>
                       <td class="td-title">{{ trans('order.country') }}:</td><td><a href="#" class="updateInfoRequired" data-name="country" data-type="select" data-source ="{{ json_encode($countryMap) }}" data-pk="{{ $order->id }}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.country') }}" data-value="{!! $order->country !!}"></a></td>
                     </tr>
+                    @if(strlen($order->po_doc) > 0)
+                    <tr>
+                      <td class="td-title">{{ trans('order.po_doc') }}:</td><td><a href="{{ $order->po_doc }}">{{ substr($order->po_doc, strpos($order->po_doc, "_")+1) }}</a></td>
+                    </tr>
+                    @endif
                 </table>
             </div>
             <div class="col-sm-6">
