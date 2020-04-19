@@ -623,6 +623,27 @@
                         </div>
                         {{-- //status --}}
 
+                        {{-- //benefit --}}
+                        <div
+                            class="form-group">
+                            <label class="col-sm-2  control-label">{{ trans('benefit.title') }} </label>
+                            <div class="col-sm-8">
+                                @foreach($benefits as $key => $benefit)
+                                <div style="margin: 5px 0">
+                                    <span> {{ $benefit }} </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+                                        <input type="text" name="benefits[{{ $key }}]"
+                                            value="{!! old('benefits')[$key] !!}"
+                                            class="form-control input-sm"/>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        {{-- //benefit --}}
+                        
+
 @if (sc_config('product_kind'))
                         {{-- List product in groups --}}
                         <div class="form-group  kind kind2 {{ $errors->has('productInGroup') ? ' has-error' : '' }}">
@@ -747,7 +768,7 @@
                         </div>
 
                         <div class="form-group kind kind0">
-                            <label class="col-xs-2 control-label">{{ trans('product.price') }}</label>
+                            <label class="col-xs-2 control-label">{{ trans('product.attribute_price') }}</label>
                             <div class="col-sm-8" id="attribute-price-container">
                                 <div id="attribute-price-group-container">
                                 </div>

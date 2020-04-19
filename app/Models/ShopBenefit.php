@@ -14,7 +14,7 @@ class ShopBenefit extends Model
     public static function getList()
     {
         if (!self::$getList) {
-            self::$getList = self::pluck('name', 'id')->all();
+            self::$getList = self::pluck('benefit', 'id')->all();
         }
         return self::$getList;
     }

@@ -4,11 +4,13 @@ namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\ShopAttributeGroup;
+use App\Models\ShopBenefit;
 use App\Models\ShopBrand;
 use App\Models\ShopCategory;
 use App\Models\ShopLanguage;
 use App\Models\ShopProduct;
 use App\Models\ShopProductAttribute;
+use App\Models\ShopProductBenefit;
 use App\Models\ShopProductBuild;
 use App\Models\ShopProductDescription;
 use App\Models\ShopProductGroup;
@@ -20,12 +22,14 @@ use Validator;
 
 class ShopProductController extends Controller
 {
-    public $languages, $types, $kinds, $virtuals, $attributeGroup;
+    public $languages, $types, $kinds, $virtuals, $attributeGroup, $benefits;
 
     public function __construct()
     {
         $this->languages = ShopLanguage::getList();
         $this->attributeGroup = ShopAttributeGroup::getList();
+        $this->benefits = ShopBenefit::getList();
+
         $this->types = [
             SC_PRODUCT_NORMAL => trans('product.types.normal'),
             SC_PRODUCT_NEW => trans('product.types.new'),
@@ -310,6 +314,7 @@ class ShopProductController extends Controller
             'virtuals' => $this->virtuals,
             'kinds' => $this->kinds,
             'attributeGroup' => $this->attributeGroup,
+            'benefits' => $this->benefits,
             'htmlSelectGroup' => $htmlSelectGroup,
             'htmlSelectBuild' => $htmlSelectBuild,
             'listProductSingle' => $listProductSingle,
@@ -418,6 +423,7 @@ class ShopProductController extends Controller
 
         $category = $data['category'] ?? [];
         $attribute = $data['attribute'] ?? [];
+        $benefits = $data['benefits'] ?? [];
         $descriptions = $data['descriptions'];
         $productInGroup = $data['productInGroup'] ?? [];
         $productBuild = $data['productBuild'] ?? [];
@@ -493,6 +499,13 @@ class ShopProductController extends Controller
             $product->attributes()->saveMany($arrDataAtt);
         }
 
+        //Insert benefits
+        $arrDataBenefit = [];
+        foreach ($benefits as $benefit_id => $description) {
+            $arrDataBenefit[] = new ShopProductBenefit(['description' => $description, 'benefit_id' => $benefit_id]);
+        }
+        $product->benefits()->saveMany($arrDataBenefit);
+
         //Insert description
         $dataDes = [];
         $languages = $this->languages;
@@ -565,7 +578,7 @@ class ShopProductController extends Controller
         $htmlProductAtrribute = '<tr id="attribute_idx"><td><br><input type="text" name="attribute[attribute_group][]" value="attribute_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_place') . '" onchange="readAttributes()" /></td><td class="fit-content"><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAttribute"><i class="fa fa-times"></i></span></td></tr>';
         //$htmlProductAtrribute = '<tr><td><br><input type="text" name="attribute[attribute_group][]" value="attribute_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_place') . '" /></td><td><br><input type="number" min="0" name="attribute_price[attribute_group][]" value="attribute_price_value" class="form-control input-sm" placeholder="' . trans('product.admin.add_attribute_price') . '" /></td><td><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAttribute"><i class="fa fa-times"></i></span></td></tr>';
         //end select attribute
-
+        $productBenefits = $product->benefits()->pluck('description', 'benefit_id')->all();
         $data = [
             'title' => trans('product.admin.edit'),
             'sub_title' => '',
@@ -580,10 +593,12 @@ class ShopProductController extends Controller
             'virtuals' => $this->virtuals,
             'kinds' => $this->kinds,
             'attributeGroup' => $this->attributeGroup,
+            'benefits' => $this->benefits,
             'htmlSelectGroup' => $htmlSelectGroup,
             'htmlSelectBuild' => $htmlSelectBuild,
             'listProductSingle' => $listProductSingle,
             'htmlProductAtrribute' => $htmlProductAtrribute,
+            'productBenefits' => $productBenefits,
         ];
         return view('admin.screen.product_edit')
             ->with($data);
@@ -677,6 +692,7 @@ class ShopProductController extends Controller
 
         $category = $data['category'] ?? [];
         $attribute = $data['attribute'] ?? [];
+        $benefits = $data['benefits'] ?? [];
         $productInGroup = $data['productInGroup'] ?? [];
         $productBuild = $data['productBuild'] ?? [];
         $productBuildQty = $data['productBuildQty'] ?? [];
@@ -780,8 +796,15 @@ class ShopProductController extends Controller
                 }
                 $product->attributes()->saveMany($arrDataAtt);
             }
-
         }
+        
+        //Update benefit
+        $product->benefits()->delete();
+        $arrDataBenefit = [];
+        foreach ($benefits as $benefit_id => $description) {
+            $arrDataBenefit[] = new ShopProductBenefit(['description' => $description, 'benefit_id' => $benefit_id]);
+        }
+        $product->benefits()->saveMany($arrDataBenefit);
 
         //Update sub mages
         if ($subImages && in_array($product['kind'], [SC_PRODUCT_SINGLE, SC_PRODUCT_BUILD])) {
