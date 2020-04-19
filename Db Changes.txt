@@ -98,6 +98,20 @@ ALTER TABLE `shop_news` ADD COLUMN `for_covid` TINYINT DEFAULT 0 NULL AFTER `sta
 13. add PO DOc column
 ALTER TABLE `shop_order` ADD COLUMN `po_doc` VARCHAR(100) NULL AFTER `comment`; 
 
+14. Added bebefit tables
+CREATE TABLE `shop_benefits` ( `id` INT NOT NULL AUTO_INCREMENT, `benefit` VARCHAR(100), PRIMARY KEY (`id`) ) ENGINE=INNODB CHARSET=utf8 COLLATE=utf8_general_ci; 
+CREATE TABLE `shop_product_benefits` ( `id` INT NOT NULL AUTO_INCREMENT, `product_id` INT, `benefit_id` INT, `description` VARCHAR(200), PRIMARY KEY (`id`) ) ENGINE=INNODB CHARSET=utf8 COLLATE=utf8_general_ci; 
+ALTER TABLE  `shop_product_benefits` ADD INDEX `shop_product_benefits_product_id_benefit_id_index` (`product_id`, `benefit_id`); 
+
+
+
+
+
+
+
+
+
+
 ***. Offline  
 <!-- @if (\Route::current()->getName() != 'admin_chat')
         @include('admin.component.chat_alert')

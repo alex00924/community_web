@@ -146,6 +146,10 @@ List product single
     {
         return $this->hasMany(ShopProductAttribute::class, 'product_id', 'id');
     }
+    public function benefits()
+    {
+        return $this->hasMany(ShopProductBenefit::class, 'product_id', 'id');
+    }
     public function reviews()
     {
         return $this->hasMany(ShopProductReview::class, 'product_id', 'id');
@@ -431,6 +435,7 @@ category_id: array or string
             $product->promotionPrice()->delete();
             $product->groups()->delete();
             $product->attributes()->delete();
+            $product->benefits()->delete();
             $product->reviews()->delete();
             $product->builds()->delete();
             $product->categories()->detach();
