@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Questionaire;
 use App\Models\QuestionaireQuestion;
 use App\Models\QuestionaireAnswer;
+use App\Models\ShopBenefit;
 
 class ShopFront extends GeneralController
 {
@@ -176,6 +177,7 @@ class ShopFront extends GeneralController
     public function productDetail($alias)
     {
         $product = (new ShopProduct)->getProduct($id = null, $alias);
+        $productBenefits = $product->getBenefitDetails();
         
         if ($product && $product->status && (sc_config('product_display_out_of_stock') || $product->stock > 0)) {
             //Update last view
@@ -219,6 +221,7 @@ class ShopFront extends GeneralController
                     'description' => $product->description,
                     'keyword' => '',
                     'product' => $product,
+                    'productBenefits' => $productBenefits,
                     'attributesGroup' => ShopAttributeGroup::all()->keyBy('id'),
                     'productsToCategory' => $productsToCategory,
                     'og_image' => url($product->getImage()),

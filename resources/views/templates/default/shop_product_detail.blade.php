@@ -207,6 +207,9 @@
                       <a class="nav-link" href="#tab-case_study" data-toggle="tab">{{ trans('product.case_study') }}</a>
                   </li>
                   <li class="nav-item">
+                      <a class="nav-link" href="#tab-benefit" data-toggle="tab">{{ trans('product.benefit') }}</a>
+                  </li>
+                  <li class="nav-item">
                       <a class="nav-link" href="#tab-review" data-toggle="tab">{{ trans('product.review') }}</a>
                   </li>
               </ul>
@@ -216,18 +219,37 @@
                 </ul>
               </div> -->
               <div class="tab-content">
-                <div class="ckeditor-content tab-pane fade  active in" id="tab-general" >
+                <div class="tab-pane fade  active in" id="tab-general" >
                   {!! sc_html_render($product->content) !!}
                 </div>
-                <div class="ckeditor-content tab-pane fade" id="tab-specification" >
+                <div class="tab-pane fade" id="tab-specification" >
                   {!! sc_html_render($product->specification) !!}
                 </div>
-                <div class="ckeditor-content tab-pane fade" id="tab-case_study" >
+                <div class="tab-pane fade" id="tab-case_study" >
                   {!! sc_html_render($product->case_study) !!}
                 </div>
-                <div class="ckeditor-content tab-pane fade" id="tab-review" >
+                
+                <div class="tab-pane fade" id="tab-benefit" >
+                  <div class="table-responsive">
+                    <table class="table box table-bordered">
+                      <thead>
+                        <th>Benefit</th>
+                        <th>Detail</th>
+                      </thead>
+                      <tbody>
+                      @foreach($productBenefits as $benefit => $benefitProduct)
+                        <tr>
+                          <td> {{ $benefit }} </td>
+                          <td> {{ $benefitProduct }} </td>
+                        </tr>
+                      @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="tab-pane fade" id="tab-review" >
                   <!-- product review tab -->
-                <!-- <div class="category-tab product-review-tab" id="product-reviews"> -->
                   <h2 class="text-center origin" style="font-size: 30px; ">{{$product->reviewDetails["count"]}} reviews for this product</h2>
                   @auth
                     <div class="review-container" style="padding: 0 2rem;">

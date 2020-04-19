@@ -51,6 +51,7 @@ return [
     'groups'                => 'Products group',
     'builds'                => 'Products build',
     'review'                => 'Reviews',
+    'benefit'               => 'Benefits',
     'admin'                 => [
         'title'                   => 'Product',
         'manager'                 => 'Product Manager',

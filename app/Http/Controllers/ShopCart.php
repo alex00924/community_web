@@ -8,6 +8,7 @@ use App\Models\ShopCountry;
 use App\Models\ShopOrder;
 use App\Models\ShopOrderTotal;
 use App\Models\ShopProduct;
+use App\Models\ShopBenefit;
 use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -570,12 +571,14 @@ class ShopCart extends GeneralController
     public function compare()
     {
         $compare = Cart::instance('compare')->content();
+        $benefits = ShopBenefit::getList();
         return view($this->templatePath . '.shop_compare',
             array(
                 'title' => trans('front.compare'),
                 'description' => '',
                 'keyword' => '',
                 'compare' => $compare,
+                'benefits' => $benefits,
                 'layout_page' => 'product_compare',
             )
         );

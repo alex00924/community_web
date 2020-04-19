@@ -8,6 +8,7 @@ use App\Models\ShopProductCategory;
 use App\Models\ShopProductDescription;
 use App\Models\ShopProductGroup;
 use App\Models\ShopProductPromotion;
+use App\Models\ShopBenefit;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -543,6 +544,18 @@ Get image
     public function getPercentDiscount()
     {
         return round((($this->price - $this->getFinalPrice()) / $this->price) * 100);
+    }
+
+    public function getBenefitDetails()
+    {
+        $productBenefits = $this->benefits()->pluck('description', 'benefit_id')->all();
+        $benefits = ShopBenefit::getList();
+        $res = [];
+        foreach($benefits as $key => $benefit)
+        {
+            $res[$benefit] = $productBenefits[$key] ?? '';
+        }
+        return $res;
     }
 
     public function renderAttributeDetails()
