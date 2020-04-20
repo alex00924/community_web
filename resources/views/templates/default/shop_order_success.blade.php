@@ -145,7 +145,7 @@
                         </tr>
                         <tr>
                             <td>COUPON</td>
-                            <td class="total-column">{{ $order->coupon }}</td>
+                            <td class="total-column">{{ json_encode($order) }}</td>
                         </tr>
                         <tr>
                             <td>DISCOUNT</td>

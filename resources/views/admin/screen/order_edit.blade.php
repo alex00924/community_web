@@ -157,7 +157,7 @@
                       <tr><td>{!! $element['title'] !!}:</td><td style="text-align:right"><a href="#" class="updatePrice data-{{ $element['code'] }}"  data-name="{{ $element['code'] }}" data-type="text" data-pk="{{ $element['id'] }}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.shipping_price') }}">{{$element['value'] }}</a></td></tr>
                     @endif
                     @if ($element['code'] =='discount')
-                      <tr><td>{!! $element['title'] !!}(-):</td><td style="text-align:right"><a href="#" class="updatePrice data-{{ $element['code'] }}" data-name="{{ $element['code'] }}" data-type="text" data-pk="{{ $element['id'] }}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.discount') }}">{{$element['value'] }}</a></td></tr>
+                      <tr><td>{!! htmlspecialchars_decode($element['title']) !!}(-):</td><td style="text-align:right"><a href="#" class="updatePrice data-{{ $element['code'] }}" data-name="{{ $element['code'] }}" data-type="text" data-pk="{{ $element['id'] }}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.discount') }}">{{$element['value'] }}</a></td></tr>
                     @endif
 
                      @if ($element['code'] =='total')
