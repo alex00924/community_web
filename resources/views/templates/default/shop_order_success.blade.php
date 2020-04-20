@@ -144,10 +144,6 @@
                             <td class="total-column">{{ $order->shipping }}</td>
                         </tr>
                         <tr>
-                            <td>COUPON</td>
-                            <td class="total-column">{{ json_encode($order) }}</td>
-                        </tr>
-                        <tr>
                             <td>DISCOUNT</td>
                             <td class="total-column">{{ $order->discount }}</td>
                         </tr>
