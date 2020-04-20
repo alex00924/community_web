@@ -144,8 +144,12 @@
                             <td class="total-column">{{ $order->shipping }}</td>
                         </tr>
                         <tr>
-                            <td>SUBTOTAL</td>
-                            <td class="total-column">{{ $order->subtotal }}</td>
+                            <td>COUPON</td>
+                            <td class="total-column">{{ $order->coupon }}</td>
+                        </tr>
+                        <tr>
+                            <td>DISCOUNT</td>
+                            <td class="total-column">{{ $order->discount }}</td>
                         </tr>
                         <tr>
                             <td><b>TOTAL</b></td>
