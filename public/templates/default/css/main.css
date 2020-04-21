@@ -2808,8 +2808,8 @@ button.close {
   color: #0e8ce4;
 }
 
-.welcome button {
-  font-size: 18px;
+.welcome a {
+  font-size: 20px;
   margin: 0 5px;
   color: white;
 }

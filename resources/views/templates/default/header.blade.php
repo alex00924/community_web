@@ -94,6 +94,12 @@
                   </a>
                 </li>
 
+                <li>
+                  <a class="{{ ( request()->is('network*') ) ? 'active' : '' }}" href="/network">
+                    {{ trans('front.network') }}
+                  </a>
+                </li>
+
                 @if (!empty($layoutsUrl['menu']))
                   @foreach ($layoutsUrl['menu'] as $url)
                     <li><a class="{{ ( \Request::fullUrl() == sc_url_render($url->url) ) ? 'active' : '' }}" {{ ($url->target =='_blank')?'target=_blank':''  }} href="{{ sc_url_render($url->url) }}">{{ sc_language_render($url->name) }}</a></li>

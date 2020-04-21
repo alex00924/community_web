@@ -113,5 +113,8 @@ return [
 
     'questionaire' => [
         'survey' => 'Survey',
-    ]
+    ],
+
+    'network'   => 'Network',
+    'covid'     =>  'COVID-19 Blogs'
 ];

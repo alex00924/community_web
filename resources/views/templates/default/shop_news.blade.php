@@ -5,6 +5,9 @@
 <div class="container">
     <div class="row">
         <h2 class="title text-center">{{ $title }}</h2>
+        <div class="col-xs-10 text-right">
+          <a class="btn btn-danger" href="/news_covid"> {{ trans('front.covid') }} </a>
+        </div>
         <!-- Center colunm-->
           <div class="center_column">
             <ul class="blog-posts">

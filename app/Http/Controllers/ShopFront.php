@@ -41,11 +41,8 @@ class ShopFront extends GeneralController
             }
         }
         
-        $news = (new ShopNews)->getCovidNews();
-
         return view($this->templatePath . '.shop_home',
             array(
-                'news' => $news,
                 'layout_page' => 'home',
                 'questionaire_survey' => $questionaire
             )
@@ -512,4 +509,12 @@ class ShopFront extends GeneralController
         return redirect(url('/'));
     }
 
+    public function network() {
+        return view($this->templatePath . '.network');
+    }
+
+    public function covidNews() {
+        $news = (new ShopNews)->getCovidNews();
+        return view($this->templatePath . '.covid', ['news' => $news]);
+    }
 }
