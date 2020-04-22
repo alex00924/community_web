@@ -11,8 +11,8 @@
     </div>
     <div class="col-xs-12 col-md-10 col-lg-8 text-center" style="position: relative; margin: auto">
       <a href="/news_covid" class="btn btn-danger">COVID-19</a>
-      <a href="#information-container" class="btn btn-success">Information</a>
-      <a href="#equipment-container" class="btn btn-info">Equipment</a>
+      <a href="{{ route('news') }}" class="btn btn-success">Information</a>
+      <a href="{{ route('product.all') }}" class="btn btn-info">Equipment</a>
       <a href="/network" class="btn btn-network">Networking</a>
       <a href="#feedback-container" class="btn btn-feedback">Feedback</a>
     </div>

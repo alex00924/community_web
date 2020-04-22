@@ -2817,21 +2817,25 @@ button.close {
 .btn-network {
   background-color: rgb(112, 48, 160);
   border-color: rgb(112, 48, 160);
+  color: white;
 }
 
 .btn-network:hover {
   background-color: rgb(132, 59, 187);
   border-color: rgb(132, 59, 187);
+  color: white;
 }
 
 .btn-feedback {
   background-color: rgb(199, 4, 204);
   border-color: rgb(199, 4, 204);
+  color: white;
 }
 
 .btn-feedback:hover {
   background-color: rgb(211, 18, 214);
   border-color: rgb(211, 18, 214);
+  color: white;
 }
 
 .btn-tour {
