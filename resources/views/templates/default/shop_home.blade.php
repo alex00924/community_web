@@ -17,19 +17,6 @@
       <a href="#feedback-container" class="btn btn-feedback">Feedback</a>
     </div>
   </div>
-
-  <div class="row v-center" style="padding: 2rem 0" id="information-container">
-  
-  </div>
-
-  <div class="row v-center" style="padding: 2rem 0" id="equipment-container">
-  
-  </div>
-
-  <div class="row v-center" style="padding: 2rem 0" id="feedback-container">
-    
-  </div>
-
 @endsection
 
 
