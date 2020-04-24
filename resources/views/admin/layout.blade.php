@@ -144,7 +144,6 @@
   <link href="{{ asset('growl_notification/dark-theme.min.css') }}" rel="stylesheet">
   <link href="{{ asset('growl_notification/custom-growl.css') }}" rel="stylesheet">
   <script src="{{ asset('growl_notification/growl-notification.min.js') }}"></script>
-  <script src="{{ asset('chat/chat_alert.js') }}"></script>
 @endif
 
 </body>

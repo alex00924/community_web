@@ -24,6 +24,9 @@
                 </div>
 
                 <div class="col-xs-8" style="padding-top: 5rem">
+                    <div style="width: 100%; text-align: right; padding: 10px">
+                        <button class="btn btn-primary" onclick="coronaStatistic()"> Coronavirus Weighted Average </button>
+                    </div>
                     <h2 style="font-size: 20px; font-weight: 500; text-align: center" id="chart-title1"></h2>
                     <br>
                     <h2 style="font-size: 16px; font-weight: 400; text-align: center" id="chart-title2"></h2>
@@ -51,6 +54,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <script type="text/javascript">
     let questionaires = @json($questionaires);
+    let coronaQuestionaire;
+    let coronaYears = [];       // o,1,2,3,..
+    let coronaVals = [];      // 100B, .. 100T
+
     let chartColors = [
         "rgb(255, 99, 132)",
         "rgb(255, 159, 64)",
@@ -77,6 +84,7 @@
             }
         });
         loadStatistics();
+        extractCoronaData();
     });
     
     $(".clickable").click(function() {
@@ -141,6 +149,71 @@
         statisticPieChart.data.datasets[0].backgroundColor = chartBgColors;
         statisticPieChart.update();
         $("#statistic-result").html(resHtml);
+    }
+
+    function coronaStatistic() {
+        if (!coronaQuestionaire) {
+            $("#chart-title1").html('');
+            $("#chart-title2").html('');
+            statisticPieChart.data.labels = [];
+            statisticPieChart.data.datasets[0].data = [];
+            statisticPieChart.data.datasets[0].backgroundColor = [];
+            statisticPieChart.update();
+            $("#statistic-result").html('');
+        } else {
+            $("#chart-title1").html(coronaQuestionaire.title);
+            $("#chart-title2").html('');
+            statisticPieChart.data.labels = coronaYears;
+            statisticPieChart.data.datasets[0].data = coronaVals;
+            chartBgColors = [];
+            coronaYears.forEach(function(year, idx) {
+                chartBgColors[idx] = chartColors[idx % chartColors.length];
+            });
+            statisticPieChart.data.datasets[0].backgroundColor = chartBgColors;
+            statisticPieChart.update();
+            $("#statistic-result").html('');
+        }
+    }
+
+    function extractCoronaData() {
+        questionaires.forEach(questionaire => {
+            if (questionaire.title.indexOf('Corona') != -1) {
+                coronaQuestionaire = questionaire;
+            }
+        });
+        if (!coronaQuestionaire) {
+            return;
+        }
+        coronaQuestionaire.questions.forEach(question => {
+            let yearIdx = question.question.indexOf('year');
+            if (yearIdx == -1) {
+                coronaYears.push(0);
+            } else {
+                coronaYears.push(Number.parseInt(question.question.substr(yearIdx-2)));
+            }
+
+            let totalCnt = 0;
+            let totalVal = 0;
+            question.options.forEach(option => {
+                if (option.cnt == 0) {
+                    return;
+                }
+                totalCnt += option.cnt;
+                let valueString = option.option.split(" ")[0];
+                let unit = valueString.charAt(valueString.length - 1);
+                let value = Number.parseInt(valueString.substr(1));
+                if (unit == "T" || unit == 't') {
+                    totalVal += option.cnt * value;
+                } else { // assumed B
+                    totalVal += option.cnt * value / 1000;
+                }
+            });
+            if (totalCnt > 0) {
+                totalVal = totalVal / totalCnt;
+            }
+            coronaVals.push(totalVal.toFixed(2));
+        });
+
     }
 </script>
 @endpush
