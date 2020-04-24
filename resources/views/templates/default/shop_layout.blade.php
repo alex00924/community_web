@@ -4,21 +4,49 @@
     exit();
   @endphp
 @endif
-
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164544142-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-164544142-1');
+    </script>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ $description??sc_store('description') }}">
-    <meta name="keyword" content="{{ $keyword??sc_store('keyword') }}">
-    <title>{{$title??sc_store('title')}}</title>
+    <title> Fluids For Life {{ isset($title) ? ' | ' . $title : '' }}</title>
+
+    <meta name="description" content="Connecting biologists with microfluidics / engineering, information, and networking tools. FlowCell, FluidsForLife.com, eCommerce, internet marketing, microfluidics, life sciences, micro-physiological systems. {{ isset($description) ? $description : ''}}">
+    <meta name="keyword" content="FlowCell, FluidsForLife.com, eCommerce, internet marketing, microfluidics, life sciences, micro-physiological systems {{ isset($keyword) ? ', ' . $keyword : '' }}">
+    <meta name="author" content="Max, Guang">
     <meta property="og:image" content="{{ !empty($og_image)?asset($og_image):asset('images/org.jpg') }}" />
     <meta property="og:url" content="{{ \Request::fullUrl() }}" />
     <meta property="og:type" content="Website" />
-    <meta property="og:title" content="{{ $title??sc_store('title') }}" />
-    <meta property="og:description" content="{{ $description??sc_store('description') }}" />
+    <meta property="og:title" content="Fluids For Life{{isset($title)?' | ' . $title : ''}}" />
+    <meta property="og:description" content="Connecting biologists with microfluidics / engineering, information, and networking tools. FlowCell, FluidsForLife.com, eCommerce, internet marketing, microfluidics, life sciences, micro-physiological systems" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Shopping Website",
+            "name": "Fluids for Life",
+            "url": "http://fluidsforlife.com",
+            "description": "Connecting biologists with microfluidics / engineering, information, and networking tools. FlowCell, FluidsForLife.com, eCommerce, internet marketing, microfluidics, life sciences, micro-physiological systems",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+1-617-775-9778",
+                "email": "maxn@flowcell.co",
+                "address": "29 Littles Point Rd. Swampscott, MA 01907, USA",
+                "contactType": "Customer service"
+            }
+        }
+      </script>
 
 <!--Module meta -->
   @isset ($blocksContent['meta'])
@@ -49,11 +77,13 @@
     <script src="{{ asset($templateFile.'/js/html5shiv.js')}}"></script>
     <script src="{{ asset($templateFile.'/js/respond.min.js')}}"></script>
     <![endif]-->
-    <link rel="icon" href="{{ asset($templateFile.'/images/ico/favicon.png')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset($templateFile.'/images/ico/apple-touch-icon-144-precomposed.png')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset($templateFile.'/images/ico/apple-touch-icon-114-precomposed.png')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset($templateFile.'/images/ico/apple-touch-icon-72-precomposed.png')}}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset($templateFile.'/images/ico/apple-touch-icon-57-precomposed.png')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset($templateFile.'/images/ico/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset($templateFile.'/images/ico/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset($templateFile.'/images/ico/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{ asset($templateFile.'/images/ico/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{ asset($templateFile.'/images/ico/safari-pinned-tab.svg')}}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
     
 @stack('styles')
 

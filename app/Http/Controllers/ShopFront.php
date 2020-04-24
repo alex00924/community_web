@@ -76,8 +76,8 @@ class ShopFront extends GeneralController
         array(
             'title' => trans('front.categories'),
             'itemsList' => $itemsList,
-            'keyword' => '',
-            'description' => '',
+            'keyword' => 'microfluidics productg categories',
+            'description' => 'microfluidics productg categories',
             'layout_page' => 'item_list',
             'filter_sort' => $filter_sort,
         ));
@@ -157,8 +157,8 @@ class ShopFront extends GeneralController
         return view($this->templatePath . '.shop_products_list',
             array(
                 'title' => trans('front.all_product'),
-                'keyword' => '',
-                'description' => '',
+                'keyword' => 'main product page, microfluidics, life sciences, micro-physiological systems, microscope, 3D printers, single cell, electrophoresis',
+                'description' => 'main product page, microfluidics, life sciences, micro-physiological systems, microscope, 3D printers, single cell, electrophoresis',
                 'products' => $products,
                 'layout_page' => 'product_list',
                 'filter_sort' => $filter_sort,
@@ -336,8 +336,8 @@ class ShopFront extends GeneralController
             array(
                 'title' => trans('front.brands'),
                 'itemsList' => $itemsList,
-                'keyword' => '',
-                'description' => '',
+                'keyword' => 'microfluidics, brands of suppliers for micro-physiological systems, microscopes, 3D printers, single cell, electrophoresis',
+                'description' => 'microfluidics, brands of suppliers for micro-physiological systems, microscopes, 3D printers, single cell, electrophoresis',
                 'layout_page' => 'item_list',
                 'filter_sort' => $filter_sort,
             ));

@@ -64,7 +64,7 @@
          $("#btn-next").prop("disabled", true);
          $("#btn-complete").show();
       } else {
-         let contentHtml = '<div><p class="question">' + currQuestion.question + '</p></div>';
+         let contentHtml = '<div><p class="question">' + currQuestion.question.replace(/(\r\n|\n|\r)/gm, "<br>") + '</p></div>';
          contentHtml += '<div class="answer-container">';
          let prevVal = answers[currAnswerIdx] ? answers[currAnswerIdx].answer : "";
 

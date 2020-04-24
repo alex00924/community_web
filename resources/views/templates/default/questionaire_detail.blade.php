@@ -21,7 +21,7 @@
             <div class="col-xs-12" style="padding: 0 20%">
             @endif
                 @foreach($questionaire["questions"] as $question_key => $question)
-                <div class="statistic-question {{ $questionaire['type'] == 'General' ? 'clickable' : '' }}" data-question_id = "{{ $question['id'] }}" > {{ ($question_key+1) . ". " . $question['question'] }} </div>
+                <div class="statistic-question {{ $questionaire['type'] == 'General' ? 'clickable' : '' }}" data-question_id = "{{ $question['id'] }}" > {!! nl2br(e( ($question_key+1) . ". " . $question['question'] )) !!} </div>
                 <ul class="answer-ul">
                     @php
                         if(isset($answers))
@@ -122,7 +122,7 @@
         let chartData = [];
         let resHtml = '';
 
-        $("#chart-title1").html(question["question"]);
+        $("#chart-title1").html(question["question"].replace(/(\r\n|\n|\r)/gm, "<br>"));
 
         if (question["answer_type"] == "triangle") {
             chartData = [0, 0, 0];

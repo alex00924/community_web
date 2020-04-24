@@ -38,7 +38,7 @@
                                 @foreach ($questionaire as $key => $question)
                                     <tr id="tr-question_{{ $question->id }}" data-id="{{ $key }}" class="clickable">
                                         <td>{{ $question->id }}</td>
-                                        <td>{{ $question->question }}</td>
+                                        <td>{!! nl2br(e($question->question)) !!}</td>
                                         <td>
                                             <a href="{{ route('admin_questionaire.editQuestion', ['questionaire_id' => $questionaire_id, 'id' => $question->id]) }}">
                                                 <span title="Edit" type="button" class="btn btn-flat btn-primary">

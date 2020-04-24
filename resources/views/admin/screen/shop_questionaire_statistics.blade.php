@@ -14,7 +14,7 @@
                             <tbody>
                                 @foreach ($questionaire['questions'] as $question_key => $question)
                                     <tr data-questionaire_key="{{ $questionaire_key }}" data-question_key="{{ $question_key }}" class="clickable">
-                                        <td>{{ ($question_key+1) . ". " . $question['question'] }}</td>
+                                        <td>{!! nl2br(e(($question_key+1) . ". " . $question['question'])) !!}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -103,7 +103,7 @@
         let resHtml = '';
 
         $("#chart-title1").html(questionaires[questionaireIdx]["title"]);
-        $("#chart-title2").html(question["question"]);
+        $("#chart-title2").html(question["question"].replace(/(\r\n|\n|\r)/gm, "<br>"));
 
         if (question["answer_type"] == "triangle") {
             chartData = [0, 0, 0];
