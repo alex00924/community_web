@@ -5,7 +5,7 @@
 <div class="row" style="padding: 2rem 0; font-size: 16px" id="network-container">
     <h2 style="font-size: 25px; font-weight: 500; text-align: center">Networking on PC & on Mobile</h2>
 
-    <div class="col-xs-12 col-md-6 col-lg-4">
+    <div class="col-xs-12 col-md-6">
       <div style="width: 100%; text-align: center; padding: 1rem 0">
         <img src="images/network_person_1.png" alt="person" style="margin: auto">
       </div>
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="col-xs-12 col-md-6 col-lg-4">
+    <div class="col-xs-12 col-md-6">
       <div style="width: 100%; text-align: center; padding: 1rem 0">
         <img src="images/network_person_2.png" alt="person" style="margin: auto">
       </div>
@@ -61,12 +61,12 @@
         </div>
       </div>    
     </div>
-
+<!-- 
     <div class="col-xs-12 col-md-6 col-lg-4">
       <div style="width: 100%; text-align: center">
         <img src="images/network_mobile.png" alt="mobile" style="margin: auto">
       </div>
-    </div>
+    </div> -->
   
   </div>
 @endsection

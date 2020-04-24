@@ -97,7 +97,7 @@
                 data: {
                     datasets: [{}]
                 },
-                type: 'doughnut',
+                type: 'bar',
                 option: {
                     legend: {
                         position: "right"

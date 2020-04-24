@@ -84,8 +84,8 @@ class LoginController extends GeneralController
             'email' => $request->email,
             'password' => $request->password])
         ){
-            $chatkit = new ChatkitController();
-            $chatkit->addChatkitSession($request);
+            // $chatkit = new ChatkitController();
+            // $chatkit->addChatkitSession($request);
             return redirect('/');
         }
 

@@ -207,10 +207,10 @@
     <script src="{{ asset('growl_notification/growl-notification.min.js') }}"></script>
     
     <!-- Chat -->
-    <script src="{{ asset('chat/chatkit.js') }}"></script>
+    <!-- <script src="{{ asset('chat/chatkit.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('chat/client_chat.css') }}">
-    <script src="{{ asset('chat/client_chat.js') }}"></script>
-  @include('chat.client_chat_content')
+    <script src="{{ asset('chat/client_chat.js') }}"></script> -->
+  {{-- @include('chat.client_chat_content') --}}
   @endauth
 </body>
 </html>

@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Image;
-use App\Http\Controllers\ChatkitController;
+//use App\Http\Controllers\ChatkitController;
 
 class RegisterController extends GeneralController
 {
@@ -121,8 +121,8 @@ class RegisterController extends GeneralController
         $user = ShopUser::createCustomer($dataMap);
         if ($user) {
             // Create Chat Room
-            $chatkit = new ChatkitController();
-            $chatkit->createRoom($user->id, $user->name, $avatar);
+            // $chatkit = new ChatkitController();
+            // $chatkit->createRoom($user->id, $user->name, $avatar);
 
             if (sc_config('welcome_customer')) {
 
