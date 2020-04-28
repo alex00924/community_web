@@ -4,7 +4,6 @@
   <div class="row terms-condition" style="font-size: 16px; color: rgb(100, 100, 100)">
     <div class="col-xs-12">
         <h2 class="text-center"> Terms and Conditions </h2>
-        <h3>FlowCell, Inc. <br> 29 Littles Point Rd <br> Swampscott, MA 01907 / USA</h3>
         <br>
         <p>
             Please read our Terms and Conditions before placing your order. By placing your order you agree to be bound by the following Terms and Conditions:
