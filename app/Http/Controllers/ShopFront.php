@@ -517,4 +517,8 @@ class ShopFront extends GeneralController
         $news = (new ShopNews)->getCovidNews();
         return view($this->templatePath . '.covid', ['news' => $news]);
     }
+
+    public function termsCondition() {
+        return view($this->templatePath . '.terms_condition');
+    }
 }

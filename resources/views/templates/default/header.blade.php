@@ -5,7 +5,7 @@
           <div class="col-sm-4" style="display: grid;">
             <div class="logo pull-left">
               <a href="{{ route('home') }}">
-                <img style="height: 200px;" src="{{ asset(sc_store('logo')) }}" alt="" /></a>
+                <img style="height: 200px;" alt="fluids for life" src="/data/logo/logo_top.png"/></a>
             </div>
           </div>
           <div class="col-sm-8" style="padding: 20px 0">

@@ -304,8 +304,8 @@
 
 
 {{-- Payment method --}}
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row v-center">
+            <div class="col-xs-6">
                     <div class="form-group {{ $errors->has('paymentMethod') ? ' has-error' : '' }}">
                         <h3 class="control-label"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> {{ trans('cart.payment_method') }}:<br></h3>
                         @if($errors->has('paymentMethod'))
@@ -323,6 +323,13 @@
                         @endforeach
                     </div>
             </div>
+            <div class="col-xs-6">
+                <div style="font-size: 25px; font-weight: 500">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    Secure Checkout 
+                </div>
+                <div style="margin-left: 25px"> 128-bit Encryption </div>
+            </div>
         </div>
 {{-- //Payment method --}}
             </div>
@@ -331,7 +338,18 @@
 
 
         <div class="row" style="padding-bottom: 20px;">
-            <div class="col-md-12 text-center">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <div style="margin: 10px 10px">
+                        <label class="radio-inline">
+                            <input type="checkbox" name="terms_condition" {{ (old('terms_condition') == $key)?'checked':'' }} style="position: relative;"/>
+                            <div style="margin-left: 30px; margin-top: -35px"> I have read and accept </div>
+                            <a style="margin-left: 30px;" href="/terms_condition" target="_blank">Terms and Condition</a>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 text-center">
                     <div class="pull-right">
                         <button class="btn btn-success" id="submit-order" type="submit" style="cursor: pointer;padding:10px 30px"><i class="fa fa-check" aria-hidden="true"></i> {{ trans('cart.checkout') }}</button>
                     </div>

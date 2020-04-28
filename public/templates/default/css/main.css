@@ -2892,3 +2892,7 @@ button.close {
   display: inline-block;
   padding: 5px;
 }
+
+.terms-condition p {
+  margin: 0 0 20px;
+}

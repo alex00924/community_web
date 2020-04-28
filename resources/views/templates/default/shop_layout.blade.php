@@ -21,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Fluids For Life {{ isset($title) ? ' | ' . $title : '' }}</title>
 
-    <meta name="description" content="Connecting biologists with microfluidics / engineering, information, and networking tools. FlowCell, FluidsForLife.com, eCommerce, internet marketing, microfluidics, life sciences, micro-physiological systems. {{ isset($description) ? $description : ''}}">
+    <meta name="description" content="Connecting biologists with microfluidics / engineering, information, and networking tools. FlowCell, FluidsForLife.com, eCommerce, internet marketing, microfluidics, life sciences, micro-physiological systems, fluids for life. {{ isset($description) ? $description : ''}}">
     <meta name="keyword" content="FlowCell, FluidsForLife.com, eCommerce, internet marketing, microfluidics, life sciences, micro-physiological systems {{ isset($keyword) ? ', ' . $keyword : '' }}">
     <meta name="author" content="Max, Guang">
     <meta property="og:image" content="{{ !empty($og_image)?asset($og_image):asset('images/org.jpg') }}" />

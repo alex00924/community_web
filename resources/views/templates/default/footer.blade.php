@@ -27,7 +27,7 @@
         <div class="row">
           <div class="col-sm-4">
             <div class="single-widget">
-              <h2 class="text-center"><a href="{{ route('home') }}"><img style="max-width: 100px;" src="/data/logo/white logo.png"></a></h2>
+              <h2 class="text-center"><a href="{{ route('home') }}"><img style="max-width: 100px;" src="/data/logo/logo_bottom.png" alt="fluids for life"></a></h2>
              <ul class="nav nav-pills nav-stacked text-center">
                <li>{{ sc_store('title') }}</li>
              </ul>
