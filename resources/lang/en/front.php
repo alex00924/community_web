@@ -30,7 +30,7 @@ return [
     'account'            => 'Account',
     'logout'             => 'Logout',
     'home'               => 'Home',
-    'blog'               => 'Blog',
+    'blog'               => 'Information',
     'contact'            => 'Contact us',
     'about'              => 'About us',
     'shop'               => 'Shop',
