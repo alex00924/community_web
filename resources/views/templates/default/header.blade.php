@@ -39,7 +39,7 @@
     <div class="header-bottom"><!--header-bottom-->
       <div class="container">
         <div class="row">
-          <div class="col-sm-9">
+          <div class="col-xs-9">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -52,7 +52,7 @@
               $routeName = \Request::route()->getName();
             @endphp
             <div class="mainmenu pull-left">
-              <ul class="nav navbar-nav collapse navbar-collapse">
+              <ul class="nav navbar-nav collapse navbar-collapse" style="max-height: fit-content">
                 <li>
                   <a href="{{ route('home') }}" class="{{ ( $routeName == 'home') ? 'active' : '' }}">
                     {{ trans('front.home') }}
@@ -113,7 +113,7 @@
               </ul>
             </div>
           </div>
-          <div class="col-sm-3">
+          <div class="col-xs-3">
             <div class="search_box pull-right">
               <form id="searchbox" method="get" action="{{ route('search') }}" >
                 <div class="input-group">

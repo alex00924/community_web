@@ -226,7 +226,7 @@ a#scrollUp i{
 
 .header-bottom {
   /* padding-bottom: 10px; */
-  padding-top: 10px;
+  /* padding-top: 10px; */
   background: white;
   margin: 10px 0;
   box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
@@ -235,6 +235,10 @@ a#scrollUp i{
 
 .navbar-collapse.collapse{
   padding-left: 0;
+}
+
+.mainmenu {
+  margin-top: 6px;
 }
 
 .mainmenu ul li{
@@ -258,7 +262,9 @@ a#scrollUp i{
 	background:none;
 	color:#0e8ce4;
 }
-
+.search_box {
+  margin: 8px 0;
+}
 .search_box input {
   background: #f0ecff;
   border: medium none;
