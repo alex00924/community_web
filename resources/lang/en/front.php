@@ -116,5 +116,6 @@ return [
     ],
 
     'network'   => 'Network',
-    'covid'     =>  'COVID-19 Blogs'
+    'covid'     =>  'COVID-19 Blogs',
+    'information' => 'Information'
 ];

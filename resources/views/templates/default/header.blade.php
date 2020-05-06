@@ -72,8 +72,6 @@
                     </ul>
                 </li>
 
-                <li><a class="{{ ( $routeName == 'news') ? 'active' : '' }}"  href="{{ route('news') }}">{{ trans('front.blog') }}</a></li>
-
                 @if (!empty(sc_config('Content')))
                 <li class="dropdown"><a href="#">{{ trans('front.cms_category') }}<i class="fa fa-angle-down"></i></a>
                     <ul role="menu" class="sub-menu">
@@ -105,6 +103,13 @@
                     <li><a class="{{ ( \Request::fullUrl() == sc_url_render($url->url) ) ? 'active' : '' }}" {{ ($url->target =='_blank')?'target=_blank':''  }} href="{{ sc_url_render($url->url) }}">{{ sc_language_render($url->name) }}</a></li>
                   @endforeach
                 @endif
+
+                <li>
+                  <a style="color: #d9534f" class="{{ ( request()->is('news_covid') ) ? 'active' : '' }}" href="/news_covid">
+                  COVID-19
+                  </a>
+                </li>
+                <li><a style="color: #47a447" class="{{ ( $routeName == 'news') ? 'active' : '' }}"  href="{{ route('news') }}">{{ trans('front.information') }}</a></li>
               </ul>
             </div>
           </div>
