@@ -67,12 +67,6 @@
 @include('common.css')
 <!--//end css defaut -->
 
-    <link href="{{ asset($templateFile.'/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{ asset($templateFile.'/css/font-awesome.min.css')}}" rel="stylesheet">
-    <link href="{{ asset($templateFile.'/css/prettyPhoto.css')}}" rel="stylesheet">
-    <link href="{{ asset($templateFile.'/css/animate.css')}}" rel="stylesheet">
-    <link href="{{ asset($templateFile.'/css/main.css')}}" rel="stylesheet">
-    <link href="{{ asset($templateFile.'/css/responsive.css')}}" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="{{ asset($templateFile.'/js/html5shiv.js')}}"></script>
     <script src="{{ asset($templateFile.'/js/respond.min.js')}}"></script>
@@ -85,8 +79,6 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     
-@stack('styles')
-
   <!--Module header -->
   @isset ($blocksContent['header'])
       @foreach ( $blocksContent['header']  as $layout)
@@ -185,6 +177,14 @@
 
 @include($templatePath.'.footer')
 
+<link href="{{ asset($templateFile.'/css/bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{ asset($templateFile.'/css/font-awesome.min.css')}}" rel="stylesheet">
+<link href="{{ asset($templateFile.'/css/prettyPhoto.css')}}" rel="stylesheet">
+<link href="{{ asset($templateFile.'/css/animate.css')}}" rel="stylesheet">
+<link href="{{ asset($templateFile.'/css/main.css')}}" rel="stylesheet">
+<link href="{{ asset($templateFile.'/css/responsive.css')}}" rel="stylesheet">
+
+@stack('styles')
 
 <script src="{{ asset($templateFile.'/js/jquery.js')}}"></script>
 <script src="{{ asset($templateFile.'/js/jquery-ui.min.js')}}"></script>
