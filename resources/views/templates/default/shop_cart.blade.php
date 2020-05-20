@@ -342,7 +342,7 @@
                 <div class="form-group">
                     <div style="margin: 10px 10px">
                         <label class="radio-inline">
-                            <input type="checkbox" name="terms_condition" {{ (old('terms_condition') == $key)?'checked':'' }} style="position: relative;"/>
+                            <input type="checkbox" id="terms_condition" name="terms_condition" {{ (old('terms_condition') == $key)?'checked':'' }} style="position: relative;" onchange="changeTermsCondition()"/>
                             <div style="margin-left: 30px; margin-top: -35px"> I have read and accept </div>
                             <a style="margin-left: 30px;" href="/terms_condition" target="_blank">Terms and Condition</a>
                         </label>
@@ -350,9 +350,9 @@
                 </div>
             </div>
             <div class="col-xs-6 text-center">
-                    <div class="pull-right">
-                        <button class="btn btn-success" id="submit-order" type="submit" style="cursor: pointer;padding:10px 30px"><i class="fa fa-check" aria-hidden="true"></i> {{ trans('cart.checkout') }}</button>
-                    </div>
+                <div class="pull-right">
+                    <button class="btn btn-success" id="submit-order" type="submit" style="cursor: pointer;padding:10px 30px" disabled><i class="fa fa-check" aria-hidden="true"></i> {{ trans('cart.checkout') }}</button>
+                </div>
             </div>
         </div>
 
@@ -426,6 +426,14 @@
         }
     });
 
+    function changeTermsCondition() {
+        if ($("#terms_condition").is(":checked")) {
+            $("#submit-order").prop("disabled", false);
+        } else {
+            $("#submit-order").prop("disabled", true);
+        }
+    }
+    changeTermsCondition();
 @if ($extensionDiscount)
     $('#coupon-button').click(function() {
      var coupon = $('#coupon-value').val();

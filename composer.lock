@@ -4,8 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b5c955ad4c04ffcbe1d05de5ff9270c",
+    "content-hash": "dea674607060b181fb7ad2e29c95fb11",
     "packages": [
+        {
+            "name": "authorizenet/authorizenet",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AuthorizeNet/sdk-php.git",
+                "reference": "7fa78e6397d363296e462c3b348573c17175b7a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AuthorizeNet/sdk-php/zipball/7fa78e6397d363296e462c3b348573c17175b7a8",
+                "reference": "7fa78e6397d363296e462c3b348573c17175b7a8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpmd/phpmd": "~2.0",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "description": "Official PHP SDK for Authorize.Net",
+            "homepage": "http://developer.authorize.net",
+            "keywords": [
+                "authorize.net",
+                "authorizenet",
+                "ecommerce",
+                "payment"
+            ],
+            "time": "2019-01-14T13:32:41+00:00"
+        },
         {
             "name": "aws/aws-sdk-php",
             "version": "3.133.44",
@@ -889,6 +932,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -935,6 +979,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -1935,6 +1980,7 @@
                 "rest",
                 "sdk"
             ],
+            "abandoned": true,
             "time": "2019-01-04T20:04:25+00:00"
         },
         {

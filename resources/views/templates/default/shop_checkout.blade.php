@@ -3,170 +3,168 @@
 @section('main')
 <section>
     <div class="container">
-      <div class="row">
-<h2 class="title text-center">{{ $title }}</h2>
-@if (count($cart) ==0)
-    <div class="col-md-12 text-danger">
-        Cart empty!
-    </div>
-@else
-<div class="table-responsive">
-<table class="table box table-bordered">
-    <thead>
-      <tr  style="background: #eaebec">
-        <th style="width: 50px;">No.</th>
-        <th style="width: 100px;">{{ trans('product.sku') }}</th>
-        <th>{{ trans('product.name') }}</th>
-        <th>{{ trans('product.price') }}</th>
-        <th >{{ trans('product.quantity') }}</th>
-        <th>{{ trans('product.total_price') }}</th>
-      </tr>
-    </thead>
-    <tbody>
-
-    @foreach($cart as $item)
-        @php
-            $n = (isset($n)?$n:0);
-            $n++;
-            $product = App\Models\ShopProduct::find($item->id);
-        @endphp
-    <tr class="row_cart">
-        <td >{{ $n }}</td>
-        <td>{{ $product->sku }}</td>
-        <td>
-            {{ $product->getName() }}<br>
-{{-- Process attributes --}}
-            @if ($item->options->count())
-            (
-                @foreach ($item->options as $keyAtt => $att)
-                    <b>{{ $attributesGroup[$keyAtt] }}</b>: <i>{{ $att }}</i> ;
-                @endforeach
-            )<br>
-            @endif
-{{-- //end Process attributes --}}
-            <a href="{{$product->getUrl() }}"><img width="100" src="{{asset($product->getImage())}}" alt=""></a>
-        </td>
-        <td>
-            <span class="sc-new-price">{!! sc_currency_render($item->price) !!}</span>
-        </td>
-        <td>{{$item->qty}}</td>
-        <td align="right">{{sc_currency_render($item->subtotal)}}</td>
-    </tr>
-    @endforeach
-    </tbody>
-  </table>
-  </div>
-<form class="sc-shipping-address" id="form-order" role="form" method="POST" action="{{ route('order.add') }}">
-    {{ csrf_field() }}
-    <div class="row">
-    <div class="col-md-6">
-        <h3 class="control-label"><i class="fa fa-truck" aria-hidden="true"></i> {{ trans('cart.shipping_address') }}:<br></h3>
-        <table class="table box table-bordered" id="showTotal">
-            <tr>
-                <th>{{ trans('cart.name') }}:</td>
-                <td>{{ $shippingAddress['first_name'] }} {{ $shippingAddress['last_name'] }}</td>
-            </tr>
-            <tr>
-                <th>{{ trans('cart.phone') }}:</td>
-                <td>{{ $shippingAddress['phone'] }}</td>
-            </tr>
-             <tr>
-                <th>{{ trans('cart.email') }}:</td>
-                <td>{{ $shippingAddress['email'] }}</td>
-            </tr>
-             <tr>
-                <th>{{ trans('cart.address') }}:</td>
-                <td>{{ $shippingAddress['address1'].' '.$shippingAddress['address2'].','.$shippingAddress['country'] }}</td>
-            </tr>
-            @if (sc_config('customer_postcode'))
-            <tr>
-                <th>{{ trans('cart.postcode') }}:</td>
-                <td>{{ $shippingAddress['postcode']}}</td>
-            </tr>
-            @endif
-
-            @if (sc_config('customer_company'))
-            <tr>
-                <th>{{ trans('cart.company') }}:</td>
-                <td>{{ $shippingAddress['company']}}</td>
-            </tr> 
-            @endif
-
-
-             <tr>
-                <th>{{ trans('cart.note') }}:</td>
-                <td>{{ $shippingAddress['comment'] }}</td>
-            </tr>
-
-            @if(strlen($shippingAddress['po_doc']) > 0)
-            <tr>
-                <th>{{ trans('cart.po_doc') }}:</td>
-                <td><a href="/data/po_doc/{{ $shippingAddress['po_doc'] }}" target="_blank">{{ substr($shippingAddress['po_doc'], strpos($shippingAddress['po_doc'], "_")+1) }}</a></td>
-            </tr>
-            @endif
-        </table>
-    </div>
-    <div class="col-md-6">
-{{-- Total --}}
         <div class="row">
-            <div class="col-md-12">
-                <table class="table box table-bordered" id="showTotal">
-                    @foreach ($dataTotal as $key => $element)
-                    @if ($element['value'] !=0)
-
-                     @if ($element['code']=='total')
-                     @php 
-                        $totalPrice = $element["value"]
-                     @endphp
-                         <tr class="showTotal" style="background:#f5f3f3;font-weight: bold;">
-                     @else
-                        <tr class="showTotal">
-                     @endif
-                             <th>{!! $element['title'] !!}</th>
-                            <td style="text-align: right" id="{{ $element['code'] }}">{{$element['text'] }}</td>
+            <h2 class="title text-center">{{ $title }}</h2>
+            @if (count($cart) ==0)
+            <div class="col-md-12 text-danger">
+                Cart empty!
+            </div>
+            @else
+            <div class="table-responsive">
+                <table class="table box table-bordered">
+                    <thead>
+                        <tr  style="background: #eaebec">
+                        <th style="width: 50px;">No.</th>
+                        <th style="width: 100px;">{{ trans('product.sku') }}</th>
+                        <th>{{ trans('product.name') }}</th>
+                        <th>{{ trans('product.price') }}</th>
+                        <th >{{ trans('product.quantity') }}</th>
+                        <th>{{ trans('product.total_price') }}</th>
                         </tr>
-                    @endif
+                    </thead>
 
+                    <tbody>
+                    @foreach($cart as $item)
+                        @php
+                            $n = (isset($n)?$n:0);
+                            $n++;
+                            $product = App\Models\ShopProduct::find($item->id);
+                        @endphp
+                        <tr class="row_cart">
+                            <td >{{ $n }}</td>
+                            <td>{{ $product->sku }}</td>
+                            <td>
+                                {{ $product->getName() }}<br>
+                                
+                                {{-- Process attributes --}}
+                                @if ($item->options->count())
+                                (
+                                    @foreach ($item->options as $keyAtt => $att)
+                                        <b>{{ $attributesGroup[$keyAtt] }}</b>: <i>{{ $att }}</i> ;
+                                    @endforeach
+                                )<br>
+                                @endif
+                                {{-- //end Process attributes --}}
+                                <a href="{{$product->getUrl() }}"><img width="100" src="{{asset($product->getImage())}}" alt=""></a>
+                            </td>
+                            <td>
+                                <span class="sc-new-price">{!! sc_currency_render($item->price) !!}</span>
+                            </td>
+                            <td>{{$item->qty}}</td>
+                            <td align="right">{{sc_currency_render($item->subtotal)}}</td>
+                        </tr>
                     @endforeach
+                    </tbody>
                 </table>
-        {{-- Payment method --}}
-            <div class="row">
-                <div class="col-md-12">
-                        <div class="form-group">
-                            <h3 class="control-label"><i class="fa fa-credit-card-alt"></i> {{ trans('cart.payment_method') }}:<br></h3>
-                        </div>
-                        <div class="form-group">
-                                <div>
-                                    <label class="radio-inline">
-                                     <img title="{{ $paymentMethodData['title'] }}" alt="{{ $paymentMethodData['title'] }}" src="{{ asset($paymentMethodData['image']) }}" style="width: 120px;">
-                                    </label>
-                                </div>
-                        </div>
-                </div>
             </div>
-        {{-- //Payment method --}}
-            </div>
-        </div>
+            <form class="sc-shipping-address" id="form-order" role="form" method="POST" action="{{ route('order.add') }}">
+                {{ csrf_field() }}
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="control-label"><i class="fa fa-truck" aria-hidden="true"></i> {{ trans('cart.shipping_address') }}:<br></h3>
+                        <table class="table box table-bordered" id="showTotal">
+                            <tr>
+                                <th>{{ trans('cart.name') }}:</td>
+                                <td>{{ $shippingAddress['first_name'] }} {{ $shippingAddress['last_name'] }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ trans('cart.phone') }}:</td>
+                                <td>{{ $shippingAddress['phone'] }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ trans('cart.email') }}:</td>
+                                <td>{{ $shippingAddress['email'] }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ trans('cart.address') }}:</td>
+                                <td>{{ $shippingAddress['address1'].' '.$shippingAddress['address2'].','.$shippingAddress['country'] }}</td>
+                            </tr>
+                            @if (sc_config('customer_postcode'))
+                            <tr>
+                                <th>{{ trans('cart.postcode') }}:</td>
+                                <td>{{ $shippingAddress['postcode']}}</td>
+                            </tr>
+                            @endif
 
-        {{-- Card Stripe Token --}}
-        <input type="hidden" name="card_token" id="card-token">
-{{-- End total --}}
+                            @if (sc_config('customer_company'))
+                            <tr>
+                                <th>{{ trans('cart.company') }}:</td>
+                                <td>{{ $shippingAddress['company']}}</td>
+                            </tr> 
+                            @endif
 
-        <div class="row" style="padding-bottom: 20px;">
-            <div class="col-md-12 text-center">
-             <div class="pull-left">
-                <button class="btn btn-default" type="button" style="cursor: pointer;padding:10px 30px" onClick="location.href='{{ route('cart') }}'"><i class="fa fa-arrow-left"></i>{{ trans('cart.back_to_cart') }}</button>
-                </div>
-                    <div class="pull-right">
-                        <button class="btn btn-success" id="submit-order" type="submit" style="cursor: pointer;padding:10px 30px" ><i class="fa fa-check"></i> {{ trans('cart.confirm') }}</button>
+
+                            <tr>
+                                <th>{{ trans('cart.note') }}:</td>
+                                <td>{{ $shippingAddress['comment'] }}</td>
+                            </tr>
+
+                            @if(strlen($shippingAddress['po_doc']) > 0)
+                            <tr>
+                                <th>{{ trans('cart.po_doc') }}:</td>
+                                <td><a href="/data/po_doc/{{ $shippingAddress['po_doc'] }}" target="_blank">{{ substr($shippingAddress['po_doc'], strpos($shippingAddress['po_doc'], "_")+1) }}</a></td>
+                            </tr>
+                            @endif
+                        </table>
                     </div>
-            </div>
-        </div>
+                    <div class="col-md-6" style="padding-top: 54px">
+                        {{-- Total --}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table box table-bordered" id="showTotal">
+                                    @foreach ($dataTotal as $key => $element)
+                                    @if ($element['value'] !=0)
 
-    </div>
-</div>
-</form>
-@endif
+                                    @if ($element['code']=='total')
+                                    @php 
+                                        $totalPrice = $element["value"]
+                                    @endphp
+                                        <tr class="showTotal" style="background:#f5f3f3;font-weight: bold;">
+                                    @else
+                                        <tr class="showTotal">
+                                    @endif
+                                            <th>{!! $element['title'] !!}</th>
+                                            <td style="text-align: right" id="{{ $element['code'] }}">{{$element['text'] }}</td>
+                                        </tr>
+                                    @endif
+
+                                    @endforeach
+                                </table>
+                            </div>
+                        </div>
+                        {{-- End total --}}
+
+                        {{-- Payment method --}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                    <div class="form-group">
+                                        <h3 class="control-label"><i class="fa fa-credit-card-alt"></i> {{ trans('cart.payment_method') }}:<br></h3>
+                                    </div>
+                                    <div class="form-group">
+                                            <div>
+                                                <label class="radio-inline">
+                                                    <img title="{{ $paymentMethodData['title'] }}" alt="{{ $paymentMethodData['title'] }}" src="{{ asset($paymentMethodData['image']) }}" style="width: 120px;">
+                                                </label>
+                                            </div>
+                                    </div>
+                            </div>
+                        </div>
+                        {{-- //Payment method --}}
+                    </div>
+                </div>
+
+                <div class="row" style="padding-bottom: 20px;">
+                    <div class="col-md-12 text-center">
+                        <div class="pull-left">
+                            <button class="btn btn-default" type="button" style="cursor: pointer;padding:10px 30px" onClick="location.href='{{ route('cart') }}'"><i class="fa fa-arrow-left"></i>{{ trans('cart.back_to_cart') }}</button>
+                        </div>
+                        <div class="pull-right">
+                            <button class="btn btn-success" id="submit-order" type="submit" style="cursor: pointer;padding:10px 30px" ><i class="fa fa-check"></i> {{ trans('cart.confirm') }}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            @endif
         </div>
     </div>
 </section>
@@ -183,45 +181,4 @@
 @endsection
 
 @push('scripts')
-<!-- <script src="https://checkout.stripe.com/checkout.js"></script>
-
-<script type="text/javascript">
-    let paymentMethod = '{{ $paymentMethodData["code"] }}';
-
-  $(document).ready(function () {  
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-  });
- 
-  function submitForm() {
-    $("#form-order").submit();
-    return;
-    if (paymentMethod == "Card") {
-        cardPay();
-    } else {
-        $("#form-order").submit();
-    }
-  }
-
-  function cardPay() {
-    var handler = StripeCheckout.configure({
-      key: "{{ sc_config('card_public_key') }}",
-      locale: 'auto',
-      token: function (token) {
-        $('#card-token').val(token.id);
-        $("#form-order").submit();
-      }
-    });
-  
-    handler.open({
-      name: '{{ sc_store("title") }}',
-      image: "{{ asset($paymentMethodData['image']) }}",
-      description: '{{ count($cart) }} Products',
-      amount: {{ $totalPrice }} * 100
-    });
-  }
-</script> -->
 @endpush
