@@ -5,7 +5,7 @@
           <div class="col-sm-4" style="display: grid;">
             <div class="logo pull-left">
               <a href="{{ route('home') }}">
-                <img style="height: 200px;" alt="fluids for life" src="/data/logo/logo_top.png"/></a>
+                <img style="height: 80px;padding: 10px 0 0 20px;" alt="fluids for life" src="/data/logo/logo_top.png"/></a>
             </div>
           </div>
           <div class="col-sm-8" style="padding: 20px 0">
@@ -92,11 +92,13 @@
                   </a>
                 </li>
 
+                @if(Auth::user())
                 <li>
                   <a class="{{ ( request()->is('network*') ) ? 'active' : '' }}" href="/network">
                     {{ trans('front.network') }}
                   </a>
                 </li>
+                @endif
 
                 @if (!empty($layoutsUrl['menu']))
                   @foreach ($layoutsUrl['menu'] as $url)

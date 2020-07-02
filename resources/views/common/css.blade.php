@@ -1,5 +1,6 @@
 <style>
 /*loading*/
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 .sc-overlay {
     position: fixed;
     top: 50%;
@@ -80,4 +81,97 @@ input[type="number"]{
 .sc-notice{
     clear: both;
 }
+
+.network-title {
+  font-size: 25px; 
+  font-weight: 500; 
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.m--img-rounded {
+  border-radius: 50%;
+  height: 130px;
+  width: 126px;
+  border: solid .5rem;
+  border-color: #4DB848;
+}
+
+.network-left {
+  background: #007ac0;
+  height: 280px;
+  border-radius: 5px;
+  border-top: solid 0.2rem;
+  border-top-color: #ffffff;
+  box-shadow: 0px 0px 20px #00b0f0c4;
+}
+
+.network-right {
+  background: #00b0f0;
+  height: 280px;
+  border-radius: 5px;
+  border-top: solid 0.2rem;
+  border-top-color: #ffffff;
+  box-shadow: 0px 0px 20px #00b0f0c4;
+}
+
+.network-img {
+  width: 100%; 
+  text-align: center; 
+  padding: 4rem 8rem;
+}
+
+.network-img1 {
+  width: 130px; 
+  text-align: center; 
+  border-radius: 50%;
+  border: solid .2rem;
+  border-color: #ffffff;
+}
+
+.network-col1 {
+  height: 150px;
+  color: white; 
+  padding: 10px 10px; 
+}
+
+.network-col2 {
+  height: 130px;
+  border-top: solid 0.2rem;
+  border-top-color: #ffffff;
+  color: white; 
+  padding: 10px 25px;
+  width: calc(100% + 30px);
+  margin-left: -15px;
+}
+
+.f-name {
+  color: white; 
+  padding: 0px 10px; 
+  text-align: center;
+  font-size: 24px;
+}
+
+.f-16 {
+  font-size: 18px;
+}
+
+.m-l-20 {
+  margin-left: -20px;
+}
+
+@media (min-width: 992px) {
+  .network-right {
+      border-left: solid 0.2rem;
+      border-left-color: white;
+  }
+}
+
+@media (max-width: 991px) {
+  .col-md-6 {
+      border-top: solid 0.2rem;
+      border-color: white;
+  }
+}
+
 </style>

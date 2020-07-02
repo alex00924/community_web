@@ -510,7 +510,11 @@ class ShopFront extends GeneralController
     }
 
     public function network() {
-        return view($this->templatePath . '.network');
+        if (Auth::user()) {
+            return view($this->templatePath . '.network');
+        } else {
+            return redirect(url('/'));
+        }
     }
 
     public function covidNews() {
