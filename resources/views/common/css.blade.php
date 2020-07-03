@@ -1,6 +1,7 @@
 <style>
 /*loading*/
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 .sc-overlay {
     position: fixed;
     top: 50%;
@@ -82,11 +83,18 @@ input[type="number"]{
     clear: both;
 }
 
+.logo_title {
+  font-size: 25px;
+  vertical-align: middle;
+  color: #4DB848;
+}
+
 .network-title {
-  font-size: 25px; 
+  font-size: 30px; 
   font-weight: 500; 
   text-align: center;
   padding-bottom: 30px;
+  font-family: Karla;
 }
 
 .m--img-rounded {
@@ -118,7 +126,7 @@ input[type="number"]{
 .network-img {
   width: 100%; 
   text-align: center; 
-  padding: 4rem 8rem;
+  padding: 4rem 0rem;
 }
 
 .network-img1 {

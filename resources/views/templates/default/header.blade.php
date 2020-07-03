@@ -1,11 +1,13 @@
-  <header id="header" style="margin-bottom: 5rem"><!--header-->
+  <header id="header" style="margin-bottom: 5rem;font-family: Karla;"><!--header-->
     <div class="header-middle"><!--header-middle-->
       <div class="container">
         <div class="row vertical-align">
           <div class="col-sm-4" style="display: grid;">
             <div class="logo pull-left">
               <a href="{{ route('home') }}">
-                <img style="height: 80px;padding: 10px 0 0 20px;" alt="fluids for life" src="/data/logo/logo_top.png"/></a>
+                <img style="height: 80px;padding: 10px 0 0 20px;" alt="fluids for life" src="/data/logo/logo_top.png"/>
+                <span class="logo_title">FluitForLife</span>
+              </a>
             </div>
           </div>
           <div class="col-sm-8" style="padding: 20px 0">
