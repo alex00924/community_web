@@ -6,7 +6,7 @@
             <div class="logo pull-left">
               <a href="{{ route('home') }}">
                 <img style="height: 80px;padding: 10px 0 0 20px;" alt="fluids for life" src="/data/logo/logo_top.png"/>
-                <span class="logo_title">FluitForLife</span>
+                <span class="logo_title">FluidsForLife</span>
               </a>
             </div>
           </div>
