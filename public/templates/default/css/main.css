@@ -356,7 +356,7 @@ ul.sub-menu {
 
 #footer {
   background: rgb(38, 43, 47);
-  padding: 2.5rem 0;
+  padding: 1rem 0;
   margin-top: 5rem;
 }
 
@@ -477,7 +477,7 @@ ul.sub-menu {
 }
 
 .footer-widget {
-  padding-bottom: 68px;
+  padding-bottom: 35px;
   color: white;
   font-family: Karla;
 }
