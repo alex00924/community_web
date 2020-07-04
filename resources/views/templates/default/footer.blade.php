@@ -35,7 +35,7 @@
           </div>
           <div class="col-sm-4">
             <div class="single-widget">
-              <h2>{{ trans('front.my_account') }}</h2>
+              <h2 style="font-family: Karla;font-size: 20px;">{{ trans('front.my_account') }}</h2>
               <ul class="nav nav-pills nav-stacked">
                 @if (!empty($layoutsUrl['footer']))
                   @foreach ($layoutsUrl['footer'] as $url)
@@ -47,7 +47,7 @@
           </div>
           <div class="col-sm-4">
             <div class="single-widget">
-              <h2>{{ trans('front.about') }}</h2>
+              <h2 style="font-family: Karla;font-size: 20px;">{{ trans('front.about') }}</h2>
               <ul class="nav nav-pills nav-stacked">
                 <li><a>{{ trans('front.shop_info.address') }}: {{ sc_store('address') }}</a></li>
                 <li><a>{{ trans('front.shop_info.hotline') }}: {{ sc_store('long_phone') }}</a></li>

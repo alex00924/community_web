@@ -2,6 +2,7 @@
 /*************************
 *******Typography******
 **************************/
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 html {
   height: 100%;
 }
@@ -201,7 +202,7 @@ a#scrollUp i{
   /* background: #FFFFFF; */
   color: #696763;
   
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   padding:0;
   padding-right: 0;
@@ -249,7 +250,7 @@ a#scrollUp i{
 .mainmenu ul li a {
 	color: #212529;
 	
-	font-size: 17px;
+	font-size: 20px;
 	font-weight: 400;
 	padding: 10px 0;
 }
@@ -478,6 +479,7 @@ ul.sub-menu {
 .footer-widget {
   padding-bottom: 68px;
   color: white;
+  font-family: Karla;
 }
 
 .footer-widget .container {
@@ -500,7 +502,7 @@ ul.sub-menu {
 .single-widget ul li a{
 	color: white;
 	
-	font-size: 14px;
+	font-size: 17px;
 	font-weight: 400;
 	padding: 5px 0;
 }
@@ -561,9 +563,10 @@ ul.sub-menu {
 }
 
 .footer-bottom p {
-  
+  font-family: Karla;
   font-weight: 400;
   margin-left: 15px;
+  font-size: 16px;
 }
 
 .footer-bottom p span a {
@@ -771,6 +774,9 @@ h2.title:before{
   padding-top: 15px;
 }
 
+.nav-stacked li {
+  font-size: 20px;
+}
 
 .brands-name .nav-stacked li a {
   background-color: #FFFFFF;
