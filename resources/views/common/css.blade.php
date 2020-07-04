@@ -84,9 +84,10 @@ input[type="number"]{
 }
 
 .logo_title {
-  font-size: 25px;
+  font-size: 36px;
   vertical-align: middle;
   color: #4DB848;
+  padding-left: 10px;
 }
 
 .network-title {

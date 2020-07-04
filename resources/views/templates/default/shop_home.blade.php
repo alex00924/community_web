@@ -3,9 +3,15 @@
 @section('main')
   <div class="row welcome">
     <div class="col-xs-12 col-md-10 col-lg-8" style="margin: auto;">
-      <h1 style="font-size: 36px; font-weight: 500">Fluids For Life</h1>
+      <h1 style="font-size: 28px; font-weight: 500">Connecting biologists with tools to elevate their game:</h1>
       <p style="font-size: 20px; text-align: left">
-        Connecting biologists with microfluidics / engineering, information, and networking tools
+        ・Information about various microfluidic systems for life sciences
+      </p>
+      <p style="font-size: 20px; text-align: left">
+        ・Find specialized equipment for your needs
+      </p>
+      <p style="font-size: 20px; text-align: left">
+        ・Network with biologists and engineers
       </p>
       <img  alt="fluids for life" src="/images/welcome_bg.jpg" style="margin: auto; width: 100%" usemap="#image-map">
       <map name="image-map">
