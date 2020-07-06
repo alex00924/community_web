@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\ShopCategoryDescription;
 use App\Models\ShopProduct;
+use App\Models\ShopProductCategory;
 use Cache;
 use Illuminate\Database\Eloquent\Model;
 
@@ -120,7 +121,16 @@ class ShopCategory extends Model
  */
     public function getCategoriesTop()
     {
-        return $this->where('status', 1)->where('top', 1)->get();
+        $categoriesTop = $this->where('status', 1)->where('top', 1)->get();
+
+        if ($categoriesTop->count()) {
+            foreach ($categoriesTop as $key =>  $category) {
+                $category->count = ShopProductCategory::join('shop_product','shop_product.id','=','shop_product_category.product_id')
+                    ->where('shop_product_category.category_id',$category->id)->where('shop_product.status','1')->count();
+            }
+        }
+
+        return $categoriesTop;
     }
 
 /*

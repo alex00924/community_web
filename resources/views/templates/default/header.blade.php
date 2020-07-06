@@ -118,7 +118,7 @@
             </div>
           </div>
           <div class="col-xs-3">
-            <div class="search_box pull-right">
+            <div class="search_box">
               <form id="searchbox" method="get" action="{{ route('search') }}" >
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="{{ trans('front.search_form.keyword') }}..." name="keyword">

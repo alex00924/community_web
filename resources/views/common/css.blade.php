@@ -84,7 +84,7 @@ input[type="number"]{
 }
 
 .logo_title {
-  font-size: 36px;
+  font-size: 30px;
   vertical-align: middle;
   color: #4DB848;
   padding-left: 10px;
