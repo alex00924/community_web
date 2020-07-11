@@ -9,13 +9,14 @@ use App\Models\ShopCategory;
 use App\Models\ShopProduct;
 use App\Models\ShopVendor;
 use App\Models\ShopNews;
-use Illuminate\Http\Request;
 use App\Models\ShopProductReview;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Questionaire;
 use App\Models\QuestionaireQuestion;
 use App\Models\QuestionaireAnswer;
 use App\Models\ShopBenefit;
+use App\Models\Study;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ShopFront extends GeneralController
 {
@@ -484,6 +485,9 @@ class ShopFront extends GeneralController
             $sortOrder = $filterArr[$filter_sort][1];
         }
         $keyword = request('keyword') ?? '';
+
+        $this->sendNotificationClinicalTrial($keyword);
+        
         return view($this->templatePath . '.shop_products_list',
             array(
                 'title' => trans('front.search') . ': ' . $keyword,
@@ -524,5 +528,43 @@ class ShopFront extends GeneralController
 
     public function termsCondition() {
         return view($this->templatePath . '.terms_condition');
+    }
+
+    /**
+     * send notification about clinical trial
+     * @param String $keyword  
+     */
+    public function sendNotificationClinicalTrial($keyword)
+    {
+        $user = Auth::user();
+        
+        if (!empty($user) && $user['harvest_check'] == 'ON') {
+            $study = new Study;
+            $study->setConnection('mysql2');
+            $notidication_datas = $study->where('conditions','like','%' . $keyword . '%')
+                ->select('nct_id','title')->get();
+                
+            if (count($notidication_datas) > 0) {
+                $html = '<tr><td width="25%">NCT ID</td><td>TITLE</td></tr>';
+                foreach ($notidication_datas as $data) {
+                    $nct_id = 'NCT' . substr('00000000' . $data['nct_id'], -8);
+                    $html .= '<tr><td>' . $nct_id . '</td><td><a href="https://ClinicalTrials.gov/show/';
+                    $html .= $nct_id . '" target="_blank">' . $data['title']. '</td></tr>';
+                }
+    
+                $content = '<table class="subcopy" width="100%" cellpadding="0" cellspacing="0" style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;border-top:1px solid #edeff2;margin-top:25px;padding-top:25px">
+                        <tbody>' . $html . '
+                        </tbody>
+                        </table>';
+                $data = [
+                    'content' => $content,
+                ];
+                $config = [
+                    'to' => $user['email'],
+                    'subject' => 'Notification About Clinical Trial',
+                ];
+                sc_send_mail('mail.clinical_trial_notification', $data, $config, []);
+            }
+        }
     }
 }

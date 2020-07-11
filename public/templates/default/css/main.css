@@ -2901,3 +2901,29 @@ button.close {
 .terms-condition p {
   margin: 0 0 20px;
 }
+
+.u-radio input[type="radio"] {
+  display: none; }
+
+.u-radio label {
+  position: relative;
+  display: inline-block;
+  padding-left: 24px;
+  cursor: pointer; }
+  .u-radio label:after {
+    position: absolute;
+    content: "";
+    display: block;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 17px;
+    height: 17px;
+    background: url(/images/radio_ic01.png) center no-repeat;
+    background-size: cover; }
+
+.u-radio input[type="radio"]:checked + label:after {
+  background: url(/images/radio_ic02.png) center no-repeat;
+  background-size: cover; }

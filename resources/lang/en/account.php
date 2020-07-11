@@ -35,7 +35,8 @@ return [
     'name'                    => 'Full name',
     'sex_women'               => 'Women',
     'sex_men'                 => 'Men',
-    'orders'                   => [
+    'harvest_check'           => 'Harvest Alert',
+    'orders'                  => [
         'empty' => 'You do not have any orders',
         'total' => 'Total',
         'status' => 'Status',

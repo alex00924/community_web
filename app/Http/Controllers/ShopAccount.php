@@ -140,27 +140,28 @@ class ShopAccount extends GeneralController
         $id = $user->id;
         $data = request()->all();
         $dataUpdate = [
-            'first_name' => $data['first_name'],
-            'address1' => $data['address1'],
+            'first_name'    => $data['first_name'],
+            'address1'      => $data['address1'],
+            'harvest_check' => $data['harvest_check'],
         ];
         $validate = [
             'first_name' => 'required|string|max:100',
-            'address1' => 'required|string|max:255',
+            'address1'   => 'required|string|max:255',
         ];
         if(sc_config('customer_lastname')) {
-            $validate['last_name'] = 'required|max:100';
+            $validate['last_name']   = 'required|max:100';
             $dataUpdate['last_name'] = $data['last_name']??'';
         }
         if(sc_config('customer_address2')) {
-            $validate['address2'] = 'required|max:100';
+            $validate['address2']   = 'required|max:100';
             $dataUpdate['address2'] = $data['address2']??'';
         }
         if(sc_config('customer_phone')) {
-            $validate['phone'] = 'required|regex:/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/';
+            $validate['phone']   = 'required|regex:/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/';
             $dataUpdate['phone'] = $data['phone']??'';
         }
         if(sc_config('customer_country')) {
-            $validate['country'] = 'required|min:2';
+            $validate['country']   = 'required|min:2';
             $dataUpdate['country'] = $data['country']??'';
         }
         if(sc_config('customer_postcode')) {
@@ -168,7 +169,7 @@ class ShopAccount extends GeneralController
             $dataUpdate['postcode'] = $data['postcode']??'';
         }
         if(sc_config('customer_company')) {
-            $validate['company'] = 'nullable';
+            $validate['company']   = 'nullable';
             $dataUpdate['company'] = $data['company']??'';
         }   
         if(sc_config('customer_sex')) {
@@ -182,7 +183,7 @@ class ShopAccount extends GeneralController
             }
         } 
         if(sc_config('customer_group')) {
-            $validate['group'] = 'nullable';
+            $validate['group']   = 'nullable';
             $dataUpdate['group'] = $data['group']??1;
         }
 

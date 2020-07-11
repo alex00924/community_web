@@ -12,10 +12,10 @@
                     <form method="POST" action="{{ route('member.post_change_infomation') }}">
                         @csrf
                         @if (sc_config('customer_lastname'))
-                        <div class="form-group row {{ $errors->has('first_name') ? ' has-error' : '' }}">
+                        <div class="form-group {{ $errors->has('first_name') ? ' has-error' : '' }}">
                             <label for="first_name" class="col-md-4 col-form-label text-md-right">{{ trans('account.first_name') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="padding-bottom: 10px;">
                                 <input id="first_name" type="text" class="form-control" name="first_name" required value="{{ (old('first_name'))?old('first_name'):$dataUser['first_name']}}">
 
                                 @if($errors->has('first_name'))
@@ -27,7 +27,7 @@
                         <div class="form-group row {{ $errors->has('last_name') ? ' has-error' : '' }}">
                             <label for="last_name" class="col-md-4 col-form-label text-md-right">{{ trans('account.last_name') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="padding-bottom: 10px;">
                                 <input id="last_name" type="text" class="form-control" name="last_name" required value="{{ (old('last_name'))?old('last_name'):$dataUser['last_name']}}">
 
                                 @if($errors->has('last_name'))
@@ -40,7 +40,7 @@
                         <div class="form-group row {{ $errors->has('first_name') ? ' has-error' : '' }}">
                             <label for="first_name" class="col-md-4 col-form-label text-md-right">{{ trans('account.name') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="padding-bottom: 10px;">
                                 <input id="first_name" type="text" class="form-control" name="first_name" required value="{{ (old('first_name'))?old('first_name'):$dataUser['first_name']}}">
 
                                 @if($errors->has('first_name'))
@@ -56,7 +56,7 @@
                         <div class="form-group row {{ $errors->has('phone') ? ' has-error' : '' }}">
                             <label for="phone" class="col-md-4 col-form-label text-md-right">{{ trans('account.phone') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="padding-bottom: 10px;">
                                 <input id="phone" type="text" class="form-control" name="phone" required value="{{ (old('phone'))?old('phone'):$dataUser['phone']}}">
 
                                 @if($errors->has('phone'))
@@ -71,7 +71,7 @@
                         <div class="form-group row {{ $errors->has('postcode') ? ' has-error' : '' }}">
                             <label for="postcode" class="col-md-4 col-form-label text-md-right">{{ trans('account.postcode') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="padding-bottom: 10px;">
                                 <input id="postcode" type="text" class="form-control" name="postcode" required value="{{ (old('postcode'))?old('postcode'):$dataUser['postcode']}}">
 
                                 @if($errors->has('postcode'))
@@ -85,7 +85,7 @@
                        <div class="form-group row {{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ trans('account.email') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="padding-bottom: 10px;">
                               {{ $dataUser['email'] }}
 
                             </div>
@@ -95,7 +95,7 @@
                        <div class="form-group row {{ $errors->has('address1') ? ' has-error' : '' }}">
                             <label for="address1" class="col-md-4 col-form-label text-md-right">{{ trans('account.address1') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="padding-bottom: 10px;">
                                 <input id="address1" type="text" class="form-control" name="address1" required value="{{ (old('address1'))?old('address1'):$dataUser['address1']}}">
 
                                 @if($errors->has('address1'))
@@ -107,7 +107,7 @@
 
                        <div class="form-group row {{ $errors->has('address2') ? ' has-error' : '' }}">
                             <label for="address2" class="col-md-4 col-form-label text-md-right">{{ trans('account.address2') }}</label>
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="padding-bottom: 10px;">
                                 <input id="address2" type="text" class="form-control" name="address2" required value="{{ (old('address2'))?old('address2'):$dataUser['address2']}}">
 
                                 @if($errors->has('address2'))
@@ -120,7 +120,7 @@
                         <div class="form-group row {{ $errors->has('address1') ? ' has-error' : '' }}">
                             <label for="address1" class="col-md-4 col-form-label text-md-right">{{ trans('account.address') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="padding-bottom: 10px;">
                                 <input id="address1" type="text" class="form-control" name="address1" required value="{{ (old('address1'))?old('address1'):$dataUser['address1']}}">
 
                                 @if($errors->has('address1'))
@@ -139,7 +139,7 @@
 
                     <div class="form-group row {{ $errors->has('country') ? ' has-error' : '' }}">
                             <label for="country" class="col-md-4 col-form-label text-md-right">{{ trans('account.country') }}</label>
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="padding-bottom: 10px;">
                             <select class="form-control country" style="width: 100%;" name="country" >
                                 <option>__{{ trans('account.country') }}__</option>
                                 @foreach ($countries as $k => $v)
@@ -175,7 +175,7 @@
                     <div class="form-group row {{ $errors->has('birthday') ? ' has-error' : '' }}">
                         <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ trans('account.birthday') }}</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="padding-bottom: 10px;">
                             <input type="date" id="birthday" data-date-format="YYYY-MM-DD" class="form-control" name="birthday" required value="{{ (old('birthday'))?old('birthday'):$dataUser['birthday']}}">
 
                             @if($errors->has('birthday'))
@@ -190,7 +190,7 @@
                     <div class="form-group row {{ $errors->has('group') ? ' has-error' : '' }}">
                         <label for="group" class="col-md-4 col-form-label text-md-right">{{ trans('account.group') }}</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="padding-bottom: 10px;">
                             <input id="group" type="text" class="form-control" name="group" required value="{{ (old('group'))?old('group'):$dataUser['group']}}">
 
                             @if($errors->has('group'))
@@ -201,8 +201,30 @@
                     </div>
                     @endif
 
+                    <div class="form-group row {{ $errors->has('harvest_check') ? ' has-error' : '' }}">
+                        <label for="first_name" class="col-md-4 col-form-label text-md-right">{{ trans('account.harvest_check') }}</label>
 
-                        <div class="form-group row mb-0">
+                        <div class="col-md-6">
+                            <span class="u-radio">
+                                <input type="radio" id="harvest_check1" name="harvest_check" value="ON"
+                                    @if($dataUser['harvest_check'] == 'ON') checked @endif>
+                                <label for="harvest_check1"><strong>ON</strong></label>
+                            <!-- .u-radio --></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="u-radio">
+                                <input type="radio" id="harvest_check2" name="harvest_check" value="OFF"
+                                    @if($dataUser['harvest_check'] != 'ON') checked @endif>
+                                <label for="harvest_check2"><strong>OFF</strong></label>
+                            <!-- .u-radio --></span>
+
+                            @if($errors->has('harvest_check'))
+                                <span class="help-block">{{ $errors->first('harvest_check') }}</span>
+                            @endif
+
+                        </div>
+                    </div>
+
+
+                        <div class="form-group row mb-1">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ trans('account.update_infomation') }}
