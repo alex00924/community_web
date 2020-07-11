@@ -26,4 +26,8 @@ $(document).ready(function(){
 	        zIndex: 2147483647 // Z-Index for the overlay
 		});
 	});
+	
+	$(".collect_email").on('click', function () {
+		location.href = 'member/login.html';
+	})
 });

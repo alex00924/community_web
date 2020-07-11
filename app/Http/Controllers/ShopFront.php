@@ -567,4 +567,8 @@ class ShopFront extends GeneralController
             }
         }
     }
+
+    public function landing() {
+        return view($this->templatePath . '.landing');
+    }
 }

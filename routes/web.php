@@ -95,4 +95,8 @@ Route::get('/{alias}'.$suffix, 'ContentFront@pages')->name('pages');
 // Route::fallback('ShopFront@pageNotFound')->name('pageNotFound'); //Make sure before using this route. There will be disadvantages when detecting 404 errors for static files like images, scripts ..
 //--end keep
 
+//landing page
+Route::get('/landing', 'ShopFront@landing'); 
+
+
 //=======End Front

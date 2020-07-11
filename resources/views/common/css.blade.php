@@ -183,4 +183,40 @@ input[type="number"]{
   }
 }
 
+.landing {
+  height: 600px;
+  width: 800px;
+  margin: 0 auto;
+  float: unset;
+  background: url(/images/landing.jpg) center no-repeat;
+  background-size: cover;
+  font-family: Karla;
+}
+
+.collect_email {
+  margin-left: 70px;
+  margin-top: 10px;
+  padding: 10px 30px;
+  font-size: 20px;
+  background-color: #4cb747;
+  border: none;
+  color: #ffffff;
+}
+
+.link_list {
+  position: absolute;
+  text-align: center;
+  font-size: 20px;
+  bottom: 15px;
+}
+
+a+a {
+  margin-left: 30px;
+}
+
+/*.link_list a {
+  color: #4cb747;
+}*/
+
+
 </style>
