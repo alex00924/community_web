@@ -7,8 +7,8 @@
 		
 /*scroll to top*/
 $(document).ready(function(){
-		$("#java-alert").modal('show');
-	/*if (typeof(Storage) !== "undefined") {
+	//$("#java-alert").modal('show');
+	if (typeof(Storage) !== "undefined") {
 		// Write code for local storage.
 		var getDemoObjectData = localStorage.getItem('demoObject');
 		if (getDemoObjectData == '' || getDemoObjectData == null) {
@@ -18,7 +18,7 @@ $(document).ready(function(){
 	} else {
 		// Sorry, your browser does not support Web Storage..
 		alert('Sorry, your browser does not support Web Storage');
-	}*/
+	}
 
 	$(function () {
 		$.scrollUp({
