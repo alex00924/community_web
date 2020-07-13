@@ -40,6 +40,10 @@ $(document).ready(function(){
 	});
 	
 	$(".collect_email").on('click', function () {
-		location.href = 'member/login.html';
+		//location.href = 'member/login.html';
+		window.open(
+			'member/login.html',
+			'_blank' // <- This is what makes it open in a new window.
+		  );
 	})
 });

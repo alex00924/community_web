@@ -194,21 +194,22 @@ input[type="number"]{
   background-size: cover;
   font-family: Karla;
   margin-top: 150px;
-  padding: 20px;
+  padding: 20px 0 0 30px;
 }
 
 .landing-title {
   font-size: 36px;
+  line-height: 1.2;
 }
 
 .landing-text {
   font-size: 20px;
   text-align: left;
-  padding: 10px 0 0 0px;
+  padding: 15px 0 0 0px;
 }
 
 .collect_email {
-  margin-top: 10px;
+  margin-top: 30px;
   padding: 7px 30px;
   font-size: 20px;
   background-color: #4cb747;
