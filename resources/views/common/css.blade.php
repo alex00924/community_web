@@ -184,11 +184,13 @@ input[type="number"]{
 }
 
 .modal-body1 {
-  height: 600px;
+  height: 550px;
   width: 1100px;
   margin: 0 auto;
   float: unset;
-  background: url(/images/landing.jpg) center no-repeat;
+  background: url(/images/login_bg.jpg) center no-repeat;
+  background-position-x: 650px;
+  background-color: #ffffff;
   background-size: cover;
   font-family: Karla;
   margin-top: 150px;
@@ -196,20 +198,17 @@ input[type="number"]{
 }
 
 .landing-title {
-  font-size: 30px;
-  font-weight: 500;
-  text-align: center;
+  font-size: 36px;
 }
 
 .landing-text {
   font-size: 20px;
   text-align: left;
-  padding: 10px 0 0 40px;
+  padding: 10px 0 0 0px;
 }
 
 .collect_email {
-  margin-left: 50px;
-  margin-top: 5px;
+  margin-top: 10px;
   padding: 7px 30px;
   font-size: 20px;
   background-color: #4cb747;
@@ -226,6 +225,11 @@ input[type="number"]{
 
 a+a {
   margin-left: 30px;
+}
+
+.landing-img {
+  width: 90%;
+  border-radius: 8px;
 }
 
 @media screen and (max-width: 768px) {
