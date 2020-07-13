@@ -21,6 +21,8 @@
       </map>
     </div>
   </div>
+
+  @include('templates.default.landing')
 @endsection
 
 

@@ -1,5 +1,4 @@
 /*price range*/
-
  $('#sl2').slider();
 
 	var RGBChange = function() {
@@ -8,6 +7,19 @@
 		
 /*scroll to top*/
 $(document).ready(function(){
+		$("#java-alert").modal('show');
+	/*if (typeof(Storage) !== "undefined") {
+		// Write code for local storage.
+		var getDemoObjectData = localStorage.getItem('demoObject');
+		if (getDemoObjectData == '' || getDemoObjectData == null) {
+			localStorage.setItem('demoObject', new Date());
+			$("#java-alert").modal('show');
+		}
+	} else {
+		// Sorry, your browser does not support Web Storage..
+		alert('Sorry, your browser does not support Web Storage');
+	}*/
+
 	$(function () {
 		$.scrollUp({
 	        scrollName: 'scrollUp', // Element ID

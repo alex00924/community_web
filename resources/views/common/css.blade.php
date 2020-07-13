@@ -183,20 +183,34 @@ input[type="number"]{
   }
 }
 
-.landing {
+.modal-body1 {
   height: 600px;
-  width: 800px;
+  width: 1100px;
   margin: 0 auto;
   float: unset;
   background: url(/images/landing.jpg) center no-repeat;
   background-size: cover;
   font-family: Karla;
+  margin-top: 150px;
+  padding: 20px;
+}
+
+.landing-title {
+  font-size: 30px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.landing-text {
+  font-size: 20px;
+  text-align: left;
+  padding: 10px 0 0 40px;
 }
 
 .collect_email {
-  margin-left: 70px;
-  margin-top: 10px;
-  padding: 10px 30px;
+  margin-left: 50px;
+  margin-top: 5px;
+  padding: 7px 30px;
   font-size: 20px;
   background-color: #4cb747;
   border: none;
@@ -214,9 +228,21 @@ a+a {
   margin-left: 30px;
 }
 
-/*.link_list a {
-  color: #4cb747;
-}*/
+@media screen and (max-width: 768px) {
+  .modal-body1 {
+      width: 360px;
+      text-align: center;
+  }
+
+  .landing-title {
+    font-size: 16px; 
+  }
+
+  .landing-text {
+    font-size: 16px;
+    text-align: center;
+  }
+}
 
 
 </style>
