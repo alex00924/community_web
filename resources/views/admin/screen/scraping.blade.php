@@ -4,8 +4,8 @@
 <form role="form" method="post" action="{{route('admin_scraping.email_extractor')}}" enctype='multipart/form-data'>
 	@csrf
     <input type="file" name="scrape" id="scrape" style="display: none;" accept=".csv"/>
-    <label class="uploadButton" for="scrape"><span>insert csv file</span></label>
-    <button type="sumbit" class="button_simple"><p><strong>EMAIL SCRAPING</strong></p></button>
+    <label class="uploadButton" for="scrape"><span>Import PMID List (.csv)</span></label>
+    <button type="sumbit" class="button_simple"><p><strong>Email Extract</strong></p></button>
 </form>
 @endsection
 

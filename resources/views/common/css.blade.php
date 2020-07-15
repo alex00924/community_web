@@ -200,12 +200,13 @@ input[type="number"]{
 .landing-title {
   font-size: 36px;
   line-height: 1.2;
+  padding-bottom: 10px
 }
 
 .landing-text {
   font-size: 20px;
   text-align: left;
-  padding: 15px 0 0 0px;
+  padding: 15px 0 5px 0px;
 }
 
 .go_sign {
@@ -241,6 +242,10 @@ a+a {
 .landing-img {
   width: 90%;
   border-radius: 8px;
+}
+
+#email {
+  height: 35px;
 }
 
 @media screen and (max-width: 768px) {

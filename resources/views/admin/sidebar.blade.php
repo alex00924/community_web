@@ -102,7 +102,7 @@
       {{-- end level 0 --}}
         <li class="">
           <a href="{{sc_url_render('admin::scraping')}}">
-            <i class="fa fa-pie-chart"></i> <span>Email Scraping</span>            
+            <i class="fa fa-pie-chart"></i> <span>Email Extract</span>            
           </a>
         </li>
       </ul>

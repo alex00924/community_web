@@ -11,7 +11,7 @@
                     Enter your email to receive our updates and newsletter
                   </p>
                   <input type="email" id="email" name="email" size="70" placeholder="max.narovlyansky@gmail.com">
-                  <div>
+                  <div style="padding-top: 20px;">
                     <button class="go_sign">Sign up for update</button>
                     <button class="go_web">Browser Website</button>
                   </div>
