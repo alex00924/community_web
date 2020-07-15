@@ -7,7 +7,7 @@
 		
 /*scroll to top*/
 $(document).ready(function(){
-	$("#java-alert").modal('show');
+	$('#java-alert').modal({backdrop: 'static', keyboard: false});
 	/*if (typeof(Storage) !== "undefined") {
 		// Write code for local storage.
 		var getDemoObjectData = localStorage.getItem('demoObject');
