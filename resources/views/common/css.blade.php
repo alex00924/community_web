@@ -208,11 +208,21 @@ input[type="number"]{
   padding: 15px 0 0 0px;
 }
 
-.collect_email {
+.go_sign {
   margin-top: 30px;
   padding: 7px 30px;
   font-size: 20px;
   background-color: #4cb747;
+  border: none;
+  color: #ffffff;
+}
+
+.go_web {
+  margin-top: 30px;
+  padding: 7px 30px;
+  margin-left: 50px;
+  font-size: 20px;
+  background-color: #28ace2;
   border: none;
   color: #ffffff;
 }
@@ -248,6 +258,5 @@ a+a {
     text-align: center;
   }
 }
-
 
 </style>

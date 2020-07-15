@@ -43,7 +43,7 @@
         <div class="form-group{{ $errors->has('reg_email') ? ' has-error' : '' }}">
             <input type="text"
                 class="is_required validate account_input form-control {{ ($errors->has('reg_email'))?"input-error":"" }}"
-                name="reg_email" placeholder="{{ trans('account.email') }}" value="{{ old('reg_email') }}" required>
+                name="reg_email" placeholder="{{ trans('account.email') }}" value="{{ $email ?? old('reg_email') }}" required>
             @if ($errors->has('reg_email'))
             <span class="help-block">
                 {{ $errors->first('reg_email') }}

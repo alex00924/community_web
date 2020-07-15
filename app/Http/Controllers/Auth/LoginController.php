@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\GeneralController;
 use App\Models\ShopCountry;
+use App\Models\EmailGroup;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -54,6 +55,16 @@ class LoginController extends GeneralController
     }
     public function showLoginForm()
     {
+        $email = $_GET['email'] ?? '';
+        if (!empty($email)) {
+            $result = EmailGroup::where('email',$email)->first();
+            if (empty($result)) {
+                $data = new EmailGroup;
+                $data->email = $email;
+                $data->save();
+            }
+        }
+
         if (Auth::user()) {
             return redirect()->route('home');
         }
@@ -61,6 +72,7 @@ class LoginController extends GeneralController
             array(
                 'title' => trans('front.login'),
                 'countries' => ShopCountry::getArray(),
+                'email' => $email,
             )
         );
     }

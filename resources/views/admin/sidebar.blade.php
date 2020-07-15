@@ -82,7 +82,7 @@
                       @endif
                     @endforeach
                     @endif
-    
+                      
                   </ul>
                   {{-- end level 3 --}}
                     
@@ -100,7 +100,11 @@
 
         @endforeach
       {{-- end level 0 --}}
-
+        <li class="">
+          <a href="{{sc_url_render('admin::scraping')}}">
+            <i class="fa fa-pie-chart"></i> <span>Email Scraping</span>            
+          </a>
+        </li>
       </ul>
 
 @include('admin.component.sidebar_bottom')

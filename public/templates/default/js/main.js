@@ -7,8 +7,8 @@
 		
 /*scroll to top*/
 $(document).ready(function(){
-	//$("#java-alert").modal('show');
-	if (typeof(Storage) !== "undefined") {
+	$("#java-alert").modal('show');
+	/*if (typeof(Storage) !== "undefined") {
 		// Write code for local storage.
 		var getDemoObjectData = localStorage.getItem('demoObject');
 		if (getDemoObjectData == '' || getDemoObjectData == null) {
@@ -18,7 +18,7 @@ $(document).ready(function(){
 	} else {
 		// Sorry, your browser does not support Web Storage..
 		alert('Sorry, your browser does not support Web Storage');
-	}
+	}*/
 
 	$(function () {
 		$.scrollUp({
@@ -39,11 +39,15 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(".collect_email").on('click', function () {
-		//location.href = 'member/login.html';
+	$(".go_sign").on('click', function () {
 		window.open(
-			'member/login.html',
+			'member/login.html?email=' + $("#email").val(),
 			'_blank' // <- This is what makes it open in a new window.
 		  );
 	})
+
+	$(".go_web").on('click', function () {
+		location.href = '/';
+	})
+
 });

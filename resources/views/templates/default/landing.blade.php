@@ -1,3 +1,6 @@
+@extends($templatePath.'.shop_layout')
+
+@section('main')
 <div class="modal fade" id="java-alert" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
       <div class="modal-body1">
           <div class="row" style="margin-top: 100px !important;">
@@ -5,24 +8,20 @@
                   <p class="landing-title">
                     <b>Fluids for life is connecting<br> biologists with microfluidics<br> and engineering tools.</b></p>
                   <p class="landing-text">
-                    From microphysiological systems, to single-cell<br>
-                    
-                    dispensers, to 3D cell printers we can connect<br>
-                    
-                    you with technology to enable your experiments.
-                    
+                    Enter your email to receive our updates and newsletter
                   </p>
-                  <button class="collect_email">{{--Join our mailing list--}}Start Here</button>
+                  <input type="email" id="email" name="email" size="70" placeholder="max.narovlyansky@gmail.com">
+                  <div>
+                    <button class="go_sign">Sign up for update</button>
+                    <button class="go_web">Browser Website</button>
+                  </div>
               </div>
               <div class="col-md-6">
                 <img src="/images/landing.jpg" class="landing-img">
               </div>
           </div>
-          {{--<div class="link_list">
-            <a href="" class="">Custom designs</a>
-            <a href="/" class="">FluidsForLife</a>
-            <a href="/about.html" class="">About us</a>
-          </div>--}}
-        
+       
       </div>
 </div>
+
+@endsection
