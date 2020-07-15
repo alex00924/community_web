@@ -56,7 +56,7 @@ return [
     'asset_url' => env('ASSET_URL', null),
 
     //This value will re-define in database with App\Providers\ScartServiceProvider
-    'admin_prefix' => env('ADMIN_PREFIX', 'sc_admin'),
+    'admin_prefix' => env('ADMIN_PREFIX', 'community_admin'),
 
     /*
     |--------------------------------------------------------------------------

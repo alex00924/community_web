@@ -73,7 +73,7 @@ class ScartServiceProvider extends ServiceProvider
             //End debug mode
 
             //Admin prefix
-            config(['app.admin_prefix' => (sc_config('ADMIN_PREFIX') ?: env('ADMIN_PREFIX', 'sc_admin'))]);
+            config(['app.admin_prefix' => (sc_config('ADMIN_PREFIX') ?: env('ADMIN_PREFIX', 'community_admin'))]);
             //End Admin prefix
 
 

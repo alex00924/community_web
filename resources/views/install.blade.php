@@ -131,7 +131,7 @@
                         <div id="div_admin_url" class="form-group required">
                             <label for="admin_url"  required class="control-label col-md-4  requiredField"> {{ trans('install.admin_url') }} </label>
                             <div class="controls col-md-8">
-                                <input class="input-md  textinput textInput form-control" id="admin_url"  name="admin_url" placeholder="{{ trans('install.admin_url') }}" style="margin-bottom: 10px" type="text" value="sc_admin" />
+                                <input class="input-md  textinput textInput form-control" id="admin_url"  name="admin_url" placeholder="{{ trans('install.admin_url') }}" style="margin-bottom: 10px" type="text" value="community_admin" />
                             </div>
                         </div>
 
