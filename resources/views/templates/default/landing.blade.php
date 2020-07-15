@@ -10,7 +10,7 @@
                   <p class="landing-text">
                     Enter your email to receive our updates and newsletter
                   </p>
-                  <input type="email" id="email" name="email" size="70">
+                  <input type="email" id="email" name="email" size="70" placeholder="Enter your email address">
                   <div style="padding-top: 20px;">
                     <button class="go_sign">Sign up for update</button>
                     <button class="go_web">Browse Website</button>
