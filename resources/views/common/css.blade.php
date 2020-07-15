@@ -211,7 +211,7 @@ input[type="number"]{
 
 .go_sign {
   margin-top: 30px;
-  padding: 7px 30px;
+  padding: 7px 25px;
   font-size: 20px;
   background-color: #4cb747;
   border: none;
@@ -220,7 +220,7 @@ input[type="number"]{
 
 .go_web {
   margin-top: 30px;
-  padding: 7px 30px;
+  padding: 7px 25px;
   margin-left: 50px;
   font-size: 20px;
   background-color: #28ace2;
