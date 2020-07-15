@@ -13,7 +13,7 @@
                   <input type="email" id="email" name="email" size="70">
                   <div style="padding-top: 20px;">
                     <button class="go_sign">Sign up for update</button>
-                    <button class="go_web">Browser Website</button>
+                    <button class="go_web">Browse Website</button>
                   </div>
               </div>
               <div class="col-md-6">

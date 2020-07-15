@@ -246,6 +246,7 @@ a+a {
 
 #email {
   height: 35px;
+  padding-left: 5px;
 }
 
 @media screen and (max-width: 768px) {
