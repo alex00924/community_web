@@ -39,23 +39,80 @@ class ScrapingController extends Controller
             $scape = [];
             //get text in scientic publish
             $html = file_get_contents('https://pubmed.ncbi.nlm.nih.gov/' . $data[0]);
+            
             //get email in text
             $pattern = '/[a-z0-9_\-\+\.]+@[a-z0-9\-]+\.([a-z]{2,4})(?:\.[a-z]{2})?/i';
             preg_match_all($pattern, $html, $matches);
             $result = $matches[0];
+            
             //valite email
             $key = array_search('email@example.com', $result);
             unset($result[$key]);
             $emails = array_unique($result);
+            
+            //full name
+            $sub = $html;
+            $author_list = [];
+            $pos = strpos($sub, 'data-ga-action="author_link"');
+            while ($pos > 0) {
+                $sub = trim(substr($sub, $pos + 28));
+                $pos1 = strpos($sub, '">');
+                $full_name = substr($sub, 15, $pos1 - 15);
+                array_push($author_list,$full_name);
+                $pos = strpos($sub, 'data-ga-action="author_link"');
+            }
+            /*$pos1 = strpos($html, '<span class="full-name">');
+            $sub_str = substr($html, $pos1 + 24);
+            $pos2 = strpos($sub_str, '</span>');
+            $full_name = substr($sub_str, 0, $pos2);
+            //$full_name = $author_list[count($author_list) - 1];
+            $pos3 = strpos($full_name, ' ');
+            $first_name = substr($full_name, 0, $pos3);
+            $last_name = substr($full_name, $pos3 + 1);*/
+
+            //Journal
+            $pos1 = strpos($html, '<span class="citation-journal">');
+            $sub_str = substr($html, $pos1 + 31);
+            $pos2 = strpos($sub_str, '<span class="citation-separator">');
+            $journal = trim(substr($sub_str, 0, $pos2));
+
+            //Publication name
+            $pos1 = strpos($html, '<title>');
+            $sub_str = substr($html, $pos1 + 7);
+            $pos2 = strpos($sub_str, '</title>');
+            $title = substr($sub_str, 0, $pos2 - 9);
+
+            //Year
+            $pos1 = strpos($html, '<time class="citation-year">');
+            $sub_str = substr($html, $pos1 + 28);
+            //$pos2 = strpos($sub_str, '</time>');
+            $year = substr($sub_str, 0, 4);
+
             //get csv's data
             if (empty($emails)) {
-                $scape['pmid'] = $data[0];
-                $scape['email'] = '';
+                $scape['pmid']       = $data[0];
+                $scape['first_name'] = '';
+                $scape['last_name']  = '';
+                $scape['email']      = '';
+                $scape['title']      = $title;
+                $scape['journal']    = $journal;
+                $scape['year']       = $year;
                 array_push($scapingData, $scape);
             } else {
                 foreach ($emails as $email) {
                     $scape['pmid'] = $data[0];
-                    $scape['email'] = $email;
+                    $author_name   = $this->getName($email, $author_list);
+                    if (count($author_name) > 0) {
+                        $scape['first_name'] = $author_name[0];
+                        $scape['last_name']  = $author_name[1];
+                    } else {
+                        $scape['first_name'] = '';
+                        $scape['last_name']  = '';
+                    }
+                    $scape['email']   = $email;
+                    $scape['title']   = $title;
+                    $scape['journal'] = $journal;
+                    $scape['year']    = $year;
                     array_push($scapingData, $scape);
                 }
             }
@@ -70,12 +127,13 @@ class ScrapingController extends Controller
             "Expires" => "0"
         );
 
-        //$columns = array('PMID', 'Email');
 
         $callback = function() use ($scapingData)
         {
             $file = fopen('php://output', 'w');
-            //fputcsv($file, $columns);
+
+            $columns = array('PMID', 'First Name', 'Last Name', 'Email', 'Publication name', 'Journal', 'Year');
+            fputcsv($file, $columns);
 
             foreach($scapingData as $line) {
                 fputcsv($file, $line);
@@ -85,5 +143,38 @@ class ScrapingController extends Controller
         
         return response()->stream($callback, 200, $headers);
 
+    }
+
+    public function getName($email, $author_list)
+    {
+        $author_name = [];
+        if (count($author_list) > 0) {
+            foreach ($author_list as $author) {
+                $list = explode(" ", $author);
+                $name1 = $list[0];
+                $name2 = $list[count($list) - 1];
+
+                $pos1 = strpos(strtolower($email), strtolower($name1));
+                $pos2 = strpos(strtolower($email), strtolower($name2));
+
+                if ($pos1 > 1) {
+                    $author_name[0] = $name2;
+                    $author_name[1] = $name1;
+                } else if ( $pos2 > 1 ) {
+                    $author_name[0] = $name1;
+                    $author_name[1] = $name2;
+                }
+
+            }
+        }
+
+        if (empty($author_name)) {
+            $full_name = $author_list[count($author_list) - 1];
+            $list = explode(" ", $full_name);
+            $author_name[0] = $list[0];
+            $author_name[1] = $list[count($list) - 1];
+        }
+
+        return $author_name;
     }
 }
