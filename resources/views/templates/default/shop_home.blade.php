@@ -16,7 +16,7 @@
       <img  alt="fluids for life" src="/images/welcome_bg.jpg" style="margin: auto; width: 100%" usemap="#image-map">
       <map name="image-map">
           <area alt="" title="Information" href="{{ route('news') }}" coords="142,281,58" shape="circle">
-          <area alt="" title="Networking" href="/network" coords="314,254,97" shape="circle">
+          <area alt="" title="Networking" href="/network/ambassadors.html" coords="314,254,97" shape="circle">
           <area alt="" title="Equipment" href="{{ route('product.all') }}" coords="544,224,123" shape="circle">
       </map>
     </div>

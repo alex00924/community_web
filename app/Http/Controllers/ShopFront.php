@@ -15,6 +15,8 @@ use App\Models\QuestionaireQuestion;
 use App\Models\QuestionaireAnswer;
 use App\Models\ShopBenefit;
 use App\Models\Study;
+use App\Models\Network;
+use App\Models\ShopUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -515,10 +517,127 @@ class ShopFront extends GeneralController
 
     public function network() {
         if (Auth::user()) {
-            return view($this->templatePath . '.network');
+            $users = ShopUser::whereNotNull('skill')->get();
+            $network_users = [];
+            foreach ($users as $user) {
+                if ($user['skill']) {
+                    $user['skill'] = json_decode($user['skill']);
+                }
+
+                if ($user['need']) {
+                    $user['need'] = json_decode($user['need']);
+                }
+
+                array_push($network_users, $user);
+            }
+            
+            return view($this->templatePath . '.network', compact('network_users'));
         } else {
             return redirect(url('/'));
         }
+    }
+
+    public function ambassadors() {
+        return view($this->templatePath . '.ambassadors');
+    }
+
+    public function showNetworkLoginForm() {
+        if (Auth::user()) {
+            $user = Auth::user();
+            $skills = Network::where('type', 'skill')->get();
+            $needs = Network::where('type', 'need')->get();
+
+            return view($this->templatePath . '.network_register', compact('user','skills','needs'));
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    /**
+     * email extractor
+     * @param Request $request  
+     */
+    public function network_register(Request $request)
+    {
+        $user = Auth::user();
+        $background = $request->input('background');
+        $sel_skills = $request->input('sel_skills');
+        $sel_needs = $request->input('sel_needs');
+
+        if ($background) {
+            $user->background = $background;
+        }
+        
+        if ($sel_skills) {
+            $old_skills = json_decode($user->skill);
+            
+            foreach ($old_skills as $old_skill) {
+                $result = Network::where('name',$old_skill)->first();
+                if ($result) {
+                    $network = Network::find($result['id']);
+                    $network->count = $result['count'] - 1;
+
+                    $network->save();
+                }
+            }
+
+            $user->skill = json_encode($sel_skills);
+            
+            foreach ($sel_skills as $sel_skill) {
+                $result = Network::where('name',$sel_skill)->first();
+                
+                if ($result) {
+                    $network = Network::find($result['id']);
+                    $network->count = $result['count'] + 1;
+
+                    $network->save();
+                } else {
+                    $network        = new Network();
+                    $network->name  = $sel_skill;
+                    $network->type  = 'skill';
+                    $network->count = 1;
+
+                    $network->save();
+                }
+            }
+        }
+        
+        if ($sel_needs) {
+            $old_needs = json_decode($user->need);
+
+            foreach ($old_needs as $old_need) {
+                $result = Network::where('name',$old_need)->first();
+                if ($result) {
+                    $network = Network::find($result['id']);
+                    $network->count = $result['count'] - 1;
+
+                    $network->save();
+                }
+            }
+
+            $user->need = json_encode($sel_needs);
+
+            foreach ($sel_needs as $sel_need) {
+                $result = Network::where('name',$sel_need)->first();
+                if ($result) {
+                    $network = Network::find($result['id']);
+                    $network->count = $result['count'] + 1;
+
+                    $network->save();
+                } else {
+                    $network        = new Network();
+                    $network->name  = $sel_need;
+                    $network->type  = 'need';
+                    $network->count = 1;
+
+                    $network->save();
+                }
+            }
+        }
+
+        $user->save();
+
+        return redirect('/network/register.html');
     }
 
     public function covidNews() {

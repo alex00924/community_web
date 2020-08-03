@@ -127,7 +127,7 @@ input[type="number"]{
 .network-img {
   width: 100%; 
   text-align: center; 
-  padding: 4rem 0rem;
+  padding: 4rem 0rem 2rem 0rem;
 }
 
 .network-img1 {
@@ -159,6 +159,13 @@ input[type="number"]{
   padding: 0px 10px; 
   text-align: center;
   font-size: 24px;
+}
+
+.f-name1 {
+  color: white; 
+  padding: 0px 10px; 
+  text-align: center;
+  font-size: 16px;
 }
 
 .f-16 {
@@ -265,4 +272,12 @@ a+a {
   }
 }
 
+.network-back {
+  width: 80.5% !important;
+  margin-left: 15px;
+  height: 37px;
+  border: solid 2px;
+  border-color: #aaaaaa;
+  border-radius: 4px;
+}
 </style>

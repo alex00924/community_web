@@ -22,6 +22,10 @@ Route::get('/terms_condition', 'ShopFront@termsCondition');
 
 $suffix = sc_config('SUFFIX_URL')??'';
 
+Route::get('/network/ambassadors'.$suffix, 'ShopFront@ambassadors')->name('ambassadors');
+Route::get('/network/register.html', 'ShopFront@showNetworkLoginForm')->name('showNetworkRegister');
+Route::post('/network/register.html', 'ShopFront@network_register')->name('networkRegister');
+
 /*
  Auth
 */
