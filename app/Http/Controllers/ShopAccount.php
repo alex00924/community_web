@@ -325,7 +325,7 @@ class ShopAccount extends GeneralController
 
         $user->save();
 
-        return redirect('/member/newwork_register.html');
+        return redirect('/member/network_register.html');
     }
 
     /**
