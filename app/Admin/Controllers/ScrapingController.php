@@ -39,7 +39,9 @@ class ScrapingController extends Controller
             $scape = [];
             //get text in scientic publish
             $html = file_get_contents('https://pubmed.ncbi.nlm.nih.gov/' . $data[0]);
-            
+            //$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
+            //$html = mb_convert_encoding($html, 'UTF-8', mb_detect_encoding($html, 'UTF-8, ISO-8859-1', true));
+
             //get email in text
             $pattern = '/[a-z0-9_\-\+\.]+@[a-z0-9\-]+\.([a-z]{2,4})(?:\.[a-z]{2})?/i';
             preg_match_all($pattern, $html, $matches);
@@ -61,6 +63,8 @@ class ScrapingController extends Controller
                 array_push($author_list,$full_name);
                 $pos = strpos($sub, 'data-ga-action="author_link"');
             }
+            $author_list = array_unique($author_list);
+            
             /*$pos1 = strpos($html, '<span class="full-name">');
             $sub_str = substr($html, $pos1 + 24);
             $pos2 = strpos($sub_str, '</span>');
@@ -131,6 +135,7 @@ class ScrapingController extends Controller
         $callback = function() use ($scapingData)
         {
             $file = fopen('php://output', 'w');
+            fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
 
             $columns = array('PMID', 'First Name', 'Last Name', 'Email', 'Publication name', 'Journal', 'Year');
             fputcsv($file, $columns);
