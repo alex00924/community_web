@@ -6,6 +6,7 @@ use App\Models\ShopCountry;
 use App\Models\ShopOrder;
 use App\Models\ShopOrderStatus;
 use App\Models\ShopUser;
+use App\Models\Network;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -227,5 +228,125 @@ class ShopAccount extends GeneralController
                 ]
             );
     }
+    
+    public function showNetworkLoginForm() {
+        if (Auth::user()) {
+            $user = Auth::user();
+            $skills = Network::where('type', 'skill')->get();
+            $needs = Network::where('type', 'need')->get();
 
+            return view($this->templatePath . '.account.network_register', compact('user','skills','needs'));
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    /**
+     * 
+     * @param Request $request  
+     */
+    public function network_register(Request $request)
+    {
+        $user = Auth::user();
+        $background = $request->input('background');
+        $sel_skills = $request->input('sel_skills');
+        $sel_needs = $request->input('sel_needs');
+
+        if ($background) {
+            $user->background = $background;
+        }
+        
+        if ($sel_skills) {
+            $old_skills = json_decode($user->skill);
+            
+            foreach ($old_skills as $old_skill) {
+                $result = Network::where('name',$old_skill)->first();
+                if ($result) {
+                    $network = Network::find($result['id']);
+                    $network->count = $result['count'] - 1;
+
+                    $network->save();
+                }
+            }
+
+            $user->skill = json_encode($sel_skills);
+            
+            foreach ($sel_skills as $sel_skill) {
+                $result = Network::where('name',$sel_skill)->first();
+                
+                if ($result) {
+                    $network = Network::find($result['id']);
+                    $network->count = $result['count'] + 1;
+
+                    $network->save();
+                } else {
+                    $network        = new Network();
+                    $network->name  = $sel_skill;
+                    $network->type  = 'skill';
+                    $network->count = 1;
+
+                    $network->save();
+                }
+            }
+        }
+        
+        if ($sel_needs) {
+            $old_needs = json_decode($user->need);
+
+            foreach ($old_needs as $old_need) {
+                $result = Network::where('name',$old_need)->first();
+                if ($result) {
+                    $network = Network::find($result['id']);
+                    $network->count = $result['count'] - 1;
+
+                    $network->save();
+                }
+            }
+
+            $user->need = json_encode($sel_needs);
+
+            foreach ($sel_needs as $sel_need) {
+                $result = Network::where('name',$sel_need)->first();
+                if ($result) {
+                    $network = Network::find($result['id']);
+                    $network->count = $result['count'] + 1;
+
+                    $network->save();
+                } else {
+                    $network        = new Network();
+                    $network->name  = $sel_need;
+                    $network->type  = 'need';
+                    $network->count = 1;
+
+                    $network->save();
+                }
+            }
+        }
+
+        $user->save();
+
+        return redirect('/member/register.html');
+    }
+
+    /**
+     * 
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function network_check(Request $request)
+    {
+        $status = $request->status;
+        $user = Auth::user();
+
+        if ($status == 'true') {
+            $user->network_status = 'on';
+        } else {
+            $user->network_status = 'off';
+        }
+
+        $user->save();
+
+        return response()->json(['result' => 'success']);
+    }
 }

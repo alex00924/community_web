@@ -280,4 +280,84 @@ a+a {
   border-color: #aaaaaa;
   border-radius: 4px;
 }
+
+/* Toggle Switch */
+.toggle-switch {
+	position: relative;
+	display: inline-block;
+	width: 48px;
+	height: 25px;
+  margin-left: 50px;
+  vertical-align: middle;
+}
+.toggle-switch .toggle-slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #0000004d;
+	-webkit-transition: .4s;
+	transition: .4s;
+	border-radius: 34px;
+	border: 1px solid rgba(101, 103, 119, 0.21);
+}
+.toggle-switch .toggle-slider:before {
+	position: absolute;
+	content: "";
+	height: 16px;
+	width: 16px;
+	left: 4px;
+	bottom: 4px;
+	background-color: #ffffff;
+	-webkit-transition: .4s;
+	transition: .4s;
+	border-radius: 50%;
+}
+.toggle-switch input {
+	visibility: hidden;
+}
+.toggle-switch input:checked + .toggle-slider {
+	background-color: #f16857;
+}
+.toggle-switch input:checked + .toggle-slider:before {
+	-webkit-transform: translateX(23px);
+	-ms-transform: translateX(23px);
+	transform: translateX(23px);
+}
+.toggle-switch.toggle-switch-primary input:checked + .toggle-slider {
+	background-color: #f16857;
+}
+.toggle-switch.toggle-switch-secondary input:checked + .toggle-slider {
+	background-color: #d9dbdc;
+}
+.toggle-switch.toggle-switch-success input:checked + .toggle-slider {
+	background-color: #389466;
+}
+.toggle-switch.toggle-switch-info input:checked + .toggle-slider {
+	background-color: #18879d;
+}
+.toggle-switch.toggle-switch-warning input:checked + .toggle-slider {
+	background-color: #da8115;
+}
+.toggle-switch.toggle-switch-danger input:checked + .toggle-slider {
+	background-color: #d24571;
+}
+.toggle-switch.toggle-switch-light input:checked + .toggle-slider {
+	background-color: #f8f9fa;
+}
+.toggle-switch.toggle-switch-dark input:checked + .toggle-slider {
+	background-color: #39a06e;
+}
+label.toggle-switch.toggle-switch-dark .off {
+	font-size: 7px;
+	padding-top: 10px;
+	padding-left: 29px;
+}
+label.toggle-switch.toggle-switch-dark .on {
+	font-size: 10px;
+	padding-left: 40px;
+}
+
 </style>

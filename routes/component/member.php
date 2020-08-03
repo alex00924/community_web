@@ -17,4 +17,9 @@ Route::group(['prefix' => $prefixMember, 'middleware' => 'auth'], function ($rou
         ->name('member.change_infomation');
     $router->post('/change_infomation', 'ShopAccount@postChangeInfomation')
         ->name('member.post_change_infomation');
+    $router->get('/register.html', 'ShopAccount@showNetworkLoginForm')
+        ->name('member.networking');
+    $router->post('/register.html', 'ShopAccount@network_register')
+        ->name('member.network_register');
+    $router->post('/network-check', 'ShopAccount@network_check');
 });

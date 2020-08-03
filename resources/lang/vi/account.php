@@ -8,6 +8,7 @@ return [
     'my_profile'              => 'Tài khoản của tôi',
     'change_password'         => 'Thay đổi mật khẩu',
     'change_infomation'       => 'Thay đổi thông tin',
+    'networking'              => 'Networking',
     'update_infomation'       => 'Cập nhật thông tin',
     'update_success'          => 'Cập nhật thông tin thành công!',
     'password_old'            => 'Mật khẩu hiện tại',

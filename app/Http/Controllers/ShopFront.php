@@ -15,7 +15,6 @@ use App\Models\QuestionaireQuestion;
 use App\Models\QuestionaireAnswer;
 use App\Models\ShopBenefit;
 use App\Models\Study;
-use App\Models\Network;
 use App\Models\ShopUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -517,7 +516,7 @@ class ShopFront extends GeneralController
 
     public function network() {
         if (Auth::user()) {
-            $users = ShopUser::whereNotNull('skill')->get();
+            $users = ShopUser::where('network_status','on')->get();
             $network_users = [];
             foreach ($users as $user) {
                 if ($user['skill']) {

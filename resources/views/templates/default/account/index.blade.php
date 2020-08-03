@@ -9,6 +9,7 @@
             <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i> <a href="{{ route('member.change_password') }}">{{ trans('account.change_password') }}</a></li>
             <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i> <a href="{{ route('member.change_infomation') }}">{{ trans('account.change_infomation') }}</a></li>
             <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i> <a href="{{ route('member.order_list') }}">{{ trans('account.order_list') }}</a></li>
+            <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i> <a href="{{ route('member.networking') }}">{{ trans('account.networking') }}</a></li>
         </ul>
     </div>
 </div>

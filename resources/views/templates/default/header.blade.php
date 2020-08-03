@@ -95,14 +95,10 @@
                 </li>
 
                 @if(Auth::user())
-                <li class="dropdown">
+                <li>
                   <a class="{{ ( request()->is('network*') ) ? 'active' : '' }}" href="/network">
-                    {{ trans('front.network') }}<i class="fa fa-angle-down"></i>
+                    {{ trans('front.network') }}
                   </a>
-                    <ul role="menu" class="sub-menu">
-                        <li><a class="{{ ( $routeName == 'showNetworkRegister') ? 'active' : '' }}" href="{{ route('showNetworkRegister') }}">Register</a></li>
-                        <li><a class="{{ ( $routeName == 'ambassadors') ? 'active' : '' }}" href="{{ route('ambassadors') }}">Readme</a></li>
-                    </ul>
                 </li>
                 @endif
 

@@ -8,6 +8,7 @@ return [
     'my_profile'              => 'My profile',
     'change_password'         => 'Change password',
     'change_infomation'       => 'Change infomation',
+    'networking'              => 'Networking',
     'update_infomation'       => 'Update infomation',
     'update_success'          => 'Update success!',
     'password_old'            => 'Old password',
