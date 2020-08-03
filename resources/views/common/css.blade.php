@@ -141,7 +141,8 @@ input[type="number"]{
 .network-col1 {
   height: 150px;
   color: white; 
-  padding: 10px 10px; 
+  padding: 10px 10px;
+  overflow-y: auto;
 }
 
 .network-col2 {
@@ -152,6 +153,7 @@ input[type="number"]{
   padding: 10px 25px;
   width: calc(100% + 30px);
   margin-left: -15px;
+  overflow-y: auto;
 }
 
 .f-name {
