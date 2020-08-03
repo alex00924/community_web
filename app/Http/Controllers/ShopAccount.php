@@ -259,13 +259,15 @@ class ShopAccount extends GeneralController
         if ($sel_skills) {
             $old_skills = json_decode($user->skill);
             
-            foreach ($old_skills as $old_skill) {
-                $result = Network::where('name',$old_skill)->first();
-                if ($result) {
-                    $network = Network::find($result['id']);
-                    $network->count = $result['count'] - 1;
-
-                    $network->save();
+            if ($old_skills) {
+                foreach ($old_skills as $old_skill) {
+                    $result = Network::where('name',$old_skill)->first();
+                    if ($result) {
+                        $network = Network::find($result['id']);
+                        $network->count = $result['count'] - 1;
+    
+                        $network->save();
+                    }
                 }
             }
 
@@ -293,13 +295,15 @@ class ShopAccount extends GeneralController
         if ($sel_needs) {
             $old_needs = json_decode($user->need);
 
-            foreach ($old_needs as $old_need) {
-                $result = Network::where('name',$old_need)->first();
-                if ($result) {
-                    $network = Network::find($result['id']);
-                    $network->count = $result['count'] - 1;
-
-                    $network->save();
+            if ($old_needs) {
+                foreach ($old_needs as $old_need) {
+                    $result = Network::where('name',$old_need)->first();
+                    if ($result) {
+                        $network = Network::find($result['id']);
+                        $network->count = $result['count'] - 1;
+    
+                        $network->save();
+                    }
                 }
             }
 
