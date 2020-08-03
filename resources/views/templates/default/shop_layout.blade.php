@@ -242,5 +242,11 @@
     <script src="{{ asset('chat/client_chat.js') }}"></script> -->
   {{-- @include('chat.client_chat_content') --}}
   @endauth
+
+@push('scripts')
+  <!-- Start of HubSpot Embed Code -->
+  <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8077927.js"></script>
+  <!-- End of HubSpot Embed Code -->
+@endpush
 </body>
 </html>

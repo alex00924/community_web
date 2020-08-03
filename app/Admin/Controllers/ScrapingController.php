@@ -162,6 +162,7 @@ class ScrapingController extends Controller
     {
         global $author_list;
         $author_name = [];
+        $sel_author = '';
         if (count($author_list) > 0) {
             foreach ($author_list as $author) {
                 $list = explode(" ", $author);
@@ -187,6 +188,8 @@ class ScrapingController extends Controller
                         $author_name[0] = $name2;
                         $author_name[1] = $name1;
                     }
+                    $key = array_search($author, $author_list);
+                    unset($author_list[$key]);
                     break;
                 } else if ($pos1 !== false) {
                     if ($pos1 == 0) {
@@ -196,23 +199,37 @@ class ScrapingController extends Controller
                         $author_name[0] = $name2;
                         $author_name[1] = $name1;
                     }
+                    $sel_author = $author;
                 } else if ($pos2 !== false) {
                     if ($pos2 == 0) {
-                        $author_name[0] = $name2;
-                        $author_name[1] = $name1;
+                        $str = explode("@",$email);
+                        if (strtolower($name2) == strtolower($str[0])) {
+                            $author_name[0] = $name1;
+                            $author_name[1] = $name2;
+                        } else {
+                            $author_name[0] = $name2;
+                            $author_name[1] = $name1;
+                        }
                     } else {
                         $author_name[0] = $name1;
                         $author_name[1] = $name2;
                     }
+                    $sel_author = $author;
                 }
             }
         }
 
-        if (empty($author_name)) {
+        /*if (empty($author_name)) {
             $full_name = $author_list[count($author_list) - 1];
             $list = explode(" ", $full_name);
             $author_name[0] = $list[0];
             $author_name[1] = $list[count($list) - 1];
+            $sel_author = $full_name;
+        }*/
+
+        if ($sel_author) {
+            $key = array_search($sel_author, $author_list);
+            unset($author_list[$key]);
         }
 
         return $author_name;
