@@ -24,9 +24,9 @@
         {!! csrf_field() !!}
 
             <div class="row" style="padding-bottom: 10px !important;">
-                <label class="col-md-2" for="background" style="padding-top: 10px;">Background</label>
-                <input type="text" class="col-md-10 network-back" id="background" name="background" placeholder="" 
-                  value="{{$user['background'] ?? ''}}" @if($user['network_status'] != 'on') disabled @endif>
+                <label class="col-md-2" for="background" style="padding-top: 10px;">About</label>
+                <textarea class="col-md-10 network-back" rows="4" id="background" name="background" 
+                  @if($user['network_status'] != 'on') disabled @endif>{{$user['background'] ?? ''}}</textarea>
             </div>
 
             <div class="row">
