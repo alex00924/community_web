@@ -26,6 +26,8 @@ Route::get('/network/ambassadors'.$suffix, 'ShopFront@ambassadors')->name('ambas
 Route::get('/network/register.html', 'ShopFront@showNetworkLoginForm')->name('showNetworkRegister');
 Route::post('/network/register.html', 'ShopFront@network_register')->name('networkRegister');
 
+Route::get('/dashboard.html', 'ShopFront@dashboard');
+
 /*
  Auth
 */

@@ -367,4 +367,15 @@ label.toggle-switch.toggle-switch-dark .on {
 	padding-left: 40px;
 }
 
+/* Personal */
+#personal-dashboard .theme-title {
+  border-top: solid 0.5rem;
+  border-top-color: #4db848;
+  padding: 0 0 30px 20px;
+  color: #695f5f;
+}
+
+#personal-dashboard .theme-item {
+
+}
 </style>

@@ -540,6 +540,10 @@ class ShopFront extends GeneralController
         return view($this->templatePath . '.ambassadors');
     }
 
+    public function dashboard() {
+        return view($this->templatePath . '.dashboard');
+    }
+
     public function showNetworkLoginForm() {
         if (Auth::user()) {
             $user = Auth::user();
