@@ -138,6 +138,12 @@ input[type="number"]{
   border-color: #ffffff;
 }
 
+.network-col {
+  color: white; 
+  padding: 10px 10px;
+  overflow-y: auto;
+}
+
 .network-col1 {
   height: 150px;
   color: white; 
