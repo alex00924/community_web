@@ -2,8 +2,6 @@
 
 @section('main')
 
-@section('main')
-
 <section >
     <div class="container ckeditor-content">
         <div class="row">
