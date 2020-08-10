@@ -371,11 +371,53 @@ label.toggle-switch.toggle-switch-dark .on {
 #personal-dashboard .theme-title {
   border-top: solid 0.5rem;
   border-top-color: #4db848;
-  padding: 0 0 30px 20px;
-  color: #695f5f;
+  padding: 0 0 5px 10px;
+  color: #8a8484;
+  fa
 }
 
 #personal-dashboard .theme-item {
+  color: #8a8484;
+  padding: 5px 20px;
+  position: relative;
+}
 
+.vp45yf {
+    pointer-events: none;
+    position: absolute !important;
+    right: 0;
+    color: #8a8484;
+    top: 25px;
+    margin-top: -12px;
+}
+
+.z1asCe {
+    display: inline-block;
+    fill: currentColor;
+    height: 24px;
+    line-height: 24px;
+    width: 24px;
+}
+
+.FXMOpb {
+    /*display: inline-block;
+    fill: currentColor;
+    height: 24px;
+    line-height: 24px;
+    width: 24px;*/
+    transform: rotate(180deg);
+}
+
+.clinical-content,
+.newsletter-content,
+.skill-content,
+.need-content {
+  display: none;
+  font-size: 18px;
+}
+
+.clinical-item {
+  text-align: right;
+  padding-right: 30px;
 }
 </style>

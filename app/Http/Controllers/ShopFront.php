@@ -15,7 +15,10 @@ use App\Models\QuestionaireQuestion;
 use App\Models\QuestionaireAnswer;
 use App\Models\ShopBenefit;
 use App\Models\Study;
+use App\Models\Drug;
+use App\Models\Condition;
 use App\Models\ShopUser;
+use App\Models\Network;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -541,7 +544,27 @@ class ShopFront extends GeneralController
     }
 
     public function dashboard() {
-        return view($this->templatePath . '.dashboard');
+        $today = date('Y-m-d H:i:s');
+        $before_day = date_create($today);
+        date_sub($before_day,date_interval_create_from_date_string("7 days"));
+        $before_day = date_format($before_day,"Y-m-d H:i:s");
+        $new_skills = Network::where('type', 'skill')->where('created_at', '>',$before_day)->orderBy('name')->get();
+        $new_needs = Network::where('type', 'need')->where('created_at', '>',$before_day)->orderBy('name')->get();
+
+        $study = new Study;
+        $study->setConnection('mysql2');
+        $new_study = $study->where('created_at','>',$before_day)->get();
+
+        $condution = new Condition;
+        $condution->setConnection('mysql2');
+        $new_condition = $condution->where('created_at','>',$before_day)->get();
+
+        $drug = new Drug;
+        $drug->setConnection('mysql2');
+        $new_drug = $drug->where('created_at','>',$before_day)->get();
+        //dd($new_conditions);
+
+        return view($this->templatePath . '.dashboard', compact('new_skills','new_needs','new_study','new_condition','new_drug'));
     }
 
     public function showNetworkLoginForm() {
