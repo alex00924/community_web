@@ -57,6 +57,7 @@ class ScrapingController extends Controller
             $key = array_search('email@example.com', $result);
             unset($result[$key]);
             $emails = array_unique($result);
+            //dd($emails);
             
             //full name
             $sub = $html;
@@ -70,7 +71,7 @@ class ScrapingController extends Controller
                 $pos = strpos($sub, 'data-ga-action="author_link"');
             }
             $author_list = array_unique($author_list);
-            //dd($html);
+            //dd($author_list);
             /*$pos1 = strpos($html, '<span class="full-name">');
             $sub_str = substr($html, $pos1 + 24);
             $pos2 = strpos($sub_str, '</span>');
@@ -82,9 +83,13 @@ class ScrapingController extends Controller
 
             //Journal
             $pos1 = strpos($html, '<span class="citation-journal">');
-            $sub_str = substr($html, $pos1 + 31);
-            $pos2 = strpos($sub_str, '<span class="citation-separator">');
-            $journal = trim(substr($sub_str, 0, $pos2));
+            if ($pos1 !== false) {
+                $sub_str = substr($html, $pos1 + 31);
+                $pos2 = strpos($sub_str, '<span class="citation-separator">');
+                $journal = trim(substr($sub_str, 0, $pos2));
+            } else {
+                $journal = '';
+            }
 
             //Publication name
             $pos1 = strpos($html, '<title>');
@@ -94,9 +99,13 @@ class ScrapingController extends Controller
 
             //Year
             $pos1 = strpos($html, '<time class="citation-year">');
-            $sub_str = substr($html, $pos1 + 28);
-            //$pos2 = strpos($sub_str, '</time>');
-            $year = substr($sub_str, 0, 4);
+            if ($pos1 !== false) {
+                $sub_str = substr($html, $pos1 + 28);
+                //$pos2 = strpos($sub_str, '</time>');
+                $year = substr($sub_str, 0, 4);
+            } else {
+                $year = '';
+            }
 
             //get csv's data
             if (empty($emails)) {
@@ -130,6 +139,7 @@ class ScrapingController extends Controller
             }
         }
         fclose($file);
+        //dd($scapingData);
 
         $headers = array(
             "Content-type" => "text/csv",
@@ -163,24 +173,27 @@ class ScrapingController extends Controller
         global $author_list;
         $author_name = [];
         $sel_author = '';
+        $str = explode("@",$email);
+        $email = $str[0];
+
         if (count($author_list) > 0) {
             foreach ($author_list as $author) {
                 $list = explode(" ", $author);
                 $name1 = $list[0];
                 $name2 = $list[count($list) - 1];
 
-                $pos1 = strpos(strtolower($email), strtolower($name1));
-                $pos2 = strpos(strtolower($email), strtolower($name2));
+                $pos1 = strpos(strtolower($email), strtolower(str_replace('-','',$name1)));
+                $pos2 = strpos(strtolower($email), strtolower(str_replace('-','',$name2)));
 
-                if ($pos1 > 1) {
+                if ($pos1 > 1) {//  if first name exist
                     $author_name[0] = $name2;
                     $author_name[1] = $name1;
-                } else if ( $pos2 > 1 ) {
+                } else if ( $pos2 > 1 ) { // if last name exist
                     $author_name[0] = $name1;
                     $author_name[1] = $name2;
                 }
 
-                if ($pos1 !== false && $pos2 !== false) {
+                if ($pos1 !== false && $pos2 !== false) {// if both exist
                     if ($pos1 == 0) {
                         $author_name[0] = $name1;
                         $author_name[1] = $name2;
@@ -191,7 +204,7 @@ class ScrapingController extends Controller
                     $key = array_search($author, $author_list);
                     unset($author_list[$key]);
                     break;
-                } else if ($pos1 !== false) {
+                } else if ($pos1 !== false) { // if forst name exist only
                     if ($pos1 == 0) {
                         $author_name[0] = $name1;
                         $author_name[1] = $name2;
@@ -200,10 +213,9 @@ class ScrapingController extends Controller
                         $author_name[1] = $name1;
                     }
                     $sel_author = $author;
-                } else if ($pos2 !== false) {
+                } else if ($pos2 !== false) { // last name exist only
                     if ($pos2 == 0) {
-                        $str = explode("@",$email);
-                        if (strtolower($name2) == strtolower($str[0])) {
+                        if (strtolower($name2) == strtolower($email)) {
                             $author_name[0] = $name1;
                             $author_name[1] = $name2;
                         } else {
@@ -216,18 +228,78 @@ class ScrapingController extends Controller
                     }
                     $sel_author = $author;
                 }
+
+                if (empty($author_name)) { // if first character of first name and last name exist
+                    $search1 = '';
+                    $search2 = '';
+                    $search3 = '';
+                    foreach ($list as $str) {
+                        $search1 .= substr($str,0,1);
+                        if (strlen($str) > 1) {
+                            $search2 .= substr($str,0,2);
+                        }
+                        if (strlen($str) > 2) {
+                            $search3 .= substr($str,0,3);
+                        }
+                    }
+
+                    $search_pos1 = strpos(strtolower($email), strtolower($search1));
+                    $search_pos2 = strpos(strtolower($email), strtolower($search2));
+                    $search_pos3 = strpos(strtolower($email), strtolower($search3));
+
+                    if ($search_pos1 !== false || $search_pos2 !== false || $search_pos3 !== false ) {
+                        $author_name[0] = $name1;
+                        $author_name[1] = $name2;
+                        $sel_author = $author;
+                    }
+                }
+            }
+
+            if (empty($author_name)) { // if first character of first name or last name exist one time
+                $cnt1 = 0;
+                $cnt2 = 0;
+                foreach ($author_list as $author) {
+                    $list = explode(" ", $author);
+                    $name1 = $list[0];
+                    $name2 = $list[count($list) - 1];
+
+                    if (strtolower(substr($name1,0,1)) === strtolower(substr($email,0,1))) {
+                        $author_name[0] = $name1;
+                        $author_name[1] = $name2;
+                        $sel_author = $author;
+                        $cnt1 ++;
+                    } else if (strtolower(substr($name2,0,1)) === strtolower(substr($email,0,1))) {
+                        $author_name[0] = $name2;
+                        $author_name[1] = $name1;
+                        $sel_author = $author;
+                        $cnt2 ++;
+                    }
+                }
+
+                if ($cnt1 != 1 && $cnt2 != 1) {
+                    $sel_author = '';
+                    $author_name = [];
+                }
+            }
+
+            if (empty($author_name)) { // similar percent 70% over
+                foreach ($author_list as $author) {
+                    $list = explode(" ", $author);
+                    $name1 = $list[0];
+                    $name2 = $list[count($list) - 1];
+                    $sim1 = similar_text(strtolower($name1), strtolower($email), $perc1);
+                    $sim2 = similar_text(strtolower($name2), strtolower($email), $perc2);
+
+                    if ($perc1 > 70 || $perc2 > 70) {
+                        $author_name[0] = $name1;
+                        $author_name[1] = $name2;
+                        $sel_author = $author;
+                    }
+                }
             }
         }
 
-        /*if (empty($author_name)) {
-            $full_name = $author_list[count($author_list) - 1];
-            $list = explode(" ", $full_name);
-            $author_name[0] = $list[0];
-            $author_name[1] = $list[count($list) - 1];
-            $sel_author = $full_name;
-        }*/
-
-        if ($sel_author) {
+        if ($sel_author) { // remove existing author name in author array
             $key = array_search($sel_author, $author_list);
             unset($author_list[$key]);
         }
