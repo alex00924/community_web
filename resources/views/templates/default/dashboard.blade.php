@@ -84,7 +84,7 @@
       <hr>
       <div class="theme-item" id="newsletter">
         <span id="newsletter-arrow" class="vp45yf z1asCe" style="right:20px"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg></span>
-        <div style="display: inline;"><h4>Newsletters</h4></div>
+        <div style="display: inline;"><h4>New and Updated Scientific Articles</h4></div>
       </div>
       <div class="newsletter-content">
         <hr>

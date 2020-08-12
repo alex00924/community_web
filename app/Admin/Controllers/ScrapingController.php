@@ -40,13 +40,6 @@ class ScrapingController extends Controller
             $scape = [];
             //get text in scientic publish
             $html = file_get_contents('https://pubmed.ncbi.nlm.nih.gov/' . $data[0]);
-            //$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
-            //$html = mb_convert_encoding($html, 'UTF-8', mb_detect_encoding($html, 'UTF-8, ISO-8859-1', true));
-            /*$html = mb_convert_encoding(
-                mb_convert_encoding($html, 'UTF-8', mb_detect_encoding($html, 'UTF-8, ISO-8859-1', true)),
-                'HTML-ENTITIES',
-                'UTF-8'
-            );*/
 
             //get email in text
             $pattern = '/[a-z0-9_\-\+\.]+@[a-z0-9\-]+\.([a-z]{2,4})(?:\.[a-z]{2})?/i';
@@ -72,14 +65,6 @@ class ScrapingController extends Controller
             }
             $author_list = array_unique($author_list);
             //dd($author_list);
-            /*$pos1 = strpos($html, '<span class="full-name">');
-            $sub_str = substr($html, $pos1 + 24);
-            $pos2 = strpos($sub_str, '</span>');
-            $full_name = substr($sub_str, 0, $pos2);
-            //$full_name = $author_list[count($author_list) - 1];
-            $pos3 = strpos($full_name, ' ');
-            $first_name = substr($full_name, 0, $pos3);
-            $last_name = substr($full_name, $pos3 + 1);*/
 
             //Journal
             $pos1 = strpos($html, '<span class="citation-journal">');
@@ -233,6 +218,10 @@ class ScrapingController extends Controller
                     $search1 = '';
                     $search2 = '';
                     $search3 = '';
+                    $search_pos1 = false;
+                    $search_pos2 = false;
+                    $search_pos3 = false;
+
                     foreach ($list as $str) {
                         $search1 .= substr($str,0,1);
                         if (strlen($str) > 1) {
@@ -243,9 +232,9 @@ class ScrapingController extends Controller
                         }
                     }
 
-                    $search_pos1 = strpos(strtolower($email), strtolower($search1));
-                    $search_pos2 = strpos(strtolower($email), strtolower($search2));
-                    $search_pos3 = strpos(strtolower($email), strtolower($search3));
+                    if ($search1) $search_pos1 = strpos(strtolower($email), strtolower($search1));
+                    if ($search2) $search_pos2 = strpos(strtolower($email), strtolower($search2));
+                    if ($search3) $search_pos3 = strpos(strtolower($email), strtolower($search3));
 
                     if ($search_pos1 !== false || $search_pos2 !== false || $search_pos3 !== false ) {
                         $author_name[0] = $name1;
