@@ -105,7 +105,7 @@ Route::get('/{alias}'.$suffix, 'ContentFront@pages')->name('pages');
 Route::get('/landing', 'ShopFront@landing'); 
 
 //scraping page
-Route::get('/scraping', 'ShopFront@scraping'); 
-Route::post('/email-extractor', 'ShopFront@email_extractor')->name('email_extractor'); 
+//Route::get('/scraping', 'ShopFront@scraping'); 
+//Route::post('/email-extractor', 'ShopFront@email_extractor')->name('email_extractor'); 
 
 //=======End Front
