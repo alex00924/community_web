@@ -27,6 +27,7 @@ class ScrapingController extends Controller
     public function email_extractor(Request $request)
     {
         $path = $request['scrape'];
+        $fileName = str_replace('.csv', ' scraped.csv', $_FILES['scrape']['name']);
 
         if (empty($path)) {
             return redirect()->back();
@@ -128,7 +129,7 @@ class ScrapingController extends Controller
 
         $headers = array(
             "Content-type" => "text/csv",
-            "Content-Disposition" => "attachment; filename=scraping.csv",
+            "Content-Disposition" => "attachment; filename=" . $fileName,
             "Pragma" => "no-cache",
             "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
             "Expires" => "0"
