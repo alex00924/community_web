@@ -168,6 +168,7 @@ input[type="number"]{
   text-align: center;
   font-size: 24px;
   word-wrap: break-word;
+  line-height: 1;
 }
 
 .f-name1 {
