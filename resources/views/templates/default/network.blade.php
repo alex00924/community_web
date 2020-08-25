@@ -19,7 +19,7 @@
             <div class="col-xs-12 col-md-4 network-right">
               <div class="network-col">
                 <b class="f-16">About:</b>
-                <p>{{$network['background']}}</p>
+                <p style="word-wrap: break-word;padding-left: 10px;">{{$network['background']}}</p>
               </div>
             </div>
             <div class="col-xs-12 col-md-4 network-right">

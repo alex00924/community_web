@@ -100,7 +100,6 @@ input[type="number"]{
 
 .m--img-rounded {
   border-radius: 50%;
-  height: 130px;
   width: 126px;
   border: solid .5rem;
   border-color: #4DB848;
@@ -127,7 +126,7 @@ input[type="number"]{
 .network-img {
   width: 100%; 
   text-align: center; 
-  padding: 4rem 0rem 2rem 0rem;
+  padding: 3rem;
 }
 
 .network-img1 {
@@ -184,6 +183,7 @@ input[type="number"]{
 
 .m-l-20 {
   margin-left: -20px;
+  word-wrap: break-word;
 }
 
 @media (min-width: 992px) {
