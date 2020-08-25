@@ -147,8 +147,8 @@ input[type="number"]{
 .network-col1 {
   height: 150px;
   color: white; 
-  padding: 10px;
-  width: calc(100% + 30px);
+  padding: 10px 0px;;
+  width: calc(100% + 15px);
   overflow-y: auto;
 }
 
@@ -157,7 +157,7 @@ input[type="number"]{
   border-top: solid 0.2rem;
   border-top-color: #ffffff;
   color: white; 
-  padding: 10px;
+  padding: 10px 15px;;
   width: calc(100% + 30px);
   margin-left: -15px;
   overflow-y: auto;
@@ -165,9 +165,9 @@ input[type="number"]{
 
 .f-name {
   color: white; 
-  padding: 0px 10px; 
   text-align: center;
   font-size: 24px;
+  word-wrap: break-word;
 }
 
 .f-name1 {
@@ -423,14 +423,14 @@ label.toggle-switch.toggle-switch-dark .on {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 3px;
 
 }
 
 ::-webkit-scrollbar-track {
   background-color:#00b0f0;
   padding-top:5px;
-  margin-bottom:5px;
+  margin-bottom:2px;
   border-radius:20px;
 }
 
