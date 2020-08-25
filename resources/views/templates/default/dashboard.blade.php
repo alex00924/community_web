@@ -10,7 +10,7 @@
       <hr>
       <div class="theme-item" id="skill">
         <span id="skill-arrow" class="vp45yf z1asCe" style="right:20px"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg></span>
-        <div style="display: inline;"><h4>New Skills</h4></div>
+        <div style="display: inline;"><h4>Skills</h4></div>
       </div>
       <div class="skill-content">
         @if(count($new_skills) > 0)
@@ -32,7 +32,7 @@
       <hr>
       <div class="theme-item" id="need">
         <span id="need-arrow" class="vp45yf z1asCe" style="right:20px"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg></span>
-        <div style="display: inline;"><h4>New Needs</h4></div>
+        <div style="display: inline;"><h4>Needs</h4></div>
       </div>
       <div class="need-content">
         @if(count($new_needs) > 0)
@@ -89,7 +89,7 @@
       <div class="newsletter-content">
         <hr>
         <div style="display:inline-flex; padding: 5px 0 5px 30px;">
-          <div class="clinical-category">there is no Updated</div>
+          <div class="clinical-category">No update</div>
           <div class="clinical-item"></div>
         </div>
       </div>

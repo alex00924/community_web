@@ -147,7 +147,8 @@ input[type="number"]{
 .network-col1 {
   height: 150px;
   color: white; 
-  padding: 10px 10px;
+  padding: 10px;
+  width: calc(100% + 30px);
   overflow-y: auto;
 }
 
@@ -156,7 +157,7 @@ input[type="number"]{
   border-top: solid 0.2rem;
   border-top-color: #ffffff;
   color: white; 
-  padding: 10px 25px;
+  padding: 10px;
   width: calc(100% + 30px);
   margin-left: -15px;
   overflow-y: auto;
@@ -419,5 +420,22 @@ label.toggle-switch.toggle-switch-dark .on {
 .clinical-item {
   text-align: right;
   padding-right: 30px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+
+}
+
+::-webkit-scrollbar-track {
+  background-color:#00b0f0;
+  padding-top:5px;
+  margin-bottom:5px;
+  border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4db848;
+  border-radius:20px;
 }
 </style>

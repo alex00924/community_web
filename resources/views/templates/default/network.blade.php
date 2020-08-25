@@ -7,13 +7,13 @@
     @if($network_users)
       @foreach($network_users as $network)
         <div class="col-xs-12 col-md-6">
-          <div class="row">
+          <div class="row" style="padding-bottom: 20px !important;">
             <div class="col-xs-12 col-md-4 network-left">
               <div class="network-img">
                   <img src="{{$network['avatar']}}" alt="person" class="m--img-rounded">
               </div>
               <div class="f-name">
-                {{$network['first_name'] . $network['last_name']}}
+                {{$network['first_name'] . ' ' . $network['last_name']}}
               </div>
             </div>
             <div class="col-xs-12 col-md-4 network-right">
