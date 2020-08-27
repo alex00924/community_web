@@ -43,14 +43,7 @@
                       </div>
                     </a>
                     <a href="{{ $product->getUrl() }}"><div class="product-name-container"><p>{{ $product->name }}</p></div></a>
-                    <div class="price">{!! $product->showPrice() !!}</div>
-                      @if ($product->allowSale())
-                       <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product->id }}','default')">
-                         <i class="fa fa-shopping-cart"></i>{{trans('front.add_to_cart')}}
-                      </a>
-                      @else
-                        &nbsp;
-                      @endif
+                    <div class="price">{!! $product->showPrice() !!}</div>                      
                   </div>
                       @if ($product->price != $product->getFinalPrice() && $product->kind != SC_PRODUCT_GROUP)
                       <img src="{{ asset($templateFile.'/images/home/sale.png') }}" class="new" alt="" />
@@ -66,8 +59,15 @@
                 </div>
                 <div class="choose">
                   <ul class="nav nav-pills nav-justified">
-                    <li><a  onClick="addToCartAjax({{ $product->id }},'wishlist')"><i class="fa fa-heart"></i>{{trans('front.add_to_wishlist')}}</a></li>
-                    <li><a  onClick="addToCartAjax({{ $product->id }},'compare')"><i class="fa fa-exchange"></i>{{trans('front.add_to_compare')}}</a></li>
+                    <li><a onClick="addToCartAjax({{ $product->id }},'wishlist')" title="{{trans('front.add_to_wishlist')}}"><i class="fa fa-heart fa-2x"></i></a></li>
+                    <li>
+                      @if ($product->allowSale())
+                       <a onClick="addToCartAjax('{{ $product->id }}','default')" title="{{trans('front.add_to_cart')}}"><i class="fa fa-plus fa-2x"></i></a>
+                      @else
+                        &nbsp;
+                      @endif
+                    </li>
+                    <li><a onClick="addToCartAjax({{ $product->id }},'compare')" title="{{trans('front.add_to_compare')}}"><i class="fa fa-exchange fa-2x"></i></a></li>
                   </ul>
                 </div>
               </div>
