@@ -13,6 +13,7 @@ define('SC_VIRTUAL_SERVICE', 3);
 define('SC_PRODUCT_NORMAL', 0);
 define('SC_PRODUCT_NEW', 1);
 define('SC_PRODUCT_HOT', 2);
+define('SC_PRODUCT_FREE', 3);
 // list ID admin guard
 define('SC_GUARD_ADMIN', ['1']);
 // list ID language guard

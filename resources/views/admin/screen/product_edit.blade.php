@@ -538,6 +538,30 @@
                                 @endif
                             </div>
                         </div>
+                        
+                        <div id="supplyName" class="form-group" @if($product->type != 3) style="display: none;" @endif>
+                            <label for="supply_name" class="col-sm-2  control-label">{{ trans('product.supplyName') }} 
+                                <span class="seo" title="SEO"></span></label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+                                    <input type="text" id="supply_name" name="supply_name" value="{{$product->supplyName}}"
+                                        class="form-control input-sm" placeholder="" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="supplyLink" class="form-group" @if($product->type != 3) style="display: none;" @endif>
+                            <label for="supply_link" class="col-sm-2  control-label">{{ trans('product.supplyLink') }} 
+                                <span class="seo" title="SEO"></span></label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+                                    <input type="text" id="supply_link" name="supply_link" value="{{$product->supplyLink}}"
+                                        class="form-control input-sm" placeholder="" />
+                                </div>
+                            </div>
+                        </div>
                         @endif
                         {{-- //Type --}}
 @endif
@@ -967,6 +991,16 @@ $('.removeproductBuild').click(function(event) {
 });
 //end select in build
 
+$('input[type=radio][name=type]').change(function() {
+    if (this.value == 3) {
+        $("#supplyName").attr('style','display: block;');
+        $("#supplyLink").attr('style','display: block;');
+    }
+    else {
+        $("#supplyName").attr('style','display: none;');
+        $("#supplyLink").attr('style','display: none;');
+    }
+});
 
 // Select product attributes
 $('.add-attribute').click(function(event) {

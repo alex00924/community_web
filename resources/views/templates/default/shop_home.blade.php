@@ -7,14 +7,13 @@
       <p style="font-size: 20px; text-align: left">
         ・<u><a id="r1Link" href="{{ route('news') }}" style="color: #000;">Information</a></u> about various microfluidic systems for life sciences
       </p>
-      <p style="font-size: 20px; text-align: left">
+      <p style="font-size: 20px; text-align: left;">
         ・Find specialized <u><a id="r3Link" href="{{ route('product.all') }}" style="color: #000;">equipment</a></u> for your needs
       </p>
-      <p style="font-size: 20px; text-align: left">
+      <p style="font-size: 20px; text-align: left;">
         ・<u><a id="r2Link" href="/network/ambassadors.html" style="color: #000;">Network</a></u> with biologists and engineers
       </p>
-      <canvas id='myCanvas'></canvas>
-      <img  alt="fluids for life" src="/images/welcome_bg.jpg" style="margin: auto; width: 100%" usemap="#image-map">
+      <img  alt="fluids for life" src="/images/welcome_bg.jpg" style="margin: auto; width: 100%;" usemap="#image-map">
       <map name="image-map">
           <area id="r1" title="Information" href="{{ route('news') }}" coords="142,281,58" shape="circle" 
             onmouseover="myHover(this);" onmouseout='myLeave(this);'>

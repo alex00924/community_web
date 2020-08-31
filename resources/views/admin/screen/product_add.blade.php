@@ -52,10 +52,10 @@
                     </div>
                 </div>
             </div>
-            <!-- /.box-header -->
+            {{-- /.box-header --}}
 
 
-            <!-- form start -->
+            {{-- form start --}}
             <form action="{{ route('admin_product.create') }}" method="post" name="form_name" accept-charset="UTF-8"
                 class="form-horizontal" id="form-main" enctype="multipart/form-data">
 
@@ -544,6 +544,50 @@
                             </div>
                         </div>
                         {{-- //type --}}
+
+                        <div id="supplyName" class="form-group {{ $errors->has('supply_name') ? ' has-error' : '' }}">
+                            <label for="supply_name" class="col-sm-2  control-label">{{ trans('product.supplyName') }} 
+                                <span class="seo" title="SEO"></span></label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+                                    <input type="text" id="supply_name" name="supply_name" value=""
+                                        class="form-control input-sm" placeholder="" />
+                                </div>
+                                {{--@if ($errors->has('supply_name'))
+                                    <span class="help-block">
+                                        <i class="fa fa-info-circle"></i>
+                                        {{ $errors->first('supply_name') }}
+                                    </span>
+                                @else
+                                    <span class="help-block">
+                                        <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>200]) }}
+                                    </span>
+                                @endif--}}
+                            </div>
+                        </div>
+
+                        <div id="supplyLink" class="form-group {{ $errors->has('supply_link') ? ' has-error' : '' }}">
+                            <label for="supply_link" class="col-sm-2  control-label">{{ trans('product.supplyLink') }} 
+                                <span class="seo" title="SEO"></span></label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+                                    <input type="text" id="supply_link" name="supply_link" value=""
+                                        class="form-control input-sm" placeholder="" />
+                                </div>
+                                {{--@if ($errors->has('supply_link'))
+                                    <span class="help-block">
+                                        <i class="fa fa-info-circle"></i>
+                                        {{ $errors->first('supply_link') }}
+                                    </span>
+                                @else
+                                    <span class="help-block">
+                                        <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>200]) }}
+                                    </span>
+                                @endif--}}
+                            </div>
+                        </div>
 @endif
 
 @if (sc_config('product_virtual'))
@@ -789,7 +833,7 @@
 
 
 
-                <!-- /.box-body -->
+                {{-- /.box-body --}}
 
                 <div class="box-footer kind kind0  kind1 kind2" id="box-footer">
                     @csrf
@@ -807,7 +851,7 @@
                     </div>
                 </div>
 
-                <!-- /.box-footer -->
+                {{-- /.box-footer --}}
             </form>
         </div>
     </div>
@@ -817,7 +861,7 @@
 @endsection
 
 @push('styles')
-<!-- Select2 -->
+{{-- Select2 --}}
 <link rel="stylesheet" href="{{ asset('admin/AdminLTE/bower_components/select2/dist/css/select2.min.css')}}">
 
 {{-- switch --}}
@@ -829,11 +873,11 @@
 @endpush
 
 @push('scripts')
-<!--ckeditor-->
+{{--ckeditor--}}
 <script src="{{ asset('packages/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('packages/ckeditor/adapters/jquery.js') }}"></script>
 
-<!-- Select2 -->
+{{-- Select2 --}}
 <script src="{{ asset('admin/AdminLTE/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
 
 {{-- input image --}}
@@ -847,6 +891,16 @@
 
 <script type="text/javascript">
     $("[name='top'],[name='status']").bootstrapSwitch();
+    $('input[type=radio][name=type]').change(function() {
+        if (this.value == 3) {
+            $("#supplyName").attr('style','display: block;');
+            $("#supplyLink").attr('style','display: block;');
+        }
+        else {
+            $("#supplyName").attr('style','display: none;');
+            $("#supplyLink").attr('style','display: none;');
+        }
+    });
 </script>
 
 <script type="text/javascript">

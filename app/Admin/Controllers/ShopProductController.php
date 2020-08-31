@@ -34,6 +34,7 @@ class ShopProductController extends Controller
             SC_PRODUCT_NORMAL => trans('product.types.normal'),
             SC_PRODUCT_NEW => trans('product.types.new'),
             SC_PRODUCT_HOT => trans('product.types.hot'),
+            SC_PRODUCT_FREE => trans('product.types.free'),
         ];
         $this->kinds = [
             SC_PRODUCT_SINGLE => trans('product.kinds.single'),
@@ -134,7 +135,10 @@ class ShopProductController extends Controller
                 $type = '<span class="label label-success">' . $type . '</span>';
             } elseif ($row['type'] == SC_PRODUCT_HOT) {
                 $type = '<span class="label label-danger">' . $type . '</span>';
+            } elseif ($row['type'] == SC_PRODUCT_FREE) {
+                $type = '<span class="label label-info">' . $type . '</span>';
             }
+
             $dataMap = [
                 'check_row' => '<input type="checkbox" class="grid-row-checkbox" data-id="' . $row['id'] . '">',
                 'id' => $row['id'],
@@ -444,7 +448,9 @@ class ShopProductController extends Controller
             'image' => $data['image']??'',
             'status' => (!empty($data['status']) ? 1 : 0),
             'sort' => (int) $data['sort'],
-            'attribute_price' => !empty($data['attribute_price']) ? $data['attribute_price'] : null
+            'attribute_price' => !empty($data['attribute_price']) ? $data['attribute_price'] : null,
+            'supplyName' => !empty($data['supply_name']) ? $data['supply_name'] : null,
+            'supplyLink' => !empty($data['supply_link']) ? $data['supply_link'] : null
         ];
         //insert product
         $product = ShopProduct::create($dataInsert);
@@ -711,7 +717,9 @@ class ShopProductController extends Controller
             'alias' => $data['alias'],
             'status' => (!empty($data['status']) ? 1 : 0),
             'sort' => (int) $data['sort'],
-            'attribute_price' => !empty($data['attribute_price']) ? $data['attribute_price'] : null
+            'attribute_price' => !empty($data['attribute_price']) ? $data['attribute_price'] : null,
+            'supplyName' => !empty($data['supply_name']) ? $data['supply_name'] : null,
+            'supplyLink' => !empty($data['supply_link']) ? $data['supply_link'] : null
         ];
 
         $product->update($dataUpdate);

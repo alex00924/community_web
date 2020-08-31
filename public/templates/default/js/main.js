@@ -67,33 +67,15 @@ $(document).ready(function(){
 
 });
 
-var c = document.getElementById("myCanvas");
-var ctx = c.getContext("2d");
-
 function myHover(element)
 {
 	//document.getElementById(element.getAttribute('id')).css = "opacity:0.2;";
 	$('#' + element.getAttribute('id')).attr('style','opacity:0.5;');
 	$('#' + element.getAttribute('id') + 'Link').attr('style','color:#00b0f0;');
-	/*var coords = element.getAttribute('coords');
-	var mCoords = coords.split(',');
-	var left = mCoords[0];
-    var top = mCoords[1];
-	var radius = mCoords[2];
-
-	c.style.position = "absolute";
-	c.style.left = left + "px";
-	c.style.top = top + "px";
-	
-	ctx.beginPath();
-	ctx.arc(0, radius - 10, radius, 0, Math.PI * 2, true);
-	ctx.stroke();*/
 }
 
 function myLeave(element)
 {
 	$('#' + element.getAttribute('id')).attr('style','opacity:0;');
 	$('#' + element.getAttribute('id') + 'Link').attr('style','color:#000;');
-
-
 }

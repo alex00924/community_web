@@ -52,6 +52,8 @@ return [
     'builds'                => 'Products build',
     'review'                => 'Reviews',
     'benefit'               => 'Benefits',
+    'supplyName'            => 'Supplier Name',
+    'supplyLink'            => 'Supplier Website',
     'admin'                 => [
         'title'                   => 'Product',
         'manager'                 => 'Product Manager',
@@ -104,6 +106,7 @@ return [
         'normal' => 'Normal',
         'new'    => 'New',
         'hot'    => 'Hot',
+        'free'    => 'Free',
     ],
     'kinds'                 => [
         'single' => 'Single',

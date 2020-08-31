@@ -20,6 +20,7 @@ class ReportController extends Controller
             SC_PRODUCT_NORMAL => trans('product.types.normal'),
             SC_PRODUCT_NEW => trans('product.types.new'),
             SC_PRODUCT_HOT => trans('product.types.hot'),
+            SC_PRODUCT_FREE => trans('product.types.free'),
         ];
         $this->kinds = [
             SC_PRODUCT_SINGLE => trans('product.kinds.single'),
@@ -110,6 +111,8 @@ class ReportController extends Controller
                 $type = '<span class="label label-success">' . $type . '</span>';
             } elseif ($row['type'] == SC_PRODUCT_HOT) {
                 $type = '<span class="label label-danger">' . $type . '</span>';
+            } elseif ($row['type'] == SC_PRODUCT_FREE) {
+                $type = '<span class="label label-info">' . $type . '</span>';
             }
 
             $dataTr[] = [

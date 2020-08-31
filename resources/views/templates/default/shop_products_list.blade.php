@@ -34,7 +34,7 @@
       @else
           @foreach ($products as  $key => $product)
           <div class=" col-xs-6 col-sm-4 col-lg-3">
-              <div class="product-image-wrapper product-single">
+              <div class="product-image-wrapper product-single @if($product->type == 3) free-post @endif">
                 <div class="single-products">
                   <div class="productinfo text-center product-box-{{ $product->id }}">
                     <a href="{{ $product->getUrl() }}">
@@ -43,7 +43,12 @@
                       </div>
                     </a>
                     <a href="{{ $product->getUrl() }}"><div class="product-name-container"><p>{{ $product->name }}</p></div></a>
-                    <div class="price">{!! $product->showPrice() !!}</div>                      
+                    @if($product->type == 3)
+                      <div style="padding-bottom: 15px;"><a href="{{ $product->supplyLink }}" target="_blank" 
+                        style="color: #4db848;">{{ 'Producted by ' . $product->supplyName }}</a></div>
+                    @else
+                      <div class="price">{!! $product->showPrice() !!}</div>
+                    @endif
                   </div>
                       @if ($product->price != $product->getFinalPrice() && $product->kind != SC_PRODUCT_GROUP)
                       <img src="{{ asset($templateFile.'/images/home/sale.png') }}" class="new" alt="" />
@@ -59,14 +64,16 @@
                 </div>
                 <div class="choose">
                   <ul class="nav nav-pills nav-justified">
-                    <li><a onClick="addToCartAjax({{ $product->id }},'wishlist')" title="{{trans('front.add_to_wishlist')}}"><i class="fa fa-heart fa-2x"></i></a></li>
-                    <li>
-                      @if ($product->allowSale())
-                       <a onClick="addToCartAjax('{{ $product->id }}','default')" title="{{trans('front.add_to_cart')}}"><i class="fa fa-plus fa-2x"></i></a>
-                      @else
-                        &nbsp;
-                      @endif
-                    </li>
+                    @if($product->type != 3)
+                      <li><a onClick="addToCartAjax({{ $product->id }},'wishlist')" title="{{trans('front.add_to_wishlist')}}"><i class="fa fa-heart fa-2x"></i></a></li>
+                      <li>
+                        @if ($product->allowSale())
+                        <a onClick="addToCartAjax('{{ $product->id }}','default')" title="{{trans('front.add_to_cart')}}"><i class="fa fa-plus fa-2x"></i></a>
+                        @else
+                          &nbsp;
+                        @endif
+                      </li>
+                    @endif
                     <li><a onClick="addToCartAjax({{ $product->id }},'compare')" title="{{trans('front.add_to_compare')}}"><i class="fa fa-exchange fa-2x"></i></a></li>
                   </ul>
                 </div>

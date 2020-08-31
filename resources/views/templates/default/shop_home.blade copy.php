@@ -5,7 +5,7 @@
             <h2 class="title text-center">{{ trans('front.features_items') }}</h2>
                 @foreach ($products_new as  $key => $product_new)
                   <div class=" col-xs-6 col-sm-4 col-lg-3">
-                    <div class="product-image-wrapper product-single">
+                    <div class="product-image-wrapper product-single @if($product_new->type == 3) free-post @endif">
                       <div class="single-products product-box-{{ $product_new->id }}">
                           <div class="productinfo text-center">
                             <a href="{{ $product_new->getUrl() }}">
@@ -14,13 +14,11 @@
                               </div>
                             </a>
                             <a href="{{ $product_new->getUrl() }}"><div class="product-name-container"><p>{{ $product_new->name }}</p></div></a>
-                            <div class="price">
-                              {!! $product_new->showPrice() !!}
-                            </div>
-                            @if ($product_new->allowSale())
-                             <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product_new->id }}','default')"><i class="fa fa-shopping-cart"></i>{{trans('front.add_to_cart')}}</a>
+                            @if($product_new->type == 3)
+                              <div style="padding-bottom: 15px;"><a href="{{ $product_new->supplyLink }}" target="_blank" 
+                                style="color: #4db848;">{{ 'Producted by ' . $product_new->supplyName }}</a></div>
                             @else
-                              &nbsp;
+                              <div class="price">{!! $product_new->showPrice() !!}</div>
                             @endif
 
                           </div>
@@ -38,8 +36,17 @@
                       </div>
                       <div class="choose">
                         <ul class="nav nav-pills nav-justified">
-                          <li><a onClick="addToCartAjax('{{ $product_new->id }}','wishlist')"><i class="fa fa-heart"></i>{{trans('front.add_to_wishlist')}}</a></li>
-                          <li><a onClick="addToCartAjax('{{ $product_new->id }}','compare')"><i class="fa fa-exchange"></i>{{trans('front.add_to_compare')}}</a></li>
+                          @if($product_new->type != 3)
+                            <li><a onClick="addToCartAjax('{{ $product_new->id }}','wishlist')" title="{{trans('front.add_to_wishlist')}}"><i class="fa fa-heart"></i></a></li>
+                            <li>
+                              @if ($product_new->allowSale())
+                              <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product_new->id }}','default')" title="{{trans('front.add_to_cart')}}"><i class="fa fa-shopping-cart"></i></a>
+                              @else
+                                &nbsp;
+                              @endif
+                            </li>
+                          @endif
+                          <li><a onClick="addToCartAjax('{{ $product_new->id }}','compare')" title="{{trans('front.add_to_compare')}}"><i class="fa fa-exchange"></i></a></li>
                         </ul>
                       </div>
                     </div>
@@ -56,7 +63,7 @@
                 @if ($key % 4 == 0)
                   <div class="item {{  ($key ==0)?'active':'' }}">
                 @endif
-                  <div class=" col-xs-6 col-sm-4 col-lg-3">
+                  <div class=" col-xs-6 col-sm-4 col-lg-3 @if($product_hot->type == 3) free-post @endif">
                     <div class="product-image-wrapper product-single">
                       <div class="single-products   product-box-{{ $product_hot->id }}">
                           <div class="productinfo text-center">
@@ -66,9 +73,12 @@
                               </div>
                             </a>
                             <a href="{{ $product_hot->getUrl() }}"><div class="product-name-container"><p>{{ $product_hot->name }}</p></div></a>
-                            <div class="price">
-                              {!! $product_hot->showPrice() !!}
-                            </div>                            
+                            @if($product_hot->type == 3)
+                              <div style="padding-bottom: 15px;"><a href="{{ $product_hot->supplyLink }}" target="_blank" 
+                                style="color: #4db848;">{{ 'Producted by ' . $product_hot->supplyName }}</a></div>
+                            @else
+                              <div class="price">{!! $product_hot->showPrice() !!}</div>
+                            @endif
                           </div>
 
                       @if ($product_hot->price != $product_hot->getFinalPrice() && $product_hot->kind != SC_PRODUCT_GROUP)
@@ -86,14 +96,16 @@
                       </div>
                       <div class="choose">
                         <ul class="nav nav-pills nav-justified">
-                          <li><a onClick="addToCartAjax('{{ $product_hot->id }}','wishlist')" title="{{trans('front.add_to_wishlist')}}"><i class="fa fa-heart"></i></a></li>
-                          <li>
-                            @if ($product_hot->allowSale())
-                             <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product_hot->id }}','default')" title="{{trans('front.add_to_cart')}}"><i class="fa fa-shopping-cart"></i></a>
-                            @else
-                              &nbsp;
-                            @endif
-                          </li>
+                          @if($product_hot->type != 3)
+                            <li><a onClick="addToCartAjax('{{ $product_hot->id }}','wishlist')" title="{{trans('front.add_to_wishlist')}}"><i class="fa fa-heart"></i></a></li>
+                            <li>
+                              @if ($product_hot->allowSale())
+                              <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product_hot->id }}','default')" title="{{trans('front.add_to_cart')}}"><i class="fa fa-shopping-cart"></i></a>
+                              @else
+                                &nbsp;
+                              @endif
+                            </li>
+                          @endif
                           <li><a onClick="addToCartAjax('{{ $product_hot->id }}','compare')" title="{{trans('front.add_to_compare')}}"><i class="fa fa-exchange"></i></a></li>
                         </ul>
                       </div>

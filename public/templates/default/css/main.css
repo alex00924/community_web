@@ -963,8 +963,41 @@ h2.title {
   padding-right: 0;
 }
 
-.choose ul li a i{
-	margin-right:5px;
+/*.choose ul li a i{
+  margin-right:5px;
+  color: #4db848;
+	background-image: -webkit-linear-gradient(92deg, #4db848, #28ace2);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-webkit-animation: hue 5s infinite linear alternate;
+}
+
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+  to {
+    -webkit-filter: hue-rotate(360deg);
+  }
+}*/
+
+.choose ul li a i {
+  margin-right:5px;
+  
+  background: linear-gradient(to right, #4db848 20%, #28ace2 40%, #28ace2 60%, #4db848 80%);
+  background-size: 200% auto;
+  
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  animation: shine 5s linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
 }
 
 .choose ul li a:hover{

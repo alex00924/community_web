@@ -230,7 +230,7 @@ input[type="number"]{
   margin-top: 30px;
   padding: 7px 25px;
   font-size: 20px;
-  background-color: #4cb747;
+  background-color: #4db848;
   border: none;
   color: #ffffff;
 }
@@ -438,5 +438,10 @@ label.toggle-switch.toggle-switch-dark .on {
 ::-webkit-scrollbar-thumb {
   background-color: #4db848;
   border-radius:20px;
+}
+
+.free-post {
+  border: solid 2px #4db848 !important;
+  border-radius: 10px;
 }
 </style>
