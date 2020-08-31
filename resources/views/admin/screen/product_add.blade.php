@@ -545,7 +545,7 @@
                         </div>
                         {{-- //type --}}
 
-                        <div id="supplyName" class="form-group {{ $errors->has('supply_name') ? ' has-error' : '' }}">
+                        <div id="supplyName" class="form-group" style="display: none;">
                             <label for="supply_name" class="col-sm-2  control-label">{{ trans('product.supplyName') }} 
                                 <span class="seo" title="SEO"></span></label>
                             <div class="col-sm-8">
@@ -567,7 +567,7 @@
                             </div>
                         </div>
 
-                        <div id="supplyLink" class="form-group {{ $errors->has('supply_link') ? ' has-error' : '' }}">
+                        <div id="supplyLink" class="form-group" style="display: none;">
                             <label for="supply_link" class="col-sm-2  control-label">{{ trans('product.supplyLink') }} 
                                 <span class="seo" title="SEO"></span></label>
                             <div class="col-sm-8">
