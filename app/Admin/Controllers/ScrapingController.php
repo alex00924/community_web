@@ -43,7 +43,9 @@ class ScrapingController extends Controller
             $html = file_get_contents('https://pubmed.ncbi.nlm.nih.gov/' . $data[0]);
 
             //get email in text
-            $pattern = '/[a-z0-9_\-\+\.]+@[a-z0-9\-]+\.([a-z]{2,4})(?:\.[a-z]{2})?/i';
+            $pattern = '/[a-zA-Z0-9_\-\+\.]+@[a-zA-Z0-9\-]+\.([a-z0-9_\-\+\.]{2,20})(?:\.[a-z0-9_\-\+\.]{2})?/i';
+            $pattern = '/[a-zA-Z0-9_\-\+\.]+@[a-zA-Z0-9\-]+\.([a-z0-9_\-\+\.]{2,20})?/i';
+            //$pattern = '/[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/';
             preg_match_all($pattern, $html, $matches);
             $result = $matches[0];
             
@@ -116,7 +118,12 @@ class ScrapingController extends Controller
                         $scape['first_name'] = '';
                         $scape['last_name']  = '';
                     }
-                    $scape['email']   = $email;
+
+                    if (substr($email, -1) == '.') {
+                        $scape['email']   = substr($email,0,strlen($email) - 1);
+                    } else {
+                        $scape['email']   = $email;
+                    }
                     $scape['title']   = $title;
                     $scape['journal'] = $journal;
                     $scape['year']    = $year;
