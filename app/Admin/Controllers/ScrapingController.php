@@ -43,9 +43,8 @@ class ScrapingController extends Controller
             $html = file_get_contents('https://pubmed.ncbi.nlm.nih.gov/' . $data[0]);
 
             //get email in text
-            $pattern = '/[a-zA-Z0-9_\-\+\.]+@[a-zA-Z0-9\-]+\.([a-z0-9_\-\+\.]{2,20})(?:\.[a-z0-9_\-\+\.]{2})?/i';
-            $pattern = '/[a-zA-Z0-9_\-\+\.]+@[a-zA-Z0-9\-]+\.([a-z0-9_\-\+\.]{2,20})?/i';
-            //$pattern = '/[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/';
+            //$pattern = '/[a-zA-Z0-9_\-\+\.]+@[a-zA-Z0-9\-]+\.([a-z0-9_\-\+\.]{2,20})(?:\.[a-z0-9_\-\+\.]{2})?/i';
+            $pattern = '/[a-zA-Z0-9_\-\+\.]+@[a-zA-Z0-9\-]+\.([a-z0-9_\-\+\.]{2,25})?/i';
             preg_match_all($pattern, $html, $matches);
             $result = $matches[0];
             
@@ -159,6 +158,88 @@ class ScrapingController extends Controller
         
         return response()->stream($callback, 200, $headers);
 
+    }
+
+    /**
+     * website scraping
+     * @param Request $request  
+     */
+    public function web_scraping(Request $request)
+    {
+        $path = $request['web_scrape'];
+        $fileName = str_replace('.csv', ' scraped.csv', $_FILES['web_scrape']['name']);
+
+        if (empty($path)) {
+            return redirect()->back();
+        }
+
+        $file = fopen($path,"r");
+        $scapingData = [];
+
+        while (($data = fgetcsv($file, 1000, ",")) !== FALSE) {
+            $scape = [];
+            //get text in scientic publish
+            $html = $this->getUrlContent('https://' . $data[0]);
+
+            $emails = $this->getEmail($html);
+
+            if(empty($emails)) {
+                $contact_html = $this->getUrlContent('https://' . $data[0] . '/contact/');
+
+                $emails = $this->getEmail($contact_html);
+
+                if(empty($emails)) {
+                    $contactUs_html = $this->getUrlContent('https://' . $data[0] . '/contactUs/');
+    
+                    $emails = $this->getEmail($contactUs_html);
+                }
+            }
+
+            //get csv's data
+            if (empty($emails)) {
+                $scape['url']   = $data[0];
+                $scape['email'] = '';
+
+                array_push($scapingData, $scape);
+            } else {
+                foreach ($emails as $email) {
+                    $scape = [];
+                    $scape['url']   = $data[0];
+                    $scape['email'] = $email;
+
+                    array_push($scapingData, $scape);
+                }
+            }
+        }
+
+        //dd($emails);
+        fclose($file);
+        //dd($scapingData);
+
+        $headers = array(
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=" . $fileName,
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        );
+
+
+        $callback = function() use ($scapingData)
+        {
+            $file = fopen('php://output', 'w');
+            fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+
+            $columns = array('Website', 'Email');
+            fputcsv($file, $columns);
+
+            foreach($scapingData as $line) {
+                fputcsv($file, $line);
+            }
+            fclose($file);
+        };
+        
+        return response()->stream($callback, 200, $headers);
     }
 
     public function getName($email)
@@ -302,5 +383,37 @@ class ScrapingController extends Controller
         }
 
         return $author_name;
+    }
+
+    public function getUrlContent($url){
+        $curl_handle=curl_init();
+        curl_setopt($curl_handle, CURLOPT_URL,$url);
+        curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
+        curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl_handle, CURLOPT_USERAGENT, 'Mozilla/5.0');
+        curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, false);
+        $query = curl_exec($curl_handle);
+        curl_close($curl_handle);
+        $query =  htmlentities($query);
+
+        return $query;
+    }
+
+    public function getEmail($html)
+    {
+        //get email in text
+        $pattern = '/[a-zA-Z0-9_\-\+\.]+@[a-zA-Z0-9\-]+\.([a-z0-9_\-\+\.]{2,25})?/i';
+        preg_match_all($pattern, $html, $matches);
+        $result = $matches[0];
+        
+        //valite email
+        $key = array_search('email@example.com', $result);
+        if ($key) {
+            unset($result[$key]);
+        }
+        $emails = array_unique($result);
+
+        return $emails;
     }
 }
