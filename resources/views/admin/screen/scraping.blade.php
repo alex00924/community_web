@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('main')
+<div id="preloader"></div>
 
 <div class="scraping-item">
   <p class="scraping-name">Scientific Article Scraping</p>
@@ -14,11 +15,11 @@
 
 <div class="scraping-item">
   <p class="scraping-name">Website Scraping</p>
-  <form role="form" method="post" action="{{route('admin_scraping.web_scraping')}}" enctype='multipart/form-data'>
+  <form id="website-scrapping" role="form" method="post" action="{{route('admin_scraping.web_scraping')}}" enctype='multipart/form-data'>
     @csrf
       <input type="file" name="web_scrape" id="web_scrape" style="display: none;" accept=".csv"/>
       <label class="uploadButton" for="web_scrape"><span>Import Website List (.csv)</span></label>
-      <button type="sumbit" class="button_simple"><p><strong>Email Extract</strong></p></button>
+      <button type="button" class="button_simple" onclick="website_scrapping()"><p><strong>Email Extract</strong></p></button>
   </form>
 </div>
 
@@ -74,6 +75,34 @@
   color:#fff;
   transform: translateY(2px);
 }
-</style>
-@endpush
 
+#preloader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  background: url('/images/loading.gif') no-repeat center center;
+  background-color: rgba(153, 153, 153, 0.25);
+  display: none;
+}
+</style>
+
+@endpush
+@push('scripts')
+<script type="text/javascript">
+
+  function website_scrapping()
+  {
+		document.getElementById('preloader').style.display = 'block';
+
+    setTimeout(function(){
+			document.getElementById('preloader').style.display = 'none';
+		},10000);
+
+    $("#website-scrapping").submit();
+  }
+</script>
+@endpush

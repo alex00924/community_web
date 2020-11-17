@@ -102,7 +102,7 @@
       {{-- end level 0 --}}
         <li class="">
           <a href="{{sc_url_render('admin::scraping')}}">
-            <i class="fa fa-hourglass-half"></i> <span>Email Extract</span>            
+            <i class="fa fa-hourglass-half"></i> <span>Scraping Tools</span>            
           </a>
         </li>
       </ul>
