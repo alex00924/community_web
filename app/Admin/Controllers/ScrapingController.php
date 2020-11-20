@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
+//use App\Admin\XMLWriter2;
 
 class ScrapingController extends Controller
 {
@@ -177,42 +178,43 @@ class ScrapingController extends Controller
         $scapingData = [];
 
         while (($data = fgetcsv($file, 1000, ",")) !== FALSE) {
-            $scape = [];
-            //get text in scientic publish
-            $html = $this->getUrlContent('https://' . $data[0]);
+            $emails = [];
 
-            $emails = $this->getEmail($html);
+            if(!empty($data[1]) && strrpos($data[1], '.')) {
+                //get text in scientic publish
+                $html = $this->getUrlContent('https://' . $data[1]);
 
-            if(empty($emails)) {
-                $contact_html = $this->getUrlContent('https://' . $data[0] . '/contact/');
-
-                $emails = $this->getEmail($contact_html);
+                $emails = $this->getEmail($html);
 
                 if(empty($emails)) {
-                    $contactUs_html = $this->getUrlContent('https://' . $data[0] . '/contactUs/');
-    
-                    $emails = $this->getEmail($contactUs_html);
+                    $contact_html = $this->getUrlContent('https://' . $data[1] . '/contact/');
+
+                    $emails = $this->getEmail($contact_html);
+
+                    if(empty($emails)) {
+                        $contactUs_html = $this->getUrlContent('https://' . $data[1] . '/contactUs/');
+        
+                        $emails = $this->getEmail($contactUs_html);
+                    }
                 }
             }
 
             //get csv's data
             if (empty($emails)) {
-                $scape['url']   = $data[0];
-                $scape['email'] = '';
+                $scape = $data;
 
                 array_push($scapingData, $scape);
             } else {
                 foreach ($emails as $email) {
                     $scape = [];
-                    $scape['url']   = $data[0];
-                    $scape['email'] = $email;
+                    $scape = $data;
+                    $scape[7] = $email;
 
                     array_push($scapingData, $scape);
                 }
             }
         }
 
-        //dd($emails);
         fclose($file);
         //dd($scapingData);
 
@@ -230,8 +232,8 @@ class ScrapingController extends Controller
             $file = fopen('php://output', 'w');
             fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
 
-            $columns = array('Website', 'Email');
-            fputcsv($file, $columns);
+            //$columns = array('Website', 'Email');
+            //fputcsv($file, $columns);
 
             foreach($scapingData as $line) {
                 fputcsv($file, $line);
@@ -415,5 +417,30 @@ class ScrapingController extends Controller
         $emails = array_unique($result);
 
         return $emails;
+    }
+
+    public function crunchbase_scraping()
+    {
+        
+    }
+
+    public function linkedin_scraping(Request $request)
+    {
+        // include("helpers.php");
+        // dd(config('services.linkedin.secret'));
+
+        $api_url = 'http://api.linkedin.com/v1/people-search?company-name=Apple&current-company=true';
+
+        $oauth = new OAuth(config('services.linkedin.api'), config('services.linkedin.secret'));
+        dd($oauth);
+
+        $oauth->enableDebug();
+
+        $oauth->fetch($api_url, null, OAUTH_HTTP_METHOD_GET);
+
+        $response = $oauth->getLastResponse();
+
+        dd($response);
+
     }
 }

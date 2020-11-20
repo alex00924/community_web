@@ -38,7 +38,12 @@ return [
     ],
 
     'chatkit' => [
-        'secret' => env('PUSHER_APP_SECRET'),
+        'secret'  => env('PUSHER_APP_SECRET'),
         'locator' => env('PUSHER_APP_KEY'),
+    ],
+
+    'linkedin' => [
+        'secret' => env('LINKEDIN_SECRET_KEY'),
+        'api'    => env('LINKEDIN_API_KEY'),
     ],
 ];

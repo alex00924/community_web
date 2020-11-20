@@ -5,11 +5,12 @@
 
 <div class="scraping-item">
   <p class="scraping-name">Scientific Article Scraping</p>
-  <form role="form" method="post" action="{{route('admin_scraping.email_extractor')}}" enctype='multipart/form-data'>
+  <form id="article-scrapping" role="form" method="post" action="{{route('admin_scraping.email_extractor')}}" enctype='multipart/form-data'>
     @csrf
       <input type="file" name="scrape" id="scrape" style="display: none;" accept=".csv"/>
       <label class="uploadButton" for="scrape"><span>Import PMID List (.csv)</span></label>
-      <button type="sumbit" class="button_simple"><p><strong>Email Extract</strong></p></button>
+      {{--<button type="sumbit" class="button_simple"><p><strong>Email Extract</strong></p></button>--}}
+      <button type="button" class="button_simple" onclick="article_scrapping()"><p><strong>Email Extract</strong></p></button>
   </form>
 </div>
 
@@ -23,6 +24,22 @@
   </form>
 </div>
 
+{{--<div class="scraping-item">
+  <p class="scraping-name">Crunchbase Scraping</p>
+  <form id="crunchbase-scrapping" role="form" method="post" action="{{route('admin_scraping.crunchbase_scraping')}}" enctype='multipart/form-data'>
+    @csrf
+      <button type="button" class="button_simple" onclick="crunchbase_scrapping()"><p><strong>Scraping</strong></p></button>
+  </form>
+</div>
+
+<div class="scraping-item">
+  <p class="scraping-name">Linkedin Scraping</p>
+  <form id="crunchbase-scrapping" role="form" method="post" action="{{route('admin_scraping.linkedin_scraping')}}" enctype='multipart/form-data'>
+    @csrf
+      <input type="text" id="linkedin" name="linkedin">
+      <button type="submit" class="button_simple"><p><strong>Scraping</strong></p></button>
+  </form>
+</div>--}}
 @endsection
 
 
@@ -104,5 +121,28 @@
 
     $("#website-scrapping").submit();
   }
+
+  function article_scrapping()
+  {
+    document.getElementById('preloader').style.display = 'block';
+
+    setTimeout(function(){
+      document.getElementById('preloader').style.display = 'none';
+    },10000);
+
+    $("#article-scrapping").submit();
+  }
+
+  function crunchbase_scrapping()
+  {
+    document.getElementById('preloader').style.display = 'block';
+
+    setTimeout(function(){
+      document.getElementById('preloader').style.display = 'none';
+    },10000);
+
+    $("#crunchbase-scrapping").submit();
+  }
+
 </script>
 @endpush
