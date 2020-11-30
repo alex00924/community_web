@@ -4,6 +4,8 @@ namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+// use Symfony\Component\Process\Process;
+// use Symfony\Component\Process\Exception\ProcessFailedException;
 use Validator;
 //use App\Admin\XMLWriter2;
 
@@ -166,82 +168,12 @@ class ScrapingController extends Controller
      * @param Request $request  
      */
     public function web_scraping(Request $request)
-    {
-        $path = $request['web_scrape'];
-        $fileName = str_replace('.csv', ' scraped.csv', $_FILES['web_scrape']['name']);
-
-        if (empty($path)) {
-            return redirect()->back();
-        }
-
-        $file = fopen($path,"r");
-        $scapingData = [];
-
-        while (($data = fgetcsv($file, 1000, ",")) !== FALSE) {
-            $emails = [];
-
-            if(!empty($data[1]) && strrpos($data[1], '.')) {
-                //get text in scientic publish
-                $html = $this->getUrlContent('https://' . $data[1]);
-
-                $emails = $this->getEmail($html);
-
-                if(empty($emails)) {
-                    $contact_html = $this->getUrlContent('https://' . $data[1] . '/contact/');
-
-                    $emails = $this->getEmail($contact_html);
-
-                    if(empty($emails)) {
-                        $contactUs_html = $this->getUrlContent('https://' . $data[1] . '/contactUs/');
-        
-                        $emails = $this->getEmail($contactUs_html);
-                    }
-                }
-            }
-
-            //get csv's data
-            if (empty($emails)) {
-                $scape = $data;
-
-                array_push($scapingData, $scape);
-            } else {
-                foreach ($emails as $email) {
-                    $scape = [];
-                    $scape = $data;
-                    $scape[7] = $email;
-
-                    array_push($scapingData, $scape);
-                }
-            }
-        }
-
-        fclose($file);
-        //dd($scapingData);
-
-        $headers = array(
-            "Content-type" => "text/csv",
-            "Content-Disposition" => "attachment; filename=" . $fileName,
-            "Pragma" => "no-cache",
-            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-            "Expires" => "0"
-        );
-
-
-        $callback = function() use ($scapingData)
-        {
-            $file = fopen('php://output', 'w');
-            fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
-
-            //$columns = array('Website', 'Email');
-            //fputcsv($file, $columns);
-
-            foreach($scapingData as $line) {
-                fputcsv($file, $line);
-            }
-            fclose($file);
-        };
-        
-        return response()->stream($callback, 200, $headers);
+    {   
+        $file = $request->web_scrape;
+        $destinationPath = 'uploads';
+        $file->move($destinationPath, 'input.csv');
+        $output = shell_exec('scrapy crawl emailspider');
+        echo "<pre>$output</pre>";
     }
 
     public function getName($email)

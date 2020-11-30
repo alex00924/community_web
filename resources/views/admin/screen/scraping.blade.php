@@ -21,6 +21,7 @@
       <input type="file" name="web_scrape" id="web_scrape" style="display: none;" accept=".csv"/>
       <label class="uploadButton" for="web_scrape"><span>Import Website List (.csv)</span></label>
       <button type="button" class="button_simple" onclick="website_scrapping()"><p><strong>Email Extract</strong></p></button>
+      <a href="http://localhost:8000/uploads/output.csv" target="_blank">Download</a>
   </form>
 </div>
 
@@ -118,8 +119,22 @@
     setTimeout(function(){
 			document.getElementById('preloader').style.display = 'none';
 		},10000);
-
     $("#website-scrapping").submit();
+    // $("#website-scrapping").submit(function(e){
+    //   e.preventDefault()
+    //   var file_data = $('#web_scrape').prop('files')[0];   
+    //   var form_data = new FormData();                  
+    //   form_data.append('web_scrape', file_data);
+    //   $.ajax(
+    //     {
+    //       url: "/scraping/web-scraping",
+    //       method: "POST",
+    //       data: form_data,
+    //       success: function(response) {
+    //         alert(response)
+    //       }
+    //     },
+    // });
   }
 
   function article_scrapping()

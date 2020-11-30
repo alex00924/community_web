@@ -127,7 +127,6 @@ if (!function_exists('sc_url_render')) {
     {
         $arrCheckRoute = explode('route::', $string);
         $arrCheckUrl = explode('admin::', $string);
-
         if (count($arrCheckRoute) == 2) {
             $arrRoute = explode('::', $string);
             if (isset($arrRoute[2])) {
@@ -150,7 +149,7 @@ if (!function_exists('sc_url_render')) {
         if (count($arrCheckUrl) == 2) {
             $string = \Illuminate\Support\Str::start($arrCheckUrl[1], '/');
             $string = config('app.admin_prefix') . $string;
-            return url($string);
+            // return url($string);
         }
         return url($string);
     }
