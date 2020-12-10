@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\ShopPaymentStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Validator;
 
 class ShopPaymentStatusController extends Controller
@@ -49,11 +50,11 @@ class ShopPaymentStatusController extends Controller
             $dataTr[] = [
                 'id' => $row['id'],
                 'name' => $row['name'] ?? 'N/A',
-                'action' => '
+                'action' => Session::get('userrole') == 1 ? '
                     <a href="' . route('admin_payment_status.edit', ['id' => $row['id']]) . '"><span title="' . trans('payment_status.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
-
-                  <span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('payment_status.admin.delete') . '" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>
-                  ',
+                  <span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('payment_status.admin.delete') . '" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>'
+                  :
+                  '<a href="' . route('admin_payment_status.edit', ['id' => $row['id']]) . '"><span title="' . trans('payment_status.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;',
             ];
         }
 

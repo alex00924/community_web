@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Admin\Controllers\Auth;
-
 use App\Admin\Admin;
 use App\Admin\Models\AdminPermission;
 use App\Admin\Models\AdminRole;
@@ -10,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 //use App\Admin\Controllers\ChatkitController;
@@ -40,7 +40,6 @@ class LoginController extends Controller
     public function postLogin(Request $request)
     {
         $this->loginValidator($request->all())->validate();
-
         $credentials = $request->only([$this->username(), 'password']);
         $remember = $request->get('remember', false);
 
@@ -166,11 +165,12 @@ class LoginController extends Controller
      */
     protected function sendLoginResponse(Request $request)
     {
-
         $request->session()->regenerate();
         //$chatkit = new ChatkitController();
         //$chatkit->addChatkitSession($request);
-
+        $user = Admin::user();
+        $role = $user->role;
+        Session::put('userrole', $role);
         return redirect()->intended($this->redirectPath())->with(['success' => trans('admin.login_successful')]);
     }
 

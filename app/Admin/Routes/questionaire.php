@@ -16,4 +16,6 @@ $router->group(['prefix' => 'questionaire'], function ($router) {
     $router->post('/update_next_question', 'ShopQuestionaireController@updateNextQuestion')->name('admin_questionaire.updateNextQuestion');
 
     $router->get('/statistic', 'ShopQuestionaireController@statistic')->name('admin_questionaire.statistic');
+    $router->get('/marketing', 'ShopQuestionaireController@marketing')->name('admin_questionaire.marketing');
+    $router->post('/marketing', 'ShopQuestionaireController@sendLink')->name('admin_questionaire.sendlink');
 });

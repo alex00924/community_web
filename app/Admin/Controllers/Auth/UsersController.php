@@ -8,6 +8,7 @@ use App\Admin\Models\AdminRole;
 use App\Admin\Models\AdminUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Validator;
 
 class UsersController extends Controller
@@ -65,14 +66,13 @@ class UsersController extends Controller
             $obj = $obj->orderBy('id', 'desc');
         }
         $dataTmp = $obj->paginate(20);
-
         $dataTr = [];
         foreach ($dataTmp as $key => $row) {
             $showRoles = '';
-            if ($row['roles']->count()) {
-                foreach ($row['roles'] as $key => $rols) {
-                    $showRoles .= '<span class="label label-success">' . $rols->name . '</span> ';
-                }
+            if ($row['role'] == 1){
+                $showRoles .= '<span class="label label-success">God Admin</span> ';
+            } else {
+                $showRoles .= '<span class="label label-success">Regular Admin</span> ';
             }
             $showPermission = '';
             if ($row['permissions']->count()) {
@@ -88,9 +88,11 @@ class UsersController extends Controller
                 'roles' => $showRoles,
                 'permission' => $showPermission,
                 'created_at' => $row['created_at'],
-                'action' => '
+                'action' => Session::get('userrole') == 1?'
                     <a href="' . route('admin_user.edit', ['id' => $row['id']]) . '"><span title="' . trans('user.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
                     ' . ((Admin::user()->id == $row['id'] || in_array($row['id'], SC_GUARD_ADMIN)) ? '' : '<span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('admin.delete') . '" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>')
+                    :
+                    ''
                 ,
             ];
         }
@@ -100,24 +102,30 @@ class UsersController extends Controller
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
         $data['result_items'] = trans('user.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 //menu_left
-        $data['menu_left'] = '<div class="pull-left">
+        $data['menu_left'] = Session::get('userrole') == 1?'<div class="pull-left">
                     <button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button> &nbsp;
 
                     <a class="btn   btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i><span class="hidden-xs"> ' . trans('admin.delete') . '</span></a> &nbsp;
+
+                    <a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a> &nbsp;</div>
+                    '
+                    :
+                    '<div class="pull-left">
+                    <button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button> &nbsp;
 
                     <a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a> &nbsp;</div>
                     ';
 //=menu_left
 
 //menu_right
-        $data['menu_right'] = '
+        $data['menu_right'] = Session::get('userrole') == 1?'
                         <div class="btn-group pull-right" style="margin-right: 10px">
                            <a href="' . route('admin_user.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
                            <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('admin.add_new') . '</span>
                            </a>
-                        </div>
-
-                        ';
+                        </div>'
+                        :
+                        '';
 //=menu_right
 
 //menu_sort

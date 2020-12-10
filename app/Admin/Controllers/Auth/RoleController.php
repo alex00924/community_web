@@ -8,6 +8,7 @@ use App\Admin\Models\AdminRole;
 use App\Admin\Models\AdminUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Validator;
 
 class RoleController extends Controller
@@ -77,9 +78,12 @@ class RoleController extends Controller
                 'permission' => $showPermission,
                 'created_at' => $row['created_at'],
                 'updated_at' => $row['updated_at'],
-                'action' => (in_array($row['id'], SC_GUARD_ROLES) ? '' : '
+                'action' => Session::get('userrole') == 1 ? (in_array($row['id'], SC_GUARD_ROLES) ? '' : '
                     <a href="' . route('admin_role.edit', ['id' => $row['id']]) . '"><span title="' . trans('role.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
                     ') . ((in_array($row['id'], SC_GUARD_ROLES)) ? '' : '<span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('admin.delete') . '" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>')
+                    :
+                    (in_array($row['id'], SC_GUARD_ROLES) ? '' : '
+                    <a href="' . route('admin_role.edit', ['id' => $row['id']]) . '"><span title="' . trans('role.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;')
                 ,
             ];
         }
@@ -89,10 +93,16 @@ class RoleController extends Controller
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
         $data['result_items'] = trans('role.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 //menu_left
-        $data['menu_left'] = '<div class="pull-left">
+        $data['menu_left'] = Session::get('userrole') == 1?'<div class="pull-left">
                     <button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button> &nbsp;
 
                     <a class="btn   btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i><span class="hidden-xs"> ' . trans('admin.delete') . '</span></a> &nbsp;
+
+                    <a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a> &nbsp;</div>
+                    '
+                    :
+                    '<div class="pull-left">
+                    <button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button> &nbsp;
 
                     <a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a> &nbsp;</div>
                     ';

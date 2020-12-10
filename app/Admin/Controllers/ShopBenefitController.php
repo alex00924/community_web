@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\ShopBenefit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Validator;
 
 class ShopBenefitController extends Controller
@@ -49,11 +50,13 @@ class ShopBenefitController extends Controller
             $dataTr[] = [
                 'id' => $row['id'],
                 'benefit' => $row['benefit'],
-                'action' => '
+                'action' => Session::get('userrole') == 1?'
                     <a href="' . route('admin_benefit.edit', ['id' => $row['id']]) . '"><span title="' . trans('benefit.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
 
                   <span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('benefit.admin.delete') . '" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>
-                  ',
+                  '
+                  :
+                  '<a href="' . route('admin_benefit.edit', ['id' => $row['id']]) . '"><span title="' . trans('benefit.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;',
             ];
         }
 

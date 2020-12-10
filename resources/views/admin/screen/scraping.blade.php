@@ -16,31 +16,37 @@
 
 <div class="scraping-item">
   <p class="scraping-name">Website Scraping</p>
-  <form id="website-scrapping" role="form" method="post" action="{{route('admin_scraping.web_scraping')}}" enctype='multipart/form-data'>
-    @csrf
-      <input type="file" name="web_scrape" id="web_scrape" style="display: none;" accept=".csv"/>
-      <label class="uploadButton" for="web_scrape"><span>Import Website List (.csv)</span></label>
-      <button type="button" class="button_simple" onclick="website_scrapping()"><p><strong>Email Extract</strong></p></button>
-      <a href="http://localhost:8000/uploads/output.csv" target="_blank">Download</a>
-  </form>
+  <div style="display: flex; align-items: center;">
+    <form id="website-scrapping" role="form" method="post" action="{{route('admin_scraping.web_scraping')}}" enctype='multipart/form-data'>
+      @csrf
+        <input type="file" name="web_scrape" id="web_scrape" style="display: none;" accept=".csv"/>
+        <label class="uploadButton" for="web_scrape"><span>Import Website List (.csv)</span></label>
+        <button type="button" class="button_simple" id="scrapping-submit"><p><strong>Email Extract</strong></p></button>
+    </form>
+    <a href="{{env('APP_URL')}}/uploads/output.csv" target="_blank" id="download-link-csv" style="margin-left: 1rem;">Download</a>
+  </div>
+
 </div>
 
-{{--<div class="scraping-item">
+<!-- <div class="scraping-item">
   <p class="scraping-name">Crunchbase Scraping</p>
   <form id="crunchbase-scrapping" role="form" method="post" action="{{route('admin_scraping.crunchbase_scraping')}}" enctype='multipart/form-data'>
     @csrf
       <button type="button" class="button_simple" onclick="crunchbase_scrapping()"><p><strong>Scraping</strong></p></button>
   </form>
-</div>
+</div> -->
 
 <div class="scraping-item">
   <p class="scraping-name">Linkedin Scraping</p>
-  <form id="crunchbase-scrapping" role="form" method="post" action="{{route('admin_scraping.linkedin_scraping')}}" enctype='multipart/form-data'>
-    @csrf
-      <input type="text" id="linkedin" name="linkedin">
-      <button type="submit" class="button_simple"><p><strong>Scraping</strong></p></button>
-  </form>
-</div>--}}
+  <div style="display: flex; align-items: center;">
+    <form id="linkedin-scrapping" role="form" method="post" action="{{route('admin_scraping.linkedin_scraping')}}" enctype='multipart/form-data'>
+      @csrf
+        <input type="text" id="linkedin" name="linkedin"/>
+        <button type="button" class="button_simple" id="linkedin-submit"><p><strong>Scraping</strong></p></button>
+    </form>
+    <a href="{{env('APP_URL')}}/uploads/linkedin.csv" target="_blank" id="download-linkedin-csv" style="margin-left: 1rem;">Download</a>
+  </div>
+</div>
 @endsection
 
 
@@ -111,31 +117,83 @@
 @endpush
 @push('scripts')
 <script type="text/javascript">
+  $(document).ready(function() {
+    $("#scrapping-submit").click(function() {
+      var file_data = $('#web_scrape')[0].files;
+      var form_data = new FormData();
+      form_data.append('web_scrape', file_data[0]);
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+      $.ajax({
+          url: $('#website-scrapping').attr('action'),
+          method: "POST",
+          data: form_data,
+          contentType: false,
+          processData: false,
+          beforeSend: function() {
+            document.getElementById('preloader').style.display = 'block';
+          },
+          success: function(response) {
+            document.getElementById('preloader').style.display = 'none';
+            $('#download-link-csv').attr('href' , `http://localhost:8000/uploads/output.csv?version=${new Date().getTime()}`)
+          }
+      })
+    })
 
-  function website_scrapping()
-  {
-		document.getElementById('preloader').style.display = 'block';
+    $("#linkedin-submit").click(function() {
+      var inputval = $("#linkedin").val();
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+      $.ajax({
+          url: $('#linkedin-scrapping').attr('action'),
+          method: "POST",
+          data: {field: inputval},
+          dataType: "json",
+          beforeSend: function() {
+            document.getElementById('preloader').style.display = 'block';
+          },
+          success: function(response) {
+            alert(response.res)
+            if (response.res == 1){
+              document.getElementById('preloader').style.display = 'none';
+              $('#download-linkedin-csv').attr('href' , `http://localhost:8000/uploads/output.csv?version=${new Date().getTime()}`)
+            }
+          }
+      })
+    })
 
-    setTimeout(function(){
-			document.getElementById('preloader').style.display = 'none';
-		},10000);
-    $("#website-scrapping").submit();
-    // $("#website-scrapping").submit(function(e){
-    //   e.preventDefault()
-    //   var file_data = $('#web_scrape').prop('files')[0];   
-    //   var form_data = new FormData();                  
-    //   form_data.append('web_scrape', file_data);
-    //   $.ajax(
-    //     {
-    //       url: "/scraping/web-scraping",
-    //       method: "POST",
-    //       data: form_data,
-    //       success: function(response) {
-    //         alert(response)
-    //       }
-    //     },
-    // });
-  }
+  })
+  // function website_scrapping()
+  // {
+	// 	document.getElementById('preloader').style.display = 'block';
+
+  //   setTimeout(function(){
+	// 		document.getElementById('preloader').style.display = 'none';
+  //   },10000);
+    
+  //   // $("#website-scrapping").submit();
+  //   // $("#website-scrapping").submit(function(e){
+  //   //   e.preventDefault()
+  //   //   var file_data = $('#web_scrape').prop('files')[0];   
+  //   //   var form_data = new FormData();                  
+  //   //   form_data.append('web_scrape', file_data);
+  //   //   $.ajax(
+  //   //     {
+  //   //       url: "/scraping/web-scraping",
+  //   //       method: "POST",
+  //   //       data: form_data,
+  //   //       success: function(response) {
+  //   //         alert(response)
+  //   //       }
+  //   //     },
+  //   // });
+  // }
 
   function article_scrapping()
   {
@@ -158,6 +216,7 @@
 
     $("#crunchbase-scrapping").submit();
   }
+
 
 </script>
 @endpush

@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\ShopBrand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Validator;
 
 class ShopBrandController extends Controller
@@ -72,11 +73,13 @@ class ShopBrandController extends Controller
                 'url' => $row['url'],
                 'sort' => $row['sort'],
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',
-                'action' => '
+                'action' => Session::get('userrole') == 1?'
                     <a href="' . route('admin_brand.edit', ['id' => $row['id']]) . '"><span title="' . trans('brand.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
 
                   <span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('brand.admin.delete') . '" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>
-                  ',
+                  '
+                  :
+                  '<a href="' . route('admin_brand.edit', ['id' => $row['id']]) . '"><span title="' . trans('brand.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;',
             ];
         }
 

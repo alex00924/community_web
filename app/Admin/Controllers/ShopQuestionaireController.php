@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\ShopLanguage;
 use App\Models\QuestionaireQuestion;
 use App\Models\Questionaire;
+use App\Models\Marketing;
 use App\Models\ShopProduct;
 use App\Models\QuestionaireQuestionOption;
 use App\Models\QuestionaireAnswer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Validator;
 
 class ShopQuestionaireController extends Controller
@@ -365,6 +367,22 @@ class ShopQuestionaireController extends Controller
         ];
 
         return view('admin.screen.shop_questionaire_statistics')
+            ->with($data);
+    }
+
+    
+    ////////////----------------Marketing------------/////////////
+    public function marketing()
+    {
+        $marketing = Marketing::get();
+        $data = [
+            'title' => trans('questionaire.admin.marketing'),
+            'sub_title' => '',
+            'icon' => 'fa fa-share-alt',
+            'languages' => $this->languages,
+            'marketing' => $marketing
+        ];
+        return view('admin.screen.shop_marketing')
             ->with($data);
     }
 }

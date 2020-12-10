@@ -32,7 +32,9 @@
                   {{ sc_language_render($level0->title) }}
                   <span class="pull-right dd-nodrag">
                       <a href="{{ route('admin_menu.edit',['id'=>$level0->id]) }}"><i class="fa fa-edit"></i></a>
+                      @if (Session::get('userrole') == 1)
                       <a data-id="{{ $level0->id }}" class="remove_menu"><i class="fa fa-trash"></i></a>
+                      @endif
                   </span>
                 </div>
             </li>
@@ -42,7 +44,9 @@
                   <i class="fa {{ $level0->icon }}"></i> {{ sc_language_render($level0->title) }}
                   <span class="pull-right dd-nodrag">
                       <a href="{{ route('admin_menu.edit',['id'=>$level0->id]) }}"><i class="fa fa-edit"></i></a>
+                      @if (Session::get('userrole') == 1)
                       <a data-id="{{ $level0->id }}" class="remove_menu"><i class="fa fa-trash"></i></a>
+                      @endif
                   </span>
                 </div>
             </li>
@@ -52,7 +56,9 @@
                 <i class="fa {{ $level0->icon }}"></i> {{ sc_language_render($level0->title) }}
                   <span class="pull-right dd-nodrag">
                       <a href="{{ route('admin_menu.edit',['id'=>$level0->id]) }}"><i class="fa fa-edit"></i></a>
+                      @if (Session::get('userrole') == 1)
                       <a data-id="{{ $level0->id }}" class="remove_menu"><i class="fa fa-trash"></i></a>
+                      @endif
                   </span>
               </div>
     {{-- Level 1 --}}
@@ -65,7 +71,9 @@
                           <i class="fa {{ $level1->icon }}"></i> {{ sc_language_render($level1->title) }}
                           <span class="pull-right dd-nodrag">
                               <a href="{{ route('admin_menu.edit',['id'=>$level1->id]) }}"><i class="fa fa-edit"></i></a>
+                              @if (Session::get('userrole') == 1)
                               <a data-id="{{ $level1->id }}" class="remove_menu"><i class="fa fa-trash"></i></a>
+                              @endif
                           </span>
                         </div>
                     </li>
@@ -75,7 +83,9 @@
                       <i class="fa {{ $level1->icon }}"></i> {{ sc_language_render($level1->title) }}
                       <span class="pull-right dd-nodrag">
                           <a href="{{ route('admin_menu.edit',['id'=>$level1->id]) }}"><i class="fa fa-edit"></i></a>
+                          @if (Session::get('userrole') == 1)
                           <a data-id="{{ $level1->id }}" class="remove_menu"><i class="fa fa-trash"></i></a>
+                          @endif
                       </span>
                     </div>
             {{-- LEvel 2  --}}
@@ -88,7 +98,9 @@
                                       <i class="fa {{ $level2->icon }}"></i> {{ sc_language_render($level2->title) }}
                                       <span class="pull-right dd-nodrag">
                                           <a href="{{ route('admin_menu.edit',['id'=>$level2->id]) }}"><i class="fa fa-edit"></i></a>
+                                          @if (Session::get('userrole') == 1)
                                           <a data-id="{{ $level2->id }}" class="remove_menu"><i class="fa fa-trash"></i></a>
+                                          @endif
                                       </span>
                                     </div>
                                 </li>
@@ -98,7 +110,9 @@
                                   <i class="fa {{ $level2->icon }}"></i> {{ sc_language_render($level2->title) }}
                                   <span class="pull-right dd-nodrag">
                                       <a href="{{ route('admin_menu.edit',['id'=>$level2->id]) }}"><i class="fa fa-edit"></i></a>
+                                      @if (Session::get('userrole') == 1)
                                       <a data-id="{{ $level2->id }}" class="remove_menu"><i class="fa fa-trash"></i></a>
+                                      @endif
                                   </span>
                                 </li>
                               @endif

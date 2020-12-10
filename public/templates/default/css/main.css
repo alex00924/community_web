@@ -304,7 +304,7 @@ ul.sub-menu {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	width: 220px;
+	width: 250px;
 	-webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
 	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
 	display: none;
@@ -2960,3 +2960,13 @@ button.close {
 .u-radio input[type="radio"]:checked + label:after {
   background: url(/images/radio_ic02.png) center no-repeat;
   background-size: cover; }
+
+.marketing_email {
+  clear: both;
+  display: block;
+}
+.marketing_emailgroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

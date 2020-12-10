@@ -17,6 +17,7 @@ use App\Models\ShopProductGroup;
 use App\Models\ShopProductImage;
 use App\Models\ShopVendor;
 use App\Models\ShopRelatedProduct;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -164,7 +165,7 @@ class ShopProductController extends Controller
                 $dataMap['virtual'] = $this->virtuals[$row['virtual']] ?? $row['virtual'];
             }
             $dataMap['status'] = $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>';
-            $dataMap['action'] = '
+            $dataMap['action'] = Session::get('userrole') == 1?'
             <a href="' . route('admin_product.edit', ['id' => $row['id']]) . '">
             <span title="' . trans('product.admin.edit') . '" type="button" class="btn btn-flat btn-primary">
             <i class="fa fa-edit"></i>
@@ -173,7 +174,14 @@ class ShopProductController extends Controller
 
             <span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('admin.delete') . '" class="btn btn-flat btn-danger">
             <i class="fa fa-trash"></i>
-            </span>';
+            </span>'
+            :
+            '<a href="' . route('admin_product.edit', ['id' => $row['id']]) . '">
+            <span title="' . trans('product.admin.edit') . '" type="button" class="btn btn-flat btn-primary">
+            <i class="fa fa-edit"></i>
+            </span>
+            </a>&nbsp;'
+            ;
             $dataTr[] = $dataMap;
         }
 
@@ -182,11 +190,16 @@ class ShopProductController extends Controller
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
         $data['result_items'] = trans('product.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 //menu_left
-        $data['menu_left'] = '<div class="pull-left">
+        $data['menu_left'] = Session::get('userrole') == 1?'<div class="pull-left">
                     <button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button> &nbsp;
 
                     <a class="btn   btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i><span class="hidden-xs"> ' . trans('admin.delete') . '</span></a> &nbsp;
 
+                    <a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a> &nbsp;</div>
+                    '
+                    :
+                    '<div class="pull-left">
+                    <button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button> &nbsp;
                     <a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a> &nbsp;</div>
                     ';
 //=menu_left

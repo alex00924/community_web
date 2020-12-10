@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\ShopEmailTemplate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Validator;
 
 class ShopEmailTemplateController extends Controller
@@ -60,11 +61,14 @@ class ShopEmailTemplateController extends Controller
                 'name' => $row['name'] ?? 'N/A',
                 'group' => $row['group'] ?? 'N/A',
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',
-                'action' => '
+                'action' => Session::get('userrole') == 1?'
                     <a href="' . route('admin_email_template.edit', ['id' => $row['id']]) . '"><span title="' . trans('email_template.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
 
                   <span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('email_template.admin.delete') . '" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>
-                  ',
+                  '
+                  :
+                  '<a href="' . route('admin_email_template.edit', ['id' => $row['id']]) . '"><span title="' . trans('email_template.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;'
+                  ,
             ];
         }
 

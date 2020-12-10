@@ -6,6 +6,7 @@ use App\Admin\Models\AdminLog;
 use App\Admin\Models\AdminUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class AdminLogController extends Controller
 {
@@ -84,9 +85,11 @@ class AdminLogController extends Controller
                 'user_agent' => $row['user_agent'],
                 'input' => $row['input'],
                 'created_at' => $row['created_at'],
-                'action' => '
+                'action' => Session::get('userrole') == 1?'
                   <span  onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('log.admin.delete') . '" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>
-                  ',
+                  '
+                  :
+                  '',
             ];
         }
 

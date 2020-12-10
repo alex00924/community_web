@@ -44,15 +44,20 @@
                           if($extensionClass->config()){
                             $extensionAction .='<a href="'.url()->current().'?action=config&extensionKey='.$codeExtension.'"><span title="'.trans('admin.extension_manager.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
                           }
+                          if (Session::get('userrole') == 1){
                               $extensionAction .='<span onClick="uninstallExtension($(this),\''.$codeExtension.'\');" title="'.trans('admin.extension_manager.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
+                          }
                       }else{
                         $extensionStatusTitle = trans('admin.extension_manager.disabled');
                         $extensionAction = '<span onClick="enableExtension($(this),\''.$codeExtension.'\');" title="'.trans('admin.extension_manager.enable').'" type="button" class="btn btn-flat btn-primary"><i class="fa fa-paper-plane"></i></span>&nbsp;';
                           if($extensionClass->config()){
                             $extensionAction .='<a href="'.url()->current().'?action=config&extensionKey='.$codeExtension.'"><span title="'.trans('admin.extension_manager.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
                           }
-                              $extensionAction .='
-                              <span onClick="uninstallExtension($(this),\''.$codeExtension.'\');" title="'.trans('admin.extension_manager.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
+                          if (Session::get('userrole') == 1){
+                            $extensionAction .='
+                            <span onClick="uninstallExtension($(this),\''.$codeExtension.'\');" title="'.trans('admin.extension_manager.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
+                          }
+                              
                       }
                     }
                   @endphp

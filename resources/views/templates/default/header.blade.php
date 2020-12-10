@@ -87,13 +87,15 @@
                     </ul>
                 </li>
                 @endif
-
-                <li>
-                  <a class="{{ ( request()->is('questionaire*') ) ? 'active' : '' }}" href="{{ route('questionaire.index') }}">
-                    {{ trans('front.questionaire.survey') }}
-                  </a>
+                <li class="dropdown">
+                    <a href="#" class="{{ ($routeName == 'questionaire.index' || $routeName == 'marketing') ? 'active' : '' }}">
+                      {{ trans('front.questionaire.questionnaire') }}<i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul role="menu" class="sub-menu">
+                        <li><a class="{{ $routeName == 'questionaire.index' ? 'active' : '' }}" href="{{ route('questionaire.index') }}">{{ trans('front.questionaire.survey') }}</a></li>
+                        <li><a class="{{ $routeName == 'marketing' ? 'active' : '' }}" href="{{ route('marketing') }}">{{ trans('front.questionaire.marketing_research') }}</a></li>
+                    </ul>
                 </li>
-
                 @if(Auth::user())
                 <li>
                   <a class="{{ ( request()->is('network*') ) ? 'active' : '' }}" href="/network">

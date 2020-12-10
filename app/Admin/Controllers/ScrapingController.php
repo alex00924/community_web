@@ -168,12 +168,13 @@ class ScrapingController extends Controller
      * @param Request $request  
      */
     public function web_scraping(Request $request)
-    {   
+    { 
         $file = $request->web_scrape;
         $destinationPath = 'uploads';
         $file->move($destinationPath, 'input.csv');
         $output = shell_exec('scrapy crawl emailspider');
-        echo "<pre>$output</pre>";
+        echo json_encode(array('res'=> $output));
+        exit;
     }
 
     public function getName($email)
@@ -357,22 +358,11 @@ class ScrapingController extends Controller
     }
 
     public function linkedin_scraping(Request $request)
-    {
-        // include("helpers.php");
-        // dd(config('services.linkedin.secret'));
-
-        $api_url = 'http://api.linkedin.com/v1/people-search?company-name=Apple&current-company=true';
-
-        $oauth = new OAuth(config('services.linkedin.api'), config('services.linkedin.secret'));
-        dd($oauth);
-
-        $oauth->enableDebug();
-
-        $oauth->fetch($api_url, null, OAUTH_HTTP_METHOD_GET);
-
-        $response = $oauth->getLastResponse();
-
-        dd($response);
-
+    {  
+        $searchkey =  $request->field;
+        $output = shell_exec("python3 linkedinjob.py $searchkey");
+        echo json_encode(array('res'=> $output));
+        exit;
     }
 }
+                                                                                                                                                           

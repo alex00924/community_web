@@ -48,15 +48,19 @@
                           if($moduleClass->config()){
                             $moduleAction .='<a href="'.url()->current().'?action=config&moduleKey='.$codeModule.'"><span title="'.trans('admin.module_manager.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
                           }
-                              $moduleAction .='<span onClick="uninstallModule($(this),\''.$codeModule.'\');" title="'.trans('admin.module_manager.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
+                          if(Session::get('userrole') == 1){
+                            $moduleAction .='<span onClick="uninstallModule($(this),\''.$codeModule.'\');" title="'.trans('admin.module_manager.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
+                          }
                       }else{
                         $moduleStatusTitle = trans('admin.module_manager.disabled');
                         $moduleAction = '<span onClick="enableModule($(this),\''.$codeModule.'\');" title="'.trans('admin.module_manager.enable').'" type="button" class="btn btn-flat btn-primary"><i class="fa fa-paper-plane"></i></span>&nbsp;';
                           if($moduleClass->config()){
                             $moduleAction .='<a href="'.url()->current().'?action=config&moduleKey='.$codeModule.'"><span title="'.trans('admin.module_manager.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
                           }
-                              $moduleAction .='
-                              <span onClick="uninstallModule($(this),\''.$codeModule.'\');" title="'.trans('admin.module_manager.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
+                          if(Session::get('userrole') == 1){
+                            $moduleAction .='
+                            <span onClick="uninstallModule($(this),\''.$codeModule.'\');" title="'.trans('admin.module_manager.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
+                          }
                       }
                     }
                   @endphp

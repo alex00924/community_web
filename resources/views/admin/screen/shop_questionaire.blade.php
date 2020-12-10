@@ -59,9 +59,11 @@
                                                 </span>
                                             </a>
                                             &nbsp;
+                                            @if (Session::get('userrole') == 1)
                                             <span onclick="deleteItem({{ $questionaire->id }});" title="Delete" class="btn btn-flat btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </span>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

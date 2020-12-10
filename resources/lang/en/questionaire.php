@@ -4,6 +4,7 @@ return [
     'admin' => [
         'title' => 'Questionaire ',
         'statistic' => 'Statistics',
+        'marketing' => 'Marketing Research',
         'title_des' => 'Manage Questionaire',
         'create_questionaire_success' => 'Create new questionaire success!',
         'edit_questionaire_success' => 'Edit questionaire success!',

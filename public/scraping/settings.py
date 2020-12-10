@@ -19,6 +19,7 @@ NEWSPIDER_MODULE = 'scraping.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 DOWNLOAD_TIMEOUT = 15
+USER_AGENT='scraping'
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 # CONCURRENT_REQUESTS = 100
 

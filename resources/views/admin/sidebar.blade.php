@@ -1,4 +1,4 @@
-  <!-- Left side column. contains the logo and sidebar -->
+  <!-- Left side column. contains the logo and sidebar -->  
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -18,17 +18,17 @@
         <div class="input-group">
         <input type="text" name="keyword" class="form-control" placeholder="{{trans('order.search')}}">
           <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
+            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+            </button>
+          </span>
         </div>
       </form>
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu tree" data-widget="tree">
-@php
-  $menus = Admin::getMenuVisible();
-@endphp
+  @php
+    $menus = Admin::getMenuVisible();
+  @endphp
 {{-- Level 0 --}}
         @foreach ($menus[0] as $level0)
         <li class="header">

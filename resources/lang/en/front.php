@@ -3,7 +3,6 @@
 
 return [
     'all_product'        => 'All products',
-
     'my_profile'         => 'My profile',
     'my_account'         => 'My account',
     'notfound'           => 'Not found',
@@ -112,7 +111,9 @@ return [
     ],
 
     'questionaire' => [
+        'questionnaire' => 'Questionnaire',
         'survey' => 'Survey',
+        'marketing_research' => 'Marketing Research',
     ],
 
     'network'   => 'Network',
