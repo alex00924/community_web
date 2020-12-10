@@ -138,7 +138,7 @@
           },
           success: function(response) {
             document.getElementById('preloader').style.display = 'none';
-            $('#download-link-csv').attr('href' , `http://localhost:8000/uploads/output.csv?version=${new Date().getTime()}`)
+            $('#download-link-csv').attr('href' , `{{env('APP_URL')}}/uploads/output.csv?version=${new Date().getTime()}`)
           }
       })
     })
@@ -162,7 +162,7 @@
             alert(response.res)
             if (response.res == 1){
               document.getElementById('preloader').style.display = 'none';
-              $('#download-linkedin-csv').attr('href' , `http://localhost:8000/uploads/output.csv?version=${new Date().getTime()}`)
+              $('#download-linkedin-csv').attr('href' , `{{env('APP_URL')}}/uploads/output.csv?version=${new Date().getTime()}`)
             }
           }
       })

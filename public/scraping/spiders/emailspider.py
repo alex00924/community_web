@@ -7,7 +7,7 @@ from scrapy import signals
 regex = r'\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b'
 emailArr = []
 
-with open('./uploads/input1.csv', 'r') as csvfile: 
+with open('./uploads/input.csv', 'r') as csvfile: 
     csvreader = csv.reader(csvfile) 
     # fields = next(csvreader)
     scrapurls = [] 
@@ -72,7 +72,7 @@ class EmailspiderSpider(scrapy.Spider):
             emailArr.append({'url': response.request.url, 'mail':list(set(cloneemail))})
 
     def spider_closed(self,spider):
-        with open('./uploads/input1.csv', 'r') as read_obj, \
+        with open('./uploads/input.csv', 'r') as read_obj, \
             open('./uploads/output.csv', 'w', newline='') as write_obj:
                 csv_reader = csv.reader(read_obj)
                 # fields = next(csv_reader)
