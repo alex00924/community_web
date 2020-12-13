@@ -364,5 +364,36 @@ class ScrapingController extends Controller
         echo json_encode(array('res'=> $output));
         exit;
     }
+
+    public function email_generator(Request $request)
+    {
+        $path = $request->email_scrape;
+        $inputfile = fopen($path,"r");
+        $output = []; 
+        fgetcsv($inputfile, 1000, ",");
+        while (($data = fgetcsv($inputfile, 1000, ",")) !== FALSE) {
+            $output[] = $data;
+        }
+        $outputfile = fopen("./uploads/email_generator.csv","w");
+        $columns = array('Company', 'Email Pattern', 'First Name', 'Last Name', 'Email');
+        fputcsv($outputfile, $columns);
+        foreach ($output as $line) {
+            $email="";
+            if ($line[1] === "[FN].[LN]") {
+                $email = $line[2] . '.' . $line[3] . '@' . strtolower(str_replace(' ', '', $line[0])) . '.com';
+            } else if ($line[1] === "[Fi][LN]") {
+                $email = substr($line[2],0,1) . '' . $line[3] . '@' . strtolower(str_replace(' ', '', $line[0])) . '.com';
+            } else if ($line[1] === "[FN]") {
+                $email = $line[2] . '@' . strtolower(str_replace(' ', '', $line[0])) . '.com';
+            } else if ($line[1] === "[LN][Fi]") {
+                $email = $line[3] . '' . substr($line[2],0,1) . '@' . strtolower(str_replace(' ', '', $line[0])) . '.com';
+            } else {
+                $email = $line[2] . '.' . $line[3] . '@' . strtolower(str_replace(' ', '', $line[0])) . '.com';
+            }
+            array_push($line, $email);
+            fputcsv($outputfile, $line);
+        }
+        fclose($inputfile);
+        echo json_encode(array('res' => 1));
+    }
 }
-                                                                                                                                                           

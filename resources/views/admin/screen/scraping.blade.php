@@ -47,6 +47,20 @@
     <a href="{{env('APP_URL')}}/uploads/linkedin.csv" target="_blank" id="download-linkedin-csv" style="margin-left: 1rem;">Download</a>
   </div>
 </div>
+
+<div class="scraping-item">
+  <p class="scraping-name">Generate Email</p>
+  <div style="display: flex; align-items: center;">
+    <form id="email-generator" role="form" method="post" action="{{route('admin_scraping.email-generator')}}" enctype='multipart/form-data'>
+      @csrf
+        <input type="file" name="email_scrape" id="email_scrape" style="display: none;" accept=".csv"/>
+        <label class="uploadButton" for="email_scrape"><span>Import Company (.csv)</span></label>
+        <button type="button" class="button_simple" id="generate-submit"><p><strong>Generate Email</strong></p></button>
+    </form>
+    <a href="{{env('APP_URL')}}/uploads/output.csv" target="_blank" id="download-email-csv" style="margin-left: 1rem;">Download</a>
+  </div>
+
+</div>
 @endsection
 
 
@@ -159,10 +173,38 @@
             document.getElementById('preloader').style.display = 'block';
           },
           success: function(response) {
-            alert(response.res)
             if (response.res == 1){
               document.getElementById('preloader').style.display = 'none';
               $('#download-linkedin-csv').attr('href' , `{{env('APP_URL')}}/uploads/output.csv?version=${new Date().getTime()}`)
+            }
+          }
+      })
+    })
+
+    $("#generate-submit").click(function() {
+      var file_data = $('#email_scrape')[0].files;
+      var form_data = new FormData();
+      form_data.append('email_scrape', file_data[0]);
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+      $.ajax({
+          url: $('#email-generator').attr('action'),
+          method: "POST",
+          data: form_data,
+          contentType: false,
+          processData: false,
+          dataType: 'json',
+          beforeSend: function() {
+            document.getElementById('preloader').style.display = 'block';
+          },
+          success: function(response) {
+            alert(response.res);
+            if (response.res == 1){
+              document.getElementById('preloader').style.display = 'none';
+              $('#download-email-csv').attr('href' , `{{env('APP_URL')}}/uploads/email_generator.csv?version=${new Date().getTime()}`)
             }
           }
       })
