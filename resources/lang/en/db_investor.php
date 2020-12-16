@@ -1,0 +1,52 @@
+<?php
+
+return [
+    'admin'                 => [
+        'title'                   => 'Inverstors',
+        'manager'                 => 'Product Manager',
+        'relationship'            => 'Product Relationship',
+        'create_success'          => 'Create new item success!',
+        'edit_success'            => 'Edit item success!',
+        'list'                    => 'Product list',
+        'action'                  => 'Action',
+        'delete'                  => 'Delete',
+        'edit'                    => 'Edit',
+        'add_new'                 => 'Add new',
+        'add_new_title'           => 'Add new product',
+        'add_new_des'             => 'Create a new product',
+        'export'                  => 'Export',
+        'refresh'                 => 'Refresh',
+        'select_kind'             => 'Select product kind',
+        'result_item'             => 'Showing <b>:item_from</b> to <b>:item_to</b> of <b>:item_total</b> items</b>',
+        'sort'                    => 'Sort',
+
+        'select_category'         => 'Select category',
+        'select_product_in_group' => 'Select products in group',
+        'select_product_in_build' => 'Select products build',
+        'add_product'             => 'Add product',
+        'add_attribute'           => 'Add attribute',
+        'add_attribute_place'     => 'Add an attribute value',
+        'add_attribute_price'     => 'Add an attribute price. Empty means default price',
+        'add_sub_image'           => 'Add more images',
+        'add_product_promotion'   => 'Add promotion price',
+        'choose_image'            => 'Choose',
+
+        'sort_order'              => [
+            'id_asc'     => 'ID asc',
+            'id_desc'    => 'ID desc',
+            'name_asc'   => 'Name asc',
+            'name_desc'  => 'Name desc',
+            'sku_asc'    => 'SKU a-z',
+            'sku_desc'   => 'SKU z-a',
+            'price_asc'  => 'Price a-z',
+            'price_desc' => 'Price z-a',
+            'view_desc' => 'View desc',
+            'view_asc' => 'View asc',
+            'sold_desc' => 'Sold desc',
+            'sold_asc' => 'Sold asc',
+        ],
+        'search'                  => 'Search',
+        'search_place'            => 'Search Name, SKU or ID',
+        'cant_remove_child'        => 'Please remove list products from Builds or Groups before delete them',
+    ]
+];

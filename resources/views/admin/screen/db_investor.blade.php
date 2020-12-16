@@ -1,7 +1,6 @@
 @extends('admin.layout')
 
 @section('main')
-  <div id="preloader"></div>
    <div class="row">
       <div class="col-md-12">
          <div class="box">
@@ -44,25 +43,6 @@
                     </tr>
                 @endforeach
             </tbody>
-            @if ($title == trans('db_customer.admin.individual'))
-            <style>
-               tr {
-                  width: max-content;
-                }  
-                th, td {
-                  word-break: unset !important;
-                  max-width: unset !important;
-                }
-                td:nth-child(16) {
-                  display: -webkit-box;
-                  -webkit-box-orient: vertical;
-                  -webkit-line-clamp: 2;
-                  overflow: hidden;
-                  width: 170px !important;
-                  line-height: 1.8 !important;
-                }
-            </style>
-            @endif
          </table>
       </div>
       <div class="box-footer clearfix">
@@ -81,49 +61,6 @@
 <style type="text/css">
   .box-body td,.box-body th{
   max-width:150px;word-break:break-all;
-}
-.uploadButton {
-  cursor: pointer;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: inline-block;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 8px 10px;
-  height: 34px;
-  margin-right: 10px;
-  font-size: 16px;
-  text-align: center;
-  color: #FFF;
-  background: #4cb747;
-}
-.button_simple {
-  background: #2aade3;
-  display: inline-block;
-  padding: 8px 10px;
-  height: 34px;
-  border: none;
-  color:#fff;
-  margin-right: 10px;
-  /* transform: translateY(2px); */
-}
-#preloader {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 999;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  background: url('/images/loading.gif') no-repeat center center;
-  background-color: rgba(153, 153, 153, 0.25);
-  display: none;
 }
 </style>
 @endpush
@@ -270,61 +207,5 @@ $('.grid-trash').on('click', function() {
       increaseArea: '20%' /* optional */
     });
   });
-
-  $("#savein_db").click(function() {
-      var file_data = $('#import_individual')[0].files;
-      var form_data = new FormData();
-      form_data.append('import_individual', file_data[0]);
-      $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-      });
-      $.ajax({
-          url: $('#insert_individual').attr('action'),
-          method: "POST",
-          data: form_data,
-          contentType: false,
-          processData: false,
-          dataType: 'json',
-          beforeSend: function() {
-            document.getElementById('preloader').style.display = 'block';
-          },
-          success: function(response) {
-            if (response.res === 1){
-              document.getElementById('preloader').style.display = 'none';
-              window.location.href = "{{ route('admin_dbcumstomer.individual.index')}}";
-            }
-          }
-      })
-    })
-
-    $("#savein_db_company").click(function() {
-      var file_data = $('#import_company')[0].files;
-      var form_data = new FormData();
-      form_data.append('import_company', file_data[0]);
-      $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-      });
-      $.ajax({
-          url: $('#insert_company').attr('action'),
-          method: "POST",
-          data: form_data,
-          contentType: false,
-          processData: false,
-          dataType: 'json',
-          beforeSend: function() {
-            document.getElementById('preloader').style.display = 'block';
-          },
-          success: function(response) {
-            if (response.res === 1){
-              document.getElementById('preloader').style.display = 'none';
-              window.location.href = "{{ route('admin_dbcumstomer.company.index')}}";
-            }
-          }
-      })
-    })
 </script>
 @endpush

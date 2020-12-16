@@ -201,7 +201,6 @@
             document.getElementById('preloader').style.display = 'block';
           },
           success: function(response) {
-            alert(response.res);
             if (response.res == 1){
               document.getElementById('preloader').style.display = 'none';
               $('#download-email-csv').attr('href' , `{{env('APP_URL')}}/uploads/email_generator.csv?version=${new Date().getTime()}`)
