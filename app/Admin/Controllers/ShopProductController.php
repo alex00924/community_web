@@ -734,7 +734,6 @@ class ShopProductController extends Controller
             'supplyName' => !empty($data['supply_name']) ? $data['supply_name'] : null,
             'supplyLink' => !empty($data['supply_link']) ? $data['supply_link'] : null
         ];
-
         $product->update($dataUpdate);
 
         //Promoton price

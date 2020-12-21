@@ -36,75 +36,448 @@
         </li>
         {{-- LEvel 1  --}}
           @foreach ($menus[$level0->id] as $level1)
-            @if($level1->uri)
-              <li class=""><a href="{{ $level1->uri?sc_url_render($level1->uri):'#' }}"><i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span></a></li>
-            @else
-            <li class="treeview">
-              <a href="#">
-                <i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-            {{-- LEvel 2  --}}
-              <ul class="treeview-menu">
-                @if (isset($menus[$level1->id]))
-                @foreach ($menus[$level1->id] as $level2)
-                  @if($level2->uri)
-                    <li class=""><a href="{{ $level2->uri?sc_url_render($level2->uri):'#' }}"><i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span></a></li>
-                  @else
-                  <li class="treeview">
-                    <a href="#">
-                      <i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span>
-                      <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                      </span>
-                    </a>
-      
-                  {{-- LEvel 3  --}}
+            @if(Session::get('userrole') === 2)
+              @if($level1->id !== 58 && $level1->id !== 1)
+                @if($level1->uri)
+                  <li class=""><a href="{{ $level1->uri?sc_url_render($level1->uri):'#' }}"><i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span></a></li>
+                @else
+                <li class="treeview">
+                  <a href="#">
+                    <i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                {{-- LEvel 2  --}}
                   <ul class="treeview-menu">
-                    @if (isset($menus[$level2->id]))
-                    @foreach ($menus[$level2->id] as $level3)
-                      @if($level3->uri)
-                        <li class=""><a href="{{ $level3->uri?sc_url_render($level3->uri):'#' }}"><i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span></a></li>
+                    @if (isset($menus[$level1->id]))
+                    @foreach ($menus[$level1->id] as $level2)
+                      @if (Session::get('userrole') === 1)
+                        @if($level2->uri)
+                          <li class=""><a href="{{ $level2->uri?sc_url_render($level2->uri):'#' }}"><i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span></a></li>
+                        @else
+                        <li class="treeview">
+                          <a href="#">
+                            <i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span>
+                            <span class="pull-right-container">
+                              <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                          </a>
+            
+                        {{-- LEvel 3  --}}
+                        <ul class="treeview-menu">
+                          @if (isset($menus[$level2->id]))
+                          @foreach ($menus[$level2->id] as $level3)
+                            @if($level3->uri)
+                              <li class=""><a href="{{ $level3->uri?sc_url_render($level3->uri):'#' }}"><i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span></a></li>
+                            @else
+                            <li class="treeview">
+                              <a href="#">
+                                <i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span>
+                                <span class="pull-right-container">
+                                  <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                              </a>
+                
+                
+                              
+                              </li>
+                            @endif
+                          @endforeach
+                          @endif
+                            
+                        </ul>
+                        {{-- end level 3 --}}
+                          
+                          </li>
+                        @endif
+                      @elseif (Session::get('userrole') === 2)
+                        @if ($level2->uri !== 'admin::scraping/mr_admin')
+                          @if($level2->uri)
+                            <li class=""><a href="{{ $level2->uri?sc_url_render($level2->uri):'#' }}"><i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span></a></li>
+                          @else
+                          <li class="treeview">
+                            <a href="#">
+                              <i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span>
+                              <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                              </span>
+                            </a>
+              
+                          {{-- LEvel 3  --}}
+                          <ul class="treeview-menu">
+                            @if (isset($menus[$level2->id]))
+                            @foreach ($menus[$level2->id] as $level3)
+                              @if($level3->uri)
+                                <li class=""><a href="{{ $level3->uri?sc_url_render($level3->uri):'#' }}"><i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span></a></li>
+                              @else
+                              <li class="treeview">
+                                <a href="#">
+                                  <i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span>
+                                  <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                  </span>
+                                </a>
+                  
+                  
+                                
+                                </li>
+                              @endif
+                            @endforeach
+                            @endif
+                              
+                          </ul>
+                          {{-- end level 3 --}}
+                            
+                            </li>
+                          @endif
+                        @endif
+                      @elseif(Session::get('userrole') === 3)
+                        @if ($level2->uri !== 'admin::scraping/bd_admin')
+                          @if($level2->uri)
+                            <li class=""><a href="{{ $level2->uri?sc_url_render($level2->uri):'#' }}"><i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span></a></li>
+                          @else
+                          <li class="treeview">
+                            <a href="#">
+                              <i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span>
+                              <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                              </span>
+                            </a>
+              
+                          {{-- LEvel 3  --}}
+                          <ul class="treeview-menu">
+                            @if (isset($menus[$level2->id]))
+                            @foreach ($menus[$level2->id] as $level3)
+                              @if($level3->uri)
+                                <li class=""><a href="{{ $level3->uri?sc_url_render($level3->uri):'#' }}"><i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span></a></li>
+                              @else
+                              <li class="treeview">
+                                <a href="#">
+                                  <i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span>
+                                  <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                  </span>
+                                </a>
+                  
+                  
+                                
+                                </li>
+                              @endif
+                            @endforeach
+                            @endif
+                              
+                          </ul>
+                          {{-- end level 3 --}}
+                            
+                            </li>
+                          @endif
+                        @endif
+                      @endif
+                    @endforeach
+                    @endif
+
+                  </ul>
+                  {{-- end level 2 --}}
+                  </li>
+                @endif
+              @endif
+            @elseif(Session::get('userrole') === 3)
+              @if($level1->id !== 1)
+                @if($level1->uri)
+                  <li class=""><a href="{{ $level1->uri?sc_url_render($level1->uri):'#' }}"><i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span></a></li>
+                @else
+                <li class="treeview">
+                  <a href="#">
+                    <i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                {{-- LEvel 2  --}}
+                  <ul class="treeview-menu">
+                    @if (isset($menus[$level1->id]))
+                    @foreach ($menus[$level1->id] as $level2)
+                      @if (Session::get('userrole') === 1)
+                        @if($level2->uri)
+                          <li class=""><a href="{{ $level2->uri?sc_url_render($level2->uri):'#' }}"><i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span></a></li>
+                        @else
+                        <li class="treeview">
+                          <a href="#">
+                            <i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span>
+                            <span class="pull-right-container">
+                              <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                          </a>
+            
+                        {{-- LEvel 3  --}}
+                        <ul class="treeview-menu">
+                          @if (isset($menus[$level2->id]))
+                          @foreach ($menus[$level2->id] as $level3)
+                            @if($level3->uri)
+                              <li class=""><a href="{{ $level3->uri?sc_url_render($level3->uri):'#' }}"><i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span></a></li>
+                            @else
+                            <li class="treeview">
+                              <a href="#">
+                                <i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span>
+                                <span class="pull-right-container">
+                                  <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                              </a>
+                
+                
+                              
+                              </li>
+                            @endif
+                          @endforeach
+                          @endif
+                            
+                        </ul>
+                        {{-- end level 3 --}}
+                          
+                          </li>
+                        @endif
+                      @elseif (Session::get('userrole') === 2)
+                        @if ($level2->uri !== 'admin::scraping/mr_admin')
+                          @if($level2->uri)
+                            <li class=""><a href="{{ $level2->uri?sc_url_render($level2->uri):'#' }}"><i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span></a></li>
+                          @else
+                          <li class="treeview">
+                            <a href="#">
+                              <i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span>
+                              <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                              </span>
+                            </a>
+              
+                          {{-- LEvel 3  --}}
+                          <ul class="treeview-menu">
+                            @if (isset($menus[$level2->id]))
+                            @foreach ($menus[$level2->id] as $level3)
+                              @if($level3->uri)
+                                <li class=""><a href="{{ $level3->uri?sc_url_render($level3->uri):'#' }}"><i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span></a></li>
+                              @else
+                              <li class="treeview">
+                                <a href="#">
+                                  <i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span>
+                                  <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                  </span>
+                                </a>
+                  
+                  
+                                
+                                </li>
+                              @endif
+                            @endforeach
+                            @endif
+                              
+                          </ul>
+                          {{-- end level 3 --}}
+                            
+                            </li>
+                          @endif
+                        @endif
+                      @elseif(Session::get('userrole') === 3)
+                        @if ($level2->uri !== 'admin::scraping/bd_admin')
+                          @if($level2->uri)
+                            <li class=""><a href="{{ $level2->uri?sc_url_render($level2->uri):'#' }}"><i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span></a></li>
+                          @else
+                          <li class="treeview">
+                            <a href="#">
+                              <i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span>
+                              <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                              </span>
+                            </a>
+              
+                          {{-- LEvel 3  --}}
+                          <ul class="treeview-menu">
+                            @if (isset($menus[$level2->id]))
+                            @foreach ($menus[$level2->id] as $level3)
+                              @if($level3->uri)
+                                <li class=""><a href="{{ $level3->uri?sc_url_render($level3->uri):'#' }}"><i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span></a></li>
+                              @else
+                              <li class="treeview">
+                                <a href="#">
+                                  <i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span>
+                                  <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                  </span>
+                                </a>
+                  
+                  
+                                
+                                </li>
+                              @endif
+                            @endforeach
+                            @endif
+                              
+                          </ul>
+                          {{-- end level 3 --}}
+                            
+                            </li>
+                          @endif
+                        @endif
+                      @endif
+                    @endforeach
+                    @endif
+
+                  </ul>
+                  {{-- end level 2 --}}
+                  </li>
+                @endif
+              @endif
+            @else
+              @if($level1->uri)
+                <li class=""><a href="{{ $level1->uri?sc_url_render($level1->uri):'#' }}"><i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span></a></li>
+              @else
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+              {{-- LEvel 2  --}}
+                <ul class="treeview-menu">
+                  @if (isset($menus[$level1->id]))
+                  @foreach ($menus[$level1->id] as $level2)
+                    @if (Session::get('userrole') === 1)
+                      @if($level2->uri)
+                        <li class=""><a href="{{ $level2->uri?sc_url_render($level2->uri):'#' }}"><i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span></a></li>
                       @else
                       <li class="treeview">
                         <a href="#">
-                          <i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span>
+                          <i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span>
                           <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                           </span>
                         </a>
           
-          
+                      {{-- LEvel 3  --}}
+                      <ul class="treeview-menu">
+                        @if (isset($menus[$level2->id]))
+                        @foreach ($menus[$level2->id] as $level3)
+                          @if($level3->uri)
+                            <li class=""><a href="{{ $level3->uri?sc_url_render($level3->uri):'#' }}"><i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span></a></li>
+                          @else
+                          <li class="treeview">
+                            <a href="#">
+                              <i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span>
+                              <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                              </span>
+                            </a>
+              
+              
+                            
+                            </li>
+                          @endif
+                        @endforeach
+                        @endif
+                          
+                      </ul>
+                      {{-- end level 3 --}}
                         
                         </li>
                       @endif
-                    @endforeach
+                    @elseif (Session::get('userrole') === 2)
+                      @if ($level2->uri !== 'admin::scraping/mr_admin')
+                        @if($level2->uri)
+                          <li class=""><a href="{{ $level2->uri?sc_url_render($level2->uri):'#' }}"><i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span></a></li>
+                        @else
+                        <li class="treeview">
+                          <a href="#">
+                            <i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span>
+                            <span class="pull-right-container">
+                              <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                          </a>
+            
+                        {{-- LEvel 3  --}}
+                        <ul class="treeview-menu">
+                          @if (isset($menus[$level2->id]))
+                          @foreach ($menus[$level2->id] as $level3)
+                            @if($level3->uri)
+                              <li class=""><a href="{{ $level3->uri?sc_url_render($level3->uri):'#' }}"><i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span></a></li>
+                            @else
+                            <li class="treeview">
+                              <a href="#">
+                                <i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span>
+                                <span class="pull-right-container">
+                                  <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                              </a>
+                
+                
+                              
+                              </li>
+                            @endif
+                          @endforeach
+                          @endif
+                            
+                        </ul>
+                        {{-- end level 3 --}}
+                          
+                          </li>
+                        @endif
+                      @endif
+                    @elseif(Session::get('userrole') === 3)
+                      @if ($level2->uri !== 'admin::scraping/bd_admin')
+                        @if($level2->uri)
+                          <li class=""><a href="{{ $level2->uri?sc_url_render($level2->uri):'#' }}"><i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span></a></li>
+                        @else
+                        <li class="treeview">
+                          <a href="#">
+                            <i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span>
+                            <span class="pull-right-container">
+                              <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                          </a>
+            
+                        {{-- LEvel 3  --}}
+                        <ul class="treeview-menu">
+                          @if (isset($menus[$level2->id]))
+                          @foreach ($menus[$level2->id] as $level3)
+                            @if($level3->uri)
+                              <li class=""><a href="{{ $level3->uri?sc_url_render($level3->uri):'#' }}"><i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span></a></li>
+                            @else
+                            <li class="treeview">
+                              <a href="#">
+                                <i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span>
+                                <span class="pull-right-container">
+                                  <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                              </a>
+                
+                
+                              
+                              </li>
+                            @endif
+                          @endforeach
+                          @endif
+                            
+                        </ul>
+                        {{-- end level 3 --}}
+                          
+                          </li>
+                        @endif
+                      @endif
                     @endif
-                      
-                  </ul>
-                  {{-- end level 3 --}}
-                    
-                    </li>
+                  @endforeach
                   @endif
-                @endforeach
-                @endif
 
-              </ul>
-              {{-- end level 2 --}}
-              </li>
+                </ul>
+                {{-- end level 2 --}}
+                </li>
+              @endif
             @endif
           @endforeach
       {{--  end level 1 --}}
 
         @endforeach
       {{-- end level 0 --}}
-        <li class="">
-          <a href="{{sc_url_render('admin::scraping')}}">
-            <i class="fa fa-hourglass-half"></i> <span>Scraping Tools</span>            
-          </a>
-        </li>
       </ul>
 
 @include('admin.component.sidebar_bottom')

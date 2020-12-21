@@ -4,17 +4,6 @@
 <div id="preloader"></div>
 
 <div class="scraping-item">
-  <p class="scraping-name">Scientific Article Scraping</p>
-  <form id="article-scrapping" role="form" method="post" action="{{route('admin_scraping.email_extractor')}}" enctype='multipart/form-data'>
-    @csrf
-      <input type="file" name="scrape" id="scrape" style="display: none;" accept=".csv"/>
-      <label class="uploadButton" for="scrape"><span>Import PMID List (.csv)</span></label>
-      {{--<button type="sumbit" class="button_simple"><p><strong>Email Extract</strong></p></button>--}}
-      <button type="button" class="button_simple" onclick="article_scrapping()"><p><strong>Email Extract</strong></p></button>
-  </form>
-</div>
-
-<div class="scraping-item">
   <p class="scraping-name">Website Scraping</p>
   <div style="display: flex; align-items: center;">
     <form id="website-scrapping" role="form" method="post" action="{{route('admin_scraping.web_scraping')}}" enctype='multipart/form-data'>
@@ -25,28 +14,8 @@
     </form>
     <a href="{{env('APP_URL')}}/uploads/output.csv" target="_blank" id="download-link-csv" style="margin-left: 1rem;">Download</a>
   </div>
-
 </div>
 
-<!-- <div class="scraping-item">
-  <p class="scraping-name">Crunchbase Scraping</p>
-  <form id="crunchbase-scrapping" role="form" method="post" action="{{route('admin_scraping.crunchbase_scraping')}}" enctype='multipart/form-data'>
-    @csrf
-      <button type="button" class="button_simple" onclick="crunchbase_scrapping()"><p><strong>Scraping</strong></p></button>
-  </form>
-</div> -->
-
-<div class="scraping-item">
-  <p class="scraping-name">Linkedin Scraping</p>
-  <div style="display: flex; align-items: center;">
-    <form id="linkedin-scrapping" role="form" method="post" action="{{route('admin_scraping.linkedin_scraping')}}" enctype='multipart/form-data'>
-      @csrf
-        <input type="text" id="linkedin" name="linkedin"/>
-        <button type="button" class="button_simple" id="linkedin-submit"><p><strong>Scraping</strong></p></button>
-    </form>
-    <a href="{{env('APP_URL')}}/uploads/linkedin.csv" target="_blank" id="download-linkedin-csv" style="margin-left: 1rem;">Download</a>
-  </div>
-</div>
 
 <div class="scraping-item">
   <p class="scraping-name">Generate Email</p>
@@ -59,7 +28,6 @@
     </form>
     <a href="{{env('APP_URL')}}/uploads/output.csv" target="_blank" id="download-email-csv" style="margin-left: 1rem;">Download</a>
   </div>
-
 </div>
 @endsection
 
@@ -181,60 +149,9 @@
       })
     })
 
-    $("#generate-submit").click(function() {
-      var file_data = $('#email_scrape')[0].files;
-      var form_data = new FormData();
-      form_data.append('email_scrape', file_data[0]);
-      $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-      });
-      $.ajax({
-          url: $('#email-generator').attr('action'),
-          method: "POST",
-          data: form_data,
-          contentType: false,
-          processData: false,
-          dataType: 'json',
-          beforeSend: function() {
-            document.getElementById('preloader').style.display = 'block';
-          },
-          success: function(response) {
-            if (response.res == 1){
-              document.getElementById('preloader').style.display = 'none';
-              $('#download-email-csv').attr('href' , `{{env('APP_URL')}}/uploads/email_generator.csv?version=${new Date().getTime()}`)
-            }
-          }
-      })
-    })
 
   })
-  // function website_scrapping()
-  // {
-	// 	document.getElementById('preloader').style.display = 'block';
 
-  //   setTimeout(function(){
-	// 		document.getElementById('preloader').style.display = 'none';
-  //   },10000);
-    
-  //   // $("#website-scrapping").submit();
-  //   // $("#website-scrapping").submit(function(e){
-  //   //   e.preventDefault()
-  //   //   var file_data = $('#web_scrape').prop('files')[0];   
-  //   //   var form_data = new FormData();                  
-  //   //   form_data.append('web_scrape', file_data);
-  //   //   $.ajax(
-  //   //     {
-  //   //       url: "/scraping/web-scraping",
-  //   //       method: "POST",
-  //   //       data: form_data,
-  //   //       success: function(response) {
-  //   //         alert(response)
-  //   //       }
-  //   //     },
-  //   // });
-  // }
 
   function article_scrapping()
   {
@@ -246,18 +163,6 @@
 
     $("#article-scrapping").submit();
   }
-
-  function crunchbase_scrapping()
-  {
-    document.getElementById('preloader').style.display = 'block';
-
-    setTimeout(function(){
-      document.getElementById('preloader').style.display = 'none';
-    },10000);
-
-    $("#crunchbase-scrapping").submit();
-  }
-
 
 </script>
 @endpush

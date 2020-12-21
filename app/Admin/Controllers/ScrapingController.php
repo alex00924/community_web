@@ -20,9 +20,13 @@ class ScrapingController extends Controller
 
     public function index()
     {
-        return view('admin.screen.scraping');
+        return view('admin.screen.scraping_bd');
     }
 
+    public function mr_admin()
+    {
+        return view('admin.screen.scraping_mr');
+    }
     /**
      * email extractor
      * @param Request $request  
