@@ -176,7 +176,7 @@ class ScrapingController extends Controller
         $file = $request->web_scrape;
         $destinationPath = 'uploads';
         $file->move($destinationPath, 'input.csv');
-        $output = shell_exec('scrapy crawl emailspider');
+        $output = shell_exec('/home/fluidsforlife/.local/bin/scrapy crawl emailspider');
         echo json_encode(array('res'=> $output));
         exit;
     }
@@ -364,7 +364,7 @@ class ScrapingController extends Controller
     public function linkedin_scraping(Request $request)
     {  
         $searchkey =  $request->field;
-        $output = shell_exec("python3 linkedinjob.py $searchkey");
+        $output = shell_exec("/home/fluidsforlife/.local/bin/python3 linkedinjob.py $searchkey");
         echo json_encode(array('res'=> $output));
         exit;
     }

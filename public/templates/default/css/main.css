@@ -983,15 +983,20 @@ h2.title {
 
 .choose ul li a i {
   margin-right:5px;
+  color: #4db848;
   
-  background: linear-gradient(to right, #4db848 20%, #28ace2 40%, #28ace2 60%, #4db848 80%);
+  /* background: linear-gradient(to right, #4db848 20%, #28ace2 40%, #28ace2 60%, #4db848 80%);
   background-size: 200% auto;
   
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   
-  animation: shine 5s linear infinite;
+  animation: shine 5s linear infinite; */
+}
+
+.choose ul li a i:hover{
+  color: #28ace2;
 }
 
 @keyframes shine {
