@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ShopAttributeGroup;
+use App\Models\ShopPage;
 use App\Models\ShopBrand;
 use App\Models\ShopBanner;
 use App\Models\ShopCategory;
@@ -45,15 +46,30 @@ class ShopFront extends GeneralController
                 $questionaire['questions'] = QuestionaireQuestion::with("options")->where('questionaire_id', $questionaire->id)->get();
             }
         }
-        
-        return view($this->templatePath . '.shop_home',
-            array(
-                'layout_page' => 'home',
-                'questionaire_survey' => $questionaire
-            )
-        );
+        $page = $this->getPage();
+        if ($page) {
+            return view($this->templatePath . '.shop_home',
+                array(
+                    'layout_page' => 'home',
+                    'questionaire_survey' => $questionaire,
+                    'title' => $page->title,
+                    'description' => '',
+                    'keyword' => '',
+                    'page' => $page,
+                    'og_image' => $page->image,
+                )
+            );
+        } else {
+            return $this->pageNotFound();
+        }
     }
 
+    public function getPage()
+    {
+        return ShopPage::where('alias', 'home')
+            ->where('status', 1)
+            ->first();
+    }
     /**
      * [getCategories description]
      * @param  Request $request [description]
