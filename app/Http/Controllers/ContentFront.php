@@ -106,20 +106,22 @@ class ContentFront extends GeneralController
      */
     public function pages($alias = null)
     {
-        $page = $this->getPage($alias);
-        if ($page) {
-            return view(
-                $this->templatePath . '.shop_page',
-                array(
-                    'title' => $page->title,
-                    'description' => '',
-                    'keyword' => '',
-                    'page' => $page,
-                    'og_image' => $page->image,
-                )
-            );
-        } else {
-            return $this->pageNotFound();
+        if ($alias !== 'home') {
+            $page = $this->getPage($alias);
+            if ($page) {
+                return view(
+                    $this->templatePath . '.shop_page',
+                    array(
+                        'title' => $page->title,
+                        'description' => '',
+                        'keyword' => '',
+                        'page' => $page,
+                        'og_image' => $page->image,
+                    )
+                );
+            } else {
+                return $this->pageNotFound();
+            }
         }
     }
 
