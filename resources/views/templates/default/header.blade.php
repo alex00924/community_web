@@ -60,12 +60,16 @@
                     {{ trans('front.home') }}
                   </a>
                 </li>
+		<li>
+		<a class="{{ ( $routeName == 'product.all') ? 'active' : '' }}" href="{{ route('product.all') }}">
+		{{ trans('front.all_product') }}
+		</a>
+		</li>
                 <li class="dropdown">
                     <a href="#" class="{{ ($routeName == 'product.all' || $routeName == 'compare' || $routeName == 'cart' || $routeName == 'categories' || $routeName == 'brands' || $routeName == 'vendors') ? 'active' : '' }}">
                       {{ trans('front.shop') }}<i class="fa fa-angle-down"></i>
                     </a>
                     <ul role="menu" class="sub-menu">
-                        <li><a class="{{ ( $routeName == 'product.all') ? 'active' : '' }}" href="{{ route('product.all') }}">{{ trans('front.all_product') }}</a></li>
                         <li><a class="{{ ( $routeName == 'compare') ? 'active' : '' }}" href="{{ route('compare') }}">{{ trans('front.compare') }}</a></li>
                         <li><a class="{{ ( $routeName == 'cart') ? 'active' : '' }}" href="{{ route('cart') }}">{{ trans('front.cart_title') }}</a></li>
                         <li><a class="{{ ( $routeName == 'categories') ? 'active' : '' }}" href="{{ route('categories') }}">{{ trans('front.categories') }}</a></li>
@@ -75,7 +79,8 @@
                 </li>
 
                 @if (!empty(sc_config('Content')))
-                <li class="dropdown"><a href="#">{{ trans('front.cms_category') }}<i class="fa fa-angle-down"></i></a>
+                <li class="dropdown">
+				<a href="#">{{ trans('front.cms_category') }}<i class="fa fa-angle-down"></i></a>
                     <ul role="menu" class="sub-menu">
                       @php
                         $nameSpace = sc_get_module_namespace('Cms','Content').'\Models\CmsCategory';
