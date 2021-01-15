@@ -130,7 +130,7 @@
                   @endif
 
               </div>
-
+              @if ($product->type !== 3)
               <div class="col-lg-4 col-md-6 col-xs-12" style="padding: 0 2rem">
                 <div class="product-information"><!--/product-information-->
                   <form id="buy_block" action="{{ route('cart.add') }}" method="post">
@@ -192,7 +192,7 @@
                   </form>
                 </div><!--/product-information-->
               </div><!--/product-details-->
-
+            @endif
             </div>
             
             <div class="category-tab shop-details-tab"><!--product description-tab-->

@@ -429,13 +429,14 @@ class ShopProductController extends Controller
                 ];
                 break;
         }
-
-        $validator = Validator::make($data, $arrValidation, $arrMsg ?? []);
-
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput($data);
+        if ($data['type'] !== SC_PRODUCT_FREE){
+            $validator = Validator::make($data, $arrValidation, $arrMsg ?? []);
+    
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput($data);
+            }
         }
 
         $category = $data['category'] ?? [];
