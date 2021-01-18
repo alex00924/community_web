@@ -74,6 +74,7 @@ require_once 'component/content.php';
 */
 require_once 'component/questionaire.php';
 require_once 'component/marketing.php';
+require_once 'component/marketingquestionaire.php';
 /*
  Content
 */

@@ -113,6 +113,7 @@ return [
     'questionaire' => [
         'questionnaire' => 'Questionnaire',
         'survey' => 'Survey',
+        'marketingsurvey' => 'Marketing Reserch Survey',
         'marketing_research' => 'Marketing Research',
     ],
 

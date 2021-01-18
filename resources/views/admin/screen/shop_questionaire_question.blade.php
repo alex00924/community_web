@@ -7,13 +7,13 @@
             <div class="box-header with-border">
                 <div class="pull-right">
                     <div class="btn-group">
-                        <a href="{{ route('admin_questionaire.createQuestion', ['questionaire_id' => $questionaire_id]) }}" class="btn  btn-flat btn-success" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
+                        <a href="{{ $category === 'questionaire' ? route('admin_questionaire.createQuestion', ['questionaire_id' => $questionaire_id]) : route('admin_marketquestionaire.createQuestion', ['questionaire_id' => $questionaire_id]) }}" class="btn  btn-flat btn-success" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
                             <i class="fa fa-plus"></i>
                             <span class="hidden-xs"> {{trans('questionaire.admin.add_new')}}</span>
                         </a>
                     </div>
                     <div class="btn-group">
-                        <a href="{{ route('admin_questionaire.index') }}" class="btn  btn-flat btn-default" title="{{trans('questionaire.admin.back_questionaire')}}" style="margin: 0 5px">
+                        <a href="{{ $category === 'questionaire' ? route('admin_questionaire.index') : route('admin_marketquestionaire.index') }}" class="btn  btn-flat btn-default" title="{{trans('questionaire.admin.back_questionaire')}}" style="margin: 0 5px">
                             <i class="fa fa-list"></i>
                             <span class="hidden-xs"> {{trans('questionaire.admin.back_questionaire')}}</span>
                         </a>
@@ -40,14 +40,14 @@
                                         <td>{{ $question->id }}</td>
                                         <td>{!! nl2br(e($question->question)) !!}</td>
                                         <td>
-                                            <a href="{{ route('admin_questionaire.editQuestion', ['questionaire_id' => $questionaire_id, 'id' => $question->id]) }}">
+                                            <a href="{{ $category === 'questionaire' ? route('admin_questionaire.editQuestion', ['questionaire_id' => $questionaire_id, 'id' => $question->id]) : route('admin_marketquestionaire.editQuestion', ['questionaire_id' => $questionaire_id, 'id' => $question->id])}}">
                                                 <span title="Edit" type="button" class="btn btn-flat btn-primary">
                                                     <i class="fa fa-edit"></i>
                                                 </span>
                                             </a>
                                             &nbsp;
                                             @if (Session::get('userrole') == 1)
-                                            <span onclick="deleteItem({{ $question->id }});" title="Delete" class="btn btn-flat btn-danger">
+                                            <span id="{{$question->id}}" title="Delete" class="btn btn-flat btn-danger btn-delete">
                                                 <i class="fa fa-trash"></i>
                                             </span>
                                             @endif
@@ -118,7 +118,8 @@
 </script>
 
 <script type="text/javascript">
-    let deleteUrl = "{{ route('admin_questionaire.deleteQuestion', ['id'=>'question_ID']) }}";
+    let category = @json($category);
+    let deleteUrl = category === 'questionaire' ? "{{ route('admin_questionaire.deleteQuestion', ['id'=>'question_ID']) }}" : "{{ route('admin_marketquestionaire.deleteQuestion', ['id'=>'question_ID']) }}";
     let questionaire = @json($questionaire);
     let answers = null;
 
@@ -129,7 +130,6 @@
         if (id < 1) {
             return;
         }
-        $("#loading-image").show();
         $.ajax({
             type: "POST",
             data: {"_token": "{{ csrf_token() }}"},
@@ -147,7 +147,6 @@
                         $("#tr-question_" + id).remove();
                     }
                 }
-                $("#loading-image").hide();
             }
 
         });
@@ -157,7 +156,10 @@
         $("#question-table tr.clickable").first().addClass('clicked');
         loadHierarchy();
     });
-
+    $(".btn-delete").on('click', function(event) {
+        deleteItem($(this).attr('id'));
+        event.stopPropagation();
+    });
     $("#question-table tr.clickable").click(function() {
         if ($(this).hasClass('clicked')) {
             return;

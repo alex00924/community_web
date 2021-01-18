@@ -5,9 +5,18 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header with-border">
+                @if ($category === 'marketing')
+                <div class="pull-left">
+                    <div class="btn-group">
+                        <a href="{{ route('admin_marketquestionaire.generateurl') }}" class="btn  btn-flat btn-primary" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
+                            <span class="hidden-xs"> {{trans('questionaire.marketing.generateURL')}}</span>
+                        </a>
+                    </div>
+                </div>
+                @endif
                 <div class="pull-right">
                     <div class="btn-group">
-                        <a href="{{ route('admin_questionaire.create') }}" class="btn  btn-flat btn-success" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
+                        <a href="{{ $category === 'questionaire' ? route('admin_questionaire.create') : route('admin_marketquestionaire.create') }}" class="btn  btn-flat btn-success" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
                             <i class="fa fa-plus"></i>
                             <span class="hidden-xs"> {{trans('questionaire.admin.add_new')}}</span>
                         </a>
@@ -33,7 +42,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($questionaires as $key => $questionaire)
-                                    <tr data-id="{{ $questionaire->id }}"  class="linkable">
+                                    <tr data-id="{{ $questionaire->id }}" class="linkable">
                                         <td>{{ $questionaire->id }}</td>
                                         <td>{{ $questionaire->title }}</td>
                                         <td>{{ $questionaire->type }}</td>
@@ -53,14 +62,14 @@
                                         </td>
                                         <td>{{ $questionaire->access_level == 1 ? 'Yes' : 'No' }}</td>
                                         <td>
-                                            <a href="{{ route('admin_questionaire.edit', ['id' => $questionaire->id]) }}">
+                                            <a href="{{ $category === 'questionaire' ? route('admin_questionaire.edit', ['id' => $questionaire->id]) : route('admin_marketquestionaire.edit', ['id' => $questionaire->id]) }}">
                                                 <span title="Edit" type="button" class="btn btn-flat btn-primary">
                                                     <i class="fa fa-edit"></i>
                                                 </span>
                                             </a>
                                             &nbsp;
                                             @if (Session::get('userrole') == 1)
-                                            <span onclick="deleteItem({{ $questionaire->id }});" title="Delete" class="btn btn-flat btn-danger">
+                                            <span title="Delete" id="{{$questionaire->id}}" class="btn btn-flat btn-danger btn-delete">
                                                 <i class="fa fa-trash"></i>
                                             </span>
                                             @endif
@@ -98,9 +107,9 @@
 </script>
 
 <script type="text/javascript">
-    let deleteUrl = "{{ route('admin_questionaire.delete', ['id'=>'question_ID']) }}";
-    let questionIndexUrl = "{{ route('admin_questionaire.indexQuestion', ['questionaire_id' => 'questionaire_ID']) }}";
-
+    var category = @json($category);
+    let deleteUrl = category === 'questionaire' ? "{{ route('admin_questionaire.delete', ['id'=>'question_ID']) }}" : "{{ route('admin_marketquestionaire.delete', ['id'=>'question_ID']) }}";
+    let questionIndexUrl = category === 'questionaire' ? "{{ route('admin_questionaire.indexQuestion', ['questionaire_id' => 'questionaire_ID']) }}" : "{{ route('admin_marketquestionaire.indexQuestion', ['questionaire_id' => 'questionaire_ID']) }}";
     function deleteItem(id) {
         if (!confirm("Are you sure to delete this questionaire?")) {
             return;
@@ -112,18 +121,23 @@
             type: "POST",
             data: {"_token": "{{ csrf_token() }}"},
             url: deleteUrl.replace('question_ID', id),
+            dataType: "json",
             success: function(response){
                 if (response.error == 1) {
                     console.log(response.msg);
                 } else {
-                    $("#tr-questionaire_" + id).remove();
+                    $("tr[data-id='" + id + "']").remove();
                 }
             }
 
         });
     }
-
-    $("#question-table tr.linkable").click(function() {
+    
+    $('.btn-delete').on('click', function (event) {
+        deleteItem($(this).attr('id'));
+        event.stopPropagation();
+    })
+    $("#question-table tr.linkable").click(function(e) {
         document.location.href =  questionIndexUrl.replace("questionaire_ID", $(this).data('id'));
     })
 </script>

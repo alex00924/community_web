@@ -4,17 +4,17 @@ namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\ShopLanguage;
-use App\Models\QuestionaireQuestion;
-use App\Models\Questionaire;
-use App\Models\Marketing;
+use App\Models\MarketQuestionaireQuestion;
+use App\Models\MarketQuestionaire;
 use App\Models\ShopProduct;
-use App\Models\QuestionaireQuestionOption;
-use App\Models\QuestionaireAnswer;
+use App\Models\MarketQuestionaireQuestionOption;
+use App\Models\MarketQuestionaireAnswer;
+use App\Models\MarketQuestionaireUrl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Validator;
 
-class ShopQuestionaireController extends Controller
+class ShopMarketQuestionaireController extends Controller
 {
     public $languages;
 
@@ -26,10 +26,10 @@ class ShopQuestionaireController extends Controller
 /////////////---------------Questionire --------------/////////////
     public function index()
     {
-        $questionaire = Questionaire::get();
+        $questionaire = MarketQuestionaire::get();
         $data = [
-            'category' => 'questionaire',
-            'title' => trans('questionaire.admin.title'),
+            'category' => 'marketing',
+            'title' => trans('questionaire.marketing.title'),
             'sub_title' => '',
             'icon' => 'fa fa-question',
             'languages' => $this->languages,
@@ -45,9 +45,9 @@ class ShopQuestionaireController extends Controller
     {
         $products = ShopProduct::get();
         $data = [
-            'category' => 'questionaire',
-            'title' => trans('questionaire.admin.add_new_questionaire_title'),
-            'title_description' => trans('questionaire.admin.add_new_questionaire_des'),
+            'category' => 'marketing',
+            'title' => trans('questionaire.marketing.add_new_questionaire_title'),
+            'title_description' => trans('questionaire.marketing.add_new_questionaire_des'),
             'icon' => 'fa fa-plus',
             'products' => $products,
         ];
@@ -72,14 +72,15 @@ class ShopQuestionaireController extends Controller
                 ->withErrors($validator)
                 ->withInput($data);
         }
+
         $dataInsert = [
             'title' => $data['title'],
             'type' => $data['type'],
             'target_id' => $data["target_id"],
             'access_level' => $data["access_level"]
         ];
-        $question = Questionaire::create($dataInsert);
-        return redirect()->route('admin_questionaire.index')->with('success', trans('questionaire.admin.create_questionaire_success'));
+        $question = MarketQuestionaire::create($dataInsert);
+        return redirect()->route('admin_marketquestionaire.index')->with('success', trans('questionaire.marketing.create_questionaire_success'));
     }
 
     /**
@@ -88,16 +89,16 @@ class ShopQuestionaireController extends Controller
     public function edit($id)
     {
         $products = ShopProduct::get();
-        $questionaire = Questionaire::find($id);
+        $questionaire = MarketQuestionaire::find($id);
         
         if ($questionaire === null || $products == null) {
             return 'no data';
         }
 
         $data = [
-            'category' => 'questionaire',
-            'title' => trans('questionaire.admin.edit_questionaire_title'),
-            'title_description' => trans('questionaire.admin.edit_questionaire_des'),
+            'category' => 'marketing',
+            'title' => trans('questionaire.marketing.edit_questionaire_title'),
+            'title_description' => trans('questionaire.marketing.edit_questionaire_des'),
             'questionaire' => $questionaire,
             'products' => $products,
         ];
@@ -122,7 +123,7 @@ class ShopQuestionaireController extends Controller
                 ->withErrors($validator)
                 ->withInput($data);
         }
-        $questionaire = Questionaire::find($id);
+        $questionaire = MarketQuestionaire::find($id);
 
         $dataUpdate = [
             'title' => $data['title'],
@@ -132,7 +133,7 @@ class ShopQuestionaireController extends Controller
         ];
         $questionaire->update($dataUpdate);
 
-        return redirect()->route('admin_questionaire.index')->with('success', trans('questionaire.admin.edit_questionaire_success'));
+        return redirect()->route('admin_marketquestionaire.index')->with('success', trans('questionaire.admin.edit_success'));
     }
 
     /*
@@ -144,20 +145,18 @@ class ShopQuestionaireController extends Controller
         if ($id < 1) {
             echo json_encode(array('error' => 1, 'msg' => 'Invalid Request'));
         }
-        Questionaire::destroy($id);
+        MarketQuestionaire::destroy($id);
         echo json_encode(array('error' => 0, 'msg' => ''));
     }
-
-
 
 
 /////////////---------------Question--------------/////////////
     public function indexQuestions($questionaire_id)
     {
-        $questionaire = Questionaire::find($questionaire_id);
+        $questionaire = MarketQuestionaire::find($questionaire_id);
         $questionaireQuestions = $questionaire->questions()->with('options')->get();
         $data = [
-            'category' => 'questionaire',
+            'category' => 'marketing',
             'title' => trans('questionaire.admin.title'),
             'sub_title' => $questionaire->title,
             'icon' => 'fa fa-question',
@@ -175,7 +174,7 @@ class ShopQuestionaireController extends Controller
     {
         $htmlAnswer = '<tr id="answer_idx"><td><br><input type="text" name="answers[]" value="answer_value" class="form-control" placeholder="' . trans('questionaire.admin.add_answer_place') . '" required/></td><td class="fit-content"><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAnswer"><i class="fa fa-times"></i></span></td></tr>';
         $data = [
-            'category' => 'questionaire',
+            'category' => 'marketing',
             'title' => trans('questionaire.admin.add_new_title'),
             'title_description' => trans('questionaire.admin.add_new_des'),
             'icon' => 'fa fa-plus',
@@ -209,17 +208,17 @@ class ShopQuestionaireController extends Controller
             'answer_type' => $data['type'],
             'questionaire_id' => $questionaire_id
         ];
-        $question = QuestionaireQuestion::create($dataInsert);
+        $question = MarketQuestionaireQuestion::create($dataInsert);
 
         $answers = $data['answers'] ?? [];
         $answerOptions = [];
         foreach($answers as $answer) {
-            $answerOptions[] = new QuestionaireQuestionOption(['option' => $answer]);
+            $answerOptions[] = new MarketQuestionaireQuestionOption(['option' => $answer]);
         }
 
         $question->options()->saveMany($answerOptions);
 
-        return redirect()->route('admin_questionaire.indexQuestion', ['questionaire_id' => $questionaire_id])->with('success', trans('questionaire.admin.create_success'));
+        return redirect()->route('admin_marketquestionaire.indexQuestion', ['questionaire_id' => $questionaire_id])->with('success', trans('questionaire.admin.create_success'));
     }
 
     /**
@@ -227,7 +226,7 @@ class ShopQuestionaireController extends Controller
      */
     public function editQuestion($questionaire_id, $id)
     {
-        $question = QuestionaireQuestion::with(['options' => function($query) {
+        $question = MarketQuestionaireQuestion::with(['options' => function($query) {
             $query->orderBy('id');
         }])->find($id);
         
@@ -237,7 +236,7 @@ class ShopQuestionaireController extends Controller
 
         $htmlAnswer = '<tr id="answer_idx"><td><br><input type="hidden" name="answer_ids[]" value="answer_id_value"> <input type="text" name="answers[]" value="answer_value" class="form-control" placeholder="' . trans('questionaire.admin.add_answer_place') . '" required/></td><td class="fit-content"><br><span title="Remove" class="btn btn-flat btn-sm btn-danger removeAnswer"><i class="fa fa-times"></i></span></td></tr>';
         $data = [
-            'category' => 'questionaire',
+            'category' => 'marketing',
             'title' => trans('questionaire.admin.edit_title'),
             'title_description' => trans('questionaire.admin.edit_des'),
             'question' => $question,
@@ -265,7 +264,7 @@ class ShopQuestionaireController extends Controller
                 ->withErrors($validator)
                 ->withInput($data);
         }
-        $question = QuestionaireQuestion::find($id);
+        $question = MarketQuestionaireQuestion::find($id);
 
         $dataUpdate = [
             'question' => $data['question'],
@@ -290,14 +289,14 @@ class ShopQuestionaireController extends Controller
 
         foreach($answers as $key=>$answer) {
             if ($answerIds[$key] == -1) {
-                $newAnswerOptions[] = new QuestionaireQuestionOption(['option' => $answer]);
+                $newAnswerOptions[] = new MarketQuestionaireQuestionOption(['option' => $answer]);
             } else {
                 $options->find($answerIds[$key])->update(['option' => $answer]);
             }
         }
         $question->options()->saveMany($newAnswerOptions);
 
-        return redirect()->route('admin_questionaire.indexQuestion', ['questionaire_id' => $questionaire_id])->with('success', trans('questionaire.admin.edit_success'));
+        return redirect()->route('admin_marketquestionaire.indexQuestion', ['questionaire_id' => $questionaire_id])->with('success', trans('questionaire.admin.edit_success'));
     }
 
     /*
@@ -309,8 +308,8 @@ class ShopQuestionaireController extends Controller
         if ($id < 1) {
             return response()->json(['error' => 1, 'msg' => 'Invalid Request']);
         }
-        QuestionaireQuestion::destroy($id);
-        QuestionaireQuestionOption::where('next_question_id', '=', $id)->update(['next_question_id' => null]);
+        MarketQuestionaireQuestion::destroy($id);
+        MarketQuestionaireQuestionOption::where('next_question_id', '=', $id)->update(['next_question_id' => null]);
         return response()->json(['error' => 0, 'msg' => '']);
     }
 
@@ -318,12 +317,12 @@ class ShopQuestionaireController extends Controller
     public function updateNextQuestion()
     {
         $data = request()->all();
-        $question = QuestionaireQuestion::find($data["question"]);
+        $question = MarketQuestionaireQuestion::find($data["question"]);
         if (empty($question)) {
             return "Invalid question id";
         }
 
-        $nextQuestion = QuestionaireQuestion::find($data["nextQuestion"]);
+        $nextQuestion = MarketQuestionaireQuestion::find($data["nextQuestion"]);
         if (empty($nextQuestion)) {
             return "Invalid next question id";
         }
@@ -336,58 +335,29 @@ class ShopQuestionaireController extends Controller
         $option->update(['next_question_id' => $nextQuestion->id]);
         return "update next question success";
     }
-    /////////////---------------Question--------------/////////////
 
-    ////////////----------------Statistic------------/////////////
-    public function statistic()
+    /**
+     * Generate URL
+     */
+    public function generateUrl()
     {
-        $questionaires = Questionaire::with('questions')->get()->toArray();
-        foreach($questionaires as $questionaire_key => $questionaire)
-        {
-            foreach($questionaire["questions"] as $question_key => $question)
-            {
-                $questionaires[$questionaire_key]["questions"][$question_key]["options"] = QuestionaireQuestionOption::where('question_id', $question["id"])->select(["option"])->get()->toArray();
-                if ($question["answer_type"] == 'triangle')
-                {
-                    $answers = QuestionaireAnswer::where('question_id', $question["id"])->select(["answer"])->get()->toArray();
-                    $questionaires[$questionaire_key]["questions"][$question_key]["answers"] = [];
-                    foreach($answers as $answer_key => $answer)
-                    {
-                        $questionaires[$questionaire_key]["questions"][$question_key]["answers"][] = json_decode($answer["answer"]);
-                    }
-                }
-                else
-                {
-                    foreach($questionaires[$questionaire_key]["questions"][$question_key]["options"] as $option_key => $option)
-                    {
-                        $questionaires[$questionaire_key]["questions"][$question_key]["options"][$option_key]["cnt"] = QuestionaireAnswer::where('question_id', $question["id"])->where('answer', $option["option"])->count();
-                    }
-                }
-            }
-        }
         $data = [
-            'title' => trans('questionaire.admin.statistic'),
-            'title_description' => '',
-            'questionaires' => $questionaires
+            'category' => 'marketing',
+            'title' => trans('questionaire.marketing.generate_url_title'),
+            'title_description' => trans('questionaire.marketing.generate_url_des'),
+            'icon' => 'fa fa-plus',
         ];
-
-        return view('admin.screen.shop_questionaire_statistics')
+        return view('admin.screen.shop_questionaire_generateurl')
             ->with($data);
     }
-
-    
-    ////////////----------------Marketing------------/////////////
-    public function marketing()
+    public function updateUrl(Request $request)
     {
-        $marketing = Marketing::get();
-        $data = [
-            'title' => trans('questionaire.admin.marketing'),
-            'sub_title' => '',
-            'icon' => 'fa fa-share-alt',
-            'languages' => $this->languages,
-            'marketing' => $marketing
-        ];
-        return view('admin.screen.shop_marketing')
-            ->with($data);
+      $id = $request -> id;
+      $questionaireurl = MarketQuestionaireUrl::get()->first();
+      $dataUpdate = [
+          'url' => $id,
+      ];
+      $questionaireurl->update($dataUpdate);
+      echo json_encode(array('error' => 0, 'msg' => '')); exit;
     }
 }
