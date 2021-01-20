@@ -74,7 +74,7 @@
                         <li><a class="{{ ( $routeName == 'cart') ? 'active' : '' }}" href="{{ route('cart') }}">{{ trans('front.cart_title') }}</a></li>
                         <li><a class="{{ ( $routeName == 'categories') ? 'active' : '' }}" href="{{ route('categories') }}">{{ trans('front.categories') }}</a></li>
                         <li><a class="{{ ( $routeName == 'brands') ? 'active' : '' }}" href="{{ route('brands') }}">{{ trans('front.brands') }}</a></li>
-                        <li><a class="{{ ( $routeName == 'vendors') ? 'active' : '' }}" href="{{ route('vendors') }}">{{ trans('front.vendors') }}</a></li>
+                        /* <li><a class="{{ ( $routeName == 'vendors') ? 'active' : '' }}" href="{{ route('vendors') }}">{{ trans('front.vendors') }}</a></li> */
                     </ul>
                 </li>
 
