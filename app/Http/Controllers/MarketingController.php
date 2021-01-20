@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Marketing;
+use App\Models\MarketingQuestionaireEmail;
+use App\Models\MarketQuestionaireUrl;
 use App\Mail\LinkMail;
 
 class MarketingController extends GeneralController
@@ -30,7 +31,7 @@ class MarketingController extends GeneralController
           "email" => $email,
           "shared" => false
         ];
-        Marketing::create($dataInsert);
+        MarketingQuestionaireEmail::create($dataInsert);
         echo json_encode(array('res'=> "success"));    
     }
 
@@ -44,6 +45,7 @@ class MarketingController extends GeneralController
     {
       return view($this->templatePath . '.marketing_research');
     }
+   
 }
 
 ?>

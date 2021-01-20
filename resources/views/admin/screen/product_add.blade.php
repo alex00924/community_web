@@ -318,7 +318,7 @@
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-                                    <input type="text" style="width: 100px;" id="sku" name="sku"
+                                    <input type="text" style="width: 100px;" id="sku" name="sku" 
                                         value="{!! old('sku')??'' !!}" class="form-control input-sm sku"
                                         placeholder="" />
                                 </div>
@@ -334,6 +334,29 @@
                             </div>
                         </div>
                         {{-- //sku --}}
+
+                        {{-- discountcode --}}
+                        <div class="form-group  kind kind0 kind1 kind2 {{ $errors->has('discountcode') ? ' has-error' : '' }}">
+                            <label for="discountcode" class="col-sm-2  control-label">{{ trans('product.discount_code') }}</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+                                    <input type="text" id="discountcode" name="discountcode"
+                                        value="{!! old('discountcode')??'' !!}" class="form-control input-sm discountcode"
+                                        placeholder="" />
+                                </div>
+                                @if ($errors->has('discountcode'))
+                                <span class="help-block">
+                                    <i class="fa fa-info-circle"></i> {{ $errors->first('discountcode') }}
+                                </span>
+                                @else
+                                <span class="help-block">
+                                    {{ trans('product.discoundcode_validate') }}
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        {{-- //discount --}}
 
 
                         {{-- alias --}}
@@ -1305,6 +1328,10 @@
             }
         }
         return "";
+    }
+
+    function discountCode(id) {
+        $("#id").val(JSON.stringify(arrPrices));
     }
 
     //----------------------------- Attribute Price ---------------//

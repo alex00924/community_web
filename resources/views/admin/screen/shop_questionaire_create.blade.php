@@ -9,13 +9,13 @@
 
                 <div class="box-tools">
                     <div class="btn-group pull-right" style="margin-right: 5px">
-                        <a href="{{ route('admin_questionaire.index') }}" class="btn  btn-flat btn-default" title="List"><i
+                        <a href="{{ $category === 'questionaire' ? route('admin_questionaire.index') : route('admin_marketquestionaire.index') }}" class="btn  btn-flat btn-default" title="List"><i
                                 class="fa fa-list"></i><span class="hidden-xs"> {{trans('questionaire.admin.back_questionaire')}}</span></a>
                     </div>
                 </div>
             </div>
             <!-- /.box-header -->
-            <form action="{{ route('admin_questionaire.create') }}" id="questionaire-form" method="POST" accept-charset="UTF-8" class="form-horizontal">
+            <form action="{{ $category === 'questionaire' ? route('admin_questionaire.create') : route('admin_marketquestionaire.create') }}" id="questionaire-form" method="POST" accept-charset="UTF-8" class="form-horizontal">
                 <!-- Box body -->
                 <div class="box-body">
                     <div class="fields-group">

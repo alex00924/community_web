@@ -4,10 +4,11 @@ return [
     'admin' => [
         'title' => 'Questionnaire ',
         'statistic' => 'Statistics',
-        'marketing' => 'Marketing Research',
+        'marketing' => 'Marketing Research ',
         'title_des' => 'Manage Questionnaire',
         'create_questionaire_success' => 'Create new questionnaire success!',
         'edit_questionaire_success' => 'Edit questionnaire success!',
+        'delete_questionaire_success' => 'Delete questionnaire success!',
         'create_success' => 'Create new question success!',
         'edit_success' => 'Edit question success!',
         'action' => 'Action',
@@ -33,6 +34,21 @@ return [
         'add_answer' => 'Add answer',
         'add_answer_place' => 'Add answer value',
         'target' => 'Target',
-        'access_level' => 'Only Login User Can Access'
+        'access_level' => 'Only Login User Can Access',
+    ],
+    'marketing' => [
+        'title' => 'Marketing Research ',
+        'title_des' => 'Manage Marketing Questionnaire',
+        'generateURL' => 'Generate URL',
+        'generate' => 'Generate',
+        'create_questionaire_success' => 'Create new marketing questionnaire success!',
+        'edit_questionaire_success' => 'Edit marketing questionnaire success!',
+        'delete_questionaire_success' => 'Delete marketing questionnaire success!',
+        'add_new_questionaire_title' => 'Add a new marketing questionnaire',
+        'add_new_questionaire_des' => 'Create a new marketing questionnaire',
+        'edit_questionaire_title' => 'Edit a marketing questionnaire',
+        'edit_questionaire_des' => 'Update a marketing questionnaire',
+        'generate_url_title' => 'Generate questionaire url',
+        'generate_url_des' => 'Generate marketing research questionaire url'
     ],
 ];

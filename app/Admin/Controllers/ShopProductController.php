@@ -94,6 +94,7 @@ class ShopProductController extends Controller
             $listTh['virtual'] = trans('product.virtual');
         }
         $listTh['status'] = trans('product.status');
+        $listTh['discountcode'] = trans('product.discount_code');
         $listTh['action'] = trans('product.admin.action');
 
 
@@ -139,7 +140,6 @@ class ShopProductController extends Controller
             } elseif ($row['type'] == SC_PRODUCT_FREE) {
                 $type = '<span class="label label-info">' . $type . '</span>';
             }
-
             $dataMap = [
                 'check_row' => '<input type="checkbox" class="grid-row-checkbox" data-id="' . $row['id'] . '">',
                 'id' => $row['id'],
@@ -165,6 +165,7 @@ class ShopProductController extends Controller
                 $dataMap['virtual'] = $this->virtuals[$row['virtual']] ?? $row['virtual'];
             }
             $dataMap['status'] = $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>';
+            $dataMap['discountcode'] = $row['discountcode'];
             $dataMap['action'] = Session::get('userrole') == 1?'
             <a href="' . route('admin_product.edit', ['id' => $row['id']]) . '">
             <span title="' . trans('product.admin.edit') . '" type="button" class="btn btn-flat btn-primary">
@@ -370,6 +371,7 @@ class ShopProductController extends Controller
                     'descriptions.*.case_study' => 'required|string',
                     'category' => 'required',
                     'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
+                    'discountcode' => 'required|regex:/(^([0-9A-Za-z\]+)$)/|unique:shop_product,explode("_",discountcode)[1]|min:6|max:6',
                     'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias|string|max:100',
                 ];
                 $arrMsg = [
@@ -380,6 +382,7 @@ class ShopProductController extends Controller
                     'category.required' => trans('validation.required', ['attribute' => trans('product.category')]),
                     'sku.regex' => trans('product.sku_validate'),
                     'alias.regex' => trans('product.alias_validate'),
+                    'discoundcode.regex' => trans('product.discoundcode_validate'),
                 ];
                 break;
 
@@ -392,6 +395,7 @@ class ShopProductController extends Controller
                     'descriptions.*.description' => 'nullable|string',
                     'category' => 'required',
                     'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
+                    'discountcode' => 'required|regex:/(^([0-9A-Za-z\]+)$)/|unique:shop_product,explode("_",discountcode)[1]|min:6|max:6',
                     'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias|string|max:100',
                     'productBuild' => 'required',
                     'productBuildQty' => 'required',
@@ -402,6 +406,7 @@ class ShopProductController extends Controller
                     'category.required' => trans('validation.required', ['attribute' => trans('product.category')]),
                     'sku.regex' => trans('product.sku_validate'),
                     'alias.regex' => trans('product.alias_validate'),
+                    'discoundcode.regex' => trans('product.discoundcode_validate'),
                 ];
                 break;
 
@@ -410,6 +415,7 @@ class ShopProductController extends Controller
                     'kind' => 'required',
                     'productInGroup' => 'required',
                     'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
+                    'discountcode' => 'required|regex:/(^([0-9A-Za-z\]+)$)/|unique:shop_product,explode("_",discountcode)[1]|min:6|max:6',
                     'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias|string|max:100',
                     'sort' => 'numeric|min:0',
                     'descriptions.*.name' => 'required|string|max:200',
@@ -420,6 +426,7 @@ class ShopProductController extends Controller
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
                     'sku.regex' => trans('product.sku_validate'),
                     'alias.regex' => trans('product.alias_validate'),
+                    'discoundcode.regex' => trans('product.discoundcode_validate'),
                 ];
                 break;
 

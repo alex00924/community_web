@@ -4,11 +4,7 @@
 <section >
     <div class="container">
       <div class="row">
-            @if ($category === 'survey')
             <h2 class="title text-center">{{ trans('front.questionaire.survey') }}</h2>
-            @else
-            <h2 class="title text-center">{{ trans('front.questionaire.marketingsurvey') }}</h2>
-            @endif
             <!-- Center colunm-->
             <div class="center_column table-responsive" style="box-shadow: 0px 0px 5px rgba(100, 100, 100, 0.5);">
                 <table class="table table-hover" id="question-table">
@@ -51,8 +47,7 @@
 
 @push('scripts')
     <script>
-        var category = @json($category);
-        let detailUrl = category === 'survey' ? "{{ route('questionaire.detail', ['questionaire_id' => 'questionaireID']) }}" : "{{ route('marketquestionaire.detail', ['questionaire_id' => 'questionaireID']) }}";
+        let detailUrl = "{{ route('questionaire.detail', ['questionaire_id' => 'questionaireID']) }}";
         $(document).ready(function() {
             initEvents();
         });
