@@ -45,7 +45,7 @@
                     <a href="{{ $product->getUrl() }}"><div class="product-name-container"><p>{{ $product->name }}</p></div></a>
                     @if($product->type == 3)
                       <div style="padding-bottom: 15px;"><a href="{{ $product->supplyLink }}" target="_blank" 
-                        style="color: #4db848;">{{ 'Produced by ' . $product->supplyName }}</a></div>
+                        style="color: #4db848;">{{ 'by ' . $product->supplyName }}</a></div>
                     @endif
                   </div>
                       @if ($product->price != $product->getFinalPrice() && $product->kind != SC_PRODUCT_GROUP)
