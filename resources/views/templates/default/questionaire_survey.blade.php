@@ -8,17 +8,17 @@
          <h4 style="font-weight: 600; font-size: 20px; text-align: center">{{ $questionaire['title'] }} </h4>
          <br><br>
          <div class="row">
-            <div class="col-xs-12" id="question-content" style="padding: 0 20%">
+            <div class="col-xs-12" id="question-content" style="padding: 0">
 
             </div>
          </div>
-         <div class="row" style="margin-top: 2rem">
-            <div class="col-xs-12 text-center">
+         <div style="margin-top: 7rem">
+            <div class="col-xs-12 text-right">
                <button type="button" class="btn btn-info" id="btn-prev" onclick="prevQuestion()"><i class="fa fa-angle-left"></i>&nbsp;&nbsp;Prev</button>
                <button type="button" class="btn btn-info" id="btn-next" onclick="nextQuestion()">Next&nbsp;&nbsp;<i class="fa fa-angle-right"></i></button>
             </div>
          </div>
-         <div class="row" style="margin-top: 2rem">
+         <div style="margin-top: 15rem">
             <div class="col-xs-12 text-right">
                <button type="button" class="btn btn-success" style="display: none" id="btn-complete" onclick="completeQuestionaire()">Complete</button>
             </div>
@@ -59,7 +59,7 @@
    function updateQuestionContent(questionId) {
       currQuestion = questions.find(element => element.id == questionId);
       if (!currQuestion) {
-         let contentHtml = "Thank you for your answers. Please click \"Complete\" button to complete this questionaire.";
+         let contentHtml = "Thank you for your answers. Please click \"Complete\" button to complete this questionnaire.";
          $("#question-content").html(contentHtml);
          $("#btn-next").prop("disabled", true);
          $("#btn-complete").show();
@@ -95,10 +95,10 @@
             });
             contentHtml += '</div></div>';
          } else if (currQuestion.answer_type == "triangle") {
-            contentHtml += '<div class="row"> <div class="col-xs-9">';
+            contentHtml += '<div class="row"> <div class="col-xs-5">';
             contentHtml += '<div id="picker"></div>';
             contentHtml += '</div>';
-            contentHtml += '<div class="col-xs-3 v-center"><div>';
+            contentHtml += '<div class="col-xs-7 v-center"><div>';
             currQuestion.options.forEach(function(option, idx) {
                contentHtml += '<div style="margin: 10px 0;"><span style="border-bottom: 1px solid #eee;">';
                contentHtml += '<label style="font-weight: 400">' + option.option + ' &nbsp;:&nbsp;</label>';
