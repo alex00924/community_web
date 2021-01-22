@@ -96,8 +96,7 @@
                       {{ trans('front.questionaire.questionnaire') }}<i class="fa fa-angle-down"></i>
                     </a>
                     <ul role="menu" class="sub-menu">
-                        <li><a class="{{ $routeName == 'questionaire.index' ? 'active' : '' }}" href="{{ route('questionaire.index') }}">{{ trans('front.questionaire.survey') }}</a></li>
-                        <li><a class="{{ $routeName == 'marketing' ? 'active' : '' }}" href="{{ route('marketing') }}">{{ trans('front.questionaire.marketing_research') }}</a></li>
+                      <li><a class="{{ $routeName == 'questionaire.index' ? 'active' : '' }}" href="{{ route('questionaire.index') }}">{{ trans('front.questionaire.survey') }}</a></li>
                     </ul>
                 </li>
                 @if(Auth::user())
