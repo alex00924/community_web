@@ -3303,6 +3303,9 @@ div.col-lg-4 a {
 
 div.container-fluid.home div.row div.col-lg-4 a img {
     height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
 }
 
 div.container-fluid.home div.row div.col-lg-4:hover {
