@@ -1459,7 +1459,7 @@ h2.title {
 }
 
 .login-form-container {
-  background: url('/images/login_bg.jpg') no-repeat center center;
+  background: url('') no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

@@ -3265,7 +3265,7 @@ body { /* Addresses a small issue in webkit: http://bit.ly/NEdoDq */
 /* This is FlowCell original code for Homepage */
 
 div.container-fluid.home {
-	margin-top: 4em;
+	margin-top: 2em;
 	margin-bottom: 6em;
 	margin-left: -15px;
 }
