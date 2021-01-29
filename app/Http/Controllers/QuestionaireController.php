@@ -8,6 +8,7 @@ use App\Models\Questionaire;
 use App\Models\QuestionaireQuestion;
 use App\Models\QuestionaireAnswer;
 use App\Models\QuestionaireQuestionOption;
+use App\Models\MarketQuestionaireUrl;
 
 class QuestionaireController extends GeneralController
 {
@@ -20,11 +21,11 @@ class QuestionaireController extends GeneralController
     {
         if(Auth::check())
         {
-            $questionaires = Questionaire::get();
+            $questionaires = Questionaire::where('type', '!=', 'Marketing')->get();
         }
         else
         {
-            $questionaires = Questionaire::where('access_level', 0)->get();
+            $questionaires = Questionaire::where('access_level', 0)->where('type', '!=', 'Marketing')->get();
         }
         $data = [
             'category' => 'survey',
@@ -147,6 +148,30 @@ class QuestionaireController extends GeneralController
             QuestionaireAnswer::create($dataInsert);
         }
         return 'ok';
+    }
+
+    //----------marketing research---//
+    public function questionaire($id)
+    {
+      $urlprefix = MarketQuestionaireUrl::get()->first()->url;
+      if ($urlprefix === $id)
+      {
+        if(Auth::check())
+        {
+            $questionaires = Questionaire::where('type', 'Marketing')->get();
+        }
+        else
+        {
+            $questionaires = Questionaire::where('access_level', 0)->where('type', 'Marketing')->get();
+        }
+        $data = [
+            'category' => 'marketing',
+            'questionaires' => $questionaires
+        ];
+        
+        return view($this->templatePath . '.questionaire')
+            ->with($data);
+      }
     }
 }
 

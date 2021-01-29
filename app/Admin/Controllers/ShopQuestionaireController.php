@@ -10,6 +10,7 @@ use App\Models\Marketing;
 use App\Models\ShopProduct;
 use App\Models\QuestionaireQuestionOption;
 use App\Models\QuestionaireAnswer;
+use App\Models\MarketQuestionaireUrl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Validator;
@@ -373,21 +374,30 @@ class ShopQuestionaireController extends Controller
 
         return view('admin.screen.shop_questionaire_statistics')
             ->with($data);
-    }
-
-    
-    ////////////----------------Marketing------------/////////////
-    public function marketing()
+    }    
+ 
+      /**
+     * Generate URL
+     */
+    public function generateUrl()
     {
-        $marketing = Marketing::get();
         $data = [
-            'title' => trans('questionaire.admin.marketing'),
-            'sub_title' => '',
-            'icon' => 'fa fa-share-alt',
-            'languages' => $this->languages,
-            'marketing' => $marketing
+            'category' => 'marketing',
+            'title' => trans('questionaire.marketing.generate_url_title'),
+            'title_description' => trans('questionaire.marketing.generate_url_des'),
+            'icon' => 'fa fa-plus',
         ];
-        return view('admin.screen.shop_marketing')
+        return view('admin.screen.shop_questionaire_generateurl')
             ->with($data);
+    }
+    public function updateUrl(Request $request)
+    {
+      $id = $request -> id;
+      $questionaireurl = MarketQuestionaireUrl::get()->first();
+      $dataUpdate = [
+          'url' => $id,
+      ];
+      $questionaireurl->update($dataUpdate);
+      echo json_encode(array('error' => 0, 'msg' => '')); exit;
     }
 }

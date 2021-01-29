@@ -6,7 +6,7 @@ return [
     'discount_code'         => 'Discount Code',
     'alias'                 => 'Url customize <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span>',
     'sku_validate'          => 'Only characters in the group: "A-Z", "a-z", "0-9" and "-_" ',
-    'discoundcode_validate' => 'Only SKU + "_" + 6 characters in the group: "A-Z", "a-z" and "0-9"',
+    'discoundcode_validate' => 'Only 6 characters in the group: "A-Z", "a-z" and "0-9"',
     'alias_validate'        => 'Maximum 100 characters in the group: "A-Z", "a-z", "0-9" and "-_" ',
     'description'           => 'Product description',
     'price'                 => 'Price',

@@ -218,7 +218,7 @@ $('.grid-trash').on('click', function() {
                 url: '{{ $url_delete_item }}',
                 data: {
                   ids:ids,
-                    _token: '{{ csrf_token() }}',
+                  _token: '{{ csrf_token() }}',
                 },
                 success: function (data) {
                     if(data.error == 1){

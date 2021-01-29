@@ -5,18 +5,16 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header with-border">
-                @if ($category === 'marketing')
                 <div class="pull-left">
                     <div class="btn-group">
-                        <a href="{{ route('admin_marketquestionaire.generateurl') }}" class="btn  btn-flat btn-primary" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
+                        <a href="{{ route('admin_questionaire.generateurl') }}" class="btn  btn-flat btn-primary" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
                             <span class="hidden-xs"> {{trans('questionaire.marketing.generateURL')}}</span>
                         </a>
                     </div>
                 </div>
-                @endif
                 <div class="pull-right">
                     <div class="btn-group">
-                        <a href="{{ $category === 'questionaire' ? route('admin_questionaire.create') : route('admin_marketquestionaire.create') }}" class="btn  btn-flat btn-success" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
+                        <a href="{{ route('admin_questionaire.create') }}" class="btn  btn-flat btn-success" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
                             <i class="fa fa-plus"></i>
                             <span class="hidden-xs"> {{trans('questionaire.admin.add_new')}}</span>
                         </a>
@@ -62,7 +60,7 @@
                                         </td>
                                         <td>{{ $questionaire->access_level == 1 ? 'Yes' : 'No' }}</td>
                                         <td>
-                                            <a href="{{ $category === 'questionaire' ? route('admin_questionaire.edit', ['id' => $questionaire->id]) : route('admin_marketquestionaire.edit', ['id' => $questionaire->id]) }}">
+                                            <a href="{{ route('admin_questionaire.edit', ['id' => $questionaire->id]) }}">
                                                 <span title="Edit" type="button" class="btn btn-flat btn-primary">
                                                     <i class="fa fa-edit"></i>
                                                 </span>
@@ -108,8 +106,8 @@
 
 <script type="text/javascript">
     var category = @json($category);
-    let deleteUrl = category === 'questionaire' ? "{{ route('admin_questionaire.delete', ['id'=>'question_ID']) }}" : "{{ route('admin_marketquestionaire.delete', ['id'=>'question_ID']) }}";
-    let questionIndexUrl = category === 'questionaire' ? "{{ route('admin_questionaire.indexQuestion', ['questionaire_id' => 'questionaire_ID']) }}" : "{{ route('admin_marketquestionaire.indexQuestion', ['questionaire_id' => 'questionaire_ID']) }}";
+    let deleteUrl = "{{ route('admin_questionaire.delete', ['id'=>'question_ID']) }}";
+    let questionIndexUrl = "{{ route('admin_questionaire.indexQuestion', ['questionaire_id' => 'questionaire_ID']) }}";
     function deleteItem(id) {
         if (!confirm("Are you sure to delete this questionaire?")) {
             return;

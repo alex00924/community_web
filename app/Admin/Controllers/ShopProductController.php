@@ -165,7 +165,7 @@ class ShopProductController extends Controller
                 $dataMap['virtual'] = $this->virtuals[$row['virtual']] ?? $row['virtual'];
             }
             $dataMap['status'] = $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>';
-            $dataMap['discountcode'] = $row['discountcode'];
+            $dataMap['discountcode'] = $row['discountcode'] ? $row['sku'].'_'.$row['discountcode'] : null;
             $dataMap['action'] = Session::get('userrole') == 1?'
             <a href="' . route('admin_product.edit', ['id' => $row['id']]) . '">
             <span title="' . trans('product.admin.edit') . '" type="button" class="btn btn-flat btn-primary">
@@ -350,8 +350,7 @@ class ShopProductController extends Controller
  */
 
     public function postCreate()
-    {
-        
+    {   
         $data = request()->all();
         $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
         $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['name'];
@@ -396,14 +395,12 @@ class ShopProductController extends Controller
                     'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias|string|max:100',
                     'productBuild' => 'required',
                     'productBuildQty' => 'required',
-
                 ];
                 $arrMsg = [
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
                     'category.required' => trans('validation.required', ['attribute' => trans('product.category')]),
                     'sku.regex' => trans('product.sku_validate'),
                     'alias.regex' => trans('product.alias_validate'),
-                    'discoundcode.regex' => trans('product.discoundcode_validate'),
                 ];
                 break;
 
@@ -433,11 +430,23 @@ class ShopProductController extends Controller
         }
         if ($data['type'] !== SC_PRODUCT_FREE){
             $validator = Validator::make($data, $arrValidation, $arrMsg ?? []);
-    
             if ($validator->fails()) {
                 return redirect()->back()
                     ->withErrors($validator)
                     ->withInput($data);
+            }
+        }
+        if ($data['discountcode'] !== null) {
+            $product = ShopProduct::where('discountcode', $data['discountcode'])->get();
+            if (count($product) != 0) {
+                $validator->errors()->add('field', 'Something is wrong with this field!');
+                return redirect()->back()
+                    ->withErrors($validator);
+            }
+            if (strlen($data['discountcode']) !== 6) {
+                $validator->errors()->add('field', 'Something is wrong with this field!');
+                return redirect()->back()
+                    ->withErrors($validator);
             }
         }
 
@@ -466,7 +475,8 @@ class ShopProductController extends Controller
             'sort' => (int) $data['sort'],
             'attribute_price' => !empty($data['attribute_price']) ? $data['attribute_price'] : null,
             'supplyName' => !empty($data['supply_name']) ? $data['supply_name'] : null,
-            'supplyLink' => !empty($data['supply_link']) ? $data['supply_link'] : null
+            'supplyLink' => !empty($data['supply_link']) ? $data['supply_link'] : null,
+            'discountcode' => !empty($data['discountcode']) ? $data['discountcode'] : null,
         ];
         //insert product
         $product = ShopProduct::create($dataInsert);
@@ -860,12 +870,14 @@ Need mothod destroy to boot deleting in model
             $arrCantDelete = [];
             foreach ($arrID as $key => $id) {
                 if (ShopProductBuild::where('product_id', $id)->first() || ShopProductGroup::where('product_id', $id)->first()) {
-                    $arrCantDelete[] = $id;}
+                    $arrCantDelete[] = $id;
+                }
             }
             if (count($arrCantDelete)) {
                 return response()->json(['error' => 1, 'msg' => trans('product.admin.cant_remove_child') . ': ' . json_encode($arrCantDelete)]);
             } else {
-                ShopProduct::destroy($arrID);
+                ShopProduct::where('id', $arrID[0])
+                    ->delete();
                 return response()->json(['error' => 0, 'msg' => '']);
             }
 

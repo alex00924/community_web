@@ -56,10 +56,10 @@
     $(document).ready(function() {
         $('.select2').select2()
     });
-    let updateurl = "{{route('admin_marketquestionaire.updateurl')}}"
+    let updateurl = "{{route('admin_questionaire.updateurl')}}"
     $("#url_generate").click(function() {
         var randomstring = makeid(10);
-        $("#url").val(`{{env('APP_URL')}}/marketingquestionaire/${randomstring}`);
+        $("#url").val(`{{env('APP_URL')}}/questionaire/marketing/${randomstring}`);
         $.ajax({
             type: "POST",
             data: {"_token": "{{ csrf_token() }}", "id": randomstring},

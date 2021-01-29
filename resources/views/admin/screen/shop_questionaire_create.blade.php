@@ -9,13 +9,13 @@
 
                 <div class="box-tools">
                     <div class="btn-group pull-right" style="margin-right: 5px">
-                        <a href="{{ $category === 'questionaire' ? route('admin_questionaire.index') : route('admin_marketquestionaire.index') }}" class="btn  btn-flat btn-default" title="List"><i
+                        <a href="{{ route('admin_questionaire.index') }}" class="btn  btn-flat btn-default" title="List"><i
                                 class="fa fa-list"></i><span class="hidden-xs"> {{trans('questionaire.admin.back_questionaire')}}</span></a>
                     </div>
                 </div>
             </div>
             <!-- /.box-header -->
-            <form action="{{ $category === 'questionaire' ? route('admin_questionaire.create') : route('admin_marketquestionaire.create') }}" id="questionaire-form" method="POST" accept-charset="UTF-8" class="form-horizontal">
+            <form action="{{ route('admin_questionaire.create') }}" id="questionaire-form" method="POST" accept-charset="UTF-8" class="form-horizontal">
                 <!-- Box body -->
                 <div class="box-body">
                     <div class="fields-group">
@@ -39,6 +39,7 @@
                                 <select class="form-control select2" style="width: 100%;" name="type" id="type" required onchange="updateTarget()">
                                     <option value="General" {{ (old('type') == 'General') ? 'selected':'' }}> General </option>
                                     <option value="Product" {{ (old('type') == 'Product') ? 'selected':'' }}> Product </option>
+                                    <option value="Marketing" {{ (old('type') == 'Marketing') ? 'selected':'' }}> Marketing Research </option>
                                 </select>
                                 @if ($errors->has('type'))
                                 <span class="help-block">

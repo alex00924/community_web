@@ -16,20 +16,6 @@ $router->group(['prefix' => 'questionaire'], function ($router) {
     $router->post('/update_next_question', 'ShopQuestionaireController@updateNextQuestion')->name('admin_questionaire.updateNextQuestion');
 
     $router->get('/statistic', 'ShopQuestionaireController@statistic')->name('admin_questionaire.statistic');
-    $router->get('/marketing', 'ShopMarketQuestionaireController@index')->name('admin_marketquestionaire.index');
-    $router->get('/marketing/create', 'ShopMarketQuestionaireController@create')->name('admin_marketquestionaire.create');
-    $router->post('/marketing/create', 'ShopMarketQuestionaireController@postCreate')->name('admin_marketquestionaire.create');
-    $router->get('/marketing/edit/{id}', 'ShopMarketQuestionaireController@edit')->name('admin_marketquestionaire.edit');
-    $router->post('/marketing/edit/{id}', 'ShopMarketQuestionaireController@postEdit')->name('admin_marketquestionaire.edit');
-    $router->post('/marketing/delete/{id}', 'ShopMarketQuestionaireController@delete')->name('admin_marketquestionaire.delete');
-
-    $router->get('/marketing/questions/{questionaire_id}', 'ShopMarketQuestionaireController@indexQuestions')->name('admin_marketquestionaire.indexQuestion');
-    $router->get('/marketing/create/{questionaire_id}', 'ShopMarketQuestionaireController@createQuestion')->name('admin_marketquestionaire.createQuestion');
-    $router->post('/marketing/create/{questionaire_id}', 'ShopMarketQuestionaireController@postCreateQuestion')->name('admin_marketquestionaire.createQuestion');
-    $router->get('/marketing/edit/q/{questionaire_id}/{id}', 'ShopMarketQuestionaireController@editQuestion')->name('admin_marketquestionaire.editQuestion');
-    $router->post('/marketing/edit/q/{questionaire_id}/{id}', 'ShopMarketQuestionaireController@postEditQuestion')->name('admin_marketquestionaire.editQuestion');
-    $router->post('/marketing/delete/q/{id}', 'ShopMarketQuestionaireController@deleteQuestion')->name('admin_marketquestionaire.deleteQuestion');
-    $router->post('/marketing/update_next_question', 'ShopMarketQuestionaireController@updateNextQuestion')->name('admin_marketquestionaire.updateNextQuestion');
-    $router->get('/marketing/generateurl', 'ShopMarketQuestionaireController@generateUrl')->name('admin_marketquestionaire.generateurl');
-    $router->post('/marketing/generateurl', 'ShopMarketQuestionaireController@updateUrl')->name('admin_marketquestionaire.updateurl');
+    $router->get('/marketing_generateurl', 'ShopQuestionaireController@generateUrl')->name('admin_questionaire.generateurl');
+    $router->post('/marketing_generateurl', 'ShopQuestionaireController@updateUrl')->name('admin_questionaire.updateurl');
 });

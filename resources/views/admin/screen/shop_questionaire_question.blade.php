@@ -7,13 +7,13 @@
             <div class="box-header with-border">
                 <div class="pull-right">
                     <div class="btn-group">
-                        <a href="{{ $category === 'questionaire' ? route('admin_questionaire.createQuestion', ['questionaire_id' => $questionaire_id]) : route('admin_marketquestionaire.createQuestion', ['questionaire_id' => $questionaire_id]) }}" class="btn  btn-flat btn-success" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
+                        <a href="{{ route('admin_questionaire.createQuestion', ['questionaire_id' => $questionaire_id]) }}" class="btn  btn-flat btn-success" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
                             <i class="fa fa-plus"></i>
                             <span class="hidden-xs"> {{trans('questionaire.admin.add_new')}}</span>
                         </a>
                     </div>
                     <div class="btn-group">
-                        <a href="{{ $category === 'questionaire' ? route('admin_questionaire.index') : route('admin_marketquestionaire.index') }}" class="btn  btn-flat btn-default" title="{{trans('questionaire.admin.back_questionaire')}}" style="margin: 0 5px">
+                        <a href="{{ route('admin_questionaire.index') }}" class="btn  btn-flat btn-default" title="{{trans('questionaire.admin.back_questionaire')}}" style="margin: 0 5px">
                             <i class="fa fa-list"></i>
                             <span class="hidden-xs"> {{trans('questionaire.admin.back_questionaire')}}</span>
                         </a>
@@ -40,7 +40,7 @@
                                         <td>{{ $question->id }}</td>
                                         <td>{!! nl2br(e($question->question)) !!}</td>
                                         <td>
-                                            <a href="{{ $category === 'questionaire' ? route('admin_questionaire.editQuestion', ['questionaire_id' => $questionaire_id, 'id' => $question->id]) : route('admin_marketquestionaire.editQuestion', ['questionaire_id' => $questionaire_id, 'id' => $question->id])}}">
+                                            <a href="{{ route('admin_questionaire.editQuestion', ['questionaire_id' => $questionaire_id, 'id' => $question->id]) }}">
                                                 <span title="Edit" type="button" class="btn btn-flat btn-primary">
                                                     <i class="fa fa-edit"></i>
                                                 </span>
@@ -119,7 +119,7 @@
 
 <script type="text/javascript">
     let category = @json($category);
-    let deleteUrl = category === 'questionaire' ? "{{ route('admin_questionaire.deleteQuestion', ['id'=>'question_ID']) }}" : "{{ route('admin_marketquestionaire.deleteQuestion', ['id'=>'question_ID']) }}";
+    let deleteUrl = "{{ route('admin_questionaire.deleteQuestion', ['id'=>'question_ID']) }}";
     let questionaire = @json($questionaire);
     let answers = null;
 
