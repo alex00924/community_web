@@ -31,7 +31,7 @@ return [
     'home'               => 'Home',
     'blog'               => 'Information',
     'contact'            => 'Contact us',
-    'about'              => 'About us',
+    'about'              => 'Contact Info',
     'shop'               => 'Shop',
     'cms_category'       => 'CMS categories',
     'categories'         => 'Categories',
@@ -62,8 +62,6 @@ return [
     ],
 
     'contact_form'       => [
-        'title'   => 'Get in touch',
-        'info'    => 'Contact infomation',
         'name'    => 'Name',
         'email'   => 'Email',
         'phone'   => 'Phone',

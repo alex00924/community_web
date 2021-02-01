@@ -54,8 +54,6 @@ return [
     'products_build'     => 'Sản phẩm bộ',
     'products_group'     => 'Sản phẩm nhóm',
     'contact_form'       => [
-        'title'   => 'Form liên hệ',
-        'info'    => 'Thông tin liên hệ',
         'name'    => 'Tên của bạn',
         'email'   => 'Email',
         'phone'   => 'Số điện thoại',
