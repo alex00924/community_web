@@ -2696,6 +2696,10 @@ section {
   width: 100%;
 }
 
+ul.blog-posts li.post-item {
+  list-style-type: none !important;
+}
+
 .post-item img {
   max-width: 100%;
   max-height: 150px;
