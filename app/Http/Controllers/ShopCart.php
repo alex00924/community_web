@@ -125,6 +125,7 @@ class ShopCart extends GeneralController
                 'layout_page' => 'shop_cart',
                 'countries' => ShopCountry::getArray(),
                 'attributesGroup' => ShopAttributeGroup::pluck('name', 'id')->all(),
+                'products' => ShopProduct::get()
             ]
         );
     }

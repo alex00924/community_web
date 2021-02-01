@@ -36,15 +36,13 @@ class DiscountModel extends Model
             try {
                 Schema::create($this->table, function (Blueprint $table) {
                     $table->increments('id');
+                    $table->string('sku', 32)->unique();
                     $table->string('code', 32)->unique();
                     $table->integer('reward')->default(0);
                     $table->string('type')->default('point');
-                    $table->text('data')->nullable();
                     $table->integer('limit')->default(1);
                     $table->integer('used')->default(0);
-                    $table->tinyInteger('status')->default(1);
                     $table->integer('login')->default(0);
-                    $table->timestamp('expires_at')->nullable();
                 });
             } catch (\Exception $e) {
                 $return = ['error' => 1, 'msg' => $e->getMessage()];

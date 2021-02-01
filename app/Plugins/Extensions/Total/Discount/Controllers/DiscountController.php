@@ -97,14 +97,10 @@ class DiscountController extends GeneralController
         if ($promocode->login && !$uID) {
             return json_encode(['error' => 1, 'msg' => "error_login"]);
         }
-
         if ($promocode->limit == 0 || $promocode->limit <= $promocode->used) {
             return json_encode(['error' => 1, 'msg' => "error_code_cant_use"]);
         }
 
-        if ($promocode->status == 0 || $promocode->isExpired()) {
-            return json_encode(['error' => 1, 'msg' => "error_code_expired_disabled"]);
-        }
         if ($promocode->login) {
             //check if this user has already used this code already
             $arrUsers = [];
@@ -115,7 +111,7 @@ class DiscountController extends GeneralController
                 return json_encode(['error' => 1, 'msg' => "error_user_used"]);
             }
         }
-
+       
         return json_encode(['error' => 0, 'content' => $promocode]);
     }
 
@@ -293,37 +289,30 @@ class DiscountController extends GeneralController
             }
         } else {
             $content = $check['content'];
-            if ($content['type'] === 1) {
-                //Point use in my page
-                $error = 1;
-                $msg = trans('promotion.process.not_allow');
-            } else {
-                $arrType = [
-                    '0' => trans('promotion.cash'),
-                    '1' => trans('promotion.point'),
-                    '2' => trans('promotion.%'),
-                ];
-                $error = 0;
-                $msg = trans('promotion.process.completed');
-                session(['Discount' => $code]);
+            $arrType = [
+                '0' => trans('promotion.cash'),
+                '1' => trans('promotion.point'),
+                '2' => trans('promotion.%'),
+            ];
+            $error = 0;
+            $msg = trans('promotion.process.completed');
+            session(['Discount' => $code]);
 
-                $objects = array();
-                $objects[] = (new ShopOrderTotal)->getShipping();
-                $objects[] = (new ShopOrderTotal)->getDiscount();
-                $objects[] = (new ShopOrderTotal)->getReceived();
-                $dataTotal = ShopOrderTotal::processDataTotal($objects);
-                foreach ($dataTotal as $key => $element) {
-                    if ($element['value'] != 0) {
-                        if ($element['code'] == 'total') {
-                            $html .= "<tr class='showTotal'  style='background:#f5f3f3;font-weight: bold;'>";
-                        } else {
-                            $html .= "<tr class='showTotal'>";
-                        }
-                        $html .= "<th>" . $element['title'] . "</th>
-                        <td style='text-align: right' id='" . $element['code'] . "'>" . $element['text'] . "</td>
-                    </tr>";
+            $objects = array();
+            $objects[] = (new ShopOrderTotal)->getShipping();
+            $objects[] = (new ShopOrderTotal)->getDiscount();
+            $objects[] = (new ShopOrderTotal)->getReceived();
+            $dataTotal = ShopOrderTotal::processDataTotal($objects);
+            foreach ($dataTotal as $key => $element) {
+                if ($element['value'] != 0) {
+                    if ($element['code'] == 'total') {
+                        $html .= "<tr class='showTotal'  style='background:#f5f3f3;font-weight: bold;'>";
+                    } else {
+                        $html .= "<tr class='showTotal'>";
                     }
-
+                    $html .= "<th>" . ($element['code'] == 'discount' ? 'FlowCell promotion item' : $element['title']). "</th>
+                    <td style='text-align: right' id='" . $element['code'] . "'>" . $element['text'] . "</td>
+                </tr>";
                 }
             }
 

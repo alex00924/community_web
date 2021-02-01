@@ -25,9 +25,6 @@ h1 {
 .main-content {
   flex: 1;
 }
-ul li {
-  list-style: none;
-}
 
 a:hover {
 outline: none;
@@ -1018,13 +1015,12 @@ h2.title {
 .category-tab {
   overflow: hidden;
 }
-
+.category-tab > ul {
+  background: #40403E !important;
+}
 .category-tab ul {
-  background: #40403E;
   border-bottom: 1px solid rgb(14, 140, 228);
-  list-style: none outside none;
   margin: 0 0 30px;
-  padding: 0;
   width: 100%;
 }
 

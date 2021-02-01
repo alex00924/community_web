@@ -3,7 +3,6 @@
 return [
     'id'                    => 'ID',
     'sku'                   => 'SKU',
-    'discount_code'         => 'Discount Code',
     'alias'                 => 'Url customize <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span>',
     'sku_validate'          => 'Only characters in the group: "A-Z", "a-z", "0-9" and "-_" ',
     'discoundcode_validate' => 'Only 6 characters in the group: "A-Z", "a-z" and "0-9"',
@@ -56,6 +55,7 @@ return [
     'benefit'               => 'Benefits',
     'supplyName'            => 'Supplier Name',
     'supplyLink'            => 'Supplier Website',
+    'coupon_apply'          => 'FlowCell promotion item ',
     'admin'                 => [
         'title'                   => 'Product',
         'manager'                 => 'Product Manager',

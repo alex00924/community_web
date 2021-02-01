@@ -30,17 +30,21 @@
   /*price*/
   
 .sc-new-price{
-    color:#FE980F;
-    font-size: 20px;
-    padding: 10px;
-    font-weight:bold;
-  }
-  .sc-old-price {
-    text-decoration: line-through;
-    color: #a95d5d;
-    font-size: 17px;
-    padding: 10px;
-  }
+  color:#FE980F;
+  font-size: 20px;
+  padding: 10px;
+  font-weight:bold;
+}
+.sc-coupon-apply {
+  color:#FE980F;
+  font-size: 12px;
+}
+.sc-old-price {
+  text-decoration: line-through;
+  color: #a95d5d;
+  font-size: 17px;
+  padding: 10px;
+}
   /*end price*/
 .sc-product-build{
   font-size: 20px;

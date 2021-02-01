@@ -41,15 +41,13 @@ class DiscountAdminController extends Controller
 
         $listTh = [
             'id' => trans($this->plugin->pathPlugin.'::Discount.id'),
+            'sku' => trans($this->plugin->pathPlugin.'::Discount.sku'),
             'code' => trans($this->plugin->pathPlugin.'::Discount.code'),
             'reward' => trans($this->plugin->pathPlugin.'::Discount.reward'),
             'type' => trans($this->plugin->pathPlugin.'::Discount.type'),
-            'data' => trans($this->plugin->pathPlugin.'::Discount.data'),
             'limit' => trans($this->plugin->pathPlugin.'::Discount.limit'),
             'used' => trans($this->plugin->pathPlugin.'::Discount.used'),
-            'status' => trans($this->plugin->pathPlugin.'::Discount.status'),
             'login' => trans($this->plugin->pathPlugin.'::Discount.login'),
-            'expires_at' => trans($this->plugin->pathPlugin.'::Discount.expires_at'),
             'action' => trans($this->plugin->pathPlugin.'::Discount.admin.action'),
         ];
         $sort_order = request('sort_order') ?? 'id_desc';
@@ -78,15 +76,13 @@ class DiscountAdminController extends Controller
         foreach ($dataTmp as $key => $row) {
             $dataTr[] = [
                 'id' => $row['id'],
+                'sku' => $row['sku'],
                 'code' => $row['code'],
                 'reward' => $row['reward'],
                 'type' => ($row['type'] == 'point') ? 'Point' : '%',
-                'data' => $row['data'],
                 'limit' => $row['limit'],
                 'used' => $row['used'],
-                'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',
                 'login' => $row['login'],
-                'expires_at' => $row['expires_at'],
                 'action' => '
                     <a href="' . route('admin_discount.edit', ['id' => $row['id']]) . '"><span title="' . trans($this->plugin->pathPlugin.'::Discount.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
 
@@ -196,7 +192,7 @@ class DiscountAdminController extends Controller
     {
         $data = request()->all();
         $validator = Validator::make($data, [
-            'code' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_discount,code|string|max:50',
+            'code' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_discount,code|string|max:6|min:6',
             'limit' => 'required|numeric|min:1',
             'reward' => 'required|numeric|min:0',
             'type' => 'required',
@@ -211,14 +207,12 @@ class DiscountAdminController extends Controller
                 ->withInput();
         }
         $dataInsert = [
-            'code' => $data['code'],
+            'sku' => $data['sku'],
+            'code' => $data['sku'].'_'.$data['code'],
             'reward' => (int)$data['reward'],
-            'limit' => $data['limit'],
             'type' => $data['type'],
-            'data' => $data['data'],
+            'limit' => $data['limit'],
             'login' => empty($data['login']) ? 0 : 1,
-            'expires_at' => $data['expires_at'],
-            'status' => empty($data['status']) ? 0 : 1,
         ];
         DiscountModel::create($dataInsert);
 //
@@ -255,7 +249,8 @@ class DiscountAdminController extends Controller
         $discount = DiscountModel::find($id);
         $data = request()->all();
         $validator = Validator::make($data, [
-            'code' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_discount,code,' . $discount->id . ',id|string|max:50',
+            'sku' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_discount,sku,' . $discount->id . ',id|string|max:50',
+            'code' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_discount,code,' . $discount->id . ',id|string|max:6|min:6',
             'limit' => 'required|numeric|min:1',
             'reward' => 'required|numeric|min:0',
             'type' => 'required',
@@ -271,14 +266,12 @@ class DiscountAdminController extends Controller
         }
 //Edit
         $dataUpdate = [
-            'code' => $data['code'],
+            'sku' => $data['sku'],
+            'code' => $data['sku'].'_'.$data['code'],
             'reward' => (int)$data['reward'],
-            'limit' => $data['limit'],
             'type' => $data['type'],
-            'data' => $data['data'],
+            'limit' => $data['limit'],
             'login' => empty($data['login']) ? 0 : 1,
-            'expires_at' => $data['expires_at'],
-            'status' => empty($data['status']) ? 0 : 1,
         ];
 
         $discount->update($dataUpdate);

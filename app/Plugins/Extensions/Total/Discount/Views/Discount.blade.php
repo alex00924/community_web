@@ -13,6 +13,8 @@
                         </div>
                     </div>
                 </div>
+                
+
                 <!-- /.box-header -->
                 <!-- form start -->
                 <form action="{{ $url_action }}" method="post" accept-charset="UTF-8" class="form-horizontal" id="form-main"  enctype="multipart/form-data">
@@ -20,17 +22,35 @@
 
                     <div class="box-body">
                         <div class="fields-group">
-
+                    
 
                     <div class="box-body">
                         <div class="fields-group">
-
+                            <div class="form-group   {{ $errors->has('sku') ? ' has-error' : '' }}">
+                                <label for="code" class="col-sm-2  control-label">{{ trans('Extensions/Total/Discount::Discount.sku') }}</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-ticket fa-fw"></i></span>
+                                        <input type="text" id="sku" name="sku" value="{{ old()?old('sku'):$discount['sku']??'' }}" class="form-control" placeholder="" />
+                                    </div>
+                                        @if ($errors->has('sku'))
+                                            <span class="help-block">
+                                                <i class="fa fa-info-circle"></i>  {{ $errors->first('sku') }}
+                                            </span>
+                                        @else
+                                            <span class="help-block">
+                                                <i class="fa fa-info-circle"></i>  {{ trans('Extensions/Total/Discount::Discount.admin.sku_helper') }}
+                                            </span>
+                                        @endif
+                                </div>
+                            </div>
+                           
                             <div class="form-group   {{ $errors->has('code') ? ' has-error' : '' }}">
                                 <label for="code" class="col-sm-2  control-label">{{ trans('Extensions/Total/Discount::Discount.code') }}</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-ticket fa-fw"></i></span>
-                                        <input type="text" id="code" name="code" value="{{ old()?old('code'):$discount['code']??'' }}" class="form-control" placeholder="" />
+                                        <input type="text" id="code" name="code" value="{{ old()?old('code'):$discount?(str_replace(array($discount['sku'], '_'), '', $discount['code'])):'' }}" class="form-control" placeholder="" />
                                     </div>
                                         @if ($errors->has('code'))
                                             <span class="help-block">
@@ -43,7 +63,6 @@
                                         @endif
                                 </div>
                             </div>
-
                             <div class="form-group   {{ $errors->has('reward') ? ' has-error' : '' }}">
                                 <label for="reward" class="col-sm-2  control-label">{{ trans('Extensions/Total/Discount::Discount.reward') }}</label>
                                 <div class="col-sm-8">
@@ -58,8 +77,7 @@
                                         @endif
                                 </div>
                             </div>
-
-
+                            
                             <div class="form-group   {{ $errors->has('type') ? ' has-error' : '' }}">
                                 <label for="type" class="col-sm-2  control-label">{{ trans('Extensions/Total/Discount::Discount.type') }}</label>
                                 <div class="col-sm-8">
@@ -74,24 +92,6 @@
                                         @endif
                                 </div>
                             </div>
-
-
-                            <div class="form-group   {{ $errors->has('data') ? ' has-error' : '' }}">
-                                <label for="data" class="col-sm-2  control-label">{{ trans('Extensions/Total/Discount::Discount.data') }}</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-                                        <input type="text" id="data" name="data" value="{{ old()?old('data'):$discount['data']??'' }}" class="form-control" placeholder="" />
-                                    </div>
-                                        @if ($errors->has('data'))
-                                            <span class="help-block">
-                                                {{ $errors->first('data') }}
-                                            </span>
-                                        @endif
-                                </div>
-                            </div>
-
-
 
                             <div class="form-group   {{ $errors->has('limit') ? ' has-error' : '' }}">
                                 <label for="limit" class="col-sm-2  control-label">{{ trans('Extensions/Total/Discount::Discount.limit') }}</label>
@@ -109,7 +109,6 @@
                             </div>
 
 
-
                             <div class="form-group   {{ $errors->has('login') ? ' has-error' : '' }}">
                                 <label for="login" class="col-sm-2  control-label">{{ trans('Extensions/Total/Discount::Discount.login') }}</label>
                                 <div class="col-sm-8">
@@ -122,28 +121,7 @@
                                             </span>
                                         @endif
                                 </div>
-                            </div>
-                            <div class="form-group   {{ $errors->has('expires_at') ? ' has-error' : '' }}">
-                                <label for="expires_at" class="col-sm-2  control-label">{{ trans('Extensions/Total/Discount::Discount.expires_at') }}</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-                                        <input type="text" id="expires_at" name="expires_at" value="{{ old()?old('expires_at'):$discount['expires_at']??'' }}" class="form-control date_time" style="width: 100px;" placeholder="" />
-                                    </div>
-                                        @if ($errors->has('expires_at'))
-                                            <span class="help-block">
-                                                {{ $errors->first('expires_at') }}
-                                            </span>
-                                        @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group  ">
-                                <label for="status" class="col-sm-2  control-label">{{ trans('Extensions/Total/Discount::Discount.status') }}</label>
-                                <div class="col-sm-8">
-                                   <input type="checkbox" name="status"  {{ old('status',(empty($discount['status'])?0:1))?'checked':''}}>
-                                </div>
-                            </div>
+                            </div> 
 
                         </div>
                     </div>
