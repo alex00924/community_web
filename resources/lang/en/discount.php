@@ -3,7 +3,6 @@ return [
     'id'         => 'ID',
     'reward'     => 'Reward',
     'type'       => 'Type',
-    'sku'        => 'Sku',
     'code'       => 'Code',
     'data'       => 'Description',
     'limit'      => 'Limit',
@@ -31,9 +30,8 @@ return [
         'add_new_title'  => 'Add discount',
         'add_new_des'    => 'Create a new discount',
         'choose_icon'    => 'Choose icon',
-        'sku_helper'     => 'Only characters in the group: "A-Z", "a-z", "0-9" and ".-_"',
-        'code_helper'    => 'Only 6 characters in the group: "A-Z", "a-z", "0-9" and ".-_"',
-        'code_validate'  => 'Only 6 characters in the group: "A-Z", "a-z", "0-9" and ".-_"',
+        'code_helper'    => 'Only characters in the group: "A-Z", "a-z", "0-9" and ".-_"',
+        'code_validate'  => 'Only characters in the group: "A-Z", "a-z", "0-9" and ".-_"',
 
         'search_place'   => 'Search code',
         'sort_order'     => [

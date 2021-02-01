@@ -94,7 +94,6 @@ class ShopProductController extends Controller
             $listTh['virtual'] = trans('product.virtual');
         }
         $listTh['status'] = trans('product.status');
-        $listTh['discountcode'] = trans('product.discount_code');
         $listTh['action'] = trans('product.admin.action');
 
 
@@ -165,7 +164,6 @@ class ShopProductController extends Controller
                 $dataMap['virtual'] = $this->virtuals[$row['virtual']] ?? $row['virtual'];
             }
             $dataMap['status'] = $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>';
-            $dataMap['discountcode'] = $row['discountcode'] ? $row['sku'].'_'.$row['discountcode'] : null;
             $dataMap['action'] = Session::get('userrole') == 1?'
             <a href="' . route('admin_product.edit', ['id' => $row['id']]) . '">
             <span title="' . trans('product.admin.edit') . '" type="button" class="btn btn-flat btn-primary">
@@ -436,19 +434,6 @@ class ShopProductController extends Controller
                     ->withInput($data);
             }
         }
-        if ($data['discountcode'] !== null) {
-            $product = ShopProduct::where('discountcode', $data['discountcode'])->get();
-            if (count($product) != 0) {
-                $validator->errors()->add('field', 'Something is wrong with this field!');
-                return redirect()->back()
-                    ->withErrors($validator);
-            }
-            if (strlen($data['discountcode']) !== 6) {
-                $validator->errors()->add('field', 'Something is wrong with this field!');
-                return redirect()->back()
-                    ->withErrors($validator);
-            }
-        }
 
         $category = $data['category'] ?? [];
         $attribute = $data['attribute'] ?? [];
@@ -476,7 +461,6 @@ class ShopProductController extends Controller
             'attribute_price' => !empty($data['attribute_price']) ? $data['attribute_price'] : null,
             'supplyName' => !empty($data['supply_name']) ? $data['supply_name'] : null,
             'supplyLink' => !empty($data['supply_link']) ? $data['supply_link'] : null,
-            'discountcode' => !empty($data['discountcode']) ? $data['discountcode'] : null,
         ];
         //insert product
         $product = ShopProduct::create($dataInsert);

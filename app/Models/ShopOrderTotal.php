@@ -144,7 +144,6 @@ class ShopOrderTotal extends Model
                 'sort' => self::POSITION_DISCOUNT,
             ];
         }
-
         return $arrDiscount;
     }
 

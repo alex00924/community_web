@@ -60,15 +60,16 @@
     @endforeach
     </tbody>
     <tfoot>
-        <tr  style="background: #eaebec">
+        <tr style="background: #eaebec">
             <td colspan="7">
-                 <div class="pull-left">
-                <button class="btn btn-default" type="button" style="cursor: pointer;padding:10px 30px" onClick="location.href='{{ route('home') }}'"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{ trans('cart.back_to_shop') }}</button>
+                <div class="pull-left">
+                    <button class="btn btn-default" type="button" style="cursor: pointer;padding:10px 30px" onClick="location.href='{{ route('home') }}'"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{ trans('cart.back_to_shop') }}</button>
                 </div>
-                 <div class="pull-right">
-                <button class="btn" type="button" style="cursor: pointer;padding:10px 30px" onClick="if(confirm('Confirm ?')) window.location.href='{{ route('cart.clear') }}';" >
-                    <i class="fa fa-window-close" aria-hidden="true" aria-hidden="true"></i>
-                    {{ trans('cart.remove_all') }}</button>
+                <div class="pull-right">
+                    <button class="btn" type="button" style="cursor: pointer;padding:10px 30px" onClick="if(confirm('Confirm ?')) window.location.href='{{ route('cart.clear') }}';" >
+                        <i class="fa fa-window-close" aria-hidden="true" aria-hidden="true"></i>
+                        {{ trans('cart.remove_all') }}
+                    </button>
                 </div>
             </td>
         </tr>
@@ -379,6 +380,11 @@
 @push('scripts')
 
 <script type="text/javascript">
+    var cart = @json($cart);
+    var skuArr = [];
+    $.each(cart, function (key, val) {
+        skuArr.push(val.name);
+    });
     function updateCart(obj){
         var new_qty = obj.val();
         var rowid = obj.data('rowid');
@@ -435,46 +441,52 @@
     }
     changeTermsCondition();
 @if ($extensionDiscount)
-    $('#coupon-button').click(function() {
-     var coupon = $('#coupon-value').val();
-        if(coupon==''){
-            $('#coupon-group').addClass('has-error');
-            $('.coupon-msg').html('{{ trans('cart.coupon_empty') }}').addClass('text-danger').show();
-        }else{
-        $('#coupon-button').button('loading');
-        setTimeout(function() {
-            $.ajax({
-                url: '{{ route('discount.process') }}',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    code: coupon,
-                    uID: {{ $uID }},
-                    _token: "{{ csrf_token() }}",
-                },
-            })
-            .done(function(result) {
-                    $('#coupon-value').val('');
-                    $('.coupon-msg').removeClass('text-danger');
-                    $('.coupon-msg').removeClass('text-success');
-                    $('#coupon-group').removeClass('has-error');
-                    $('.coupon-msg').hide();
-                if(result.error ==1){
-                    $('#coupon-group').addClass('has-error');
-                    $('.coupon-msg').html(result.msg).addClass('text-danger').show();
-                }else{
-                    $('#removeCoupon').show();
-                    $('.coupon-msg').html(result.msg).addClass('text-success').show();
-                    $('.showTotal').remove();
-                    $('#showTotal').prepend(result.html);
-                }
-            })
-            .fail(function() {
-                console.log("error");
-            })
-           $('#coupon-button').button('reset');
-       }, 2000);
+    $('#coupon-button').on('click', function() {
+        var coupon = $('#coupon-value').val();
+        var couponSku = coupon.split('_')[0];
+        var isExistCoupon = skuArr.includes(couponSku);
+        if (isExistCoupon){
+            if(coupon==''){
+                $('#coupon-group').addClass('has-error');
+                $('.coupon-msg').html('{{ trans('cart.coupon_empty') }}').addClass('text-danger').show();
+            }else{
+            $('#coupon-button').button('loading');
+            setTimeout(function() {
+                $.ajax({
+                    url: '{{ route('discount.process') }}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        code: coupon,
+                        uID: {{ $uID }},
+                        _token: "{{ csrf_token() }}",
+                    },
+                })
+                .done(function(result) {
+                        $('#coupon-value').val('');
+                        $('.coupon-msg').removeClass('text-danger');
+                        $('.coupon-msg').removeClass('text-success');
+                        $('#coupon-group').removeClass('has-error');
+                        $('.coupon-msg').hide();
+                    if(result.error ==1){
+                        $('#coupon-group').addClass('has-error');
+                        $('.coupon-msg').html(result.msg).addClass('text-danger').show();
+                    }else{
+                        $('#removeCoupon').show();
+                        $('.coupon-msg').html(result.msg).addClass('text-success').show();
+                        $('.showTotal').remove();
+                        $('#showTotal').prepend(result.html);
+                    }
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+            $('#coupon-button').button('reset');
+            }, 2000);
         }
+    } else {
+        $('#coupon-group').addClass('has-error');
+    }
 
     });
     $('#removeCoupon').click(function() {
@@ -501,7 +513,7 @@
             // .always(function() {
             //     console.log("complete");
             // });
-    });
+    });   
 @endif
 
 </script>
