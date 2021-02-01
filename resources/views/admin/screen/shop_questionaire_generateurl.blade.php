@@ -59,7 +59,7 @@
     let updateurl = "{{route('admin_questionaire.updateurl')}}"
     $("#url_generate").click(function() {
         var randomstring = makeid(10);
-        $("#url").val(`{{env('APP_URL')}}/questionaire/marketing/${randomstring}`);
+        $("#url").val(`https://fluidsforlife.com/questionaire/marketing/${randomstring}`);
         $.ajax({
             type: "POST",
             data: {"_token": "{{ csrf_token() }}", "id": randomstring},
