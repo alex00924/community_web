@@ -129,7 +129,7 @@
         @if (sc_config('customer_country'))
         <div class="form-group  {{ $errors->has('reg_country') ? ' has-error' : '' }}">
             <select class="is_required form-control reg_country" style="width: 100%;" name="reg_country" required>
-                <option value="">__{{ trans('account.country') }}__</option>
+                <option value="">{{ trans('account.country') }}</option>
                 @foreach ($countries as $k => $v)
                 <option value="{{ $k }}" {{ (old('reg_country') ==$k) ? 'selected':'' }}>{{ $v }}</option>
                 @endforeach

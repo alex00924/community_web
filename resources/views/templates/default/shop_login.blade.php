@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="col-sm-2">
-                    <h2 class="or">OR</h2>
+                    <div class="or">OR</div>
                 </div>
 
                 <div class="col-sm-3">

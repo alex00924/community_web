@@ -49,6 +49,7 @@
             <div class="single-widget">
               <h2 style="font-family: Karla;font-size: 20px;">{{ trans('front.about') }}</h2>
               <ul class="nav nav-pills nav-stacked">
+				<li>{{ sc_store('title') }}</li>
                 <li><a>{{ trans('front.shop_info.address') }}: {{ sc_store('address') }}</a></li>
                 <li><a>{{ trans('front.shop_info.hotline') }}: {{ sc_store('long_phone') }}</a></li>
                 <li><a>{{ trans('front.shop_info.email') }}: {{ sc_store('email') }}</a></li>
