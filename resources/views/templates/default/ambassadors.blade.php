@@ -5,7 +5,7 @@
 <section >
     <div class="container ckeditor-content">
         <div class="row">
-            <h2 class="title text-center">{{ strtoupper('The good pyramid') }}</h2>
+            <h1 class="title text-center">{{ strtoupper('The good pyramid') }}</h1>
             <p>There is something missing in the fight against COVID. Precision Medicine, and You.</p>
             <p>Allow me to explain the role of Precision Medicine for COVID and healthcare in general, and how You can make a difference.</p>
             <p>COVID-19 is putting tremendous pressure on the pharmaceutical industry to produce a solution. Continually promising great results based on but walking back expectations about time till readiness has produced a sense of unease in the public. </p>
