@@ -114,7 +114,7 @@
                 @endif
 
                 <li>
-                  <a style="color: #d9534f" class="{{ ( request()->is('news_covid') ) ? 'active' : '' }}" href="/news_covid">
+                  <a style="color: #d9534f" class="{{ ( request()->is('newsCovid') ) ? 'active' : '' }}" href="/newsCovid">
                   COVID-19
                   </a>
                 </li>

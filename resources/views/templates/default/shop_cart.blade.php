@@ -343,9 +343,9 @@
                 <div class="form-group">
                     <div style="margin: 10px 10px">
                         <label class="radio-inline">
-                            <input type="checkbox" id="terms_condition" name="terms_condition" {{ (old('terms_condition') == $key)?'checked':'' }} style="position: relative;" onchange="changeTermsCondition()"/>
+                            <input type="checkbox" id="termsCondition" name="termsCondition" {{ (old('termsCondition') == $key)?'checked':'' }} style="position: relative;" onchange="changeTermsCondition()"/>
                             <div style="margin-left: 30px; margin-top: -35px"> I have read and accept </div>
-                            <a style="margin-left: 30px;" href="/terms_condition" target="_blank">Terms and Condition</a>
+                            <a style="margin-left: 30px;" href="/termsCondition" target="_blank">Terms and Condition</a>
                         </label>
                     </div>
                 </div>
@@ -433,7 +433,7 @@
     });
 
     function changeTermsCondition() {
-        if ($("#terms_condition").is(":checked")) {
+        if ($("#termsCondition").is(":checked")) {
             $("#submit-order").prop("disabled", false);
         } else {
             $("#submit-order").prop("disabled", true);
