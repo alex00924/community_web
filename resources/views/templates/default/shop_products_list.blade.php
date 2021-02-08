@@ -2,7 +2,7 @@
 
 @section('center')
   <div class="features_items row no-margin">
-    <h2 class="title text-center">{{ $title }}</h2>
+    <h1 class="title text-center">{{ $title }}</h1>
 
     @isset ($itemsList)
       @if($itemsList->count())
