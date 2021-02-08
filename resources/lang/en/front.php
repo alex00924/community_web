@@ -32,6 +32,7 @@ return [
     'blog'               => 'Information',
     'contact'            => 'Contact us',
     'about'              => 'Contact Info',
+	'about_header'		 => 'About Us',
     'shop'               => 'Shop',
     'cms_category'       => 'CMS categories',
     'categories'         => 'Categories',
