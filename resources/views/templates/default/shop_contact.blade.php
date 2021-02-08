@@ -6,13 +6,12 @@
         <div class="bg">
             <div class="row">
                 <div class="col-sm-12">
-                    <h2 class="title text-center">{{ $title }}</h2>
+                    <h1 class="title text-center">{{ $title }}</h1>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-8">
                     <div class="contact-form">
-                        <h2 class="title text-center">{{ trans('front.contact_form.title') }}</h2>
                         <form method="post" action="{{ route('contact.post') }}" class="contact-form">
                         {{ csrf_field() }}
                         <div id="contactFormWrapper" style="margin: 30px;">
@@ -85,13 +84,6 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="contact-info">
-                        <h2 class="title text-center">{{ trans('front.contact_form.info') }}</h2>
-                        <address>
-                            <p>{{ sc_store('title') }}</p>
-                            <p>{{ sc_store('address') }}</p>
-                            <p>{{ sc_store('long_phone') }}</p>
-                            <p>{{ sc_store('email') }}</p>
-                        </address>
                         <div class="social-networks">
                             <h2 class="title text-center">Social Networking</h2>
                             <ul>

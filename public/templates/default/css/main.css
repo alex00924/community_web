@@ -22,6 +22,14 @@ h1 {
   color: #28ace2;
 }
 
+h1.title.text-center {
+    font-size: 1.6em;
+}
+
+h2.h2 {
+  font-size: 22px;
+}
+
 .main-content {
   flex: 1;
 }
@@ -681,7 +689,7 @@ ul.sub-menu {
   z-index:3;
 }
 
-.left-sidebar h2:after, h2.title:after{
+.left-sidebar h2::after, h1.title::after, h2.title::after {
 	content: " ";
 	position: absolute;
 	border: 1px solid #f5f5f5;
@@ -692,7 +700,7 @@ ul.sub-menu {
 	z-index: -2;
 }
 
-.left-sidebar h2:before{
+.left-sidebar h2::before {
 	content: " ";
 	position: absolute;
 	background: #fff;
@@ -704,7 +712,7 @@ ul.sub-menu {
 	margin-left: -65px;
 }
 
-h2.title:before{
+h1.title::before, h2.title::before {
 	content: " ";
 	position: absolute;
 	background: #fff;
@@ -847,9 +855,8 @@ h2.title:before{
 }
 
 
-h2.title {
+h1.title, h2.title {
   color: rgb(14, 140, 228);
-  
   font-size: 18px;
   font-weight: 700;
   margin: 0 15px;
@@ -1513,18 +1520,18 @@ h2.title {
 }
 
 
-.or{
-	background: rgb(14, 140, 228);
-	border-radius: 40px;
-	color: #FFFFFF;
-	
-	font-size: 16px;
-	height: 50px;
-  line-height: 50px;
-  margin: auto;
-	margin-top: 75px;
-	text-align: center;
-  width: 50px;
+div.or {
+    background: rgb(108, 28, 28);
+    border-radius: 40px;
+    color: #fff;
+    font-size: 16px;
+    height: auto;
+    line-height: 50px;
+    margin: 8% auto;
+    margin-top: 55px;
+    text-align: center;
+    width: 3.2em;
+    position: relative;
 }
 
 
@@ -2694,6 +2701,10 @@ img.avatar {
 
 section {
   width: 100%;
+}
+
+ul.blog-posts li.post-item {
+  list-style-type: none !important;
 }
 
 .post-item img {

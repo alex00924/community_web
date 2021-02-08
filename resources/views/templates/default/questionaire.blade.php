@@ -5,9 +5,9 @@
     <div class="container">
       <div class="row">
             @if ($category === 'survey')
-            <h2 class="title text-center">{{ trans('front.questionaire.survey') }}</h2>
+            <h1 class="title text-center">{{ trans('front.questionaire.survey') }}</h1>
             @else
-            <h2 class="title text-center">{{ trans('front.questionaire.marketingsurvey') }}</h2>
+            <h1 class="title text-center">{{ trans('front.questionaire.marketingsurvey') }}</h1>
             @endif
             <!-- Center colunm-->
             <div class="center_column table-responsive" style="box-shadow: 0px 0px 5px rgba(100, 100, 100, 0.5);">

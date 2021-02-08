@@ -4,7 +4,7 @@
 <section >
 <div class="container">
     <div class="row">
-        <h2 class="title text-center">{{ $title }}</h2>
+        <h1 class="title text-center">{{ $title }}</h1>
         <div class="col-xs-10 text-right">
           <a class="btn btn-danger" href="/newsCovid"> {{ trans('front.covid') }} </a>
         </div>

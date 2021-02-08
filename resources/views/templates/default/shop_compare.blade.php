@@ -4,7 +4,7 @@
 <section >
 <div class="container">
     <div class="row">
-        <h2 class="title text-center">{{ $title }}</h2>
+        <h1 class="title text-center">{{ $title }}</h1>
         @if (count($compare) ==0)
             <div class="col-md-12 text-danger">
                Not found!
