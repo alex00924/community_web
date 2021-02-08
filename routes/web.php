@@ -17,8 +17,8 @@
 Route::get('/', 'ShopFront@index')->name('home');
 Route::get('index.html', 'ShopFront@index');
 Route::get('/network', 'ShopFront@network');
-Route::get('/newsCovid', 'ShopFront@covidNews');
-Route::get('/termsCondition', 'ShopFront@termsCondition');
+Route::get('/news-covid', 'ShopFront@covidNews');
+Route::get('/terms-condition', 'ShopFront@termsCondition');
 
 $suffix = sc_config('SUFFIX_URL')??'';
 

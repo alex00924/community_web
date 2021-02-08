@@ -345,7 +345,7 @@
                         <label class="radio-inline">
                             <input type="checkbox" id="termsCondition" name="termsCondition" {{ (old('termsCondition') == $key)?'checked':'' }} style="position: relative;" onchange="changeTermsCondition()"/>
                             <div style="margin-left: 30px; margin-top: -35px"> I have read and accept </div>
-                            <a style="margin-left: 30px;" href="/termsCondition" target="_blank">Terms and Condition</a>
+                            <a style="margin-left: 30px;" href="/terms-condition" target="_blank">Terms and Condition</a>
                         </label>
                     </div>
                 </div>
