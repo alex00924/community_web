@@ -29,10 +29,10 @@ return [
     'account'            => 'Account',
     'logout'             => 'Logout',
     'home'               => 'Home',
-    'blog'               => 'Information',
+    'blog'               => 'Blog',
     'contact'            => 'Contact us',
     'about'              => 'Contact Info',
-	'about_header'		 => 'About Us',
+    'about_header'	 => 'About Us',
     'shop'               => 'Shop',
     'cms_category'       => 'CMS categories',
     'categories'         => 'Categories',
@@ -118,5 +118,5 @@ return [
 
     'network'   => 'Network',
     'covid'     =>  'COVID-19 Blogs',
-    'information' => 'Information'
+    'information' => 'News Blog'
 ];
