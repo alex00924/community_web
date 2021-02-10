@@ -284,7 +284,6 @@ class ShopProductController extends Controller
     public function create()
     {
         $listProductSingle = (new ShopProduct)->getListSigle();
-
         // html select product group
         $htmlSelectGroup = '<div class="select-product">';
         $htmlSelectGroup .= '<table width="100%"><tr><td width="80%"><select class="form-control productInGroup select2" data-placeholder="' . trans('product.admin.select_product_in_group') . '" style="width: 100%;" name="productInGroup[]" >';
@@ -431,7 +430,7 @@ class ShopProductController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()
                     ->withErrors($validator)
-                    ->withInput($data);
+                    ->withInput();
             }
         }
 
@@ -698,7 +697,6 @@ class ShopProductController extends Controller
         }
 
         $validator = Validator::make($data, $arrValidation, $arrMsg ?? []);
-
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
