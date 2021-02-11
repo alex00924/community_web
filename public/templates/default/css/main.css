@@ -2987,3 +2987,23 @@ button.close {
   flex-direction: column;
   align-items: center;
 }
+
+.button-404-error {
+    margin: auto;
+    display: block;
+    font-weight: 500;
+    color: #fff;
+    background-color: #28ace2;
+    font-size: 1.5em;
+    text-decoration: none;
+    border: 3px solid #28ace2;
+    padding: 5px;
+    border-radius: 20px;
+    width: 12em;
+}
+
+.button-404-error:hover {
+    background-color: #4fb74a;
+    color: #ffffff;
+    border: 3px solid #4fb74a;
+}

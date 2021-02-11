@@ -1,3 +1,6 @@
+
+ErrorDocument 404 /error404.html
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
