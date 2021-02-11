@@ -79,16 +79,16 @@
 
                 @if (!empty(sc_config('Content')))
                 <li class="dropdown">
-				<a href="#">{{ trans('front.cms_category') }}<i class="fa fa-angle-down"></i></a>
-                    <ul role="menu" class="sub-menu">
-                      @php
-                        $nameSpace = sc_get_module_namespace('Cms','Content').'\Models\CmsCategory';
-                        $cmsCategories = (new $nameSpace)->where('status', 1)->get();
-                      @endphp
-                      @foreach ($cmsCategories as $cmsCategory)
-                        <li><a class="{{ ( \Request::fullUrl() == $cmsCategory->getUrl() ) ? 'active' : '' }}" href="{{ $cmsCategory->getUrl() }}">{{ sc_language_render($cmsCategory->title) }}</a></li>
-                      @endforeach
-                    </ul>
+				          <a href="#">{{ trans('front.cms_category') }}<i class="fa fa-angle-down"></i></a>
+                  <ul role="menu" class="sub-menu">
+                    @php
+                      $nameSpace = sc_get_module_namespace('Cms','Content').'\Models\CmsCategory';
+                      $cmsCategories = (new $nameSpace)->where('status', 1)->get();
+                    @endphp
+                    @foreach ($cmsCategories as $cmsCategory)
+                      <li><a class="{{ ( \Request::fullUrl() == $cmsCategory->getUrl() ) ? 'active' : '' }}" href="{{ $cmsCategory->getUrl() }}">{{ sc_language_render($cmsCategory->title) }}</a></li>
+                    @endforeach
+                  </ul>
                 </li>
                 @endif
                 <li class="dropdown">
@@ -109,7 +109,7 @@
 
                 @if (!empty($layoutsUrl['menu']))
                   @foreach ($layoutsUrl['menu'] as $url)
-                    <li><a class="{{ ( \Request::fullUrl() == sc_url_render($url->url) ) ? 'active' : '' }}" {{ ($url->target =='_blank')?'target=_blank':''  }} href="{{ sc_url_render($url->url) }}">{{ sc_language_render($url->name) }}</a></li>
+                    <li><a style="color: #d9534f" class="{{ ( \Request::fullUrl() == sc_url_render($url->url) ) ? 'active' : '' }}" {{ ($url->target =='_blank')?'target=_blank':''  }} href="{{ sc_url_render($url->url) }}">{{ sc_language_render($url->name) }}</a></li>
                   @endforeach
                 @endif
 
