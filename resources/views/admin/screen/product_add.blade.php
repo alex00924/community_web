@@ -903,8 +903,6 @@
 </script>
 
 <script type="text/javascript">
-    var kind = @json($kind);
-    console.log('kkkkkkkkk', kind)
     let attributeID = {!! $attributeID !!};
     // Promotion
     $('#add_product_promotion').click(function(event) {
