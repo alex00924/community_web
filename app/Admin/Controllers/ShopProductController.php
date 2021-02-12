@@ -289,7 +289,7 @@ class ShopProductController extends Controller
         $htmlSelectGroup .= '<table width="100%"><tr><td width="80%"><select class="form-control productInGroup select2" data-placeholder="' . trans('product.admin.select_product_in_group') . '" style="width: 100%;" name="productInGroup[]" >';
         $htmlSelectGroup .= '';
         foreach ($listProductSingle as $k => $v) {
-            $htmlSelectGroup .= '<option value="' . $k . '">' . $v['name'] . '</option>';
+            $htmlSelectGroup .= '<option value="' . $k . '">' . str_replace("'", "", $v['name']) . '</option>';
         }
         $htmlSelectGroup .= '</select></td><td><span title="Remove" class="btn btn-flat btn-danger removeproductInGroup"><i class="fa fa-times"></i></span></td></tr></table>';
         $htmlSelectGroup .= '</div>';
@@ -300,7 +300,7 @@ class ShopProductController extends Controller
         $htmlSelectBuild .= '<table width="100%"><tr><td width="70%"><select class="form-control productInGroup select2" data-placeholder="' . trans('product.admin.select_product_in_build') . '" style="width: 100%;" name="productBuild[]" >';
         $htmlSelectBuild .= '';
         foreach ($listProductSingle as $k => $v) {
-            $htmlSelectBuild .= '<option value="' . $k . '">' . $v['name'] . '</option>';
+            $htmlSelectBuild .= '<option value="' . $k . '">' . str_replace("'", "", $v['name']) . '</option>';
         }
         $htmlSelectBuild .= '</select></td><td style="width:100px"><input class="form-control"  type="number" name="productBuildQty[]" value="1" min=1></td><td><span title="Remove" class="btn btn-flat btn-danger removeproductBuild"><i class="fa fa-times"></i></span></td></tr></table>';
         $htmlSelectBuild .= '</div>';
@@ -572,7 +572,7 @@ class ShopProductController extends Controller
         $htmlSelectGroup .= '<table width="100%"><tr><td width="80%"><select class="form-control productInGroup select2" data-placeholder="' . trans('product.admin.select_product_in_group') . '" style="width: 100%;" name="productInGroup[]" >';
         $htmlSelectGroup .= '';
         foreach ($listProductSingle as $k => $v) {
-            $htmlSelectGroup .= '<option value="' . $k . '">' . $v['name'] . '</option>';
+            $htmlSelectGroup .= '<option value="' . $k . '">' . str_replace("'", "", $v['name']) . '</option>';
         }
         $htmlSelectGroup .= '</select></td><td><span title="Remove" class="btn btn-flat btn-danger removeproductInGroup"><i class="fa fa-times"></i></span></td></tr></table>';
         $htmlSelectGroup .= '</div>';
@@ -583,7 +583,7 @@ class ShopProductController extends Controller
         $htmlSelectBuild .= '<table width="100%"><tr><td width="70%"><select class="form-control productInGroup select2" data-placeholder="' . trans('product.admin.select_product_in_build') . '" style="width: 100%;" name="productBuild[]" >';
         $htmlSelectBuild .= '';
         foreach ($listProductSingle as $k => $v) {
-            $htmlSelectBuild .= '<option value="' . $k . '">' . $v['name'] . '</option>';
+            $htmlSelectBuild .= '<option value="' . $k . '">' . str_replace("'", "", $v['name']) . '</option>';
         }
         $htmlSelectBuild .= '</select></td><td style="width:100px"><input class="form-control"  type="number" name="productBuildQty[]" value="1" min=1></td><td><span title="Remove" class="btn btn-flat btn-danger removeproductBuild"><i class="fa fa-times"></i></span></td></tr></table>';
         $htmlSelectBuild .= '</div>';
