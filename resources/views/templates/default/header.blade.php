@@ -109,16 +109,16 @@
 
                 @if (!empty($layoutsUrl['menu']))
                   @foreach ($layoutsUrl['menu'] as $url)
-                    <li><a style="color: #d9534f" class="{{ ( \Request::fullUrl() == sc_url_render($url->url) ) ? 'active' : '' }}" {{ ($url->target =='_blank')?'target=_blank':''  }} href="{{ sc_url_render($url->url) }}">{{ sc_language_render($url->name) }}</a></li>
+                    <li><a class="{{ ( \Request::fullUrl() == sc_url_render($url->url) ) ? 'active' : '' }}" {{ ($url->target =='_blank')?'target=_blank':''  }} href="{{ sc_url_render($url->url) }}">{{ sc_language_render($url->name) }}</a></li>
                   @endforeach
                 @endif
 
                 <li>
-                  <a style="color: #d9534f" class="{{ ( request()->is('news-covid') ) ? 'active' : '' }}" href="/news-covid">
+                  <a class="{{ ( request()->is('news-covid') ) ? 'active' : '' }}" href="/news-covid">
                   COVID-19
                   </a>
                 </li>
-                <li><a style="color: #47a447" class="{{ ( $routeName == 'news') ? 'active' : '' }}"  href="{{ route('news') }}">{{ trans('front.information') }}</a></li>
+                <li><a class="{{ ( $routeName == 'news') ? 'active' : '' }}"  href="{{ route('news') }}">{{ trans('front.information') }}</a></li>
               </ul>
             </div>
           </div>
