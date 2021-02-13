@@ -913,6 +913,12 @@ h1.title, h2.title {
   align-items: center;
   justify-content: center;
 }
+.product-ads-container {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .productinfo p{
   
   font-size: 14px;

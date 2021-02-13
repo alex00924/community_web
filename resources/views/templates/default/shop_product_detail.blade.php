@@ -353,7 +353,7 @@
                                   <img src="{{ asset($product_rel->getThumb()) }}" alt="{{ $product_rel->name }}" />
                                 </div>
                               </a>
-                          {!! $product_rel->showPrice() !!}
+                              <!-- {!! $product_rel->showPrice() !!} -->
                               <a href="{{ $product_rel->getUrl() }}"><p>{{ $product_rel->name }}</p></a>
                             </div>
                             @if ($product_rel->price != $product_rel->getFinalPrice())

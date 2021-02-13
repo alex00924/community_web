@@ -42,9 +42,13 @@
                         <img src="{{ asset($product->getThumb()) }}" alt="{{ $product->name }}" />
                       </div>
                     </a>
-                    <a href="{{ $product->getUrl() }}"><div class="product-name-container"><p>{{ $product->name }}</p></div></a>
+                    <a href="{{ $product->getUrl() }}">
+                      <div class="{{ $product->type == 3 ?'product-ads-container':'product-name-container' }}">
+                        <p>{{ $product->name }}</p>
+                      </div>
+                    </a>
                     @if($product->type == 3)
-                      <div style="padding-bottom: 15px;"><a href="{{ $product->supplyLink }}" target="_blank" 
+                      <div style="padding-bottom: 5px;"><a href="{{ $product->supplyLink }}" target="_blank" 
                         style="color: #4db848;">{{ 'by ' . $product->supplyName }}</a></div>
                     @endif
                   </div>
