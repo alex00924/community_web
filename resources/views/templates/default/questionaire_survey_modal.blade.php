@@ -33,7 +33,6 @@
    let currQuestion;
    let answers = [];
    let currAnswerIdx = 0;
-
    $(document).ready(function() {
       if (questions.length < 1) {
          $("#btn-prev").prop('disabled', true);

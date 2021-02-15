@@ -45,6 +45,7 @@
                                     <option value="select" {{ ($type == 'select') ? 'selected':'' }}> Select </option>
                                     <option value="slider" {{ ($type == 'slider') ? 'selected':'' }}> Slider </option>
                                     <option value="triangle" {{ ($type == 'triangle') ? 'selected':'' }}> Triangle </option>
+                                    <option value="input" {{ ($type == 'input') ? 'selected':'' }}> Input </option>
                                 </select>
                                 @if ($errors->has('type'))
                                 <span class="help-block">

@@ -35,7 +35,6 @@
    let currQuestion;
    let answers = [];
    let currAnswerIdx = 0;
-
    $(document).ready(function() {
       if (questions.length < 1) {
          $("#btn-prev").prop('disabled', true);
@@ -58,6 +57,7 @@
 
    function updateQuestionContent(questionId) {
       currQuestion = questions.find(element => element.id == questionId);
+      console.log('curr-----', currQuestion);
       if (!currQuestion) {
          let contentHtml = "Thank you for your answers. Please click \"Complete\" button to complete this questionnaire.";
          $("#question-content").html(contentHtml);
@@ -106,10 +106,23 @@
                contentHtml += '</span></div>';
             });
             contentHtml += '</div></div></div>';
+         } else if (currQuestion.answer_type == "input") {
+            contentHtml += '<div style="display: flex; flex-direction: column; align-items: center">';
+            contentHtml += '<div class="col-md-4" style="margin-bottom: 20px;">';
+            contentHtml += '<label>' + "Name" + '</label>';
+            contentHtml += '<input type="text" class="form-control name" name="name" value="">';
+            contentHtml += '</div>';
+            contentHtml += '<div class="col-md-4" style="margin-bottom: 20px;">';
+            contentHtml += '<label>' + "Email" + '</label>';
+            contentHtml += '<input type="email" class="form-control email" name="email" value="">';
+            contentHtml += '<p style="color: red" id="valid-email">' + "Please input a valid format email." + '</p>';
+            contentHtml += '</div>';
+            contentHtml += '</div>';
          }
          contentHtml += '</div>';
          $("#question-content").html(contentHtml);
 
+         $("#question-content p#valid-email").hide();
          if (currQuestion.answer_type == "triangle") {
             initTrianglePicker();
          }
@@ -118,6 +131,7 @@
 
    function completeQuestionaire() {
       answers.splice(currAnswerIdx);
+      console.log('anser--------', answers)
       $.ajax({
          type: "POST",
          data: {
@@ -150,6 +164,11 @@
       if (currAnswerIdx == 0) {
          $("#btn-prev").prop("disabled", true);
       }
+   }
+
+   function isEmail(email) {
+      var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      return regex.test(email);
    }
 
    function nextQuestion() {
@@ -187,6 +206,17 @@
 
             idx = vals.indexOf(Math.max(...vals));
             answerVal = JSON.stringify(vals);
+         case "input":
+            email = $("#question-content input.email").val();
+            name = $("#question-content input.name").val();
+            if (!isEmail(email)) {
+               $("#question-content p#valid-email").show(); 
+               return;           }
+            if (typeof email === 'undefined' || email === null || email < 0) {
+               return;
+            }
+            idx = 0;
+            answerVal = {email: email, name: name};
          break;
       }
 
