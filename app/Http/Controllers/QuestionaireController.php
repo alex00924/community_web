@@ -143,7 +143,7 @@ class QuestionaireController extends GeneralController
                 "user_id" => $userId,
                 "questionaire_id" => $questionaireId,
                 "question_id" => $answer["question_id"],
-                "answer" => json_encode($answer["answer"])
+                "answer" => $answer["answer"]
             ];
             QuestionaireAnswer::create($dataInsert);
         }

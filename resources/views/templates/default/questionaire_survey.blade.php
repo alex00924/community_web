@@ -57,7 +57,6 @@
 
    function updateQuestionContent(questionId) {
       currQuestion = questions.find(element => element.id == questionId);
-      console.log('curr-----', currQuestion);
       if (!currQuestion) {
          let contentHtml = "Thank you for your answers. Please click \"Complete\" button to complete this questionnaire.";
          $("#question-content").html(contentHtml);
@@ -109,10 +108,6 @@
          } else if (currQuestion.answer_type == "input") {
             contentHtml += '<div style="display: flex; flex-direction: column; align-items: center">';
             contentHtml += '<div class="col-md-4" style="margin-bottom: 20px;">';
-            contentHtml += '<label>' + "Name" + '</label>';
-            contentHtml += '<input type="text" class="form-control name" name="name" value="">';
-            contentHtml += '</div>';
-            contentHtml += '<div class="col-md-4" style="margin-bottom: 20px;">';
             contentHtml += '<label>' + "Email" + '</label>';
             contentHtml += '<input type="email" class="form-control email" name="email" value="">';
             contentHtml += '<p style="color: red" id="valid-email">' + "Please input a valid format email." + '</p>';
@@ -131,7 +126,6 @@
 
    function completeQuestionaire() {
       answers.splice(currAnswerIdx);
-      console.log('anser--------', answers)
       $.ajax({
          type: "POST",
          data: {
@@ -208,7 +202,6 @@
             answerVal = JSON.stringify(vals);
          case "input":
             email = $("#question-content input.email").val();
-            name = $("#question-content input.name").val();
             if (!isEmail(email)) {
                $("#question-content p#valid-email").show(); 
                return;           }
@@ -216,7 +209,7 @@
                return;
             }
             idx = 0;
-            answerVal = {email: email, name: name};
+            answerVal = email;
          break;
       }
 

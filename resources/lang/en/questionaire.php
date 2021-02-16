@@ -35,6 +35,7 @@ return [
         'add_answer_place' => 'Add answer value',
         'target' => 'Target',
         'access_level' => 'Only Login User Can Access',
+        'allow_email' => 'Yes, send me additional newletters in my topic of interest',
     ],
     'marketing' => [
         'title' => 'Marketing Research ',

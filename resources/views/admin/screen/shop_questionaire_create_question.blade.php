@@ -79,6 +79,10 @@
                                         </td>
                                     </tr>
                                 </table>
+                                <div class="allow-mail" style="display: none">
+                                    <input type="radio" style="margin-top: 20px" name="email" value="email">
+                                    <label style="margin-left: 10px" for="male">{{trans('questionaire.admin.allow_email')}}</label>
+                                </div>
                             </div>
                         </div>
 
@@ -134,6 +138,14 @@
     let answerID = {!! $answerID !!};
     $(document).ready(function() {
         $('.select2').select2()
+        $('select.select2').change(function(){
+            var selectedItem = $(this).children("option:selected").val();
+            if (selectedItem === 'input') {
+                $('.allow-mail').show();
+            } else {
+                $('.allow-mail').hide();
+            }
+        });
     });
 
     $('.add-answer').click(function(event) {
@@ -153,15 +165,26 @@
 
     $("#question-form").submit(function() {
         let answerCnt = $("input[name^='answers']").length;
-       if (answerCnt < 2)  {
+        var radioVal = $('input[type="radio"]:checked').val();
+        if (answerCnt < 2 && $("#type").val() !== 'input')  {
             alert("You have to add at least 2 answers for each question!");
             return false;
-       }
+        }
 
-       if (answerCnt != 3 && $("#type").val() == "triangle") {
-           alert("You can choose triangle format for a question which have only 3 answers.");
-           return false;
-       }
+        if (answerCnt != 3 && $("#type").val() == "triangle") {
+            alert("You can choose triangle format for a question which have only 3 answers.");
+            return false;
+        }
+
+        if (answerCnt != 1 && $("#type").val() == "input") {
+            alert("You can choose email format for a question which have only 1 answers.");
+            return false;
+        }
+
+        if (radioVal == undefined && $("#type").val() == "input") {
+            alert("Please check radio option.");
+            return false;
+        }
     });
 </script>
 @endpush

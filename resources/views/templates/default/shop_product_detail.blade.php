@@ -192,6 +192,12 @@
                   </form>
                 </div><!--/product-information-->
               </div><!--/product-details-->
+            @else
+            <div class="col-lg-4 col-md-6 col-xs-12" style="padding: 0 2rem; display: flex; align-items: center">
+              <button type="submit" class="btn btn-primary cart">
+                {{trans('front.inquire')}}
+              </button>
+            </div>
             @endif
             </div>
             

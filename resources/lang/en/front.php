@@ -53,6 +53,7 @@ return [
     'products_last_view' => 'Products recently viewed',
     'products_build'     => 'Products build',
     'products_group'     => 'Products group',
+    'inquire'            => 'Inquire',
     'subscribe'          => [
         'manager'           => 'Subscribe manager',
         'email'             => 'Email',
