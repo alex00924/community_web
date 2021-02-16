@@ -200,6 +200,7 @@
 
             idx = vals.indexOf(Math.max(...vals));
             answerVal = JSON.stringify(vals);
+         break;
          case "input":
             email = $("#question-content input.email").val();
             if (!isEmail(email)) {
