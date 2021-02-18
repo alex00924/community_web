@@ -25,12 +25,16 @@
       </tr>
     </thead>
     <tbody>
-
+    @php 
+     $ads = 0;
+    @endphp
     @foreach($cart as $item)
         @php
             $n = (isset($n)?$n:0);
             $n++;
             $product = App\Models\ShopProduct::find($item->id);
+            if ($product->type == 3) 
+                $ads++;
         @endphp
     <tr class="row_cart">
         <td >{{ $n }}</td>
@@ -236,9 +240,7 @@
 
     </div>
     <div class="col-md-6">
-
-
-
+    
 {{-- Total --}}
         <div class="row">
             <div class="col-md-12">
@@ -260,7 +262,7 @@
                 </table>
 
 {{-- Coupon --}}
-        @if ($extensionDiscount)
+        @if ($extensionDiscount && $ads == 0)
                 <div class="row">
                   <div class="form-group col-md-6">
                     <label class="control-label" for="inputGroupSuccess3"><i class="fa fa-exchange" aria-hidden="true" aria-hidden="true"></i> {{ trans('cart.coupon') }}
@@ -279,7 +281,7 @@
 
 
 {{-- Shipping method --}}
-
+        @if ($ads == 0)
         <div class="row">
             <div class="col-md-12">
                     <div class="form-group {{ $errors->has('shippingMethod') ? ' has-error' : '' }}">
@@ -301,10 +303,12 @@
                     </div>
             </div>
         </div>
+        @endif
 {{-- //Shipping method --}}
 
 
 {{-- Payment method --}}
+        @if ($ads == 0)
         <div class="row v-center">
             <div class="col-xs-6">
                     <div class="form-group {{ $errors->has('paymentMethod') ? ' has-error' : '' }}">
@@ -332,12 +336,13 @@
                 <div style="margin-left: 25px"> 128-bit Encryption </div>
             </div>
         </div>
+        @endif
 {{-- //Payment method --}}
             </div>
         </div>
 {{-- End total --}}
 
-
+        @if ($ads == 0)
         <div class="row" style="padding-bottom: 20px;">
             <div class="col-xs-6">
                 <div class="form-group">
@@ -356,7 +361,7 @@
                 </div>
             </div>
         </div>
-
+        @endif
 
 
     </div>
@@ -367,7 +372,6 @@
     </div>
 </section>
 @endsection
-
 @section('breadcrumb')
     <div class="breadcrumbs">
         <ol class="breadcrumb">
@@ -381,6 +385,7 @@
 
 <script type="text/javascript">
     var cart = @json($cart);
+    var products = @json($products);
     var skuArr = [];
     $.each(cart, function (key, val) {
         skuArr.push(val.name);

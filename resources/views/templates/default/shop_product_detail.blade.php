@@ -194,9 +194,14 @@
               </div><!--/product-details-->
             @else
             <div class="col-lg-4 col-md-6 col-xs-12" style="padding: 0 2rem; display: flex; align-items: center">
-              <button type="submit" class="btn btn-primary cart">
-                {{trans('front.inquire')}}
-              </button>
+              <form id="buy_block" action="{{ route('cart.add') }}" method="post">
+                {{ csrf_field() }}
+                <input type="hidden" name="product_id" id="product-detail-id" value="{{ $product->id }}" />
+                  <button type="submit" class="btn btn-primary cart">
+                    {{trans('front.inquire')}}
+                  </button>
+                <input type="hidden" class="form-control" type="number" name="qty" value="1" min="1" />
+              </form>
             </div>
             @endif
             </div>
