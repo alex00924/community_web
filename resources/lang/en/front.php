@@ -95,7 +95,7 @@ return [
 
     'shop_info'          => [
         'email'   => 'Email',
-        'hotline' => 'Hot line',
+        'hotline' => 'Call Support',
         'address' => 'Address',
     ],
     'filters'            => [
@@ -113,8 +113,8 @@ return [
     'questionaire' => [
         'questionnaire' => 'Questionnaire',
         'survey' => 'Survey',
-        'marketingsurvey' => 'Marketing Reserch Survey',
-        'marketing_research' => 'Marketing Research',
+        'marketingsurvey' => 'Market Research Survey',
+        'marketing_research' => 'Market Research',
     ],
 
     'network'   => 'Network',
