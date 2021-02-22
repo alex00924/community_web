@@ -39,9 +39,10 @@ outline: none;
 text-decoration:none;
 }
 
-a:focus {
-  outline:none;
+a:focus, a:active {
+  outline: none;
   outline-offset: 0;
+  text-decoration: none;
 }
 
 a {
