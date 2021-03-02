@@ -355,7 +355,7 @@
                   @if ($key % 4 == 0)
                     <div class="item {{  ($key ==0)?'active':'' }}">
                   @endif
-                    <div class="col-xs-3">
+                    <div class="col-md-3 col-xs-12">
                       <div class="product-image-wrapper product-single">
                         <div class="single-products   product-box-{{ $product_rel->id }}">
                             <div class="productinfo text-center">

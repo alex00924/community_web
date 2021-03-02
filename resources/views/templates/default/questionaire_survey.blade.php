@@ -137,7 +137,8 @@
          success: function(response){
             if (response == 'ok') {
                alert("Thank you for your answers. Your answers are saved successfully");
-               document.location.href = "{{ route('questionaire.index') }}";
+               // document.location.href = "{{ route('questionaire.index') }}";
+               document.location.href = " {{ route('questionaire.detail', ['questionaire_id' => $questionaire['id'], 'question_id' => 0 ]) }}";
             }
          }
       });

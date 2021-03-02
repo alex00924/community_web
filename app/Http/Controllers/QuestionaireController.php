@@ -35,7 +35,7 @@ class QuestionaireController extends GeneralController
             ->with($data);
     }
 
-    public function detail($questionaire_id, $method = '')
+    public function detail($questionaire_id, $question_id, $method = '')
     {
         $questionaire = Questionaire::find($questionaire_id)->toArray();
         if (Auth::check())
@@ -57,7 +57,7 @@ class QuestionaireController extends GeneralController
         {
             $questionaire['questions'] = QuestionaireQuestion::with(["options" => function($query) {
                     $query->orderBy('id');
-                }])->where('questionaire_id', $questionaire["id"])->get();
+                }])->where('id', $question_id)->get();
             $data = [
                 'questionaire' => $questionaire
             ];

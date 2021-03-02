@@ -4,8 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-// use Symfony\Component\Process\Process;
-// use Symfony\Component\Process\Exception\ProcessFailedException;
+use App\Models\ShopBrand;
 use Validator;
 //use App\Admin\XMLWriter2;
 
@@ -399,5 +398,53 @@ class ScrapingController extends Controller
         }
         fclose($inputfile);
         echo json_encode(array('res' => 1));
+    }
+    
+    public function createImage()
+    {
+        $data = [
+            'title' => trans('scraping.admin.add_new_title'),
+            'sub_title' => '',
+            'title_description' => trans('scraping.admin.add_new_des'),
+            'icon' => 'fa fa-plus',
+            'imagedb' => [],
+            'url_action' => route('admin_scraping.add_image'),
+        ];
+        return view('admin.screen.image_database')
+            ->with($data);
+    }
+
+    public function postcreateImage()
+    {
+        $data = request()->all();
+
+        $validator = Validator::make($data, [
+            'name' => 'required|string|max:100',
+            'taglist' => 'required',
+            'image' => 'required',
+        ],[
+            'name.required' => trans('validation.required', ['attribute' => trans('scraping.name')]),
+            'taglist.required' => trans('validation.required', ['attribute' => trans('scraping.taglist')]),
+            'image.required' => trans('validation.required', ['attribute' => trans('scraping.image')]),
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($data);
+        }
+        $dataInsert = [
+            'image' => $data['image'],
+            'name' => $data['name'],
+            'taglist' => $data['taglist'],
+        ];
+        ShopBrand::create($dataInsert);
+
+        return redirect()->route('admin_brand.index')->with('success', trans('brand.admin.create_success'));
+    }
+
+    public function search_image()
+    {
+        # code...
     }
 }

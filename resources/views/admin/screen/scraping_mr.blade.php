@@ -26,6 +26,12 @@
     <a href="{{env('APP_URL')}}/uploads/linkedin.csv" target="_blank" id="download-linkedin-csv" style="margin-left: 1rem;">Download</a>
   </div>
 </div>
+
+<div class="scraping-item">
+  <p class="scraping-name">Image Database Search Tool</p>
+  <button type="button" class="add_image" onclick="window.location='{{ route('admin_scraping.add_image') }}'"><p><strong>Add Image</strong></p></button>
+  <button type="button" class="button_simple" onclick="window.location='{{ route('admin_scraping.search_image') }}'"><p><strong>Search Image</strong></p></button>
+</div>
 @endsection
 
 
@@ -70,6 +76,17 @@
 
 .button_simple {
   background: #2aade3;
+  display: inline-block;
+  padding: 10px 5px;
+  width: 180px;
+  height: 40px;
+  border: none;
+  color:#fff;
+  transform: translateY(2px);
+}
+
+.add_image {
+  background: #4cb747;
   display: inline-block;
   padding: 10px 5px;
   width: 180px;
