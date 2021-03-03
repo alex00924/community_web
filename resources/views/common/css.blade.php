@@ -257,7 +257,7 @@ input[type="number"]{
 }
 
 a+a {
-  margin-left: 30px;
+  margin-left: 0px;
 }
 
 .landing-img {
