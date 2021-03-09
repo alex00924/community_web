@@ -179,35 +179,33 @@
         let questionIdx = $("#question-table tr.clickable.clicked").data('id');
         let answerIdx = $("#answer-container div.clicked").data('id');
         let nextQuestionId = $(this).data('id');
-
         if (questionIdx < 0 || answerIdx < 0 || !nextQuestionId) {
             return;
         }
-
-        questionaire[questionIdx].options[answerIdx].next_question_id = nextQuestionId;
-
-        $("#loading-image").show();
-        // post
-        $.ajax({
-            type: "POST",
-            data: {
-                _token: "{{ csrf_token() }}",
-                question: questionaire[questionIdx].id,
-                option: questionaire[questionIdx].options[answerIdx].id,
-                nextQuestion: nextQuestionId
-            },
-            url: "{{ route('admin_questionaire.updateNextQuestion') }}",
-            success: function(response){
-                if (response.indexOf("Invalid") > -1) {
-                    alert(response);
-                } else {
-                    $("#next-question-table tr.clickable").removeClass("clicked");
-                    currentElement.addClass('clicked');
+            
+        for(var i=0; i<questionaire[questionIdx].options.length; i++){
+            $("#loading-image").show();
+            questionaire[questionIdx].options[i].next_question_id = nextQuestionId;
+            $.ajax({
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    question: questionaire[questionIdx].id,
+                    option: questionaire[questionIdx].options[i].id,
+                    nextQuestion: nextQuestionId
+                },
+                url: "{{ route('admin_questionaire.updateNextQuestion') }}",
+                success: function(response){
+                    if (response.indexOf("Invalid") > -1) {
+                        alert(response);
+                    } else {
+                        $("#next-question-table tr.clickable").removeClass("clicked");
+                        currentElement.addClass('clicked');
+                    }
+                    $("#loading-image").hide();
                 }
-                $("#loading-image").hide();
-            }
-
-        });
+            });
+        }
     });
 
     function loadHierarchy() {

@@ -52,7 +52,7 @@
 @push('scripts')
     <script>
         var category = @json($category);
-        let detailUrl = "{{ route('questionaire.detail', ['questionaire_id' => 'questionaireID', 'question_id' => 0]) }}";
+        let detailUrl = "{{ route('questionaire.detail', ['questionaire_id' => 'questionaireID', 'method' => 'edit']) }}";
         $(document).ready(function() {
             initEvents();
         });
