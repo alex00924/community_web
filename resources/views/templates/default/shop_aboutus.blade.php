@@ -48,10 +48,10 @@
 @endsection
 
 @section('breadcrumb')
-    <div class="breadcrumbs">
-        <ol class="breadcrumb">
-          <li><a href="{{ route('home') }}">{{ trans('front.home') }}</a></li>
-          <li class="active">{{ $title }}</li>
-        </ol>
-      </div>
+  <div class="breadcrumbs">
+    <ol class="breadcrumb">
+      <li><a href="{{ route('home') }}">{{ trans('front.home') }}</a></li>
+      <li class="active">{{ $title }}</li>
+    </ol>
+  </div>
 @endsection
