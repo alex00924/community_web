@@ -25,6 +25,7 @@ return [
     'PREFIX_CATEGORY'       =>  'Prefix url CATEGORY ',
     'PREFIX_PRODUCT'        =>  'Prefix url PRODUCT',
     'PREFIX_SEARCH'     =>  'Prefix url SEARCH',
+    'PREFIX_ABOUTUS'     =>  'Prefix url ABOUTUS',
     'PREFIX_CONTACT'        =>  'Prefix url CONTACT',
     'PREFIX_NEWS'       =>  'Prefix url NEWS',
     'PREFIX_MEMBER'     =>  'Prefix url CUSTOMER',

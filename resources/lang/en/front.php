@@ -54,6 +54,11 @@ return [
     'products_build'     => 'Products build',
     'products_group'     => 'Products group',
     'inquire'            => 'Inquire',
+    'whoweare'           => 'WHO WE ARE',
+    'our_team'           => 'Our Team',
+    'why_finish'         => 'Why Finish Line?',
+    'news'               => 'News',
+    'careers'            => 'Careers',
     'subscribe'          => [
         'manager'           => 'Subscribe manager',
         'email'             => 'Email',

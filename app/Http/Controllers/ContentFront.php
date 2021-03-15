@@ -193,6 +193,48 @@ class ContentFront extends GeneralController
         }
     }
 
+
+        /**
+     * Render news
+     * @return [type] [description]
+     */
+    public function aboutUs()
+    {
+        $page = $this->getPage('about');
+        return view(
+            $this->templatePath . '.shop_aboutus',
+            array(
+                'title' => trans('front.about_header'),
+                'description' => sc_store('description'),
+                'keyword' => sc_store('keyword'),
+                'page' => $page,
+                'alias' => ''
+            )
+        );
+    }
+
+    /**
+     * News detail
+     *
+     * @param   [string]  $alias 
+     * @param   [type]  $id
+     *
+     * @return  view
+     */
+    public function aboutUsDetail($alias)
+    {
+        $page = $this->getPage($alias);
+        return view(
+            $this->templatePath . '.shop_aboutus',
+            array(
+                'title' => trans('front.about_header'),
+                'description' => sc_store('description'),
+                'keyword' => sc_store('keyword'),
+                'page' => $page,
+                'alias' => $alias
+            )
+        );
+    }
     /**
      * email subscribe
      * @param  Request $request
@@ -215,4 +257,5 @@ class ContentFront extends GeneralController
         return redirect()->back()
             ->with(['success' => trans('subscribe.subscribe_success')]);
     }
+
 }
