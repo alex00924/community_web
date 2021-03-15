@@ -13,6 +13,7 @@ return [
     'item_not_found'     => 'Sorry! Data you request cannot be found!',
     'cart_title'         => 'View cart',
     'checkout'           => 'Checkout',
+    'check'              => 'Check',
     'cart'               => 'Cart',
     'checkout_title'     => 'Checkout',
     'wishlist_page'      => 'Wishlist page',
