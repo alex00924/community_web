@@ -745,6 +745,13 @@ h1.title::before, h2.title::before {
 	margin-left: -110px;
 }
 
+.divider {
+  border: 1px solid #f3f3f3;
+	width: 100%;
+  margin-top: 25px;
+	z-index: -2;
+}
+
 .category-products .panel {
 	background-color: #FFFFFF;
 	border: 0px;

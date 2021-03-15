@@ -19,22 +19,23 @@
         @section('left')
         <div class="about-sidebar">
           <div class="panel-group category-products" style="border: none">
-          <h2 style="color: #000; text-align: left">{{ trans('front.whoweare') }}</h2>
-          @foreach ($categoriesTop as $key =>  $category)
-            <div class="panel panel-default">
-              <div class="about-heading">
-                <h3 class="panel-title">
-                  <a href="{{ route('aboutus.detail', ['alias' => $category['url']]) }}">
-                    @if ($alias == $category['url']) 
-                      <font color="#0e8ce4">{{ $category["name"] }}</font>
-                    @else 
-                      <font color="#000">{{ $category["name"] }}</font>
-                    @endif
-                  </a>
-                </h3>
+            <h2 style="color: #000; text-align: left">{{ trans('front.whoweare') }}</h2>
+            @foreach ($categoriesTop as $key =>  $category)
+              <div class="panel panel-default">
+                <div class="about-heading">
+                  <h3 class="panel-title">
+                    <a href="{{ route('aboutus.detail', ['alias' => $category['url']]) }}">
+                      @if ($alias == $category['url']) 
+                        <font color="#0e8ce4">{{ $category["name"] }}</font>
+                      @else 
+                        <font color="#000">{{ $category["name"] }}</font>
+                      @endif
+                    </a>
+                  </h3>
+                </div>
               </div>
-            </div>
-          @endforeach
+            @endforeach
+            <div class="divider"> </div>
           </div>
         </div>
         @show
