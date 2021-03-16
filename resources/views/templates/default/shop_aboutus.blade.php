@@ -3,8 +3,8 @@
   $categoriesTop = array();
   $categoriesTop[0]["name"] = "Our Team";
   $categoriesTop[0]["url"] = "our-team";
-  $categoriesTop[1]["name"] = "Why Finish Line?";
-  $categoriesTop[1]["url"] = "why-finish";
+  $categoriesTop[1]["name"] = "Why FlowCell?";
+  $categoriesTop[1]["url"] = "why-flowcell";
   $categoriesTop[2]["name"] = "News";
   $categoriesTop[2]["url"] = "news";
   $categoriesTop[3]["name"] = "Careers";
