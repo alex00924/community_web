@@ -25,15 +25,15 @@
     <div class="footer-widget">
       <div class="container">
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <div class="single-widget">
-              <h2 class="text-center"><a href="{{ route('home') }}"><img style="max-width: 100px;" src="/data/logo/logo_bottom.png" alt="fluids for life"></a></h2>
+              <h2 class="text-center"><a href="{{ route('home') }}"><img style="max-width: 100px;" src="/data/logo/logo_bottom.png" alt="FlowCell Brand"></a></h2>
              <ul class="nav nav-pills nav-stacked text-center">
-               <li>{{ sc_store('title') }}</li>
+               <li>FlowCell, Inc.</li>
              </ul>
             </div>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <div class="single-widget">
               <h2 style="font-family: Karla;font-size: 20px;">{{ trans('front.my_account') }}</h2>
               <ul class="nav nav-pills nav-stacked">
@@ -45,7 +45,28 @@
               </ul>
             </div>
           </div>
-          <div class="col-sm-4">
+		  <div class="col-sm-3">
+                    <div class="contact-info">
+                        <div class="social-networks">
+                            <h2 class="title social text-center">Social Networking</h2>
+                            <ul>
+                                <li>
+                                    <a href="https://www.facebook.com/FlowCellCo/"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a href="https://twitter.com/flowcellco/"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.linkedin.com/company/flowcell/"><i class="fa fa-linkedin"></i></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/flowcellco/"><i class="fa fa-instagram"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+          <div class="col-sm-3">
             <div class="single-widget">
               <h2 style="font-family: Karla;font-size: 20px;">{{ trans('front.about') }}</h2>
               <ul class="nav nav-pills nav-stacked">
@@ -75,7 +96,7 @@
 
     <div class="footer-bottom">
       <div class="container">
-        <div class="row pull-right">
+        <div class="row">
           <p>Copyright © {{date('Y')}} <a href="{{ route('home') }}">{{ sc_store('title') }} </a> Inc. All rights reserved.</p>
         </div>
       </div>
