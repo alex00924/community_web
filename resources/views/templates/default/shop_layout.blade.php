@@ -196,7 +196,6 @@
 @stack('scripts')
 
 <!-- include questionaire form -->
-@include($templatePath.'.questionaire_survey_modal')
 
 <!-- js default for item s-cart -->
 @include('common.js')
