@@ -10,11 +10,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-8 contact-form">
                     <div class="contact-form">
                         <form method="post" action="{{ route('contact.post') }}" class="contact-form">
                         {{ csrf_field() }}
-                        <div id="contactFormWrapper" style="margin: 30px;">
+                        <div id="contactFormWrapper">
                         <div class="row">
                                 <div class="col-md-12 collapsed-block">
                                     {!!  sc_html_render($page->content) !!}
@@ -25,7 +25,7 @@
                                     <div class="row">
                                         <div class="col-sm-4 form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                             <label>{{ trans('front.contact_form.name') }}:</label>
-                                            <input type="text"  class="form-control {{ ($errors->has('name'))?"input-error":"" }}"  name="name" placeholder="Your name..." value="{{ old('name') }}">
+                                            <input type="text"  class="form-control {{ ($errors->has('name'))?"input-error":"" }}"  name="name" placeholder="Your name..." value="{{ old('name') }}" autofocus>
                                             @if ($errors->has('name'))
                                                 <span class="help-block">
                                                     {{ $errors->first('name') }}
@@ -74,7 +74,7 @@
                                         </div>
                                     </div>
                                     <div class="btn-toolbar form-group">
-                                        <input type="submit"  value="{{ trans('front.contact_form.submit') }}" class="btn btn-primary">
+                                        <input type="submit"  value="{{ trans('front.contact_form.submit') }}" class="btn btn-primary cform-submit">
                                     </div>
                                 </div>
                         </div>

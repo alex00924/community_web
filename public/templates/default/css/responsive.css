@@ -34,11 +34,19 @@
 
 }
 
-
 /* sm */
 @media (min-width: 768px) and (max-width: 991px) {
+	
+div.contact-form {
+	width: 100% !important;
+}
 
-	.shop-menu ul li a{
+.footer-widget .col-sm-3 {
+	display: inline-block;
+	width: 100%;
+}
+
+.shop-menu ul li a {
 	padding-left: 0;
 }
 
@@ -124,6 +132,12 @@
 
 /* xs */
 @media (max-width: 767px) {
+	
+input.cform-submit {
+	width: 50%;
+	left: 25%;
+	position: relative;
+}
 
 .header_top .col-sm-6:first-child{
 	display: inline-block;
@@ -280,6 +294,12 @@ ul.sub-menu{
 
 /* XS Portrait */
 @media (max-width: 480px) {
+	
+input.cform-submit {
+	width: 70%;
+	left: 16%;
+	position: relative;
+}
 
 .contactinfo{
 	text-align: center;
