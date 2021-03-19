@@ -53,8 +53,8 @@ class ShopFront extends GeneralController
                     'layout_page' => 'home',
                     'questionaire_survey' => $questionaire,
                     'title' => $page->title,
-                    'description' => '',
-                    'keyword' => '',
+                    'description' => $page->description,
+                    'keyword' => $page->keyword,
                     'page' => $page,
                     'og_image' => $page->image,
                 )
