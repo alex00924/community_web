@@ -41,11 +41,6 @@ div.contact-form {
 	width: 100% !important;
 }
 
-.footer-widget .col-sm-3 {
-	display: inline-block;
-	width: 100%;
-}
-
 .shop-menu ul li a {
 	padding-left: 0;
 }
@@ -87,7 +82,7 @@ div.contact-form {
 
 .footer-widget .col-sm-3{
 	display: inline-block;
-	width: 40%;
+	width: 100%;
 }
 
 #similar-product .carousel-inner .item img{
