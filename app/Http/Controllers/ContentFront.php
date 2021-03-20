@@ -26,9 +26,9 @@ class ContentFront extends GeneralController
             $this->templatePath . '.shop_contact',
             array(
                 'title' => trans('front.contact'),
-                'description' => '',
+                'description' => $page->description,
                 'page' => $page,
-                'keyword' => '',
+                'keyword' => $page->keyword,
                 'og_image' => '',
             )
         );
@@ -113,8 +113,8 @@ class ContentFront extends GeneralController
                     $this->templatePath . '.shop_page',
                     array(
                         'title' => $page->title,
-                        'description' => '',
-                        'keyword' => '',
+                        'description' => $page->description,
+                        'keyword' => $page->keyword,
                         'page' => $page,
                         'og_image' => $page->image,
                     )
@@ -205,8 +205,8 @@ class ContentFront extends GeneralController
             $this->templatePath . '.shop_aboutus',
             array(
                 'title' => trans('front.about_header'),
-                'description' => sc_store('description'),
-                'keyword' => sc_store('keyword'),
+                'description' => $page->description,
+                'keyword' => $page->keyword,
                 'page' => $page,
                 'alias' => ''
             )
@@ -228,8 +228,8 @@ class ContentFront extends GeneralController
             $this->templatePath . '.shop_aboutus',
             array(
                 'title' => trans('front.about_header'),
-                'description' => sc_store('description'),
-                'keyword' => sc_store('keyword'),
+                'description' => $page->description,
+                'keyword' => $page->keyword,
                 'page' => $page,
                 'alias' => $alias
             )
