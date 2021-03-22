@@ -22,7 +22,7 @@
     <title> Fluids For Life {{ isset($title) ? ' | ' . $title : '' }}</title>
 
     <meta name="description" content="{{ isset($description) ? $description : ''}}" />
-    <meta name="keyword" content="{{ isset($keyword) ? $keyword : '' . ',' }}" />
+    <meta name="keyword" content="{{ isset($keyword) ? $keyword : '' }}" />
     <meta property="og:image" content="{{ !empty($og_image)?asset($og_image):asset('images/org.jpg') }}" />
     <meta property="og:url" content="{{ \Request::fullUrl() }}" />
     <meta property="og:type" content="Website" />

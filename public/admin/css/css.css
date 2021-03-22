@@ -99,3 +99,7 @@
 .wrap-ul li{
   display: inline-block;
 }
+
+help-block.admin-pages {
+	font-size: 0.9em;
+}
