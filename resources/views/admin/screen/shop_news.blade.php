@@ -77,8 +77,8 @@
                                 </span>
                                 @else
                                 <span class="help-block admin-pages">
-									<i class="fa fa-thumbs-o-up"></i> 4-5 keywords - recommended
-									<i class="fa fa-exclamation"></i> Separate keywords with 'commas' please
+									<i class="fa fa-thumbs-o-up"></i> 4-5 keywords - recommended<br />
+									<i class="fa fa-exclamation"></i> Separate keywords with 'commas' please<br />
                                     <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>100]) }}
                                 </span>
                                 @endif
