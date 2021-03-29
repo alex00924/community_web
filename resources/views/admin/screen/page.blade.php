@@ -46,15 +46,15 @@
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
                                     <input type="text" id="{{ $code }}__title" name="descriptions[{{ $code }}][title]"
                                         value="{!! old('descriptions.'.$code.'.title',($descriptions[$code]['title']??'')) !!}"
-                                        class="form-control {{ $code.'__title' }}" placeholder="" />
+                                        class="form-control {{ $code.'__title' }}" placeholder="" maxlength="70" />
                                 </div>
                                 @if ($errors->has('descriptions.'.$code.'.title'))
                                 <span class="help-block">
                                     <i class="fa fa-info-circle"></i> {{ $errors->first('descriptions.'.$code.'.title') }}
                                 </span>
                                 @else
-                                <span class="help-block">
-                                    <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>200]) }}
+                                <span class="help-block admin-pages">
+                                    <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>70]) }}
                                 </span>
                                 @endif
                             </div>
@@ -70,15 +70,17 @@
                                     <input type="text" id="{{ $code }}__keyword"
                                         name="descriptions[{{ $code }}][keyword]"
                                         value="{!! old('descriptions.'.$code.'.keyword',($descriptions[$code]['keyword']??'')) !!}"
-                                        class="form-control {{ $code.'__keyword' }}" placeholder="" />
+                                        class="form-control {{ $code.'__keyword' }}" placeholder="" maxlength="100" />
                                 </div>
                                 @if ($errors->has('descriptions.'.$code.'.keyword'))
                                 <span class="help-block">
                                     <i class="fa fa-info-circle"></i> {{ $errors->first('descriptions.'.$code.'.keyword') }}
                                 </span>
                                 @else
-                                <span class="help-block">
-                                    <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>200]) }}
+                                <span class="help-block admin-pages">
+									<i class="fa fa-thumbs-o-up"></i> 4-5 keywords - recommended<br />
+									<i class="fa fa-exclamation"></i> Separate keywords with 'commas' please<br />
+                                    <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>100]) }}
                                 </span>
                                 @endif
                             </div>
@@ -91,14 +93,14 @@
                             <div class="col-sm-8">
                                     <textarea id="{{ $code }}__description"
                                         name="descriptions[{{ $code }}][description]"
-                                        class="form-control {{ $code.'__description' }}" placeholder="" />{{  old('descriptions.'.$code.'.description',($descriptions[$code]['description']??''))  }}</textarea>
+                                        class="form-control {{ $code.'__description' }}" placeholder="" maxlength="160" />{{  old('descriptions.'.$code.'.description',($descriptions[$code]['description']??''))  }}</textarea>
                                 @if ($errors->has('descriptions.'.$code.'.description'))
                                 <span class="help-block">
                                     <i class="fa fa-info-circle"></i> {{ $errors->first('descriptions.'.$code.'.description') }}
                                 </span>
                                 @else
-                                <span class="help-block">
-                                    <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>300]) }}
+                                <span class="help-block admin-pages">
+                                    <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>160]) }}
                                 </span>
                                 @endif
                             </div>

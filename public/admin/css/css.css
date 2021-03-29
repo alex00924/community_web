@@ -99,3 +99,8 @@
 .wrap-ul li{
   display: inline-block;
 }
+
+span.help-block.admin-pages {
+	font-size: 0.9em;
+	line-height: 18px;
+}
