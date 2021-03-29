@@ -38,6 +38,7 @@
 
                         <div
                             class="form-group   {{ $errors->has('descriptions.'.$code.'.title') ? ' has-error' : '' }}">
+                          
                             <label for="{{ $code }}__title"
                                 class="col-sm-2  control-label">{{ trans('page.title') }} <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span></label>
                             <div class="col-sm-8">
