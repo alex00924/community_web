@@ -7,16 +7,8 @@
             <div class="box-header with-border">
                 <div class="pull-left">
                     <div class="btn-group">
-                        <a href="{{ route('admin_questionaire.generateurl') }}" class="btn  btn-flat btn-primary" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
+                        <a href="" class="btn  btn-flat btn-primary" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
                             <span class="hidden-xs"> {{trans('questionaire.marketing.generatePDF')}}</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="pull-right">
-                    <div class="btn-group">
-                        <a href="{{ route('admin_questionaire.create') }}" class="btn  btn-flat btn-success" title="{{trans('questionaire.admin.add_new')}}" style="margin: 0 5px">
-                            <i class="fa fa-plus"></i>
-                            <span class="hidden-xs"> {{trans('questionaire.admin.add_new')}}</span>
                         </a>
                     </div>
                 </div>
