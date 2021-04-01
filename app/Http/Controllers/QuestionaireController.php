@@ -8,6 +8,7 @@ use App\Models\Questionaire;
 use App\Models\QuestionaireQuestion;
 use App\Models\QuestionaireAnswer;
 use App\Models\QuestionaireQuestionOption;
+use App\Models\QuestionaireEmail;
 use App\Models\MarketQuestionaireUrl;
 
 class QuestionaireController extends GeneralController
@@ -118,12 +119,15 @@ class QuestionaireController extends GeneralController
             ->with($data);
     }
 
+    
+  
     public function addAnswer()
     {
         $data = request()->all();
         $questionaireId = $data["questionaire_id"];
         $answers = $data["answers"];
         $userId = null;
+        $email = null;
         if(Auth::check())
         {
             $userId = auth()->user()->id;
@@ -136,15 +140,27 @@ class QuestionaireController extends GeneralController
                 return "Invalid Request. Guest can't post answer for specific questionaire";
             }
         }
-
+        foreach($answers as $answer) {           
+            if (filter_var($answer["answer"], FILTER_VALIDATE_EMAIL)) {
+                $email = $answer["answer"];
+            }
+        }
         foreach($answers as $answer)
-        {
+        {           
             $dataInsert = [
                 "user_id" => $userId,
                 "questionaire_id" => $questionaireId,
                 "question_id" => $answer["question_id"],
-                "answer" => $answer["answer"]
+                "answer" => $answer["answer"],
+                "user_email" => $email,
             ];
+            if (filter_var($answer["answer"], FILTER_VALIDATE_EMAIL)) {
+                $emailInsert = [
+                    "questionaire_id" => $questionaireId,
+                    "email" => $answer["answer"]
+                ];
+                QuestionaireEmail::create($emailInsert);
+            }
             QuestionaireAnswer::create($dataInsert);
         }
         return 'ok';

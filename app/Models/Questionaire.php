@@ -17,7 +17,7 @@ class Questionaire extends Model
 
     public function answers()
     {
-        return $this->hasMany(QuestionaireAnswers::class, 'questionaire_id', 'id');
+        return $this->hasMany(QuestionaireAnswer::class, 'questionaire_id', 'id');
     }
 
     protected static function boot()

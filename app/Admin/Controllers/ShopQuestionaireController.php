@@ -10,6 +10,7 @@ use App\Models\Marketing;
 use App\Models\ShopProduct;
 use App\Models\QuestionaireQuestionOption;
 use App\Models\QuestionaireAnswer;
+use App\Models\QuestionaireEmail;
 use App\Models\MarketQuestionaireUrl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -399,5 +400,40 @@ class ShopQuestionaireController extends Controller
       ];
       $questionaireurl->update($dataUpdate);
       echo json_encode(array('error' => 0, 'msg' => '')); exit;
+    }
+
+
+    public function email()
+    {
+        $questionaire = Questionaire::get();
+        $email = QuestionaireEmail::get();
+        $data = [
+            'category' => 'questionaire',
+            'emails' => $email,
+            'title' => trans('questionaire.admin.send_email'),
+            'sub_title' => '',
+            'icon' => 'fa fa-send',
+            'languages' => $this->languages,
+        ];
+        return view('admin.screen.shop_questionaire_email')
+            ->with($data);
+    }
+
+    /////////////---------------Question--------------/////////////
+    public function emailQuestions($questionaire_id, $user_email)
+    {
+        $questionaire = Questionaire::find($questionaire_id);
+        $questionaireAnswers = $questionaire->answers()->with('question')->where('user_email', $user_email)->get();
+        $data = [
+            'category' => 'questionaire',
+            'title' => trans('questionaire.admin.send_email'),
+            'sub_title' => $questionaire->title,
+            'icon' => 'fa fa-question',
+            'languages' => $this->languages,
+            'questionaire' => $questionaireAnswers,
+            'questionaire_id' => $questionaire_id
+        ];
+        return view('admin.screen.shop_questionaire_answer_detail')
+            ->with($data);
     }
 }

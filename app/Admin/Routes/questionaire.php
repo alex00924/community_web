@@ -18,4 +18,7 @@ $router->group(['prefix' => 'questionaire'], function ($router) {
     $router->get('/statistic', 'ShopQuestionaireController@statistic')->name('admin_questionaire.statistic');
     $router->get('/marketing_generateurl', 'ShopQuestionaireController@generateUrl')->name('admin_questionaire.generateurl');
     $router->post('/marketing_generateurl', 'ShopQuestionaireController@updateUrl')->name('admin_questionaire.updateurl');
+
+    $router->get('/email','ShopQuestionaireController@email')->name('admin_questionaire.email');
+    $router->get('/email/answers/{questionaire_id}/{user_email}', 'ShopQuestionaireController@emailQuestions')->name('admin_questionaire.emailQuestion');
 });
