@@ -436,4 +436,16 @@ class ShopQuestionaireController extends Controller
         return view('admin.screen.shop_questionaire_answer_detail')
             ->with($data);
     }
+
+    public function addTag($questionaire_id, $user_email)
+    {
+        $data = request()->all();
+        $questionaire = Questionaire::find($questionaire_id);
+        $interestAnswer = $questionaire->answers()->where('user_email', $user_email)->where('answer', $data['answer'])->first();
+        $dataUpdate = [
+            'interest_tag' => $data['tag'],
+        ];
+        $interestAnswer->update($dataUpdate);
+        echo json_encode(array('error' => 0, 'msg' => ''));
+    }
 }

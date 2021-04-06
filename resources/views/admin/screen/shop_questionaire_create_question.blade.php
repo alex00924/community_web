@@ -85,7 +85,14 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <label for="status"
+                                class="col-sm-2  control-label"></label>
+                            <div class="col-sm-8">
+                                <input type="checkbox" name="status"
+                                    {{  old('status',(empty($brand['status'])?0:1))?'checked':''}}>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- End Box Body -->

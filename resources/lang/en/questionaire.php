@@ -17,6 +17,7 @@ return [
         'edit' => 'Edit',
         'save' => 'Save',
         'add_new' => 'Add new',
+        'add_tag' => 'Add Tag',
         'add_new_questionaire_title' => 'Add a new questionnaire',
         'add_new_questionaire_des' => 'Create a new questionnaire',
         'edit_questionaire_title' => 'Edit a questionnaire',

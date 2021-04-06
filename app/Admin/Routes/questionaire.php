@@ -21,4 +21,5 @@ $router->group(['prefix' => 'questionaire'], function ($router) {
 
     $router->get('/email','ShopQuestionaireController@email')->name('admin_questionaire.email');
     $router->get('/email/answers/{questionaire_id}/{user_email}', 'ShopQuestionaireController@emailQuestions')->name('admin_questionaire.emailQuestion');
+    $router->post('/email/answers/{questionaire_id}/{user_email}', 'ShopQuestionaireController@addTag')->name('admin_questionaire.addTag');
 });
