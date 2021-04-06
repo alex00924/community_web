@@ -1,7 +1,29 @@
 /* lg */
+
+@media (max-width: 1300px) {
+
+	div.logo-head-wedge {
+		width: 100%;
+	}
+		div.navbar-head-wedge {
+		width: 100%;
+		}	
+}
+
 @media (min-width: 1200px) {
 
 }
+
+@media (max-width: 1200px) {
+	div.search-module {
+		width: 100%;
+	}	
+	
+	div.cart-module {
+		width: 100%
+	}
+}
+
 
 /* md */
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -125,8 +147,19 @@ div.contact-form {
 
 }
 
+@media (max-width: 1028px) {
+	div.main-ffl.container {
+		width: 100% !important;
+	}
+}
+
+
 /* xs */
 @media (max-width: 767px) {
+
+.logo {
+	margin: auto;
+}
 	
 input.cform-submit {
 	width: 50%;
@@ -290,6 +323,10 @@ ul.sub-menu{
 /* XS Portrait */
 @media (max-width: 480px) {
 	
+.shop-menu ul li {
+	padding-left: 2em; 
+ }	
+	
 input.cform-submit {
 	width: 70%;
 	left: 16%;
@@ -365,7 +402,6 @@ input.cform-submit {
 }
 
 .mainmenu ul li{
-	background: rgba(0, 0, 0, 0.5);
     padding-top: 15px;
 	padding-bottom: 0;
 }
@@ -375,7 +411,7 @@ input.cform-submit {
 }
 
 .mainmenu ul li a {
-	color: #FFF;
+	color: #262a2e;
 	padding-bottom: 0;
 }
 

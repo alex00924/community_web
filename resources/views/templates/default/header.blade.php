@@ -2,7 +2,7 @@
     <div class="header-middle"><!--header-middle-->
       <div class="container">
         <div class="row vertical-align">
-          <div class="col-sm-4" style="display: grid;">
+          <div class="col-sm-2" style="display: grid;">
             <div class="logo pull-left">
               <a href="{{ route('home') }}">
                 <img style="height: 80px;padding: 10px 0 0 20px;" alt="fluids for life" src="/data/logo/logo_top.png"/>
@@ -10,38 +10,7 @@
               </a>
             </div>
           </div>
-          <div class="col-sm-8" style="padding: 20px 0;">
-            <div class="shop-menu pull-right">
-              <ul class="nav navbar-nav">
-                @php
-                $cartsCount = \Cart::count();
-                @endphp
-                <li><a href="{{ route('wishlist') }}"><span  class="cart-qty  sc-wishlist" id="shopping-wishlist">{{ Cart::instance('wishlist')->count() }}</span><i class="fa fa-heart"></i> {{ trans('front.wishlist') }}</a></li>
-                <li><a href="{{ route('compare') }}"><span  class="cart-qty sc-compare" id="shopping-compare">{{ Cart::instance('compare')->count() }}</span><i class="fa fa-crosshairs"></i> {{ trans('front.compare') }}</a></li>
-                <li><a href="{{ route('cart') }}"><span class="cart-qty sc-cart" id="shopping-cart">{{ Cart::instance('default')->count() }}</span><i class="fa fa-shopping-cart"></i> {{ trans('front.cart_title') }}</a>
-                </li>
-                @guest
-                <li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> {{ trans('front.login') }}</a></li>
-                @else
-                <li><a href="{{ route('member.index') }}"><i class="fa fa-user"></i> {{ trans('front.account') }}</a></li>
-                <li><a href="{{ route('logout') }}" rel="nofollow" onclick="event.preventDefault();
-                  document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> {{ trans('front.logout') }}</a></li>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                  @csrf
-                </form>
-                @endguest
-
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div><!--/header-middle-->
-
-    <div class="header-bottom"><!--header-bottom-->
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-9">
+          <div class="col-sm-10" style="padding: 20px 0;">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -125,15 +94,49 @@
                 <li><a class="{{ ( $routeName == 'news') ? 'active' : '' }}"  href="{{ route('news') }}">{{ trans('front.information') }}</a></li>
               </ul>
             </div>
+
           </div>
-          <div class="col-xs-3">
-            <div class="search_box">
+        </div>
+      </div>
+    </div><!--/header-middle-->
+
+    <div class="header-bottom"><!--header-bottom-->
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-9">
+			<div class="search_box">
               <form id="searchbox" method="get" action="{{ route('search') }}" >
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="{{ trans('front.search_form.keyword') }}..." name="keyword">
                 </div>
               </form>
             </div>
+
+          </div>
+          <div class="col-xs-3">
+		      <div class="shop-menu pull-right">
+              <ul class="nav navbar-nav">
+                @php
+                $cartsCount = \Cart::count();
+                @endphp
+                <li><a href="{{ route('wishlist') }}"><span  class="cart-qty sc-wishlist" id="shopping-wishlist">{{ Cart::instance('wishlist')->count() }}</span><i class="fa fa-heart"></i></a></li>
+                <li><a href="{{ route('compare') }}"><span  class="cart-qty sc-compare" id="shopping-compare">{{ Cart::instance('compare')->count() }}</span><i class="fa fa-crosshairs"></i></a></li>
+                <li><a href="{{ route('cart') }}"><span class="cart-qty sc-cart" id="shopping-cart">{{ Cart::instance('default')->count() }}</span><i class="fa fa-shopping-cart"></i></a>
+                </li>
+                @guest
+                <li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> {{ trans('front.login') }}</a></li>
+                @else
+                <li><a href="{{ route('member.index') }}"><i class="fa fa-user"></i> {{ trans('front.account') }}</a></li>
+                <li><a href="{{ route('logout') }}" rel="nofollow" onclick="event.preventDefault();
+                  document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> {{ trans('front.logout') }}</a></li>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+                </form>
+                @endguest
+
+              </ul>
+            </div>
+		  
           </div>
         </div>
       </div>
