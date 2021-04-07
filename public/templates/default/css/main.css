@@ -2624,7 +2624,9 @@ li > a{
     display: block;
 }
 #breadcrumb{
-  z-index: 99;
+    z-index: 99;
+    position: relative;
+    bottom: 4em;
 }
 .item-folder{
     border-bottom: 2px solid #d8cfcf;
