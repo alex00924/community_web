@@ -23,7 +23,7 @@
               $routeName = \Request::route()->getName();
             @endphp
             <div class="mainmenu pull-left">
-              <ul class="nav navbar-nav collapse navbar-collapse" style="max-height: fit-content">
+              <ul class="primary nav navbar-nav collapse navbar-collapse">
                 <li>
                   <a href="{{ route('home') }}" class="{{ ( $routeName == 'home') ? 'active' : '' }}">
                     {{ trans('front.home') }}
