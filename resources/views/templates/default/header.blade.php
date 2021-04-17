@@ -2,7 +2,7 @@
     <div class="header-middle"><!--header-middle-->
       <div class="container">
         <div class="row vertical-align">
-          <div class="col-sm-2" style="display: grid;">
+          <div class="logo-head-wedge col-sm-2" style="display: grid;">
             <div class="logo pull-left">
               <a href="{{ route('home') }}">
                 <img style="height: 80px;padding: 10px 0 0 20px;" alt="fluids for life" src="/data/logo/logo_top.png"/>
@@ -10,7 +10,7 @@
               </a>
             </div>
           </div>
-          <div class="col-sm-10" style="padding: 20px 0;">
+          <div class="navbar-head-wedge col-sm-10" style="padding: 20px 0;">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -23,7 +23,7 @@
               $routeName = \Request::route()->getName();
             @endphp
             <div class="mainmenu pull-left">
-              <ul class="nav navbar-nav collapse navbar-collapse" style="max-height: fit-content">
+              <ul class="primary nav navbar-nav collapse navbar-collapse">
                 <li>
                   <a href="{{ route('home') }}" class="{{ ( $routeName == 'home') ? 'active' : '' }}">
                     {{ trans('front.home') }}
@@ -103,7 +103,7 @@
     <div class="header-bottom"><!--header-bottom-->
       <div class="container">
         <div class="row">
-          <div class="col-xs-9">
+          <div class="search-module col-xs-8">
 			<div class="search_box">
               <form id="searchbox" method="get" action="{{ route('search') }}" >
                 <div class="input-group">
@@ -113,18 +113,18 @@
             </div>
 
           </div>
-          <div class="col-xs-3">
+          <div class="cart-module col-xs-4">
 		      <div class="shop-menu pull-right">
               <ul class="nav navbar-nav">
                 @php
                 $cartsCount = \Cart::count();
                 @endphp
-                <li><a href="{{ route('wishlist') }}"><span  class="cart-qty sc-wishlist" id="shopping-wishlist">{{ Cart::instance('wishlist')->count() }}</span><i class="fa fa-heart"></i></a></li>
-                <li><a href="{{ route('compare') }}"><span  class="cart-qty sc-compare" id="shopping-compare">{{ Cart::instance('compare')->count() }}</span><i class="fa fa-crosshairs"></i></a></li>
-                <li><a href="{{ route('cart') }}"><span class="cart-qty sc-cart" id="shopping-cart">{{ Cart::instance('default')->count() }}</span><i class="fa fa-shopping-cart"></i></a>
+                <li><a title="Wishlist" href="{{ route('wishlist') }}"><span  class="cart-qty sc-wishlist" id="shopping-wishlist">{{ Cart::instance('wishlist')->count() }}</span><i class="fa fa-heart"></i></a></li>
+                <li><a title="Compare Products" href="{{ route('compare') }}"><span  class="cart-qty sc-compare" id="shopping-compare">{{ Cart::instance('compare')->count() }}</span><i class="fa fa-crosshairs"></i></a></li>
+                <li><a title="View Cart" href="{{ route('cart') }}"><span class="cart-qty sc-cart" id="shopping-cart">{{ Cart::instance('default')->count() }}</span><i class="fa fa-shopping-cart"></i></a>
                 </li>
                 @guest
-                <li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> {{ trans('front.login') }}</a></li>
+                <li><a href="{{ route('login') }}"> {{ trans('front.login') }} </a></li>
                 @else
                 <li><a href="{{ route('member.index') }}"><i class="fa fa-user"></i> {{ trans('front.account') }}</a></li>
                 <li><a href="{{ route('logout') }}" rel="nofollow" onclick="event.preventDefault();

@@ -207,12 +207,11 @@ a#scrollUp i{
 }
 
 .shop-menu ul li:last-child {
-  padding-right: 0;
+  padding-left: 2.5em;
 }
 
 
 .shop-menu ul li a {
-  /* background: #FFFFFF; */
   color: #696763;
   font-size: 16px;
   font-weight: 400;
@@ -313,7 +312,7 @@ ul.sub-menu {
 	position: absolute;
 	top: 30px;
 	left: 0;
-	background: rgba(250, 250, 250, 0.9);
+	background: #6db969;
 	list-style: none;
 	padding: 0;
 	margin: 0;
@@ -324,13 +323,13 @@ ul.sub-menu {
 	z-index: 999;
 }
 
-.dropdown ul.sub-menu li .active{
-  color: #0e8ce4;
+.dropdown ul.sub-menu li a:active{
+  color: #000000;
   padding-left: 0;
 }
 
 .navbar-nav li ul.sub-menu li{
-  padding: 10px 20px 0 ;
+  padding: 10px 20px 0;
 }
 
 .navbar-nav li ul.sub-menu li:last-child{
@@ -338,11 +337,11 @@ ul.sub-menu {
 }
 
 .navbar-nav li ul.sub-menu li a{
-  color: #212529;
+  color: #000000;
 }
 
 .navbar-nav li ul.sub-menu li a:hover{
-    color: #0e8ce4;
+    color: #000000;
 }
 
 .fa-angle-down{
@@ -2625,7 +2624,9 @@ li > a{
     display: block;
 }
 #breadcrumb{
-  z-index: 99;
+    z-index: 99;
+    position: relative;
+    bottom: 4em;
 }
 .item-folder{
     border-bottom: 2px solid #d8cfcf;
