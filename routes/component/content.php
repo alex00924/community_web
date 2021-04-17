@@ -2,7 +2,7 @@
 $prefixSearch = sc_config('PREFIX_SEARCH')??'search';
 $prefixContact = sc_config('PREFIX_CONTACT')??'contact';
 $prefixNews = sc_config('PREFIX_NEWS')??'news';
-$prefixAboutus = sc_config('PREFIX_ABOUTUS')??'aboutus';
+$prefixAboutus = sc_config('PREFIX_ABOUTUS')??'about-us';
 Route::get('/'.$prefixSearch.$suffix, 'ShopFront@search')
 ->name('search');
 Route::post('/subscribe', 'ContentFront@emailSubscribe')

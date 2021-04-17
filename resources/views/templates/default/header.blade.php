@@ -76,7 +76,7 @@
                 </li>
                 @endif
                 <li>
-                  <a class="{{ ( request()->is('aboutus') ) ? 'active' : '' }}" href="/aboutus">
+                  <a class="{{ ( request()->is('aboutus') ) ? 'active' : '' }}" href="/about-us">
                   About Us
                   </a>
                 </li>
