@@ -48,7 +48,7 @@
 		  <div class="col-sm-3">
                     <div class="contact-info">
                         <div class="social-networks">
-                            <h2 class="title social text-center">Social Networking</h2>
+                            <h2 class="title social text-center">Connect With Us!</h2>
                             <ul>
                                 <li>
                                     <a href="https://www.facebook.com/FlowCellCo/"><i class="fa fa-facebook"></i></a>

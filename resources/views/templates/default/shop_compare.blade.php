@@ -6,8 +6,8 @@
     <div class="row">
         <h1 class="title text-center">{{ $title }}</h1>
         @if (count($compare) ==0)
-            <div class="col-md-12 text-danger">
-               Not found!
+            <div class="col-md-12 alert alert-info text-info">
+               No Products Currently Chosen
             </div>
         @else
 <div class="table-responsive">

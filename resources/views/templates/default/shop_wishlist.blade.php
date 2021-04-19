@@ -5,8 +5,8 @@
 <div class="features_items row no-margin">
 <h2 class="title text-center">{{ $title }}</h2>
 @if (count($wishlist) ==0)
-    <div class="col-md-12 text-danger">
-        Not found products!
+    <div class="col-md-12 alert alert-info text-info">
+        No Products Currently In Wishlist
     </div>
 @else
 <div class="table-responsive">
