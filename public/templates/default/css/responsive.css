@@ -332,6 +332,17 @@ ul.sub-menu{
 
 }
 
+
+@media (max-width: 491px) {
+	
+ form#filter_sort div.pull-right div select.custom-select {
+	       top: 4em;
+	       left: 0em;
+	       position: absolute; 
+  }	
+}
+
+
 /* XS Portrait */
 @media (max-width: 480px) {
 	

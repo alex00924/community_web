@@ -1559,9 +1559,8 @@ h1.title, h2.title {
   padding-left: 0;
 }
 
-
 div.or {
-    background: rgb(108, 28, 28);
+    background: #2a9525;
     border-radius: 40px;
     color: #fff;
     font-size: 16px;
@@ -1593,11 +1592,12 @@ div.or {
   padding-left: 0;
   margin: 5px 15px;
   font-size: 1.5rem;
+  display: inline;
 }
 
 .breadcrumbs .breadcrumb li a {
-  background:rgba(14, 140, 228, .8);
-  color: #FFFFFF;
+  background:rgba(14, 140, 228);
+  color: #ffffff;
   padding: 0.6rem 1.5rem;
 }
 
@@ -1605,14 +1605,8 @@ div.or {
   content:"";
   height:auto;
   width: auto;
-  /*border-width: 8px;*/
-/*  border-style: solid;
-  border-color:transparent transparent transparent rgb(14, 140, 228);
-  position: absolute;
-  top: 11px;
-  left:63px;*/
-
 }
+
 .breadcrumbs .breadcrumb .active {
   color: #212529;
 }
@@ -1811,13 +1805,14 @@ div.or {
 }
 
 .user_info input, select, textarea {
-  background: white;
-  border:0;
-  color: #696763;
-  padding: 5px;
-  width: 100%;
-  border-radius: 0;
-  resize: none
+	background: rgb(14, 140, 228);
+    border: 0;
+    color: #fff;
+    padding: 5px;
+    width: 100%;
+    border-radius: 0;
+    resize: none;
+    margin-top: 1.3em;
 }
 
 .user_info select:focus {

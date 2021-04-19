@@ -80,7 +80,7 @@ return [
         'email'                => 'Email',
         'subtotal'             => 'Subtotal',
         'shipping'             => 'Shipping',
-        'discount'             => 'Dicount',
+        'discount'             => 'Discount',
         'total'                => 'Total',
         'received'             => 'Received',
         'payment_method'       => 'Payment method',

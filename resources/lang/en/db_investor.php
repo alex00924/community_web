@@ -2,7 +2,7 @@
 
 return [
     'admin'                 => [
-        'title'                   => 'Inverstors',
+        'title'                   => 'Investors',
         'manager'                 => 'Product Manager',
         'relationship'            => 'Product Relationship',
         'create_success'          => 'Create new item success!',

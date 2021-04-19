@@ -25,7 +25,7 @@ return [
     'add_to_cart'        => 'Add to cart',
     'forgot_password'    => 'Forgot password',
     'reset_password'     => 'Reset password',
-    'login'              => 'Login | Sign-up',
+    'login'              => 'Member Account',
     'search'             => 'Search',
     'account'            => 'Account',
     'logout'             => 'Logout',
