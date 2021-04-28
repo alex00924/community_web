@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 html {
   height: 100%;
+  scroll-behavior: smooth !important;
 }
 body {
   
@@ -65,17 +66,16 @@ a {
 }
 
 a#scrollUp {
-  bottom: 0px;
-  left: 10px;
-  padding: 5px 10px;
-  background: rgb(14, 140, 228);
-  color: #FFF;
-  -webkit-animation: bounce 2s ease infinite;
-  animation: bounce 2s ease infinite;
+	bottom: 25px;
+	right: 45px;
+	padding: 5px 10px;
+	background: rgb(14, 140, 228);
+	color: #fff;
+	box-shadow: #fff 3px 3px 7px;
 }
 
-a#scrollUp i{
-  font-size: 30px;
+a#scrollUp i.fa.fa-angle-up {
+  font-size: 35px;
 }
 
 
