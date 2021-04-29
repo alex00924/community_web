@@ -116,6 +116,7 @@ class ShopCategory extends Model
     }
 
 /**
+/**
  * [getCategoriesTop description]
  * @return [type] [description]
  */
@@ -129,7 +130,6 @@ class ShopCategory extends Model
                     ->where('shop_product_category.category_id',$category->id)->where('shop_product.status','1')->count();
             }
         }
-
         return $categoriesTop;
     }
 

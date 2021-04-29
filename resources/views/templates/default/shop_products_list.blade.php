@@ -33,7 +33,7 @@
         {{ trans('front.empty_product') }}
       @else
           @foreach ($products as  $key => $product)
-          <div class=" col-xs-6 col-sm-4 col-lg-3">
+          <div class=" col-xs-12 col-sm-6 col-lg-3">
               <div class="product-image-wrapper product-single @if($product->type == 3) free-post @endif">
                 <div class="single-products">
                   <div class="productinfo text-center product-box-{{ $product->id }}">

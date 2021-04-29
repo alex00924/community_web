@@ -197,6 +197,23 @@
                             </div>
                         </div>
 
+                        <div class="form-group  {{ $errors->has('category') ? ' has-error' : '' }}">
+                            <label for="country" class="col-sm-2 asterisk control-label">{{ trans('news.category') }}</label>
+                            <div class="col-sm-8">
+                                <select class="form-control category select2" style="width: 100%;" name="category" >
+                                    <option value=""></option>
+                                    @foreach ($shopNewsCategory as $k => $v)
+                                        <option value="{{ $k }}" {{ (old('category') ==$k) ? 'selected':'' }}>{{ $v }}</option>
+                                    @endforeach
+                                </select>
+                                    @if ($errors->has('category'))
+                                        <span class="help-block">
+                                            {{ $errors->first('category') }}
+                                        </span>
+                                    @endif
+                            </div>
+                        </div>
+
                         <div class="form-group  ">
                             <label for="for_covid" class="col-sm-2  control-label">{{ trans('news.covid') }}</label>
                             <div class="col-sm-8">

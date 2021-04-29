@@ -35,7 +35,7 @@ class ShopNews extends Model
     }
     public function getCovidNews()
     {
-        $query = (new ShopNews)->where('status', 1)->where('for_covid', 1)->sort();
+        $query = (new ShopNews)->where('status', 1)->sort();
         return $query->get();
     }
 /*

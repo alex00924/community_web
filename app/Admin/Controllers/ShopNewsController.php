@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\ShopLanguage;
 use App\Models\ShopNews;
+use App\Models\ShopNewsCategory;
 use App\Models\ShopNewsDescription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -180,6 +181,7 @@ class ShopNewsController extends Controller
     public function create()
     {
         $shopNews = [];
+        $newscategory = ShopNewsCategory::get();
         $data = [
             'title' => trans('news.admin.add_new_title'),
             'sub_title' => '',
@@ -187,6 +189,7 @@ class ShopNewsController extends Controller
             'icon' => 'fa fa-plus',
             'languages' => $this->languages,
             'shopNews' => $shopNews,
+            'shopNewsCategory' => $newscategory,
             'url_action' => route('admin_news.create'),
 
         ];

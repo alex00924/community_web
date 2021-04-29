@@ -257,7 +257,6 @@ class ShopOrderController extends Controller
         $data['currenciesRate'] = $currenciesRate;
         $data['paymentMethod'] = $paymentMethod;
         $data['shippingMethod'] = $shippingMethod;
-
         return view('admin.screen.order_add')
             ->with($data);
     }

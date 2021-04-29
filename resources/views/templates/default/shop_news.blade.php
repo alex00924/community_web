@@ -8,10 +8,28 @@
         <div class="col-xs-10 text-right">
           <a class="btn btn-danger" href="/news-covid"> {{ trans('front.covid') }} </a>
         </div>
+        <div class="col-xs-12 col-sm-5 col-md-3">
+          <div class="left-sidebar">
+          @if ($newscategory->count())
+              <h2>{{ trans('front.categories') }}</h2>
+              <div class="panel-group category-products" id="accordian">
+                  @foreach ($newscategory as $key =>  $category)
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title"><a href="">
+                          <font color="#0e8ce4">{{ $category->category_name . " (" . count($category->categorylist) . ")" }}</font>
+                        </a></h4>
+                      </div>
+                    </div>
+                  @endforeach
+              </div>
+          @endif
+          </div>
+        </div>
         <!-- Center colunm-->
-          <div class="center_column">
+          <div class="center_column col-xs-12 col-sm-7 col-md-9">
             <ul class="blog-posts">
-@foreach ($news as $newsDetail)
+            @foreach ($news as $newsDetail)
               <li class="post-item">
                 <article class="entry">
                   <div class="row">
@@ -29,14 +47,14 @@
                 </article>
                 <hr>
               </li>
-@endforeach
+            @endforeach
             </ul>
             <div class="sortPagiBar">
               <div class="pagination-area " >
                     {{ $news->links() }}
               </div>
             </div>
-        </div>
+          </div>
       <!-- ./row-->
     </div>
   </section>

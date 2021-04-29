@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ShopEmailTemplate;
 use App\Models\ShopNews;
+use App\Models\ShopNewsCategory;
 use App\Models\ShopPage;
 use App\Models\ShopSubscribe;
 use Illuminate\Http\Request;
@@ -143,6 +144,7 @@ class ContentFront extends GeneralController
      */
     public function news()
     {
+        $newscategory = ShopNewsCategory::with('categorylist')->get();
         $news = (new ShopNews)
             ->getItemsNews($limit = sc_config('product_new'), $opt = 'paginate');
         return view(
@@ -152,6 +154,7 @@ class ContentFront extends GeneralController
                 'description' => sc_store('description'),
                 'keyword' => sc_store('keyword'),
                 'news' => $news,
+                'newscategory' => $newscategory,
             )
         );
     }
