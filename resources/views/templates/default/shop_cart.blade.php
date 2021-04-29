@@ -6,8 +6,8 @@
       <div class="row">
 <h1 class="title text-center">{{ $title }}</h1>
 @if (count($cart) ==0)
-    <div class="col-md-12 text-danger">
-        Cart empty!
+    <div class="col-md-12 alert alert-danger text-danger">
+        No items in cart
     </div>
 @else
  
