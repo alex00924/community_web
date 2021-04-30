@@ -8,7 +8,7 @@
       @if($itemsList->count())
       <div class="item-folder">
             @foreach ($itemsList as  $key => $item)
-            <div class="col-sm-3 col-xs-4">
+            <div class=" col-xs-12 col-sm-6 col-lg-3">
                 <div class="item-folder-wrapper product-single">
                   <div class="single-products">
                     <div class="productinfo text-center product-box-{{ $item->id }}">
