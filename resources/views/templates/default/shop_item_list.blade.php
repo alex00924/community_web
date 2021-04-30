@@ -6,7 +6,7 @@
                 <h1 class="title text-center">{{ $title }}</h1>
                   @if (!empty($itemsList))
                     @foreach ($itemsList as $item)
-                        <div class="col-sm-3 col-xs-4">
+                        <div class="col-xs-12 col-sm-6 col-lg-3">
                             <div class="product-image-wrapper product-single">
                               <div class="single-products">
                                 <div class="productinfo text-center product-box-{{ $item->id }}">

@@ -899,14 +899,14 @@ h1.title, h2.title {
   position: relative;
 }
 
-.product-image-wrapper{
-	border:1px solid #F0F0E9;
-	overflow: hidden;
-  margin-bottom:30px;
+.product-image-wrapper {
+  border: 1px solid #b3b3a8;
+  overflow: hidden;
+  margin-bottom: 30px;
   background-color: white;
 }
 
-.product-image-wrapper:hover{
+.product-image-wrapper:hover {
   box-shadow: 0px 0px 20px rgba(9, 130, 223, 0.5);
 }
 
