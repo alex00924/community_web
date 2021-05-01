@@ -3084,3 +3084,8 @@ input.cform-submit:hover {
 #contact-page .form-control {
 	border: 1px solid #aaa0a0;
 }
+
+.nav-justified>li {
+  display: table-cell;
+  width: 1%;
+}
