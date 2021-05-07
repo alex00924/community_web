@@ -349,6 +349,14 @@ ul.sub-menu{
 
 @media (max-width: 491px) {
 	
+.container {
+width: 100% !important;
+}	
+
+div.container-fluid.home div.row div.col-lg-4 img {
+width: 100%;
+}
+	
  form#filter_sort div.pull-right div select.custom-select {
 	       top: 4em;
 	       left: 0em;
