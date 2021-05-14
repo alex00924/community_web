@@ -154,10 +154,15 @@ div.contact-form {
 		margin: auto;
 	}
 	
+.mainmenu ul li a {
+		font-size: 1.7em;
+	}
+	
 	.primary.navbar-nav > li {
-		width: 100% !important;
+		width: 50% !important;
 		float: left !important;
 		display: block !important;
+		text-align: center;
 	}
 	
 }
@@ -169,6 +174,10 @@ div.contact-form {
 .logo {
 	margin: auto;
 }
+
+div.col-xs-10.home {
+		width: 100%;
+	}
 	
 input.cform-submit {
 	width: 50%;
@@ -223,11 +232,16 @@ position: relative;
 .mainmenu ul li {
 padding-top: 15px;
 padding-left: 30px;
-background-color: #bce6f4;
+background-color: #cdd7db;
 }
 
-.mainmenu ul li:last-child{
-	padding-bottom: 15px;
+.mainmenu ul li:first-child {
+border-radius: 5px 5px 0px 0px;
+}
+
+.mainmenu ul li:last-child {
+padding-bottom: 15px;
+border-radius: 0px 0px 5px 5px;
 }
 
 .navbar-collapse.in{
@@ -334,6 +348,14 @@ ul.sub-menu{
 
 
 @media (max-width: 491px) {
+	
+.container {
+width: 100% !important;
+}	
+
+div.container-fluid.home div.row div.col-lg-4 img {
+width: 100%;
+}
 	
  form#filter_sort div.pull-right div select.custom-select {
 	       top: 4em;
