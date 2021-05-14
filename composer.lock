@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dea674607060b181fb7ad2e29c95fb11",
+    "content-hash": "0e3761f7a62432910bc1893412b36792",
     "packages": [
         {
             "name": "authorizenet/authorizenet",
@@ -1707,6 +1707,60 @@
                 }
             ],
             "time": "2020-05-30T13:11:16+00:00"
+        },
+        {
+            "name": "mailboxvalidator-laravel/validation",
+            "version": "1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MailboxValidator/MailboxValidatorLaravel.git",
+                "reference": "853be23b9e27c300dcd9645201be5e1e6634bc38"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MailboxValidator/MailboxValidatorLaravel/zipball/853be23b9e27c300dcd9645201be5e1e6634bc38",
+                "reference": "853be23b9e27c300dcd9645201be5e1e6634bc38",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MailboxValidatorLaravel\\Validation\\ValidationServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MailboxValidatorLaravel\\Validation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "MailboxValidator",
+                    "email": "support@mailboxvalidator.com"
+                }
+            ],
+            "description": "Laravel package to validate an email by using MailboxValidator API.",
+            "keywords": [
+                "disposable",
+                "email validation",
+                "laravel",
+                "laravel 5",
+                "laravel 6",
+                "laravel 7",
+                "laravel 8",
+                "mailboxvalidator"
+            ],
+            "support": {
+                "issues": "https://github.com/MailboxValidator/MailboxValidatorLaravel/issues",
+                "source": "https://github.com/MailboxValidator/MailboxValidatorLaravel/tree/1.0.8"
+            },
+            "time": "2021-04-08T08:03:50+00:00"
         },
         {
             "name": "markbaker/complex",

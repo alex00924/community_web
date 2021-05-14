@@ -4,8 +4,9 @@ namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\ShopBrand;
-use Validator;
+// use Validator;
 //use App\Admin\XMLWriter2;
 
 class ScrapingController extends Controller
@@ -400,6 +401,33 @@ class ScrapingController extends Controller
         echo json_encode(array('res' => 1));
     }
     
+    public function email_validate(Request $request)
+    {   
+        $file = $request->email_checker;    
+        $inputfile = fopen($file,"r");
+        $output = []; 
+        while (($data = fgetcsv($inputfile, 1000, ",")) !== FALSE) {
+            array_push($output, $data);
+        }
+
+        $outputfile = fopen("./uploads/validate_email.csv","w");
+        $columns = array('', 'COMPANY', 'EMAIL', 'FIRST_NAME', 'LAST_NAME', 'TITLE', 'DIRECT_PHONE', 'Oncology list');
+        fputcsv($outputfile, $columns);
+        foreach ($output as $line) {
+            $api_key = '39f423e039624367beb0404aabbda2b4';
+            if ($line[2] !== "(blank)" && $line[2] !== "") {
+                $ch = curl_init('https://emailvalidation.abstractapi.com/v1/?api_key='.$api_key.'&email='.$line[2]);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HEADER, 0);
+                $data = curl_exec($ch);
+                curl_close($ch);    
+                fputcsv($outputfile, $line);
+            }
+        }
+        fclose($inputfile);
+        echo json_encode(array('res' => 1));
+    }
+
     public function createImage()
     {
         $data = [

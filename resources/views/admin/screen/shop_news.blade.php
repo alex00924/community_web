@@ -203,7 +203,7 @@
                                 <select class="form-control category select2" style="width: 100%;" name="category" >
                                     <option value=""></option>
                                     @foreach ($shopNewsCategory as $k => $v)
-                                        <option value="{{ $k }}" {{ (old('category') ==$k) ? 'selected':'' }}>{{ $v }}</option>
+                                        <option value="{{ $v['category_name'] }}" {{ (old('category') == $k['category_name']) ? 'selected':'' }}>{{ $v['category_name'] }}</option>
                                     @endforeach
                                 </select>
                                     @if ($errors->has('category'))
@@ -213,14 +213,13 @@
                                     @endif
                             </div>
                         </div>
-
-                        <div class="form-group  ">
+                        <!-- <div class="form-group  ">
                             <label for="for_covid" class="col-sm-2  control-label">{{ trans('news.covid') }}</label>
                             <div class="col-sm-8">
                                 <input type="checkbox" name="for_covid"
                                     {{ old('status',(empty($shopNews['for_covid'])?0:1))?'checked':''}}>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 

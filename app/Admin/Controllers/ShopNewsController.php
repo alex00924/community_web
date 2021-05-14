@@ -43,7 +43,7 @@ class ShopNewsController extends Controller
         $listTh = [
             'title' => trans('news.title'),
             'image' => trans('news.image'),
-            'for_covid' => trans('news.covid'),
+            'category' => trans('news.category'),
             'sort' => trans('news.sort'),
             'status' => trans('news.status'),
             'action' => trans('news.admin.action'),
@@ -79,7 +79,7 @@ class ShopNewsController extends Controller
             $dataTr[] = [
                 'title' => $row['title'],
                 'image' => sc_image_render($row['image'], '50px'),
-                'for_covid' => $row['for_covid'] == 1 ? 'Yes' : 'No',
+                'category' => $row['category'],
                 'sort' => $row['sort'],
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',
                 'action' => Session::get('userrole') == 1?'
@@ -231,6 +231,7 @@ class ShopNewsController extends Controller
             'image' => $data['image'],
             'sort' => $data['sort'],
             'alias' => $data['alias'],
+            'category' => $data['category'],
             'status' => !empty($data['status']) ? 1 : 0,
             'for_covid' => !empty($data['for_covid']) ? 1 : 0,
         ];
@@ -263,6 +264,7 @@ class ShopNewsController extends Controller
         if ($shopNews === null) {
             return 'no data';
         }
+        $newscategory = ShopNewsCategory::get();
         $data = [
             'title' => trans('news.admin.edit'),
             'sub_title' => '',
@@ -270,6 +272,7 @@ class ShopNewsController extends Controller
             'icon' => 'fa fa-pencil-square-o',
             'languages' => $this->languages,
             'shopNews' => $shopNews,
+            'shopNewsCategory' => $newscategory,
             'url_action' => route('admin_news.edit', ['id' => $shopNews['id']]),
         ];
         return view('admin.screen.shop_news')
@@ -283,7 +286,6 @@ class ShopNewsController extends Controller
     {
         $shopNews = ShopNews::find($id);
         $data = request()->all();
-
         $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
         $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['title'];
         $data['alias'] = sc_word_format_url($data['alias']);
@@ -311,6 +313,7 @@ class ShopNewsController extends Controller
             'alias' => $data['alias'],
             'sort' => $data['sort'],
             'status' => !empty($data['status']) ? 1 : 0,
+            'category' => $data['category'],
             'for_covid' => !empty($data['for_covid']) ? 1 : 0,
         ];
 

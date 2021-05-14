@@ -29,6 +29,19 @@
     <a href="{{env('APP_URL')}}/uploads/output.csv" target="_blank" id="download-email-csv" style="margin-left: 1rem;">Download</a>
   </div>
 </div>
+
+<div class="scraping-item">
+  <p class="scraping-name">Email Checker</p>
+  <div style="display: flex; align-items: center;">
+    <form id="email-checker" role="form" method="post" action="{{route('admin_scraping.email-validate')}}" enctype='multipart/form-data'>
+      @csrf
+        <input type="file" name="email_checker" id="email_checker" style="display: none;" accept=".csv"/>
+        <label class="uploadButton" for="email_checker"><span>Import Email (.csv)</span></label>
+        <button type="button" class="button_simple" id="validate-email"><p><strong>Check Validate Email</strong></p></button>
+    </form>
+    <a href="{{env('APP_URL')}}/uploads/validate_email.csv" target="_blank" id="validate-email-csv" style="margin-left: 1rem;">Download</a>
+  </div>
+</div>
 @endsection
 
 
@@ -125,15 +138,17 @@
       })
     })
 
-    $("#linkedin-submit").click(function() {
-      var inputval = $("#linkedin").val();
+    $("#generate-submit").click(function() {
+      var file_data = $('#email_scrape')[0].files;
+      var form_data = new FormData();
+      form_data.append('email_scrape', file_data[0]);
       $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
       });
       $.ajax({
-          url: $('#linkedin-scrapping').attr('action'),
+          url: $('#email-generator').attr('action'),
           method: "POST",
           data: {field: inputval},
           dataType: "json",
@@ -143,13 +158,39 @@
           success: function(response) {
             if (response.res == 1){
               document.getElementById('preloader').style.display = 'none';
-              $('#download-linkedin-csv').attr('href' , `{{env('APP_URL')}}/uploads/output.csv?version=${new Date().getTime()}`)
+              $('#download-email-csv').attr('href' , `{{env('APP_URL')}}/uploads/output.csv?version=${new Date().getTime()}`)
             }
           }
       })
     })
 
-
+    $("#validate-email").click(function() {
+      var file_data = $('#email_checker')[0].files;
+      var form_data = new FormData();
+      form_data.append('email_checker', file_data[0]);
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+      $.ajax({
+          url: $('#email-checker').attr('action'),
+          method: "POST",
+          dataType: 'JSON',
+          data: form_data,
+          contentType: false,
+          processData: false,
+          beforeSend: function() {
+            document.getElementById('preloader').style.display = 'block';
+          },
+          success: function(response) {
+            if (response.res == 1){
+              document.getElementById('preloader').style.display = 'none';
+              $('#validate-email-csv').attr('href' , `{{env('APP_URL')}}/uploads/validate_email.csv?version=${new Date().getTime()}`)
+            }
+          }
+      })
+    })
   })
 
 
