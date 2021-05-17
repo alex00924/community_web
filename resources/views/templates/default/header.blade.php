@@ -86,11 +86,11 @@
                   @endforeach
                 @endif
 
-                <li>
+                <!-- <li>
                   <a class="{{ ( request()->is('news-covid') ) ? 'active' : '' }}" href="/news-covid">
                   COVID-19
                   </a>
-                </li>
+                </li> -->
                 <li><a class="{{ ( $routeName == 'news') ? 'active' : '' }}"  href="{{ route('news') }}">{{ trans('front.information') }}</a></li>
               </ul>
             </div>

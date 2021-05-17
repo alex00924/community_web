@@ -5,23 +5,29 @@
 <div class="container">
     <div class="row">
         <h1 class="title text-center">{{ $title }}</h1>
-        <div class="col-xs-10 text-right">
+        <!-- <div class="col-xs-10 text-right">
           <a class="btn btn-danger" href="/news-covid"> {{ trans('front.covid') }} </a>
-        </div>
+        </div> -->
         <div class="col-xs-12 col-sm-5 col-md-3">
           <div class="left-sidebar">
           @if ($newscategory->count())
               <h2>{{ trans('front.categories') }}</h2>
               <div class="panel-group category-products" id="accordian">
-                  @foreach ($newscategory as $key =>  $category)
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h4 class="panel-title"><a href="">
+                @foreach ($newscategory as $key =>  $category)
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a href="{{ $category->getUrl() }}">
+                        @if ($category->category_name == $categoryName)
                           <font color="#0e8ce4">{{ $category->category_name . " (" . count($category->categorylist) . ")" }}</font>
-                        </a></h4>
-                      </div>
+                        @else
+                          <font>{{ $category->category_name . " (" . count($category->categorylist) . ")" }}</font>
+                        @endif
+                        </a>
+                      </h4>
                     </div>
-                  @endforeach
+                  </div>
+                @endforeach
               </div>
           @endif
           </div>
@@ -49,11 +55,16 @@
               </li>
             @endforeach
             </ul>
+            @if ($link)
             <div class="sortPagiBar">
               <div class="pagination-area " >
                     {{ $news->links() }}
               </div>
             </div>
+            @else
+            <div class="sortPagiBar">
+            </div>
+            @endif
           </div>
       <!-- ./row-->
     </div>

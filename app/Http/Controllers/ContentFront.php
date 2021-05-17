@@ -154,7 +154,9 @@ class ContentFront extends GeneralController
                 'description' => sc_store('description'),
                 'keyword' => sc_store('keyword'),
                 'news' => $news,
+                'categoryName'=> '',
                 'newscategory' => $newscategory,
+                'link' => true,
             )
         );
     }
@@ -194,6 +196,34 @@ class ContentFront extends GeneralController
                 )
             );
         }
+    }
+
+   /**
+     * News catogory
+     *
+     * @param   [string]  $alias 
+     * @param   [type]  $id
+     *
+     * @return  view
+     */
+    public function newsCategory($alias)
+    {
+        $newscategory = ShopNewsCategory::with('categorylist')->get();
+        $news = ShopNewsCategory::with('categorylist')
+            ->where('alias', $alias)
+            ->first();
+        return view(
+            $this->templatePath . '.shop_news',
+            array(
+                'title' => trans('front.blog'),
+                'description' => sc_store('description'),
+                'keyword' => sc_store('keyword'),
+                'news' => $news['categorylist'],
+                'newscategory' => $newscategory,
+                'categoryName'=> $news['category_name'],
+                'link' => false,
+            )
+        );
     }
 
 

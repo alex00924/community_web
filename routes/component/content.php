@@ -13,6 +13,8 @@ Route::post('/contact', 'ContentFront@postContact')
 ->name('contact.post');
 Route::get('/'.$prefixNews, 'ContentFront@news')
 ->name('news');
+Route::get('/'.$prefixNews.'/category/{alias}'.$suffix, 'ContentFront@newsCategory')
+->name('news.category');
 Route::get('/'.$prefixNews.'/{alias}'.$suffix, 'ContentFront@newsDetail')
 ->name('news.detail');
 Route::get('/'.$prefixAboutus, 'ContentFront@aboutUs')

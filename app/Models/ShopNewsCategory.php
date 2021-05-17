@@ -15,5 +15,8 @@ class ShopNewsCategory extends Model
         return $this->hasMany(ShopNews::class, 'category', 'category_name');
     }
 
-
+    public function getUrl()
+    {
+        return route('news.category', ['alias' => $this->alias]);
+    }
 }
