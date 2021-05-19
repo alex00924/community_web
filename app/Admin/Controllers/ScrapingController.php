@@ -409,19 +409,20 @@ class ScrapingController extends Controller
         while (($data = fgetcsv($inputfile, 1000, ",")) !== FALSE) {
             array_push($output, $data);
         }
-
         $outputfile = fopen("./uploads/validate_email.csv","w");
-        $columns = array('', 'COMPANY', 'EMAIL', 'FIRST_NAME', 'LAST_NAME', 'TITLE', 'DIRECT_PHONE', 'Oncology list');
+        $columns = array('Lead', 'Full Name', 'First Name', 'Last Name', 'Position', 'Company', 'Email', 'Alt.Email', 'Alt.Email2', 'Interest', 'Role', 'Organization Type', 'Relationship', 'Notes', 'LinkedIn', 'Phone', 'Degrees', 'Location', 'Industry', 'Max connection', 'Publication name', 'Journal', 'Year', 'PMID', 'Search');
         fputcsv($outputfile, $columns);
         foreach ($output as $line) {
-            $api_key = '39f423e039624367beb0404aabbda2b4';
-            if ($line[2] !== "(blank)" && $line[2] !== "") {
-                $ch = curl_init('https://emailvalidation.abstractapi.com/v1/?api_key='.$api_key.'&email='.$line[2]);
+            $api_key = 'f888149889e6457ba071e58145f3d748';
+            if ($line[6] !== "(blank)" && $line[6] !== "") {
+                $ch = curl_init('https://emailvalidation.abstractapi.com/v1/?api_key='.$api_key.'&email='.$line[6]);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_HEADER, 0);
                 $data = curl_exec($ch);
-                curl_close($ch);    
-                fputcsv($outputfile, $line);
+                curl_close($ch); 
+                if ($data.is_smtp_valid.value){
+                    fputcsv($outputfile, $line);
+                }
             }
         }
         fclose($inputfile);
