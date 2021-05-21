@@ -419,8 +419,10 @@ class ScrapingController extends Controller
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_HEADER, 0);
                 $data = curl_exec($ch);
-                curl_close($ch); 
-                if ($data.is_smtp_valid.value){
+                curl_close($ch);
+                $convertdata = json_decode($data);
+                
+                if ($convertdata->is_smtp_valid->value == 1) {
                     fputcsv($outputfile, $line);
                 }
             }
