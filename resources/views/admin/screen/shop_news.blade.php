@@ -203,7 +203,7 @@
                                 <select class="form-control category select2" style="width: 100%;" name="category" >
                                     <option value=""></option>
                                     @foreach ($shopNewsCategory as $k => $v)
-                                        <option value="{{ $v['category_name'] }}" {{ (old('category') == $k['category_name']) ? 'selected':'' }}>{{ $v['category_name'] }}</option>
+                                        <option value="{{ $v['category_name'] }}" {{ (old('category',$shopNews['category']??'') == $v['category_name']) ? 'selected':'' }}>{{ $v['category_name'] }}</option>
                                     @endforeach
                                 </select>
                                     @if ($errors->has('category'))

@@ -209,7 +209,9 @@ class ContentFront extends GeneralController
     public function newsCategory($alias)
     {
         $newscategory = ShopNewsCategory::with('categorylist')->get();
-        $news = ShopNewsCategory::with('categorylist')
+        $news = ShopNewsCategory::with(['categorylist' => function($query){
+            $query->orderBy('created_at', 'desc');
+        }])
             ->where('alias', $alias)
             ->first();
         return view(
