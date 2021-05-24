@@ -32,6 +32,13 @@
           @endif
           </div>
         </div>
+        @php
+          $maincatblog = true;
+        @endphp
+        @if ($maincatblog)
+          <link rel="canonical" href="https://fluidsforlife.com/news" />
+        @else
+        @endif
         <!-- Center colunm-->
           <div class="center_column col-xs-12 col-sm-7 col-md-9">
             <ul class="blog-posts">
