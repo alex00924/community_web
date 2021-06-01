@@ -29,11 +29,11 @@
                     {{ trans('front.home') }}
                   </a>
                 </li>
-		<li>
-		<a class="{{ ( $routeName == 'product.all') ? 'active' : '' }}" href="{{ route('product.all') }}">
-		{{ trans('front.all_product') }}
-		</a>
-		</li>
+                <li>
+                <a class="{{ ( $routeName == 'product.all') ? 'active' : '' }}" href="{{ route('product.all') }}">
+                {{ trans('front.all_product') }}
+                </a>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="{{ ($routeName == 'product.all' || $routeName == 'compare' || $routeName == 'cart' || $routeName == 'categories' || $routeName == 'brands' || $routeName == 'vendors') ? 'active' : '' }}">
                       {{ trans('front.shop') }}<i class="fa fa-angle-down"></i>
