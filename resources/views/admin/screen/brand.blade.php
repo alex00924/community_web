@@ -34,15 +34,15 @@
                                             <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
                                             <input type="text" id="name" name="name"
                                                 value="{!! old('name',($brand['name']??'')) !!}" class="form-control"
-                                                placeholder="" />
+                                                placeholder="" maxlength="70" />
                                         </div>
                                         @if ($errors->has('name'))
                                         <span class="help-block">
                                             <i class="fa fa-info-circle"></i> {{ $errors->first('name') }}
                                         </span>
                                         @else
-                                        <span class="help-block">
-                                            <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>100]) }}
+                                        <span class="help-block admin-pages">
+                                            <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>70]) }}
                                         </span>
                                         @endif
                                     </div>
@@ -61,6 +61,14 @@
                                         <span class="help-block">
                                             <i class="fa fa-info-circle"></i> {{ $errors->first('alias') }}
                                         </span>
+										@else
+										<span class="help-block admin-pages">
+											<i class="fa fa-info-circle"></i> avoid numbers (in most cases) and underscores all the time<br />
+											<i class="fa fa-info-circle"></i> almost NEVER start a page name with a number<br />
+											<i class="fa fa-info-circle"></i> use lowercase letters with dashes separating words<br />
+											<i class="fa fa-info-circle"></i> avoid uncommon acronyms (e.g.IVT = In-Vitro), but something like 3d-cell-printer is ok<br />
+											<i class="fa fa-info-circle"></i> avoid website addresses as part of file name
+										</span>
                                         @endif
                                     </div>
                                 </div>

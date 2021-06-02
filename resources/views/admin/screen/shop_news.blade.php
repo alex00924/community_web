@@ -139,6 +139,14 @@
                                 <span class="help-block">
                                     <i class="fa fa-info-circle"></i> {{ $errors->first('alias') }}
                                 </span>
+								 @else
+                                    <span class="help-block admin-pages">
+										<i class="fa fa-info-circle"></i> avoid numbers (in most cases) and underscores all the time<br />
+										<i class="fa fa-info-circle"></i> almost NEVER start a page name with a number<br />
+										<i class="fa fa-info-circle"></i> use lowercase letters with dashes separating words<br />
+										<i class="fa fa-info-circle"></i> avoid uncommon acronyms (e.g.IVT = In-Vitro), but something like 3d-cell-printer is ok<br />
+										<i class="fa fa-info-circle"></i> avoid website addresses as part of file name
+                                    </span>
                                 @endif
                             </div>
                         </div>
