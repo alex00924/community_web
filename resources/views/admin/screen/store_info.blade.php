@@ -73,10 +73,10 @@
         <td><a href="#" class="fied-required editable editable-click" data-name="warehouse" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_info.update') }}" data-title="{{ trans('store_info.warehouse') }}" data-value="{{ $infos->warehouse }}" data-original-title="" title="">{{$infos->warehouse }}</a></td>
       </tr>
 
-      <tr>
+     <!-- <tr>
         <td>{{ trans('store_info.email') }}</td>
         <td><a href="#" class="fied-required editable editable-click" data-name="email" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_info.update') }}" data-title="{{ trans('store_info.email') }}" data-value="{{ $infos->email }}" data-original-title="" title="">{{$infos->email }}</a></td>
-      </tr>
+      </tr> -->
 
     </td>
   </tr>
