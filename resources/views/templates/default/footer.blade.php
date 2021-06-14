@@ -73,7 +73,7 @@
 				<li>{{ sc_store('title') }}</li>
                 <li><a>{{ trans('front.shop_info.address') }}: {{ sc_store('address') }}</a></li>
                 <li><a>{{ trans('front.shop_info.hotline') }}: {{ sc_store('long_phone') }}</a></li>
-                <li><a>{{ trans('front.shop_info.email') }}: {{ sc_store('email') }}</a></li>
+                <!-- <li><a>{{ trans('front.shop_info.email') }}: {{ sc_store('email') }}</a></li> -->
             </ul>
             </div>
           </div>
