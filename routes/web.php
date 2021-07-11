@@ -111,3 +111,4 @@ Route::get('/landing', 'ShopFront@landing');
 //Route::post('/email-extractor', 'ShopFront@email_extractor')->name('email_extractor'); 
 
 //=======End Front
+
